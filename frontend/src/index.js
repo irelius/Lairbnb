@@ -9,6 +9,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import App from './App';
 
+import * as userActions from "./store/user"
+
+
 import configureStore from './store';
 
 const store = configureStore();
@@ -18,6 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   window.csrfFetch = csrfFetch;
   window.store = store;
+  window.userActions = userActions;
 }
 
 function Root() {

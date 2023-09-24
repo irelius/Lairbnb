@@ -1,6 +1,25 @@
+// frontend/src/App.js
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import LoginFormPage from "./components/LoginFormPage";
+import * as userActions from "./store/user";
+
 function App() {
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    dispatch(userActions.restoreUserThunk()).then(() => setIsLoaded(true));
+  }, [dispatch]);
+
   return (
-    <h1>Hello from App</h1>
+    isLoaded && (
+      <Switch>
+        <Route path="/login">
+          <LoginFormPage />
+        </Route>
+      </Switch>
+    )
   );
 }
 
