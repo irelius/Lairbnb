@@ -2,14 +2,46 @@
 const express = require('express')
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
+const { check } = require('express-validator');
 
+const { handleValidationErrors } = require('../../utils/validations');
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
 const { User } = require('../../db/models');
 
 const router = express.Router();
 
+const validateLogin = [
+    check('email')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please provide a valid email.'),
+    check('password')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a password.'),
+    handleValidationErrors
+];
+
+const validateSignup = [
+    check('email')
+        .exists({ checkFalsy: true })
+        .isEmail()
+        .withMessage('Please provide a valid email.'),
+    check('firstName')
+        .exists({checkFalsy: true})
+        .withMessage("Please provie a first name."),
+    check('lastName')
+        .exists({checkFalsy: true})
+        .withMessage("Please provide a last name."),
+    check('password')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 6 })
+        .withMessage('Password must be 6 characters or more.'),
+    handleValidationErrors
+];
+
+
 // Log in
-router.post('/login', async (req, res, next) => {
+router.post('/login', validateLogin, async (req, res, next) => {
     const { email, password } = req.body;
 
     const user = await User.unscoped().findOne({
@@ -46,7 +78,7 @@ router.delete('/logout', (_req, res) => {
 });
 
 // Sign up
-router.post('/signup', async (req, res) => {
+router.post('/signup', validateSignup, async (req, res) => {
     const { email, password, firstName, lastName } = req.body;
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({ email, firstName, lastName, hashedPassword });
