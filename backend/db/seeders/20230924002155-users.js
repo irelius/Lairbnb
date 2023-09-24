@@ -11,7 +11,8 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await User.bulkInsert(options, [
+    options.tableName = "Users";
+    return queryInterface.bulkInsert(options, [
       {
         email: 'demo@aa.io',
         firstName: "Demo",
