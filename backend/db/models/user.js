@@ -3,8 +3,40 @@
 const { Model, Validator } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate(models) {
-      // define association here
+    toSafeObject() {
+      const { id, firstName, lastName, email } = this; // context will be the User instance
+      return { id, firstName, lastName, email };
+    }
+
+    validatePassword(password) {
+      return bcrypt.compareSync(password, this.hashedPassword.toString());
+    }
+
+    static getCurrentUserById(id) {
+      return User.scope("currentUser").findByPk(id);
+    }
+
+    static async login({ email, password }) {
+      const { Op } = require('sequelize');
+      const user = await User.scope('loginUser').findOne({
+        where: {
+          email: email
+        }
+      });
+      if (user && user.validatePassword(password)) {
+        return await User.scope('currentUser').findByPk(user.id);
+      }
+    }
+
+    static async signup({ firstName, lastName, email, password }) {
+      const hashedPassword = bcrypt.hashSync(password);
+      const user = await User.create({
+        firstName,
+        lastName,
+        email,
+        hashedPassword
+      });
+      return await User.scope('currentUser').findByPk(user.id);
     }
   }
   User.init({
