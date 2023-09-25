@@ -15,18 +15,21 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         email: 'demo@aa.io',
+        testId: 111,
         firstName: "Demo",
         lastName: "User",
         hashedPassword: bcrypt.hashSync('password')
       },
       {
         email: 'user1@aa.io',
+        testId: 222,
         firstName: "User",
         lastName: "One",
         hashedPassword: bcrypt.hashSync('password')
       },
       {
         email: 'user2@aa.io',
+        testId: 333,
         firstName: "User",
         lastName: "Two",
         hashedPassword: bcrypt.hashSync('password')
