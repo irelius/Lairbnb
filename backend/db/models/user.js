@@ -48,10 +48,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // testId: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: true,
-    // },
+    testId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
