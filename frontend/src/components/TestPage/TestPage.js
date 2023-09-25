@@ -6,7 +6,7 @@ function Test() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("no email")
     const [name, setName] = useState('no name')
-    const [testId, setTestId] = useState('no test id')
+    // const [testId, setTestId] = useState('no test id')
 
     const user = useSelector(state => state.user.user)
     useEffect(() => {
@@ -14,11 +14,11 @@ function Test() {
         if (user) {
             setEmail(user.email)
             setName(user.firstName + " " + user.lastName)
-            setTestId(user.testId)
+            // setTestId(user.testId)
         } else {
             setEmail('no email')
             setName('no name')
-            setTestId('no test id')
+            // setTestId('no test id')
         }
     }, [dispatch])
 
@@ -55,9 +55,9 @@ function Test() {
             <section>
                 {name}
             </section>
-            <section>
+            {/* <section>
                 {testId}
-            </section>
+            </section> */}
 
             <section onClick={(e) => demoLogin(e)}>
                 demo login

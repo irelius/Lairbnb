@@ -107,7 +107,6 @@ router.get('/restore', (req, res) => {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            testId: user.testId
         };
         return res.json({
             user: safeUser
