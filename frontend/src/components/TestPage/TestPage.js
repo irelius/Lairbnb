@@ -6,19 +6,22 @@ function Test() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("no email")
     const [name, setName] = useState('no name')
+    const [testId, setTestId] = useState('no test id')
 
+    const user = useSelector(state => state.user.user)
     useEffect(() => {
         dispatch(restoreUserThunk())
         if (user) {
             setEmail(user.email)
             setName(user.firstName + " " + user.lastName)
+            setTestId(user.testId)
         } else {
             setEmail('no email')
             setName('no name')
+            setTestId('no test id')
         }
     }, [dispatch])
 
-    const user = useSelector(state => state.user.user)
     console.log('booba user', user)
 
     const logoutFunc = (e) => {
@@ -51,6 +54,9 @@ function Test() {
             </section>
             <section>
                 {name}
+            </section>
+            <section>
+                {testId}
             </section>
 
             <section onClick={(e) => demoLogin(e)}>
