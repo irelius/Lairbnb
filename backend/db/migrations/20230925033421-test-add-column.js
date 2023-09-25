@@ -10,7 +10,8 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn('Users', 'testId', {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
+      defaultValue: -1
     }, options);
   },
 
