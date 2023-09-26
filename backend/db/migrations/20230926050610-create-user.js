@@ -16,6 +16,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      testId: {
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
       firstName: {
         type: Sequelize.STRING,
         allowNull: false,
