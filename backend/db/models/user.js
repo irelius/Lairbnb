@@ -38,6 +38,21 @@ module.exports = (sequelize, DataTypes) => {
       });
       return await User.scope('currentUser').findByPk(user.id);
     }
+
+    static associate(models) {
+      User.hasMany(
+        models.Spot,
+        { foreignKey: 'ownerId' }
+      )
+      User.hasMany(
+        models.Review,
+        { foreignKey: 'userId' }
+      )
+      User.hasMany(
+        models.Booking,
+        { foreignKey: 'userId' }
+      )
+    }
   }
   User.init({
     firstName: {
@@ -47,10 +62,6 @@ module.exports = (sequelize, DataTypes) => {
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    testId: {
-      type: DataTypes.INTEGER,
-      allowNull: true
     },
     email: {
       type: DataTypes.STRING,

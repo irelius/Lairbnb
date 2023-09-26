@@ -8,33 +8,32 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = "Users";
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Bookings', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      testId: {
-        allowNull: true,
+      spotId: {
         type: Sequelize.INTEGER,
-        defaultValue: 0,
+        references: {
+          model: 'Spots',
+        },
+        onDelete: 'CASCADE'
       },
-      firstName: {
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+        },
+        onDelete: 'CASCADE'
+      },
+      startDate: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
-      lastName: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: Sequelize.STRING(256),
-        allowNull: false,
-        unique: true
-      },
-      hashedPassword: {
+      endDate: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -51,7 +50,6 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Users";
-    return queryInterface.dropTable(options);
+    await queryInterface.dropTable('Bookings', options);
   }
 };
