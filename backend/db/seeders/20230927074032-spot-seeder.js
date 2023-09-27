@@ -9,7 +9,11 @@ options.tableName = "Spots";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    console.log('booba 1', users)
+
     const users = await queryInterface.sequelize.query("SELECT id FROM Users")
+
+    console.log('booba 2', users)
 
     const ownerId1 = users[0][0].id
     const ownerId2 = users[0][1].id
