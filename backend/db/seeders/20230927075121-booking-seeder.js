@@ -9,7 +9,7 @@ options.tableName = "Bookings"
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert(options.tableName, [
+    await queryInterface.bulkInsert(options, [
       {
         spotId: 1,
         userId: 2,
@@ -44,6 +44,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete(options.tableName, {}, {})
+    await queryInterface.bulkDelete(options, {}, {})
   }
 };
