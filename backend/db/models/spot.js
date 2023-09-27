@@ -76,6 +76,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
+    previewImg: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     numReviews: {
       type: DataTypes.INTEGER,
       allowNull: true
@@ -84,10 +88,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       allowNull: true
     },
-    previewImg: {
-      type: DataTypes.STRING,
-      allowNull: true
-    }
   }, {
     sequelize,
     modelName: 'Spot',
