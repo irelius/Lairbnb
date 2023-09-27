@@ -9,7 +9,7 @@ options.tableName = "Spots";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    console.log('booba 1', users)
+    console.log('booba 1')
 
     const users = await queryInterface.sequelize.query("SELECT id FROM Users")
 
