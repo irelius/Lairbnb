@@ -15,7 +15,7 @@ module.exports = {
     const ownerId2 = users[0][1].id
     const ownerId3 = users[0][2].id
 
-    await queryInterface.bulkInsert(options.tableName, [
+    await queryInterface.bulkInsert(options, [
       {
         ownerId: ownerId1,
         address: "111 First Lane",
@@ -170,6 +170,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete(options.tableName, {}, {})
+    await queryInterface.bulkDelete(options, {}, {})
   }
 };

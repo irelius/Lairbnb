@@ -23,7 +23,7 @@ module.exports = {
     const spotId5 = spots[0][4].id
 
 
-    await queryInterface.bulkInsert(options.tableName, [
+    await queryInterface.bulkInsert(options, [
       {
         userId: userId1,
         spotId: spotId1,
@@ -64,6 +64,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete(options.tableName, {}, {})
+    await queryInterface.bulkDelete(options, {}, {})
   }
 };

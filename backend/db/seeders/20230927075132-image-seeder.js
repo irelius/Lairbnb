@@ -20,7 +20,7 @@ module.exports = {
     const spotId2 = spots[0][1].id
     const spotId4 = spots[0][3].id
 
-    await queryInterface.bulkInsert(options.tableName, [
+    await queryInterface.bulkInsert(options, [
       {
         reviewId: reviewId1,
         url: "https://i.pcmag.com/imagery/reviews/05b8x8deW1h5MNBu9zcqYUx-1.fit_scale.size_760x427.v1644512187.png"
@@ -49,6 +49,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete(options.tableName, {}, {})
+    await queryInterface.bulkDelete(options, {}, {})
   }
 };
