@@ -9,9 +9,15 @@ options.tableName = "Spots";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const users = await queryInterface.sequelize.query("SELECT id FROM Users")
+
+    const ownerId1 = users[0][0].id
+    const ownerId2 = users[0][1].id
+    const ownerId3 = users[0][2].id
+
     await queryInterface.bulkInsert(options.tableName, [
       {
-        ownerId: 1,
+        ownerId: ownerId1,
         address: "111 First Lane",
         city: "First City",
         state: "First State",
@@ -26,7 +32,7 @@ module.exports = {
         avgStarRating: 0
       },
       {
-        ownerId: 2,
+        ownerId: ownerId2,
         address: "222 Second Lane",
         city: "Second City",
         state: "Second State",
@@ -41,7 +47,7 @@ module.exports = {
         avgStarRating: 0
       },
       {
-        ownerId: 3,
+        ownerId: ownerId3,
         address: "333 Third Lane",
         city: "Third City",
         state: "Third State",
@@ -56,7 +62,7 @@ module.exports = {
         avgStarRating: 0
       },
       {
-        ownerId: 1,
+        ownerId: ownerId1,
         address: "444 Fourth Lane",
         city: "Fourth City",
         state: "Fourth State",
@@ -71,7 +77,7 @@ module.exports = {
         avgStarRating: 0
       },
       {
-        ownerId: 2,
+        ownerId: ownerId2,
         address: "555 Fifth Lane",
         city: "Fifth City",
         state: "Fifth State",
@@ -86,7 +92,7 @@ module.exports = {
         avgStarRating: 0
       },
       {
-        ownerId: 3,
+        ownerId: ownerId3,
         address: "666 Sixth Lane",
         city: "Sixth City",
         state: "Sixth State",
@@ -101,7 +107,7 @@ module.exports = {
         avgStarRating: 0
       },
       {
-        ownerId: 1,
+        ownerId: ownerId1,
         address: "777 Seventh Lane",
         city: "Seventh City",
         state: "Seventh State",
@@ -116,7 +122,7 @@ module.exports = {
         avgStarRating: 0
       },
       {
-        ownerId: 2,
+        ownerId: ownerId2,
         address: "888 Eigth Lane",
         city: "Eigth City",
         state: "Eigth State",
@@ -131,7 +137,7 @@ module.exports = {
         avgStarRating: 0
       },
       {
-        ownerId: 3,
+        ownerId: ownerId3,
         address: "999 Ninth Lane",
         city: "Ninth City",
         state: "Ninth State",
@@ -146,7 +152,7 @@ module.exports = {
         avgStarRating: 0
       },
       {
-        ownerId: 1,
+        ownerId: ownerId1,
         address: "1000 Tenth Lane",
         city: "Tenth City",
         state: "Tenth State",
