@@ -9,18 +9,30 @@ options.tableName = "Bookings"
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const users = await queryInterface.sequelize.query("SELECT id FROM Users")
-    const spots = await queryInterface.sequelize.query("SELECT id FROM Spots")
+    let userId1 = 1
+    let userId2 = 2
+    let userId3 = 3
 
-    const userId1 = users[0][0].id
-    const userId2 = users[0][1].id
-    const userId3 = users[0][2].id
+    let spotId1 = 1
+    let spotId2 = 2
+    let spotId3 = 3
+    let spotId4 = 4
+    let spotId5 = 5
 
-    const spotId1 = spots[0][0].id
-    const spotId2 = spots[0][1].id
-    const spotId3 = spots[0][2].id
-    const spotId4 = spots[0][3].id
-    const spotId5 = spots[0][4].id
+    if (process.env.NODE_ENV !== 'production') {
+      const users = await queryInterface.sequelize.query("SELECT id FROM Users")
+      const spots = await queryInterface.sequelize.query("SELECT id FROM Spots")
+
+      userId1 = users[0][0].id
+      userId2 = users[0][1].id
+      userId3 = users[0][2].id
+
+      spotId1 = spots[0][0].id
+      spotId2 = spots[0][1].id
+      spotId3 = spots[0][2].id
+      spotId4 = spots[0][3].id
+      spotId5 = spots[0][4].id
+    }
 
     await queryInterface.bulkInsert(options, [
       {

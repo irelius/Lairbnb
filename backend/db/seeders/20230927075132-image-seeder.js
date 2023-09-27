@@ -9,16 +9,26 @@ options.tableName = "Images"
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const reviews = await queryInterface.sequelize.query("SELECT id FROM Reviews")
-    const spots = await queryInterface.sequelize.query("SELECT id FROM Spots")
+    let reviewId1 = 1
+    let reviewId3 = 3
+    let reviewId5 = 5
 
-    const reviewId1 = reviews[0][0].id
-    const reviewId3 = reviews[0][2].id
-    const reviewId5 = reviews[0][4].id
+    let spotId1 = 1
+    let spotId2 = 2
+    let spotId4 = 4
 
-    const spotId1 = spots[0][0].id
-    const spotId2 = spots[0][1].id
-    const spotId4 = spots[0][3].id
+    if (process.env.NODE_ENV !== 'production') {
+      const reviews = await queryInterface.sequelize.query("SELECT id FROM Reviews")
+      const spots = await queryInterface.sequelize.query("SELECT id FROM Spots")
+
+      reviewId1 = reviews[0][0].id
+      reviewId3 = reviews[0][2].id
+      reviewId5 = reviews[0][4].id
+
+      spotId1 = spots[0][0].id
+      spotId2 = spots[0][1].id
+      spotId4 = spots[0][3].id
+    }
 
     await queryInterface.bulkInsert(options, [
       {

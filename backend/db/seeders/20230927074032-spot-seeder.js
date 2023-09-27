@@ -9,15 +9,16 @@ options.tableName = "Spots";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    console.log('booba 1')
+    let ownerId1 = 1
+    let ownerId2 = 2
+    let ownerId3 = 3
 
-    const users = await queryInterface.sequelize.query("SELECT id FROM Users")
-
-    console.log('booba 2', users)
-
-    const ownerId1 = users[0][0].id
-    const ownerId2 = users[0][1].id
-    const ownerId3 = users[0][2].id
+    if(process.env.NODE_ENV !== 'production') {
+      const users = await queryInterface.sequelize.query("SELECT id FROM Users")
+      ownerId1 = users[0][0].id
+      ownerId2 = users[0][1].id
+      ownerId3 = users[0][2].id
+    }
 
     await queryInterface.bulkInsert(options, [
       {
