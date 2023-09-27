@@ -11,7 +11,7 @@ options.tableName = "Users";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert(options, [
+    await queryInterface.bulkInsert(options.tableName, [
       {
         email: 'demo@aa.io',
         firstName: "Demo",
@@ -34,6 +34,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete(options, {}, {});
+    await queryInterface.bulkDelete(options.tableName, {}, {});
   }
 };

@@ -4,34 +4,25 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
     static associate(models) {
-      Spot.hasMany(
-        models.Image,
-        {
-          foreignKey: 'spotId',
-          hooks: true
-        }
-      )
-      Spot.hasMany(
-        models.Review,
-        {
-          foreignKey: 'spotId',
-          hooks: true
-        }
-      )
-      Spot.hasMany(
-        models.Booking,
-        {
-          foreignKey: 'spotId',
-          hooks: true
-        }
-      )
-      Spot.belongsTo(
-        models.User,
-        {
-          as: 'Owner',
-          foreignKey: 'ownerId'
-        },
-      )
+      Spot.hasMany(models.Image, {
+        foreignKey: 'spotId',
+        onDelete: "CASCADE",
+        hooks: true
+      })
+      Spot.hasMany(models.Review, {
+        foreignKey: 'spotId',
+        onDelete: "CASCADE",
+        hooks: true
+      })
+      Spot.hasMany(models.Booking, {
+        foreignKey: 'spotId',
+        onDelete: "CASCADE",
+        hooks: true
+      })
+      Spot.belongsTo(models.User, {
+        as: 'Owner',
+        foreignKey: 'ownerId'
+      })
     }
 
   }
