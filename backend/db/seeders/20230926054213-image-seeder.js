@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   async up(queryInterface, Sequelize) {
     options.tableName = "Images"
-    await queryInterface.bulkInsert(options, [
+    await queryInterface.bulkInsert(options.tableName, [
       {
         reviewId: 1,
         url: "https://i.pcmag.com/imagery/reviews/05b8x8deW1h5MNBu9zcqYUx-1.fit_scale.size_760x427.v1644512187.png"
@@ -39,6 +39,6 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     options.tableName = "Images"
-    return queryInterface.bulkDelete(options, {}, {})
+    return queryInterface.bulkDelete(options.tableName, {}, {})
   }
 };

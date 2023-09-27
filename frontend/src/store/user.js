@@ -1,8 +1,10 @@
-// frontend/src/store/session.js
+// frontend/src/store/user.js
 import { csrfFetch } from "./csrf";
 
-const SET_USER = "user/setUser";
-const REMOVE_USER = "user/removeUser";
+const SET_USER = "/users/setUser";
+const REMOVE_USER = "/users/removeUser";
+const CLEAR_USERS = "/users/clearUser"
+
 
 const setUser = (user) => {
     return {
@@ -16,6 +18,12 @@ const removeUser = () => {
         type: REMOVE_USER,
     };
 };
+
+export const clearUsers = () => {
+    return {
+        type: CLEAR_USERS
+    }
+}
 
 
 export const loginThunk = (user) => async (dispatch) => {

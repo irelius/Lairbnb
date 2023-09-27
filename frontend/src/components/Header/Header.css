@@ -1,0 +1,68 @@
+/* ------------------------------------------------------------------------------------- */
+/* Header Main Container */
+
+#header-main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px;
+    padding-left: 5em;
+    padding-right: 5em;
+
+    height: 50px;
+
+    border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+
+/* ------------------------------------------------------------------------------------- */
+/* Header Left Section */
+
+#header-lairbnb-icon-container {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+    align-items: center;
+}
+
+#lairbnb-icon {
+    display: flex;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    height: fit-content
+}
+
+#lairbnb-header-text {
+    font-size: x-large;
+    text-decoration: none;
+    color: rgb(255, 56, 92);
+}
+
+
+/* ------------------------------------------------------------------------------------- */
+/* Header Right Section */
+
+#header-right-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#header-host-button-container {
+    display: flex;
+
+    margin-right: 20px;
+    height: 40px;
+}
+
+#header-host-button {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 15px;
+
+    border-radius: 30px;
+}

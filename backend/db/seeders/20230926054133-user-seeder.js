@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   async up(queryInterface, Sequelize) {
     options.tableName = "Users";
-    await queryInterface.bulkInsert(options, [
+    await queryInterface.bulkInsert(options.tableName, [
       {
         email: 'demo@aa.io',
         firstName: "Demo",
@@ -35,6 +35,6 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     options.tableName = 'Users';
-    await queryInterface.bulkDelete(options, {}, {});
+    await queryInterface.bulkDelete(options.tableName, {}, {});
   }
 };

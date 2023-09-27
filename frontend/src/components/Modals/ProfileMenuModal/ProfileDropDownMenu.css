@@ -1,0 +1,88 @@
+/* ------------------------------------------------------------------------ */
+
+
+/* Profile Drop Down Menu CSS */
+
+
+/* ------------------------------------------------------------------------ */
+/* Profile Button */
+
+#profile-button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 40px;
+    width: 75px;
+
+    border-radius: 30px;
+    border: 1px solid rgba(221, 221, 221);
+}
+
+#profile-button-container-shadow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 40px;
+    width: 75px;
+
+    border-radius: 30px;
+    border: 1px solid rgba(221, 221, 221);
+
+    box-shadow: 0 1mm 1mm rgba(219, 219, 219);
+}
+
+#profile-button-container:hover {
+    box-shadow: 0 1mm 1mm rgba(219, 219, 219);
+    transition: box-shadow 0.15s ease;
+}
+
+#profile-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 30px;
+    height: 30px;
+
+    background-color: #242424;
+    border-radius: 90%;
+
+    color: white;
+    font-size: 10px;
+}
+
+
+#profile-icon {
+    color: white;
+}
+
+#profile-bars {
+    color: rgb(89, 89, 89)
+}
+
+
+/* ------------------------------------------------------------------------ */
+/* Profile Dropdown Menu */
+
+#profile-dropdown-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    right: 6.5em;
+
+    width: 250px;
+    font-size: 14px;
+
+    border-radius: 10px;
+}
+
+#profile-dropdown-container > * {
+    padding: 15px;
+}

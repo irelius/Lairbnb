@@ -1,0 +1,36 @@
+/* src/components/Spot/Spot.css */
+/* Single Spot CSS */
+
+#spot-container {
+    margin-top: 20px;
+    width: 375px;
+    height: 355px;
+    padding: 12px;
+    padding-bottom: 90px;
+}
+
+#spot-city {
+    color: #717171;
+}
+
+#spot-image {
+    width: 375px;
+    height: 355px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#spot-description {
+    max-height: 100px;
+    padding: 10px;
+}
+
+#spot-price-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 5px;
+}
+
+#spot-price {
+    padding-right: 5px;
+}

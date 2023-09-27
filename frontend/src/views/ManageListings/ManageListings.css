@@ -1,0 +1,62 @@
+#user-spots-main {
+    margin: 10vw;
+    margin-top: 100px;
+}
+
+#listings {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+#listing {
+    margin: 15px;
+}
+
+#listing-name {
+    margin-left: 10px;
+}
+
+#listing-address {
+    margin-left: 10px;
+    color: gray;
+    font-weight: normal;
+    font-size: small;
+}
+
+#listing-image {
+    width: 500px;
+    object-fit: cover;
+}
+
+#listing-image>* {
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+#edit {
+    margin-left: 5px;
+}
+
+#edit-button {
+    margin: 3px;
+    padding: 5px;
+    border: 1px black solid;
+    border-radius: 5px;
+}
+
+#edit-button>* {
+    color: black;
+    text-decoration: none;
+}
+
+#delete {
+    margin-left: 5px;
+}
+
+#delete-button {
+    margin: 3px;
+    padding: 5px;
+    border: 1px black solid;
+    border-radius: 5px;
+}

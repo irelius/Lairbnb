@@ -3,9 +3,13 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import userReducer from './user';
+import spotReducer from './spot';
+import reviewReducer from './review';
 
 const rootReducer = combineReducers({
     user: userReducer,
+    spot: spotReducer,
+    review: reviewReducer
 });
 
 let enhancer;

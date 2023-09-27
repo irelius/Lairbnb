@@ -1,0 +1,106 @@
+/* ------------------------------------------------------------------------------------- */
+/* Create Spot CSS */
+
+#create-spot-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 70px;
+}
+
+/* ------------------------------------------------------------------------------------- */
+/* Create Spot Left Section */
+
+#left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(magenta, blue);
+    height: 91.7vh;
+    padding: 5px;
+}
+
+#left-header {
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+/* ------------------------------------------------------------------------------------- */
+/* Create Spot Right Section */
+
+#right {
+    margin-top: 10px;
+    margin-right: 10px;
+    height: 91.7vh;
+}
+
+#right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 88vh;
+}
+
+#create-spot-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    font-size: 14px;
+}
+
+#create-spot-form > * {
+    width: 200px;
+    padding: 5px;
+    margin: 5px;
+}
+
+#submit-button-div {
+    display: flex;
+    justify-content: center;
+}
+
+#submit-button {
+    display: flex;
+    justify-content: center;
+    width: 170px;
+
+    padding:25px;
+
+    border-radius: 15px;
+}
+
+#submit-button:hover {
+    color: white;
+    background-color: 202020;
+}
+
+#back-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+
+#back-button-container > * {
+    text-decoration: none;
+}
+
+#back-button {
+    display: flex;
+    border-radius: 10px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: fit-content;
+
+    color: black;
+    font-size: small;
+
+    background-color: #EBEBEB;
+}
+
+#back-button:hover {
+    font-weight: 550;
+}

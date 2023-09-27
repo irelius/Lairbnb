@@ -1,0 +1,174 @@
+/* ------------------------------------------------------------------------ */
+/* page general */
+
+#spot-detail-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 15px;
+}
+
+#spot-detail-main * {
+    max-width: 90vw;
+}
+
+
+/* ------------------------------------------------------------------------ */
+/* spot section */
+
+#spot-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1000px
+}
+
+#spot-section>* {
+    padding: 0px;
+    margin: 0px;
+}
+
+#spot-header {
+    display: flex;
+    justify-self: start;
+    font-size: 28px;
+}
+
+#spot-subheader {
+    display: flex;
+    flex-direction: row;
+
+    height: 30px;
+}
+
+#spot-subheader>* {
+    display: flex;
+    align-items: center;
+
+    padding-right: 5px;
+    font-size: 14px;
+}
+
+#spot-star-icon {
+    padding-right: 3px;
+}
+
+/* causes issue on front page of spots */
+#spot-header-image {
+    margin-top: 25px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+
+/* ------------------------------------------------------------------------ */
+/* divider line */
+
+#spot-line {
+    border-bottom: 2px solid #f7f7f7;
+    width: 1000px;
+
+    margin-top: 30px;
+}
+
+
+
+/* ------------------------------------------------------------------------ */
+/* review section */
+
+#review-section {
+    max-width: 90vw;
+    width: 1000px;
+
+    /* background-color: orange; */
+}
+
+#review-header {
+    display: flex;
+}
+
+#review-header * {
+    display: flex;
+    align-items: center;
+
+    padding-right: 5px;
+    font-size: 20px;
+}
+
+#review-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 90%;
+    background-color: #242424;
+
+    font-size: 10px;
+    color: white;
+}
+
+#reviews {
+    display: flex;
+    flex-direction: column;
+}
+
+#submit-review-button {
+    height: 40px;
+    padding: 30px;
+    color: black;
+
+}
+
+#review-user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#review-date {
+    color: gray;
+    font-size: small;
+    margin-top: 3px;
+}
+
+#review {
+    margin-top: 15px;
+}
+
+#delete-user-review {
+    display: flex;
+    margin: 10px;
+    margin-left: 30px;
+}
+
+#review-delete-container {
+    margin-left: 30px;
+    border-radius: 90%;
+}
+
+#review-delete-container:hover {
+    box-shadow: 0 1mm 1mm rgba(219, 219, 219);
+}
+
+#review-delete {
+    width: 100px;
+    color: black;
+    text-decoration: none;
+}
+
+#other-reviews-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#other-reviews {
+    margin-bottom: 30px;
+}
