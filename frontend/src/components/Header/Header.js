@@ -12,8 +12,6 @@ function Header({ isLoaded }) {
     const dispatch = useDispatch();
     const history = useHistory()
 
-    console.log('booba', isLoaded)
-
     useEffect(() => {
         dispatch(restoreUserThunk());
     }, [dispatch]);

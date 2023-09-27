@@ -1,6 +1,6 @@
 import { csrfFetch } from "./csrf"
 
-const LOAD_REVIEW = "/reviews/load"
+const LOAD_REVIEW = "/review/load"
 const LOAD_REVIEWS = "/reviews/load"
 const ADD_REVIEW = "/reviews/add"
 const EDIT_REVIEW = "/reviews/edit"
@@ -30,6 +30,7 @@ export const loadReviewsThunk = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/reviews/spot/${spotId}`)
 
     const allReviews = await response.json();
+
     dispatch(loadReviews(allReviews))
     return response;
 }
@@ -124,6 +125,7 @@ const reviewReducer = (state = initialReviews, action) => {
     const newState = { ...state }
     switch (action.type) {
         case LOAD_REVIEW:
+
             newState.user = { ...action.payload[0] }
             return newState
         case LOAD_REVIEWS:

@@ -1,9 +1,10 @@
 import "./SpotPage.css"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, NavLink, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { deleteReviewThunk, loadReviewsThunk, loadUserReviewThunk, resetReview } from "../../store/review";
 import { loadSpotThunk, resetSpot } from "../../store/spot";
+import { restoreUserThunk } from "../../store/user";
 
 import LoginForm from "../../components/Modals/LoginModal/LoginForm";
 import calculateStars from "../../utils/calculateStars";
@@ -11,7 +12,7 @@ import formatMonthAndYear from "../../utils/formatMonthAndYear";
 
 
 function SpotPage() {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const history = useHistory();
     const spotId = useParams().spotId
     const [load, setLoad] = useState(false)
@@ -19,7 +20,9 @@ function SpotPage() {
 
     useEffect(() => {
         dispatch(loadReviewsThunk(spotId))
-        dispatch(loadUserReviewThunk(spotId))
+        if(user > 0) {
+            dispatch(loadUserReviewThunk(spotId))
+        }
         dispatch(loadSpotThunk(spotId))
         setLoad(true)
 
@@ -34,6 +37,8 @@ function SpotPage() {
     const allReviews = useSelector(state => state.review.all)
     const userReview = useSelector(state => state.review.user)
     const user = useSelector(state => state.user.user) || -1
+
+    console.log('booba', user)
 
     useEffect(() => {
         if (spot.Owner) {
