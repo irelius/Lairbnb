@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { loginThunk } from "../../store/user"
+import { loginThunk, logoutThunk } from "../../store/user"
 
 function TestPage () {
     const dispatch = useDispatch()
@@ -19,11 +19,17 @@ function TestPage () {
         dispatch(loginThunk(demoUser))
     }
 
+    const handleLogout = () => {
+        dispatch(logoutThunk())
+    }
 
     return (
         <div>
             <section onClick={demoLogin}>
                 Demo login
+            </section>
+            <section onClick={handleLogout}>
+                Logout
             </section>
 
         </div>
