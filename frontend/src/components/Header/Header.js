@@ -16,10 +16,11 @@ function Header({ isLoaded }) {
         dispatch(restoreUserThunk());
     }, [dispatch]);
 
-    const sessionUser = useSelector(state => state.user.user);
+    const user = useSelector(state => state.user.user);
+    console.log('booba', user)
 
     let sessionLinks;
-    if (sessionUser) {
+    if (user) {
         sessionLinks = (
             <div id="header-right-container">
                 <aside id="header-host-button-container">
@@ -27,13 +28,13 @@ function Header({ isLoaded }) {
                         Become a host
                     </button>
                 </aside>
-                <ProfileDropdownMenu user={sessionUser} />
+                <ProfileDropdownMenu />
             </div>
         );
     } else {
         sessionLinks = (
             <div id="header-right-container">
-                <ProfileDropdownMenu user={sessionUser} />
+                <ProfileDropdownMenu/>
             </div>
         );
     }

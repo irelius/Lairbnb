@@ -82,6 +82,7 @@ const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER:
             newState.user = action.payload;
+            console.log('booba newstate', newState)
             return newState;
         case REMOVE_USER:
             newState.user = null;

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 
-// import Header from "./components/Header";
+import Header from "./components/Header";
 // import SignUp from "./views/SignUp";
 // import CreateSpotPage from "./views/CreateSpot/CreateSpot";
 // import SpotPage from "./views/SpotPage/SpotPage";
@@ -25,7 +25,7 @@ function App() {
 
   return isLoaded && (
     <>
-      {/* <Header isLoaded={isLoaded} /> */}
+      <Header isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
           {/* <Route exact path="/">

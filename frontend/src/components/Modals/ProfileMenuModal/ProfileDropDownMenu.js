@@ -1,15 +1,16 @@
 import "./ProfileDropDownMenu.css"
 
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { loginThunk, logoutThunk } from "../../../store/user"
+import { loginThunk, logoutThunk, restoreUserThunk } from "../../../store/user"
 import LoginFormModal from "../LoginModal";
 
-const ProfileDropDownMenu = ({ user }) => {
+const ProfileDropDownMenu = () => {
     const dispatch = useDispatch();
     const history = useHistory()
     const [showMenu, setShowMenu] = useState(false);
+    const [load, setLoad] = useState(false)
 
     const openMenu = () => {
         if (showMenu) return;
@@ -20,15 +21,18 @@ const ProfileDropDownMenu = ({ user }) => {
         setShowMenu(false);
     };
 
-    const logout = (e) => {
+    const logout = async (e) => {
         e.preventDefault();
-        dispatch(logoutThunk());
+        await dispatch(logoutThunk());
         history.push('/')
-
     };
 
-    const signInDemo = (e) => {
-        dispatch(loginThunk("demo@aa.io", "password"));
+    const signInDemo = async () => {
+        const demoUser = {
+            email: "demo@aa.io",
+            password: "password"
+        }
+        await dispatch(loginThunk(demoUser));
     }
 
     const handleOptionClick = (e) => {
@@ -37,12 +41,21 @@ const ProfileDropDownMenu = ({ user }) => {
     };
 
     useEffect(() => {
+        // console.log('booba 1')
+        dispatch(restoreUserThunk())
+        setLoad(true)
+    }, [dispatch])
+
+    useEffect(() => {
         if (!showMenu) return;
         document.addEventListener('click', closeMenu);
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
-    return user ? (
+    const user = useSelector(state => state.user.user)
+    // console.log('booba', user)
+
+    return load && user ? (
         <div id="profile-main-container">
             <button id="profile-button-container" className="ffffff-bg pointer" onClick={openMenu}>
                 <i id="profile-bars" className="fa-solid fa-bars" />

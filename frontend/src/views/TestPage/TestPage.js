@@ -7,8 +7,6 @@ function TestPage () {
     useEffect(() => {
 
     }, [dispatch])
-    const user = useSelector(state => state.user)
-    console.log('booba', user)
 
     const demoLogin = () => {
         const demoUser = {

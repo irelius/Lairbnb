@@ -38,8 +38,6 @@ function SpotPage() {
     const userReview = useSelector(state => state.review.user)
     const user = useSelector(state => state.user.user) || -1
 
-    console.log('booba', user)
-
     useEffect(() => {
         if (spot.Owner) {
             setSpotOwner(`${spot.Owner.firstName} ${spot.Owner.lastName}`)
