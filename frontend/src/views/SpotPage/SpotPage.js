@@ -20,6 +20,9 @@ function SpotPage() {
     // fetch the spot from backend
     useEffect(() => {
         dispatch(loadSpotThunk(spotId))
+        return (() => {
+            dispatch(resetSpot())
+        })
     }, [spotId])
 
     const spot = useSelector(state => state.spot)
@@ -33,6 +36,10 @@ function SpotPage() {
             }
         })
         setLoad(true)
+
+        return (() => {
+            dispatch(resetReview())
+        })
     }, [user])
 
     const allReviews = useSelector(state => state.review.all)
