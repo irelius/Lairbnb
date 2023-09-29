@@ -8,7 +8,6 @@ import { loadSpotThunk, resetSpot } from "../../store/spot";
 import LoginForm from "../../components/Modals/LoginModal/LoginForm";
 import calculateStars from "../../utils/calculateStars";
 import formatMonthAndYear from "../../utils/formatMonthAndYear";
-import { clearUsers } from "../../store/user";
 
 function SpotPage() {
     const dispatch = useDispatch()
@@ -16,6 +15,8 @@ function SpotPage() {
     const spotId = useParams().spotId
     const [load, setLoad] = useState(false)
     const [spotOwner, setSpotOwner] = useState(null)
+    const [rating, setRating] = useState()
+    const [recalculate, setRecalculate] = useState(false)
 
     // fetch the spot from backend
     useEffect(() => {
@@ -23,10 +24,12 @@ function SpotPage() {
         return (() => {
             dispatch(resetSpot())
         })
-    }, [spotId])
+    }, [dispatch, spotId])
 
     const spot = useSelector(state => state.spot)
     const user = useSelector(state => state.user.user) || -1
+    const allReviews = useSelector(state => state.review.all)
+    const userReview = useSelector(state => state.review.user)
 
     // fetch the spot's reviews
     useEffect(() => {
@@ -40,16 +43,16 @@ function SpotPage() {
         return (() => {
             dispatch(resetReview())
         })
-    }, [user])
+    }, [user, recalculate])
 
-    const allReviews = useSelector(state => state.review.all)
-    const userReview = useSelector(state => state.review.user)
+    console.log('booba', allReviews)
 
     // set spot owner's name
     useEffect(() => {
         if (spot.Owner) {
             setSpotOwner(`${spot.Owner.firstName} ${spot.Owner.lastName}`)
         }
+        setRating(calculateStars(allReviews))
     }, [spot])
 
 
@@ -57,7 +60,7 @@ function SpotPage() {
         e.preventDefault();
 
         dispatch(deleteReviewThunk(userReview.id))
-        dispatch(loadReviewsThunk(spotId))
+        setRecalculate(recalculate => !recalculate)
     }
 
     const loadUserReview = () => {
@@ -153,7 +156,7 @@ function SpotPage() {
                     <aside>
                         <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
                         <p className="semi-bold">
-                            {calculateStars(allReviews)}
+                            {rating}
                         </p>
                     </aside>
                     <aside>-</aside>
@@ -184,7 +187,7 @@ function SpotPage() {
                     <aside>
                         <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
                         <p className="semi-bold">
-                            {calculateStars(allReviews)}
+                            {rating}
                         </p>
                     </aside>
                     <aside>-</aside>

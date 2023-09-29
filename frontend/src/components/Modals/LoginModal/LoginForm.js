@@ -6,7 +6,7 @@ import { loginThunk } from "../../../store/user";
 
 function LoginForm() {
     const dispatch = useDispatch();
-    const [credential, setCredential] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
@@ -14,7 +14,12 @@ function LoginForm() {
         e.preventDefault();
         setErrors([]);
 
-        return dispatch(loginThunk(credential, password)).catch(
+        const user = {
+            email: email,
+            password: password
+        }
+
+        return dispatch(loginThunk(user)).catch(
             async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
@@ -39,8 +44,8 @@ function LoginForm() {
                     Email
                     <input
                         type="text"
-                        value={credential}
-                        onChange={(e) => setCredential(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </label>

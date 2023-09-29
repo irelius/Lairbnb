@@ -1,8 +1,8 @@
 // frontend/src/components/LoginFormPage/index.js
 import React, { useState } from "react";
-import * as userActions from "../../store/user"
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { loginThunk } from "../../store/user";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -16,12 +16,18 @@ function LoginFormPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
-    return dispatch(userActions.loginThunk({ email, password })).catch(
+
+    const user = {
+      email: email,
+      password: password
+    }
+
+    return dispatch(loginThunk(user).catch(
       async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       }
-    );
+    ));
   };
 
   return (
