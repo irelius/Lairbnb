@@ -21,18 +21,18 @@ const ProfileDropDownMenu = () => {
         setShowMenu(false);
     };
 
-    const logout = async (e) => {
+    const logout = (e) => {
         e.preventDefault();
-        await dispatch(logoutThunk());
+        dispatch(logoutThunk());
         history.push('/')
     };
 
-    const signInDemo = async () => {
+    const signInDemo = () => {
         const demoUser = {
             email: "demo@aa.io",
             password: "password"
         }
-        await dispatch(loginThunk(demoUser));
+        dispatch(loginThunk(demoUser));
     }
 
     const handleOptionClick = (e) => {
@@ -41,10 +41,8 @@ const ProfileDropDownMenu = () => {
     };
 
     useEffect(() => {
-        // console.log('booba 1')
-        dispatch(restoreUserThunk())
         setLoad(true)
-    }, [dispatch])
+    }, [])
 
     useEffect(() => {
         if (!showMenu) return;
@@ -53,7 +51,6 @@ const ProfileDropDownMenu = () => {
     }, [showMenu]);
 
     const user = useSelector(state => state.user.user)
-    // console.log('booba', user)
 
     return load && user ? (
         <div id="profile-main-container">

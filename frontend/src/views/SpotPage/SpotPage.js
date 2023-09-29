@@ -4,12 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { deleteReviewThunk, loadReviewsThunk, loadUserReviewThunk, resetReview } from "../../store/review";
 import { loadSpotThunk, resetSpot } from "../../store/spot";
-import { restoreUserThunk } from "../../store/user";
 
 import LoginForm from "../../components/Modals/LoginModal/LoginForm";
 import calculateStars from "../../utils/calculateStars";
 import formatMonthAndYear from "../../utils/formatMonthAndYear";
-
+import { clearUsers } from "../../store/user";
 
 function SpotPage() {
     const dispatch = useDispatch()
@@ -18,31 +17,34 @@ function SpotPage() {
     const [load, setLoad] = useState(false)
     const [spotOwner, setSpotOwner] = useState(null)
 
+    // fetch the spot from backend
     useEffect(() => {
-        dispatch(loadReviewsThunk(spotId))
-        if(user > 0) {
-            dispatch(loadUserReviewThunk(spotId))
-        }
         dispatch(loadSpotThunk(spotId))
-        setLoad(true)
-
-        return (() => {
-            dispatch(resetSpot())
-            dispatch(resetReview())
-        })
-
-    }, [dispatch])
+    }, [spotId])
 
     const spot = useSelector(state => state.spot)
-    const allReviews = useSelector(state => state.review.all)
-    const userReview = useSelector(state => state.review.user)
     const user = useSelector(state => state.user.user) || -1
 
+    // fetch the spot's reviews
+    useEffect(() => {
+        dispatch(loadReviewsThunk(spotId)).then(() => {
+            if (user !== -1) { // fetch user's review if logged in
+                dispatch(loadUserReviewThunk(spotId))
+            }
+        })
+        setLoad(true)
+    }, [user])
+
+    const allReviews = useSelector(state => state.review.all)
+    const userReview = useSelector(state => state.review.user)
+
+    // set spot owner's name
     useEffect(() => {
         if (spot.Owner) {
             setSpotOwner(`${spot.Owner.firstName} ${spot.Owner.lastName}`)
         }
     }, [spot])
+
 
     const handleDelete = (e) => {
         e.preventDefault();
@@ -52,7 +54,8 @@ function SpotPage() {
     }
 
     const loadUserReview = () => {
-        if (!user.id) {
+        // if user is not logged in, ask user to log in
+        if (user === -1) {
             return (
                 <div id="login-container">
                     <div>
@@ -63,13 +66,17 @@ function SpotPage() {
                     </div> */}
                 </div>
             )
-        } else if (user.id && Object.keys(userReview).length === 0) {
+        }
+        // if user is logged in, but there's no review, give option to submit a review
+        else if (user.id && Object.keys(userReview).length === 0) {
             return (
                 <div id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => history.push(`/submit-review/${spotId}`)}>
                     Submit a Review
                 </div>
             )
-        } else {
+        }
+        // if user is logged in and there's a review made by user
+        else if (user.id && Object.keys(userReview).length !== 0) {
             return (
                 <div className="hidden-container">
                     <section id="review-user-info">
@@ -128,6 +135,7 @@ function SpotPage() {
         )
     }
 
+
     return load ? (
         <div id="spot-detail-main">
             <div id="spot-section">
@@ -160,6 +168,7 @@ function SpotPage() {
                     <div></div>
                 )}
             </div>
+
             <div id="spot-line"></div>
 
 

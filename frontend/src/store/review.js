@@ -31,7 +31,7 @@ export const loadReviewsThunk = (spotId) => async dispatch => {
 
     const allReviews = await response.json();
 
-    dispatch(loadReviews(allReviews))
+    await dispatch(loadReviews(allReviews))
     return response;
 }
 

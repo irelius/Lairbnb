@@ -17,7 +17,6 @@ function Header({ isLoaded }) {
     }, [dispatch]);
 
     const user = useSelector(state => state.user.user);
-    console.log('booba', user)
 
     let sessionLinks;
     if (user) {
