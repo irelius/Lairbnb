@@ -9,6 +9,7 @@ GitHub Link: https://github.com/irelius/Lairbnb
 - Express
 - Sequelize
 - React / Redux
+- HTML / CSS
 
 
 ## Setup Directions:
