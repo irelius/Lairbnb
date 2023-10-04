@@ -9,7 +9,6 @@ function CreateSpot() {
 
     const history = useHistory();
     const currentUser = useSelector(state => state.user.user)
-    console.log(currentUser);
 
     if (!currentUser) {
         history.push('/')
