@@ -32,7 +32,7 @@ module.exports = {
         name: "First Place",
         description: "First place to ever exist",
         price: 111.11,
-        previewImg: "https://images.squarespace-cdn.com/content/v1/5b4f0c8d89c17294e53d4ffc/1533282066069-145RDAGJ0I93OL2TLZLM/Ayada+Maldives+villas+OCEAN+VILLA+%283%29.jpg?format=2500w",
+        previewImg: "https://www.thehousedesigners.com/images/plans/01/URD/bulk/6583/the-destination-front-rendering_m.webp",
         numReviews: 0,
         avgStarRating: 0
       },

@@ -33,7 +33,7 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       {
         reviewId: reviewId1,
-        url: "https://i.pcmag.com/imagery/reviews/05b8x8deW1h5MNBu9zcqYUx-1.fit_scale.size_760x427.v1644512187.png"
+        url: "https://www.thehousedesigners.com/images/plans/01/URD/bulk/6583/the-destination-front-rendering_m.webp"
       },
       {
         spotId: spotId1,

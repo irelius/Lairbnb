@@ -18,6 +18,12 @@
     height: 355px;
     object-fit: cover;
     border-radius: 10px;
+
+    transition: filter 0.2s ease;
+}
+
+#spot-container:hover #spot-image {
+    filter: brightness(0.9);
 }
 
 #spot-description {

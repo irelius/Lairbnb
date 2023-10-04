@@ -17,7 +17,8 @@
     width: 75px;
 
     border-radius: 30px;
-    border: 1px solid rgba(221, 221, 221);
+
+    z-index: 1000;
 }
 
 #profile-button-container-shadow {
@@ -30,7 +31,6 @@
     width: 75px;
 
     border-radius: 30px;
-    border: 1px solid rgba(221, 221, 221);
 
     box-shadow: 0 1mm 1mm rgba(219, 219, 219);
 }
@@ -81,6 +81,8 @@
     font-size: 14px;
 
     border-radius: 10px;
+
+    z-index: 1000;
 }
 
 #profile-dropdown-container > * {

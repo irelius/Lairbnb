@@ -2,7 +2,7 @@ import "./Footer.css"
 
 function Footer() {
     return (
-        <div id="footer" className="ffffff-bg">
+        <div id="footer" className="ffffff-bg btop-235">
             <div id="footer-left">
                 <p>2022 Lairbnb</p>
             </div>
