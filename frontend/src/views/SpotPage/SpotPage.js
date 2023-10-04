@@ -5,7 +5,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { deleteReviewThunk, loadReviewsThunk, loadUserReviewThunk, resetReview } from "../../store/review";
 import { loadSpotThunk, resetSpot } from "../../store/spot";
 
-import LoginForm from "../../components/Modals/LoginModal/LoginForm";
+// import LoginForm from "../../components/Modals/LoginModal/LoginForm";
+import LoginFormModal from "../../components/Modals/LoginModal";
 import calculateStars from "../../utils/calculateStars";
 import formatMonthAndYear from "../../utils/formatMonthAndYear";
 
@@ -13,6 +14,7 @@ function SpotPage() {
     const dispatch = useDispatch()
     const history = useHistory();
     const spotId = useParams().spotId
+
     const [load, setLoad] = useState(false)
     const [spotOwner, setSpotOwner] = useState(null)
     const [rating, setRating] = useState()
@@ -45,8 +47,6 @@ function SpotPage() {
         })
     }, [user, recalculate])
 
-    console.log('booba', allReviews)
-
     // set spot owner's name
     useEffect(() => {
         if (spot.Owner) {
@@ -54,6 +54,14 @@ function SpotPage() {
         }
         setRating(calculateStars(allReviews))
     }, [spot])
+
+    const testFunc = (e) => {
+        e.stopPropagation()
+
+        return (
+            <LoginFormModal />
+        )
+    }
 
 
     const handleDelete = (e) => {
@@ -67,13 +75,8 @@ function SpotPage() {
         // if user is not logged in, ask user to log in
         if (user === -1) {
             return (
-                <div id="login-container">
-                    <div>
-                        Please log in to submit a review.
-                    </div>
-                    {/* <div id="login-button">
-                        <LoginForm />
-                    </div> */}
+                <div id="login-container" onClick={(e) => e.stopPropagation()}>
+                    <LoginFormModal displayText="Log in to leave a review" />
                 </div>
             )
         }

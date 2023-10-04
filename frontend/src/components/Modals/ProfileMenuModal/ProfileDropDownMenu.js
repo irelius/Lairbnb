@@ -97,7 +97,7 @@ const ProfileDropDownMenu = () => {
                             Sign Up
                         </section>
                         <section className="f7f7f7-bg-hover pointer" onClick={(e) => e.stopPropagation()}>
-                            <LoginFormModal />
+                            <LoginFormModal displayText="Log In"/>
                         </section>
                     </div>
                 )}
