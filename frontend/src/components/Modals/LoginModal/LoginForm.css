@@ -5,6 +5,11 @@
     justify-content: center;
 
     margin: 10px;
+
+    width: auto;
+    height: auto;
+
+    background-color: white;
 }
 
 #login-form > * {

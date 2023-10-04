@@ -1,4 +1,4 @@
-import "./ProfileDropDownMenu.css"
+import "./ProfileDropDownMenu.css";
 
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,16 +6,13 @@ import { useHistory } from "react-router-dom";
 import { loginThunk, logoutThunk } from "../../../store/user"
 import LoginFormModal from "../LoginModal";
 import SignupFormModal from "../SignupModal";
-import LoginForm from "../LoginModal/LoginForm";
-import SignupForm from "../SignupModal/SignupForm";
 
 const ProfileDropDownMenu = () => {
     const dispatch = useDispatch();
     const history = useHistory()
     const [showMenu, setShowMenu] = useState(false);
     const [load, setLoad] = useState(false);
-    const [showLoginForm, setShowLoginForm] = useState(false)
-    const [showSignupForm, setShowSignupForm] = useState(false)
+    const [selectedOption, setSelectedOption] = useState(null);
 
     const openMenu = () => {
         if (showMenu) return;
@@ -40,20 +37,14 @@ const ProfileDropDownMenu = () => {
         dispatch(loginThunk(demoUser));
     }
 
-    const handleOptionClick = (e) => {
-        e.stopPropagation();
+    const handleOptionClick = (option) => {
+        setSelectedOption(option);
         setShowMenu(false);
     };
 
     useEffect(() => {
         setLoad(true)
     }, [])
-
-    useEffect(() => {
-        if (!showMenu) return;
-        document.addEventListener('click', closeMenu);
-        return () => document.removeEventListener("click", closeMenu);
-    }, [showMenu]);
 
     const user = useSelector(state => state.user.user)
 
@@ -68,7 +59,7 @@ const ProfileDropDownMenu = () => {
                 </button>
                 <div id="profile-dropdown-main-container">
                     {showMenu && (
-                        <div id="profile-dropdown-container" className="shadow ffffff-bg" onClick={handleOptionClick}>
+                        <div id="profile-dropdown-container" className="shadow ffffff-bg">
                             <section className="semi-bold">
                                 {user.firstName} {user.lastName}
                             </section>
@@ -78,7 +69,7 @@ const ProfileDropDownMenu = () => {
                             <section className="f7f7f7-bg-hover pointer" onClick={() => history.push("/manage-listings")}>
                                 Manage Your Listings
                             </section>
-                            <section className="f7f7f7-bg-hover pointer" onClick={logout}>
+                            <section className="f7f7f7-bg-hover pointer" onClick={() => handleOptionClick("Logout")}>
                                 Log Out
                             </section>
                         </div>
@@ -95,46 +86,25 @@ const ProfileDropDownMenu = () => {
                 </button>
                 <div id="profile-dropdown-main-container">
                     {showMenu && (
-                        <div id="profile-dropdown-container" className="shadow ffffff-bg" onClick={handleOptionClick}>
+                        <div id="profile-dropdown-container" className="shadow ffffff-bg">
                             <section className="f7f7f7-bg-hover pointer bold" onClick={signInDemo}>
                                 Sign in as Demo User
                             </section>
-                            <section className="f7f7f7-bg-hover pointer" onClick={(e) => {
-                                e.stopPropagation()
-                                setShowMenu(false)
-                                setShowSignupForm(true)
-                            }}>
+                            <section className="f7f7f7-bg-hover pointer" onClick={() => handleOptionClick("Sign Up")}>
                                 Sign Up
                             </section>
-                            <section className="f7f7f7-bg-hover pointer" onClick={(e) => {
-                                e.stopPropagation()
-                                setShowMenu(false)
-                                setShowLoginForm(true)
-                            }}>
+                            <section className="f7f7f7-bg-hover pointer" onClick={() => handleOptionClick("Log In")}>
                                 Log In
                             </section>
                         </div>
                     )}
                 </div>
-                {showLoginForm ? (
-                    <div id="test" onClick={() => setShowLoginForm(false)}>
-                        <div id="test2" onClick={(e) => e.stopPropagation()}>
-                            Log In
-                            <LoginForm />
-                        </div>
-                    </div>
-                ) : (
-                    <></>)
-                }
-                {showSignupForm ? (
-                    <div id="test" onClick={() => setShowSignupForm(false)}>
-                        <div id="test2" onClick={(e) => e.stopPropagation()}>
-                            Sign Up
-                            <SignupForm />
-                        </div>
-                    </div>
-                ) : (
-                    <></>
+                {/* Render the modal conditionally */}
+                {selectedOption === "Sign Up" && (
+                    <SignupFormModal displayText="Sign Up" />
+                )}
+                {selectedOption === "Log In" && (
+                    <LoginFormModal displayText="Log In" />
                 )}
             </div>
         )

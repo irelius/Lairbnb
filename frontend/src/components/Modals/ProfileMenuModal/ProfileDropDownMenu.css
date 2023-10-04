@@ -17,8 +17,6 @@
     width: 75px;
 
     border-radius: 30px;
-
-    z-index: 1000;
 }
 
 #profile-button-container-shadow {
@@ -87,4 +85,24 @@
 
 #profile-dropdown-container > * {
     padding: 15px;
+}
+
+
+#test {
+    position: fixed;
+    background-color: white;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.6);
+
+    width: 100%;
+    height: 100%;
 }

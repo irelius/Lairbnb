@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { Modal } from "../../../context/Modal";
 import LoginForm from "./LoginForm";
 
-function LoginFormModal({displayText}) {
+function LoginFormModal(props) {
+    const {displayText} = props
+
     const [showModal, setShowModal] = useState(false);
     return (
         <>
