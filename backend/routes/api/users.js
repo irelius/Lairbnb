@@ -27,10 +27,10 @@ const validateSignup = [
         .isEmail()
         .withMessage('Please provide a valid email.'),
     check('firstName')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .withMessage("Please provie a first name."),
     check('lastName')
-        .exists({checkFalsy: true})
+        .exists({ checkFalsy: true })
         .withMessage("Please provide a last name."),
     check('password')
         .exists({ checkFalsy: true })
@@ -50,12 +50,18 @@ router.post('/login', validateLogin, async (req, res, next) => {
         }
     });
 
-    if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
-        const err = new Error('Login failed');
+    if (!user) {
+        const err = new Error("Login failed")
         err.status = 401;
-        err.title = 'Login failed';
-        err.errors = { email: 'The provided email was invalid.' };
-        return next(err);
+        err.title = "Login failed"
+        err.errors = { error: "Invalid email" }
+        return next(err)
+    } else if (!bcrypt.compareSync(password, user.hashedPassword.toString())) {
+        const err = new Error('Login failed')
+        err.status = 401;
+        err.title = "Login failed"
+        err.errors = { error: "Invalid password" }
+        return next(err)
     }
 
     const safeUser = {

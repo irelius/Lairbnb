@@ -41,7 +41,7 @@ function SignupForm() {
                     }
                 });
         } else {
-            return setErrors(['Confirm Password field must be the same as the Password field']);
+            return setErrors(['Passwords do not match']);
         }
 
     }

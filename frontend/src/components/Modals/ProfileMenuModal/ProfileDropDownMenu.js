@@ -4,8 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { loginThunk, logoutThunk } from "../../../store/user"
-import LoginFormModal from "../LoginModal";
-import SignupFormModal from "../SignupModal";
 import LoginForm from "../LoginModal/LoginForm";
 import SignupForm from "../SignupModal/SignupForm";
 
@@ -117,18 +115,32 @@ const ProfileDropDownMenu = () => {
                     )}
                 </div>
                 {showLoginForm ? (
-                    <div id="test" onClick={() => setShowLoginForm(false)}>
-                        <div id="test2" onClick={(e) => e.stopPropagation()}>
-                            Log In
-                            <LoginForm />
+                    <div className="modal" id="login-form-overlay" onClick={() => setShowLoginForm(false)}>
+                        <div className="ffffff-bg" id="login-form-container" onClick={(e) => e.stopPropagation()}>
+                            <section id="exit-button" className="pointer" onClick={() => setShowLoginForm(false)}>
+                                <i className="fa-solid fa-x" />
+                            </section>
+                            <section id="login-form-header" className="bbot-235">
+                                <section className="bold font-14">
+                                    Log In
+                                </section>
+                            </section>
+                            <section id="login-form-body">
+                                <section>
+                                    <LoginForm />
+                                </section>
+                                <section>
+                                    Google login functionality to be added
+                                </section>
+                            </section>
                         </div>
                     </div>
                 ) : (
                     <></>)
                 }
                 {showSignupForm ? (
-                    <div id="test" onClick={() => setShowSignupForm(false)}>
-                        <div id="test2" onClick={(e) => e.stopPropagation()}>
+                    <div className="modal" id="signup-form-overlay" onClick={() => setShowSignupForm(false)}>
+                        <div className="ffffff-bg" id="signup-form-container" onClick={(e) => e.stopPropagation()}>
                             Sign Up
                             <SignupForm />
                         </div>

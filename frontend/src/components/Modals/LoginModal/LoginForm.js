@@ -8,7 +8,9 @@ function LoginForm() {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState("");
+
+    console.log('booba', errors)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,11 +25,8 @@ function LoginForm() {
             async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
-                    setErrors(data.errors);
+                    setErrors(data.errors.error)
                 }
-                if (data.statusCode === 401) {
-                    setErrors([data.message])
-                };
             }
         );
     };
@@ -35,30 +34,28 @@ function LoginForm() {
     return (
         <div>
             <form onSubmit={handleSubmit} id="login-form">
+                <input
+                    id="login-form-email-input"
+                    className="border-176"
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    placeholder="Email"
+                />
+                <input
+                    id="login-form-password-input"
+                    className="border-176"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    placeholder="Password"
+                />
                 <div>
-                    <ul>
-                        {errors.map((error, idx) => <div key={idx}>{error}</div>)}
-                    </ul>
+                    {errors}
                 </div>
-                <label>
-                    Email
-                    <input
-                        type="text"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
-                <button type="submit" id="login-button">Log In</button>
+                <button type="submit" id="login-button" className="semi-bold">Continue</button>
             </form>
         </div>
     );
