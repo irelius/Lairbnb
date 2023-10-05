@@ -47,9 +47,10 @@ function SignupForm() {
     }
 
     return (
-        <div id="signup-main">
+        <div>
             <form onSubmit={handleSubmit} id="signup-form">
                 <input
+                    id="signup-first-name-input"
                     type="text"
                     placeholder="First Name"
                     required
@@ -57,6 +58,7 @@ function SignupForm() {
                     onChange={(e) => setFirstName(e.target.value)}
                 />
                 <input
+                    id="signup-last-name-input"
                     type="text"
                     placeholder="Last Name"
                     required
@@ -64,6 +66,7 @@ function SignupForm() {
                     onChange={(e) => setLastName(e.target.value)}
                 />
                 <input
+                    id="signup-email-input"
                     type="text"
                     placeholder="Email"
                     required
@@ -71,6 +74,7 @@ function SignupForm() {
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
+                    id="signup-password-input"
                     type="password"
                     placeholder="Password"
                     required
@@ -78,19 +82,26 @@ function SignupForm() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <input
+                    id="signup-confirm-input"
                     type="password"
                     placeholder="Confirm Password"
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                <button type="submit">
-                    Sign Up
+                {errors.length > 0 ? (
+                    <div id="signup-error-section" className="font-12 red">
+                        {errors.map((error, idx) => <p key={idx}>{error}</p>)}
+                    </div>
+                ) : (
+                    <div id="signup-error-section" className="font-12">
+                        Enter your information to create an account.
+                    </div>
+                )}
+                <button type="submit" id="signup-button" className="font-16 semi-bold white pointer">
+                    Continue
                 </button>
             </form>
-            <div>
-                {errors.map((error, idx) => <p key={idx}>{error}</p>)}
-            </div>
         </div>
     )
 }

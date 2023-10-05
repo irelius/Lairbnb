@@ -10,8 +10,6 @@ function LoginForm() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState("");
 
-    console.log('booba', errors)
-
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
@@ -27,6 +25,12 @@ function LoginForm() {
                 if (data && data.errors) {
                     setErrors(data.errors.error)
                 }
+                if(data.errors.error === "Invalid email") {
+                    setEmail("")
+                }
+                if(data.errors.error === "Invalid password") {
+                    setPassword("")
+                }
             }
         );
     };
@@ -39,7 +43,12 @@ function LoginForm() {
                     className="border-176"
                     type="text"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                        setEmail(e.target.value)
+                        if (errors === "Invalid email") {
+                            setErrors("")
+                        }
+                    }}
                     required
                     placeholder="Email"
                 />
@@ -48,14 +57,25 @@ function LoginForm() {
                     className="border-176"
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                        setPassword(e.target.value)
+                        if (errors === "Invalid password") {
+                            setErrors("")
+                        }
+                    }}
                     required
                     placeholder="Password"
                 />
-                <div>
-                    {errors}
-                </div>
-                <button type="submit" id="login-button" className="semi-bold">Continue</button>
+                {errors ? (
+                    <div className="font-12 red">
+                        <i class="fa-solid fa-circle-exclamation"/> {errors}
+                    </div>
+                ) : (
+                    <div className="font-12">
+                        Enter your account information to log in.
+                    </div>
+                )}
+                <button type="submit" id="login-button" className="font-16 semi-bold white pointer">Continue</button>
             </form>
         </div>
     );
