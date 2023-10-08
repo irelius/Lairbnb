@@ -35,6 +35,7 @@ function SignUp() {
             return dispatch(signupThunk(newUser))
                 .catch(async (res) => {
                     const data = await res.json();
+                    console.log('booba', data)
                     if (data.errors) {
                         setErrors([Object.values(data.errors)]);
                     }
@@ -87,7 +88,8 @@ function SignUp() {
                     Sign Up
                 </button>
             </form>
-            <div>
+            <div id="signup-error">
+                booba
                 {errors.map((error, idx) => <p key={idx}>{error}</p>)}
             </div>
         </div>

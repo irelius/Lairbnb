@@ -1,0 +1,11 @@
+#modal-continue-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 50px;
+
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}

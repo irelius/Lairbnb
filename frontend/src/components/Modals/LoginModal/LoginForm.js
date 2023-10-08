@@ -3,6 +3,7 @@ import "./LoginForm.css"
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginThunk } from "../../../store/user";
+import SubmitButton from "../SubmitButton/SubmitButton";
 
 function LoginForm() {
     const dispatch = useDispatch();
@@ -25,10 +26,10 @@ function LoginForm() {
                 if (data && data.errors) {
                     setErrors(data.errors.error)
                 }
-                if(data.errors.error === "Invalid email") {
+                if (data.errors.error === "Invalid email") {
                     setEmail("")
                 }
-                if(data.errors.error === "Invalid password") {
+                if (data.errors.error === "Invalid password") {
                     setPassword("")
                 }
             }
@@ -67,15 +68,15 @@ function LoginForm() {
                     placeholder="Password"
                 />
                 {errors ? (
-                    <div className="font-12 red">
-                        <i class="fa-solid fa-circle-exclamation"/> {errors}
+                    <div id="login-error-section" className="font-12 red">
+                        <i id="exclamation-mark" className="fa-solid fa-circle-exclamation" /> {errors}
                     </div>
                 ) : (
-                    <div className="font-12">
+                    <div id="login-error-section" className="font-12">
                         Enter your account information to log in.
                     </div>
                 )}
-                <button type="submit" id="login-button" className="font-16 semi-bold white pointer">Continue</button>
+                <SubmitButton />
             </form>
         </div>
     );

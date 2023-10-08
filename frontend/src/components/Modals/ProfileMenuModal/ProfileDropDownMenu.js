@@ -108,17 +108,17 @@ const ProfileDropDownMenu = () => {
                 )}
             </div>
             {showLoginForm ? (
-                <div className="modal" id="login-form-overlay" onClick={() => setShowLoginForm(false)}>
-                    <div className="ffffff-bg" id="login-form-container" onClick={(e) => e.stopPropagation()}>
-                        <section id="exit-button" className="pointer" onClick={() => setShowLoginForm(false)}>
+                <div className="modal" onClick={() => setShowLoginForm(false)}>
+                    <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
+                        <section id="modal-exit-button" className="pointer f7f7f7-bg-hover" onClick={() => setShowLoginForm(false)}>
                             <i className="fa-solid fa-xmark" />
                         </section>
-                        <section id="login-form-header" className="bbot-235">
+                        <section className="modal-form-header bbot-235">
                             <section className="bold font-14">
                                 Log in
                             </section>
                         </section>
-                        <section id="login-form-body">
+                        <section className="modal-form-body">
                             <section>
                                 <LoginForm />
                             </section>
@@ -132,10 +132,24 @@ const ProfileDropDownMenu = () => {
                 <></>)
             }
             {showSignupForm ? (
-                <div className="modal" id="signup-form-overlay" onClick={() => setShowSignupForm(false)}>
-                    <div className="ffffff-bg" id="signup-form-container" onClick={(e) => e.stopPropagation()}>
-                        Sign up
-                        <SignupForm />
+                <div className="modal" onClick={() => setShowSignupForm(false)}>
+                    <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
+                        <section id="modal-exit-button" className="pointer f7f7f7-bg-hover" onClick={() => setShowSignupForm(false)}>
+                            <i className="fa-solid fa-xmark" />
+                        </section>
+                        <section className="modal-form-header bbot-235">
+                            <section className="bold font-14">
+                                Sign up
+                            </section>
+                        </section>
+                        <section className="modal-form-body">
+                            <section>
+                                <SignupForm />
+                            </section>
+                        </section>
+                        <section id="google-login">
+                            Google login functionality to be added
+                        </section>
                     </div>
                 </div>
             ) : (

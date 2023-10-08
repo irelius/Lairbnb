@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { signupThunk } from "../../../store/user";
+import SubmitButton from "../SubmitButton/SubmitButton";
 
 function SignupForm() {
     const dispatch = useDispatch();
@@ -36,9 +37,7 @@ function SignupForm() {
             return dispatch(signupThunk(newUser))
                 .catch(async (res) => {
                     const data = await res.json();
-                    if (data.errors) {
-                        setErrors([Object.values(data.errors)]);
-                    }
+                    setErrors((prevErrors) => [...prevErrors, ...Object.values(data.errors)]);
                 });
         } else {
             return setErrors(['Passwords do not match']);
@@ -91,16 +90,16 @@ function SignupForm() {
                 />
                 {errors.length > 0 ? (
                     <div id="signup-error-section" className="font-12 red">
-                        {errors.map((error, idx) => <p key={idx}>{error}</p>)}
+                        {errors.map((error, idx) => <li key={idx}>
+                            <i id="exclamation-mark" className="fa-solid fa-circle-exclamation" /> {error}
+                        </li>)}
                     </div>
                 ) : (
-                    <div id="signup-error-section" className="font-12">
+                    <div id="signup-error-section" className="modal-error-section font-12">
                         Enter your information to create an account.
                     </div>
                 )}
-                <button type="submit" id="signup-button" className="font-16 semi-bold white pointer">
-                    Continue
-                </button>
+                <SubmitButton />
             </form>
         </div>
     )

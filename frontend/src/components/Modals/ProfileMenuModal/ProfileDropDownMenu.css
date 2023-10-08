@@ -83,13 +83,13 @@
     z-index: 1000;
 }
 
-#profile-dropdown-container > * {
+#profile-dropdown-container>* {
     padding: 15px;
 }
 
 
 /* ------------------------------------------------------------------------ */
-/* Modal Stuff */
+/* Modal Stuff - General */
 
 .modal {
     position: fixed;
@@ -109,7 +109,7 @@
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-#login-form-container {
+.modal-form-container {
     display: flex;
     flex-direction: column;
 
@@ -119,38 +119,41 @@
     width: 450px;
 }
 
-#login-form-container, #login-form-container * {
-    transition: visibility 3s ease;
-}
-
-
-#exit-button {
-    position: absolute;
-    padding: 25px;
-}
-
-#login-form-header {
+.modal-form-header {
     display: flex;
     justify-content: center;
 
     padding: 25px;
     padding-bottom: 20px;
+
+    margin-bottom: 20px;
 }
 
-#login-form-body {
-    display: flex;
-    flex-direction: column;
-
-    margin-top: 20px;
-}
-
-#login-form-body > * {
+#modal-exit-button {
     display: flex;
     justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    margin: 15px;
+    padding: 5px;
+    padding-left: 6px;
+
+    height: 20px;
+    width: 20px;
+
+    border-radius: 90%;
 }
+
+
+/* ------------------------------------------------------------------------ */
 
 #google-login {
     display: flex;
     justify-content: center;
-    margin-top: 200px;  /* change to make sure spacing works once google login functionality is added */
+    align-items: flex-end;
+
+    height: 100%;
+    margin-bottom: 25px;
+    /* change to make sure spacing works once google login functionality is added */
 }

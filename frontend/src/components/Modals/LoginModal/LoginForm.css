@@ -5,38 +5,12 @@
     justify-content: center;
 }
 
-#login-form>* {
+#login-form>input {
     height: 15px;
     width: 375px;
     outline: none;
 
     padding: 15px;
-}
-
-#login-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 40px;
-
-    outline: none;
-    border: none;
-    border-radius: 5px;
-
-    background-color: rgb(215, 4, 102);
-    transition: background-color 0.1s;
-}
-
-#login-button:hover {
-    background-color: rgb(230, 30, 77);
-}
-
-#login-button>* {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
 }
 
 #login-form-email-input {
@@ -62,4 +36,20 @@
     border: 2px solid black;
     width: 373px;
     height: 12px;
+}
+
+#login-error-section {
+    display: flex;
+    align-items: center;
+
+    height: 15px;
+    width: 375px;
+
+    margin: 15px;
+    margin-left: 0px;
+}
+
+#exclamation-mark {
+    margin-right: 5px;
+
 }
