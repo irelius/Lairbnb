@@ -8,12 +8,11 @@ import { loadSpotThunk, resetSpot } from "../../store/spot";
 import calculateStars from "../../utils/calculateStars";
 import formatMonthAndYear from "../../utils/formatMonthAndYear";
 import SpotSection from "./SpotSection/SpotSection";
-import AllReviewSection from "./AllReviewSection";
+import OtherReviewSection from "./OtherReviewSection";
 import UserReviewSection from "./UserReviewSection/UserReviewSection";
 
 function SpotPage() {
     const dispatch = useDispatch()
-    const history = useHistory();
     const spotId = useParams().spotId
 
     const [load, setLoad] = useState(false)
@@ -36,6 +35,7 @@ function SpotPage() {
     const userReview = useSelector(state => state.review.user)
 
     // fetch the spot's reviews
+    // TO DO: recalculate the spot review and average when use submits a review
     useEffect(() => {
         dispatch(loadReviewsThunk(spotId)).then(() => {
             if (user !== -1) { // fetch user's review if logged in
@@ -47,7 +47,7 @@ function SpotPage() {
         return (() => {
             dispatch(resetReview())
         })
-    }, [user, recalculate])
+    }, [dispatch, user, spotId])
 
     // set spot owner's name
     useEffect(() => {
@@ -55,144 +55,18 @@ function SpotPage() {
             setSpotOwner(`${spot.Owner.firstName} ${spot.Owner.lastName}`)
         }
         setRating(calculateStars(allReviews))
-    }, [spot])
-
-    const handleDelete = (e) => {
-        e.preventDefault();
-
-        dispatch(deleteReviewThunk(userReview.id))
-        setRecalculate(recalculate => !recalculate)
-    }
-
-    const loadUserReview = () => {
-        // if user is not logged in, ask user to log in
-        if (user === -1) {
-            return (
-                <div id="login-container" onClick={(e) => e.stopPropagation()}>
-                    Log in to leave a review
-                </div>
-            )
-        }
-        // if user is logged in, but there's no review, give option to submit a review
-        else if (user.id && Object.keys(userReview).length === 0) {
-            return (
-                <div id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => history.push(`/submit-review/${spotId}`)}>
-                    Submit a Review
-                </div>
-            )
-        }
-        // if user is logged in and there's a review made by user
-        else if (user.id && Object.keys(userReview).length !== 0) {
-            return (
-                <div className="hidden-container">
-                    <section id="review-user-info">
-                        <div id='review-icon-container'>
-                            {userReview.User.firstName.slice(0, 1)}
-                        </div>
-                        <aside>
-                            <section id="review-name">
-                                {userReview.User.firstName} {userReview.User.lastName}
-                            </section>
-                            <section id="review-date">
-                                {formatMonthAndYear(userReview.createdAt.slice(0, 10))}
-                            </section>
-                        </aside>
-                        <aside id='review-delete-container' className="hidden">
-                            <i className="pointer fa-regular fa-circle-xmark fa-xl" onClick={(e) => { handleDelete(e) }}></i>
-                        </aside>
-                    </section>
-                    <section id="review">
-                        {userReview.review}
-                    </section>
-                </div>
-            )
-        }
-    }
-
-    const loadReview = (reviews) => {
-        return (
-            Object.values(reviews).map((el, i) => {
-                if (el.userId === user.id) {
-                    return null;
-                } else if (el.User.id) {
-                    return (
-                        <div id="other-reviews" key={i}>
-                            <section id="review-user-info">
-                                <div id='review-icon-container'>
-                                    {el.User.firstName.slice(0, 1)}
-                                </div>
-                                <aside>
-                                    <section id="review-name">
-                                        {el.User.firstName} {el.User.lastName}
-                                    </section>
-                                    <section id="review-date">
-                                        {formatMonthAndYear(el.createdAt.slice(0, 10))}
-                                    </section>
-                                </aside>
-                            </section>
-                            <div id="review">
-                                {el.review}
-                            </div>
-                        </div>
-                    )
-                }
-                return null
-            })
-        )
-    }
-
-    console.log('booba asdfasdf', allReviews)
+    }, [spot, allReviews])
 
     return load ? (
-        <div id="spot-detail-main">
+        <div>
             <section>
                 <SpotSection spot={spot} rating={rating} allReviews={allReviews} spotOwner={spotOwner} />
             </section>
-            <section>
-                <UserReviewSection userReview={userReview} user={user} spotId={spotId} />
-            </section>
-            <section>
-                <AllReviewSection allReviews={allReviews} user={user} />
-            </section>
-        </div>
-    ) : (
-        <div>
-            {/* <div id="spot-section">
-                <div id="spot-header" className="semi-bold">
-                    {spot.name}
-                </div>
-                <div id="spot-subheader">
-                    <aside>
-                        <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
-                        <p className="semi-bold">
-                            {rating}
-                        </p>
-                    </aside>
-                    <aside>-</aside>
-                    <aside className="bold underline">
-                        {Object.values(allReviews).length} reviews
-                    </aside>
-                    <aside>-</aside>
-                    <aside>
-                        {spotOwner}
-                    </aside>
-                    <aside>-</aside>
-                    <aside className="semi-bold underline">
-                        {spot.city}, {spot.state}, {spot.country}
-                    </aside>
-                </div>
-                {spot.previewImg ? (
-                    <img id="spot-header-image" src={`${spot.previewImg}`} alt={`${spot.name}`} />
-                ) : (
-                    <div></div>
-                )}
-            </div>
 
-            <div id="spot-line"></div>
+            <section id="spot-line"></section>
 
-
-            <div id="review-section">
-                <div id="review-header">
+            <section id="review-section">
+                <section id="review-header">
                     <aside>
                         <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
                         <p className="semi-bold">
@@ -203,16 +77,19 @@ function SpotPage() {
                     <aside className="semi-bold">
                         {Object.values(allReviews).length} reviews
                     </aside>
-                </div>
-                <div id="reviews">
-                    <div>
-                        {loadUserReview()}
-                    </div>
-                    <div id="other-reviews-container">
-                        {loadReview(allReviews)}
-                    </div>
-                </div>
-            </div> */}
+                </section>
+                <section id="reviews">
+                    <section>
+                        <UserReviewSection userReview={userReview} user={user} spotId={spotId} />
+                    </section>
+                    <section id="other-reviews-container">
+                        <OtherReviewSection allReviews={allReviews} user={user} />
+                    </section>
+                </section>
+            </section>
+        </div>
+    ) : (
+        <div>
         </div>
     )
 }

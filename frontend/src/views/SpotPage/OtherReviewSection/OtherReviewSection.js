@@ -1,8 +1,8 @@
-import "./AllReviewSection.css"
+import "./OtherReviewSection.css"
 
 import formatMonthAndYear from "../../../utils/formatMonthAndYear";
 
-function AllReviewSection({ allReviews, user }) {
+function OtherReviewSection({ allReviews, user }) {
     return (
         Object.values(allReviews).map((el, i) => {
             if (el.userId === user.id) {
@@ -34,4 +34,4 @@ function AllReviewSection({ allReviews, user }) {
     )
 }
 
-export default AllReviewSection
+export default OtherReviewSection
