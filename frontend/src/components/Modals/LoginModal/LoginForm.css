@@ -53,3 +53,23 @@
     margin-right: 5px;
 
 }
+
+#demo-login-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#demo-login-button {
+    border-radius: 5px;
+    height: 25px;
+    width: 100px;
+
+    text-decoration: underline;
+
+    background-color: inherit;
+}
+
+#demo-login-button:hover {
+    background-color: #f7f7f7;
+}

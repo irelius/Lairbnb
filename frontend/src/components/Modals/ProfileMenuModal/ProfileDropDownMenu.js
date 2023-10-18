@@ -123,9 +123,9 @@ const ProfileDropDownMenu = () => {
                                 <LoginForm />
                             </section>
                         </section>
-                        <section id="google-login">
+                        {/* <section id="google-login">
                             Google login functionality to be added
-                        </section>
+                        </section> */}
                     </div>
                 </div>
             ) : (
@@ -147,9 +147,9 @@ const ProfileDropDownMenu = () => {
                                 <SignupForm />
                             </section>
                         </section>
-                        <section id="google-login">
+                        {/* <section id="google-login">
                             Google login functionality to be added
-                        </section>
+                        </section> */}
                     </div>
                 </div>
             ) : (
