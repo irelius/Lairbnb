@@ -5,10 +5,11 @@ import { useParams, useHistory } from "react-router-dom";
 import { deleteReviewThunk, loadReviewsThunk, loadUserReviewThunk, resetReview } from "../../store/review";
 import { loadSpotThunk, resetSpot } from "../../store/spot";
 
-// import LoginForm from "../../components/Modals/LoginModal/LoginForm";
-import LoginFormModal from "../../components/Modals/LoginModal";
 import calculateStars from "../../utils/calculateStars";
 import formatMonthAndYear from "../../utils/formatMonthAndYear";
+import SpotSection from "./SpotSection/SpotSection";
+import AllReviewSection from "./AllReviewSection";
+import UserReviewSection from "./UserReviewSection/UserReviewSection";
 
 function SpotPage() {
     const dispatch = useDispatch()
@@ -19,6 +20,7 @@ function SpotPage() {
     const [spotOwner, setSpotOwner] = useState(null)
     const [rating, setRating] = useState()
     const [recalculate, setRecalculate] = useState(false)
+    const [showLoginForm, setShowLoginForm] = useState(false)
 
     // fetch the spot from backend
     useEffect(() => {
@@ -55,15 +57,6 @@ function SpotPage() {
         setRating(calculateStars(allReviews))
     }, [spot])
 
-    const testFunc = (e) => {
-        e.stopPropagation()
-
-        return (
-            <LoginFormModal />
-        )
-    }
-
-
     const handleDelete = (e) => {
         e.preventDefault();
 
@@ -76,7 +69,7 @@ function SpotPage() {
         if (user === -1) {
             return (
                 <div id="login-container" onClick={(e) => e.stopPropagation()}>
-                    <LoginFormModal displayText="Log in to leave a review" />
+                    Log in to leave a review
                 </div>
             )
         }
@@ -148,10 +141,23 @@ function SpotPage() {
         )
     }
 
+    console.log('booba asdfasdf', allReviews)
 
     return load ? (
         <div id="spot-detail-main">
-            <div id="spot-section">
+            <section>
+                <SpotSection spot={spot} rating={rating} allReviews={allReviews} spotOwner={spotOwner} />
+            </section>
+            <section>
+                <UserReviewSection userReview={userReview} user={user} spotId={spotId} />
+            </section>
+            <section>
+                <AllReviewSection allReviews={allReviews} user={user} />
+            </section>
+        </div>
+    ) : (
+        <div>
+            {/* <div id="spot-section">
                 <div id="spot-header" className="semi-bold">
                     {spot.name}
                 </div>
@@ -206,10 +212,8 @@ function SpotPage() {
                         {loadReview(allReviews)}
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
-    ) : (
-        <div></div>
     )
 }
 

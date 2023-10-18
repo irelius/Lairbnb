@@ -15,55 +15,6 @@
 
 
 /* ------------------------------------------------------------------------ */
-/* spot section */
-
-#spot-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 1000px
-}
-
-#spot-section>* {
-    padding: 0px;
-    margin: 0px;
-}
-
-#spot-header {
-    display: flex;
-    justify-self: start;
-    font-size: 28px;
-}
-
-#spot-subheader {
-    display: flex;
-    flex-direction: row;
-
-    height: 30px;
-}
-
-#spot-subheader>* {
-    display: flex;
-    align-items: center;
-
-    padding-right: 5px;
-    font-size: 14px;
-}
-
-#spot-star-icon {
-    padding-right: 3px;
-}
-
-/* causes issue on front page of spots */
-#spot-header-image {
-    margin-top: 25px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-
-
-/* ------------------------------------------------------------------------ */
 /* divider line */
 
 #spot-line {
@@ -72,7 +23,6 @@
 
     margin-top: 30px;
 }
-
 
 
 /* ------------------------------------------------------------------------ */
@@ -97,6 +47,21 @@
     font-size: 20px;
 }
 
+#reviews {
+    display: flex;
+    flex-direction: column;
+}
+
+#review {
+    margin-top: 15px;
+}
+
+#review-user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #review-icon-container {
     display: flex;
     justify-content: center;
@@ -113,9 +78,10 @@
     color: white;
 }
 
-#reviews {
-    display: flex;
-    flex-direction: column;
+#review-date {
+    color: gray;
+    font-size: small;
+    margin-top: 3px;
 }
 
 #submit-review-button {
@@ -123,22 +89,6 @@
     padding: 30px;
     color: black;
 
-}
-
-#review-user-info {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-#review-date {
-    color: gray;
-    font-size: small;
-    margin-top: 3px;
-}
-
-#review {
-    margin-top: 15px;
 }
 
 #delete-user-review {
@@ -160,15 +110,4 @@
     width: 100px;
     color: black;
     text-decoration: none;
-}
-
-#other-reviews-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-#other-reviews {
-    margin-bottom: 30px;
 }
