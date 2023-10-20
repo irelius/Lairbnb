@@ -84,7 +84,7 @@ function LoginForm() {
                         Enter your account information to log in.
                     </div>
                 )}
-                <SubmitButton />
+                <SubmitButton buttonText="Continue" />
             </form>
             <div id="demo-login-container">
                 <button className="button font-12 pointer no-border" id="demo-login-button" onClick={signInDemo}>Demo Login</button>

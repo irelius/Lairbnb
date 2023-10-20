@@ -6,18 +6,24 @@ import { useDispatch } from "react-redux";
 import { deleteReviewThunk, loadReviewsThunk } from "../../../store/review";
 import { useState } from "react";
 import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
+import ReviewForm from "../../../components/Modals/ReviewModal";
 
 
 function UserReviewSection({ userReview, user, spotId }) {
     const history = useHistory();
     const dispatch = useDispatch()
     const [showLoginForm, setShowLoginForm] = useState(false)
+    const [showReviewForm, setShowReviewForm] = useState(false)
 
     const handleDelete = (e) => {
         e.preventDefault();
 
         dispatch(deleteReviewThunk(userReview.id))
         dispatch(loadReviewsThunk(spotId))
+    }
+
+    const closeReviewForm = () => {
+        setShowReviewForm(false)
     }
 
     return user === -1 ? (
@@ -46,15 +52,26 @@ function UserReviewSection({ userReview, user, spotId }) {
         ) : (
             <div id="login-container">
                 <div onClick={() => setShowLoginForm(true)}>
-                    Please <b>log in</b> to submit a review.
+                    Please <b className="pointer">log in</b> to submit a review.
                 </div>
             </div>
         )
     ) : user.id && Object.keys(userReview).length === 0 ? (
         // if user is logged in, but there's no review, give option to submit a review
-        <div id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => history.push(`/submit-review/${spotId}`)}>
-            Submit a Review
-        </div>
+        showReviewForm ? (
+            <div>
+                <section id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => setShowReviewForm(true)}>
+                    Submit a Review
+                </section >
+                <section className="modal" onClick={() => { setShowReviewForm(false) }}>
+                    <ReviewForm closeModal={closeReviewForm}/>
+                </section>
+            </div>
+        ) : (
+            <div id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => setShowReviewForm(true)}>
+                Submit a Review
+            </div >
+        )
     ) : (
         // if user is logged in and there's a review made by user
         <div className="hidden-container">

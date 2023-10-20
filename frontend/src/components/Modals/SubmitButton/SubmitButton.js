@@ -1,7 +1,7 @@
 import { useState } from "react"
 import "./SubmitButton.css"
 
-function SubmitButton() {
+function SubmitButton(props) {
     const [isHovered, setIsHovered] = useState(false);
 
     const handleMouseMove = (e) => {
@@ -30,7 +30,7 @@ function SubmitButton() {
                 handleMouseLeave(e);
             }}
         >
-            Continue
+            {props.buttonText}
         </button>
     );
 }

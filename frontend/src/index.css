@@ -153,3 +153,58 @@ button {
 } */
 
 /* ---------------------------------------------------------------------------------------------------------------- */
+
+/* Modal Stuff - General */
+.modal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 100%;
+
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-form-container {
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 15px;
+
+    height: 500px;
+    width: 450px;
+}
+
+.modal-form-header {
+    display: flex;
+    justify-content: center;
+
+    padding: 25px;
+    padding-bottom: 20px;
+
+    margin-bottom: 20px;
+}
+
+#modal-exit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    margin: 15px;
+    padding: 5px;
+    padding-left: 6px;
+
+    height: 20px;
+    width: 20px;
+
+    border-radius: 90%;
+}

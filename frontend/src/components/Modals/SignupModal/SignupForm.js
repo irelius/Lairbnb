@@ -99,7 +99,7 @@ function SignupForm() {
                         Enter your information to create an account.
                     </div>
                 )}
-                <SubmitButton />
+                <SubmitButton buttonText="Continue" />
             </form>
         </div>
     )

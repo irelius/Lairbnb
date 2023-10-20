@@ -1,12 +1,11 @@
 import "./SpotPage.css"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
-import { deleteReviewThunk, loadReviewsThunk, loadUserReviewThunk, resetReview } from "../../store/review";
+import { useParams } from "react-router-dom";
+import { loadReviewsThunk, loadUserReviewThunk, resetReview } from "../../store/review";
 import { loadSpotThunk, resetSpot } from "../../store/spot";
 
 import calculateStars from "../../utils/calculateStars";
-import formatMonthAndYear from "../../utils/formatMonthAndYear";
 import SpotSection from "./SpotSection/SpotSection";
 import OtherReviewSection from "./OtherReviewSection";
 import UserReviewSection from "./UserReviewSection/UserReviewSection";
@@ -18,8 +17,6 @@ function SpotPage() {
     const [load, setLoad] = useState(false)
     const [spotOwner, setSpotOwner] = useState(null)
     const [rating, setRating] = useState()
-    const [recalculate, setRecalculate] = useState(false)
-    const [showLoginForm, setShowLoginForm] = useState(false)
 
     // fetch the spot from backend
     useEffect(() => {
