@@ -15,7 +15,6 @@ function UserReviewSection({ user, spotId, setUpdateReviewAndRating, setReviewDe
 
     const userReview = useSelector(state => state.review.user)
     const [reviewSubmitted, setReviewSubmitted] = useState(userReview.id !== undefined)
-    // const [reviewDeleted, setReviewDeleted] = useState(false)
 
     useEffect(() => {
         dispatch(loadReviewsThunk(spotId))
@@ -24,7 +23,7 @@ function UserReviewSection({ user, spotId, setUpdateReviewAndRating, setReviewDe
     useEffect(() => {
         dispatch(loadUserReviewThunk(spotId))
         setUpdateReviewAndRating((prevState) => !prevState)
-    }, [dispatch, spotId, reviewSubmitted])
+    }, [dispatch, spotId, reviewSubmitted, setUpdateReviewAndRating])
 
 
     const handleDelete = (e) => {
