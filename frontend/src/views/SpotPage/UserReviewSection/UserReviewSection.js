@@ -1,6 +1,5 @@
 import "./UserReviewSection.css"
 
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import formatMonthAndYear from "../../../utils/formatMonthAndYear";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteReviewThunk, loadReviewsThunk, loadUserReviewThunk } from "../../../store/review";
@@ -9,13 +8,14 @@ import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
 import ReviewForm from "../../../components/Modals/ReviewModal";
 
 
-function UserReviewSection({ user, spotId }) {
+function UserReviewSection({ user, spotId, setUpdateReviewAndRating, setReviewDeleted}) {
     const dispatch = useDispatch()
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [showReviewForm, setShowReviewForm] = useState(false)
 
     const userReview = useSelector(state => state.review.user)
     const [reviewSubmitted, setReviewSubmitted] = useState(userReview.id !== undefined)
+    // const [reviewDeleted, setReviewDeleted] = useState(false)
 
     useEffect(() => {
         dispatch(loadReviewsThunk(spotId))
@@ -23,21 +23,22 @@ function UserReviewSection({ user, spotId }) {
 
     useEffect(() => {
         dispatch(loadUserReviewThunk(spotId))
-    }, [dispatch, reviewSubmitted, spotId])
+        setUpdateReviewAndRating((prevState) => !prevState)
+    }, [dispatch, spotId, reviewSubmitted])
 
 
     const handleDelete = (e) => {
         e.preventDefault();
 
         dispatch(deleteReviewThunk(userReview.id))
-        dispatch(loadReviewsThunk(spotId))
+        dispatch(loadUserReviewThunk(spotId))
+
+        setReviewDeleted(prevState => !prevState)
     }
 
     const closeReviewForm = () => {
         setShowReviewForm(false)
     }
-
-
 
     // if user is not logged in
     return user === -1 ? (

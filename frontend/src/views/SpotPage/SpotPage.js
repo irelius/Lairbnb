@@ -17,7 +17,8 @@ function SpotPage() {
     const [load, setLoad] = useState(false)
     const [spotOwner, setSpotOwner] = useState(null)
     const [rating, setRating] = useState()
-    const [reviewSubmitted, setReviewSubmitted] = useState(false)
+    const [updateReviewAndRating, setUpdateReviewAndRating] = useState(false)
+    const [reviewDeleted, setReviewDeleted] = useState(false)
 
     // fetch the spot from backend
     useEffect(() => {
@@ -45,7 +46,7 @@ function SpotPage() {
         return (() => {
             dispatch(resetReview())
         })
-    }, [dispatch, user, spotId, reviewSubmitted])
+    }, [dispatch, user, spotId, updateReviewAndRating, reviewDeleted])
 
     // set spot owner's name
     useEffect(() => {
@@ -79,7 +80,7 @@ function SpotPage() {
                 </section>
                 <section id="reviews">
                     <section>
-                        <UserReviewSection user={user} spotId={spotId}/>
+                        <UserReviewSection user={user} spotId={spotId} setUpdateReviewAndRating={setUpdateReviewAndRating} setReviewDeleted={setReviewDeleted}/>
                     </section>
                     <section id="other-reviews-container">
                         <OtherReviewSection allReviews={allReviews} user={user} />
