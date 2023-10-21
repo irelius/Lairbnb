@@ -13,6 +13,7 @@ import CreateReview from "./views/Review/CreateReview";
 import ManageListings from "./views/ManageListings/ManageListings";
 
 import * as userActions from "./store/user";
+import Test from "./test";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route exact path="/submit-review/:spotId">
             <CreateReview />
+          </Route>
+          <Route exact path="/test">
+            <Test />
           </Route>
         </Switch>
       )}

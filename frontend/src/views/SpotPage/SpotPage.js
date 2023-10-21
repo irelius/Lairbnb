@@ -17,6 +17,7 @@ function SpotPage() {
     const [load, setLoad] = useState(false)
     const [spotOwner, setSpotOwner] = useState(null)
     const [rating, setRating] = useState()
+    const [reviewSubmitted, setReviewSubmitted] = useState(false)
 
     // fetch the spot from backend
     useEffect(() => {
@@ -29,7 +30,7 @@ function SpotPage() {
     const spot = useSelector(state => state.spot)
     const user = useSelector(state => state.user.user) || -1
     const allReviews = useSelector(state => state.review.all)
-    const userReview = useSelector(state => state.review.user)
+    // const userReview = useSelector(state => state.review.user)
 
     // fetch the spot's reviews
     // TO DO: recalculate the spot review and average when use submits a review
@@ -44,7 +45,7 @@ function SpotPage() {
         return (() => {
             dispatch(resetReview())
         })
-    }, [dispatch, user, spotId])
+    }, [dispatch, user, spotId, reviewSubmitted])
 
     // set spot owner's name
     useEffect(() => {
@@ -63,6 +64,7 @@ function SpotPage() {
             <section id="spot-line"></section>
 
             <section id="review-section">
+                {/* Review Header section */}
                 <section id="review-header">
                     <aside>
                         <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
@@ -77,7 +79,7 @@ function SpotPage() {
                 </section>
                 <section id="reviews">
                     <section>
-                        <UserReviewSection userReview={userReview} user={user} spotId={spotId} />
+                        <UserReviewSection user={user} spotId={spotId}/>
                     </section>
                     <section id="other-reviews-container">
                         <OtherReviewSection allReviews={allReviews} user={user} />

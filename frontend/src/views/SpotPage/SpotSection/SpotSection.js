@@ -26,6 +26,7 @@ function SpotSection({spot, rating, allReviews, spotOwner}) {
                     {spot.city}, {spot.state}, {spot.country}
                 </aside>
             </div>
+            {/* Spot image. TO DO: set up airbnb's multiple photo set up */}
             {spot.previewImg ? (
                 <img id="spot-header-image" src={`${spot.previewImg}`} alt={`${spot.name}`} />
             ) : (

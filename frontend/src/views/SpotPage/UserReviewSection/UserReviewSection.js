@@ -2,18 +2,29 @@ import "./UserReviewSection.css"
 
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import formatMonthAndYear from "../../../utils/formatMonthAndYear";
-import { useDispatch } from "react-redux";
-import { deleteReviewThunk, loadReviewsThunk } from "../../../store/review";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteReviewThunk, loadReviewsThunk, loadUserReviewThunk } from "../../../store/review";
+import { useEffect, useState } from "react";
 import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
 import ReviewForm from "../../../components/Modals/ReviewModal";
 
 
-function UserReviewSection({ userReview, user, spotId }) {
-    const history = useHistory();
+function UserReviewSection({ user, spotId }) {
     const dispatch = useDispatch()
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [showReviewForm, setShowReviewForm] = useState(false)
+
+    const userReview = useSelector(state => state.review.user)
+    const [reviewSubmitted, setReviewSubmitted] = useState(userReview.id !== undefined)
+
+    useEffect(() => {
+        dispatch(loadReviewsThunk(spotId))
+    }, [dispatch, spotId])
+
+    useEffect(() => {
+        dispatch(loadUserReviewThunk(spotId))
+    }, [dispatch, reviewSubmitted, spotId])
+
 
     const handleDelete = (e) => {
         e.preventDefault();
@@ -26,8 +37,11 @@ function UserReviewSection({ userReview, user, spotId }) {
         setShowReviewForm(false)
     }
 
+
+
+    // if user is not logged in
     return user === -1 ? (
-        // if user is not logged in, ask user to log in, uses a modal to login
+        // did user click on the log in? if yes, open login modal
         showLoginForm ? (
             <div className="modal" onClick={() => setShowLoginForm(false)}>
                 <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
@@ -50,30 +64,36 @@ function UserReviewSection({ userReview, user, spotId }) {
                 </div>
             </div>
         ) : (
+            // login section, set login form true when clicked on
             <div id="login-container">
                 <div onClick={() => setShowLoginForm(true)}>
                     Please <b className="pointer">log in</b> to submit a review.
                 </div>
             </div>
         )
-    ) : user.id && Object.keys(userReview).length === 0 ? (
+
         // if user is logged in, but there's no review, give option to submit a review
+    ) : user.id && Object.keys(userReview).length === 0 ? (
+        // did user click on the submit review button? if yes, open submit review modal
         showReviewForm ? (
             <div>
                 <section id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => setShowReviewForm(true)}>
                     Submit a Review
                 </section >
                 <section className="modal" onClick={() => { setShowReviewForm(false) }}>
-                    <ReviewForm closeModal={closeReviewForm}/>
+                    <ReviewForm closeModal={closeReviewForm} setReviewSubmitted={setReviewSubmitted} />
                 </section>
             </div>
         ) : (
-            <div id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => setShowReviewForm(true)}>
-                Submit a Review
-            </div >
+            <div>
+                <div id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => setShowReviewForm(true)}>
+                    Submit a Review
+                </div >
+            </div>
         )
-    ) : (
+
         // if user is logged in and there's a review made by user
+    ) : (
         <div className="hidden-container">
             <section id="review-user-info">
                 <div id='review-icon-container'>
