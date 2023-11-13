@@ -39,6 +39,7 @@ export const loadReviewsThunk = (spotId) => async dispatch => {
 export const loadUserReviewThunk = (spotId) => async dispatch => {
     const res = await csrfFetch(`/api/reviews/spot/${spotId}/current`)
 
+
     if (res.ok) {
         const userReview = await res.json()
         dispatch(loadReview(userReview))

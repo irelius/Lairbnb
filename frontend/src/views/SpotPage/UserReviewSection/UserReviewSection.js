@@ -8,7 +8,7 @@ import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
 import ReviewForm from "../../../components/Modals/ReviewModal";
 
 
-function UserReviewSection({ user, spotId, setUpdateReviewAndRating, setReviewDeleted}) {
+function UserReviewSection({ user, spotId, setUpdateReviewAndRating, setReviewDeleted }) {
     const dispatch = useDispatch()
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [showReviewForm, setShowReviewForm] = useState(false)
@@ -21,7 +21,9 @@ function UserReviewSection({ user, spotId, setUpdateReviewAndRating, setReviewDe
     }, [dispatch, spotId])
 
     useEffect(() => {
-        dispatch(loadUserReviewThunk(spotId))
+        if(user !== -1) {
+            dispatch(loadUserReviewThunk(spotId))
+        }
         setUpdateReviewAndRating((prevState) => !prevState)
     }, [dispatch, spotId, reviewSubmitted, setUpdateReviewAndRating])
 

@@ -56,6 +56,8 @@ function SpotPage() {
         setRating(calculateStars(allReviews))
     }, [spot, allReviews])
 
+
+
     return load ? (
         <div>
             <section>
@@ -64,8 +66,8 @@ function SpotPage() {
 
             <section id="spot-line"></section>
 
+            {/* Review Header section */}
             <section id="review-section">
-                {/* Review Header section */}
                 <section id="review-header">
                     <aside>
                         <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
@@ -80,7 +82,7 @@ function SpotPage() {
                 </section>
                 <section id="reviews">
                     <section>
-                        <UserReviewSection user={user} spotId={spotId} setUpdateReviewAndRating={setUpdateReviewAndRating} setReviewDeleted={setReviewDeleted}/>
+                        <UserReviewSection user={user} spotId={spotId} setUpdateReviewAndRating={setUpdateReviewAndRating} setReviewDeleted={setReviewDeleted} />
                     </section>
                     <section id="other-reviews-container">
                         <OtherReviewSection allReviews={allReviews} user={user} />
