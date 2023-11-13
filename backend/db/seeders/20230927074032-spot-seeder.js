@@ -106,7 +106,7 @@ module.exports = {
         lat: 48.8566,
         lng: 2.3522,
         name: "Luxurious Log Cabin Retreat",
-        description: "Escape to the tranquility of nature in this opulent log cabin tucked away in the serene woods. This sprawling retreat boasts the rustic charm of a classic log cabin.Immerse yourself in the cozy ambiance of the stone fireplace in the grand living area, or unwind in the private sauna after a day of exploring the surrounding wilderness. ",
+        description: "Escape to the tranquility of nature in this opulent log cabin tucked away in the serene woods. This sprawling retreat boasts the rustic charm of a classic log cabin.Immerse yourself in the cozy ambiance of the stone fireplace in the grand living area, or unwind in the private sauna after a day of exploring the surrounding wilderness.",
         price: 350.00,
         previewImg: "https://www.christiesrealestate.com/blog/wp-content/uploads/2021/12/river-house-estate-telkwa-british-columbia-1.jpg",
         numReviews: 0,
