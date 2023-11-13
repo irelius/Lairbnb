@@ -17,8 +17,6 @@ const notFound = (el, code) => {
     return error
 }
 
-
-
 const validateURL = [
     check("url")
         .isURL()
@@ -28,7 +26,7 @@ const validateURL = [
 // ____________________________________________________________________________________
 
 // Add an Image to a Spot based on the Spot's id
-router.post("/spots/:spotId", [validateURL, restoreUser, authenticationRequired,], async (req, res, next) => {
+router.post("/spots/:spotId", [validateURL, restoreUser, authenticationRequired], async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId)
     // error if spot couldn't be found
     if (!spot) {
