@@ -34,7 +34,7 @@ module.exports = {
       spotId5 = spots[0][4].id
     }
 
-    await queryInterface.bulkInsert(options, [
+    const validReviews = [
       {
         userId: userId1,
         spotId: spotId1,
@@ -71,7 +71,9 @@ module.exports = {
         review: "meh",
         stars: 3
       }
-    ], { validate: true })
+    ]
+
+    await queryInterface.bulkInsert(options, validReviews, {})
   },
 
   async down(queryInterface, Sequelize) {

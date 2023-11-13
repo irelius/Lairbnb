@@ -11,7 +11,7 @@ options.tableName = "Users";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert(options, [
+    const validUsers = [
       {
         email: 'demo@aa.io',
         firstName: "Demo",
@@ -30,7 +30,9 @@ module.exports = {
         lastName: "Two",
         hashedPassword: bcrypt.hashSync('password')
       }
-    ], { validate: true });
+    ]
+
+    await queryInterface.bulkInsert(options, validUsers, {});
   },
 
   async down(queryInterface, Sequelize) {

@@ -34,7 +34,7 @@ module.exports = {
       spotId5 = spots[0][4].id
     }
 
-    await queryInterface.bulkInsert(options, [
+    const validBookings = [
       {
         spotId: spotId1,
         userId: userId2,
@@ -65,7 +65,9 @@ module.exports = {
         startDate: "2055-05-15",
         endDate: "2055-12-35"
       }
-    ], { validate: true })
+    ]
+
+    await queryInterface.bulkInsert(options, validBookings, {})
   },
 
   async down(queryInterface, Sequelize) {

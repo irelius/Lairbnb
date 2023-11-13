@@ -30,7 +30,7 @@ module.exports = {
       spotId4 = spots[0][3].id
     }
 
-    await queryInterface.bulkInsert(options, [
+    const validImages = [
       {
         reviewId: reviewId1,
         url: "https://www.thehousedesigners.com/images/plans/01/URD/bulk/6583/the-destination-front-rendering_m.webp"
@@ -55,7 +55,9 @@ module.exports = {
         reviewId: reviewId5,
         url: "https://www.pngkey.com/png/detail/4-47353_3-stars-3-.png"
       }
-    ], { validate: true })
+    ]
+
+    await queryInterface.bulkInsert(options, validImages, {})
   },
 
   async down(queryInterface, Sequelize) {
