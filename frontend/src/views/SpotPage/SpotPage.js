@@ -59,7 +59,7 @@ function SpotPage() {
 
 
     return load ? (
-        <div>
+        <div id="spot-detail-main">
             <section>
                 <SpotSection spot={spot} rating={rating} allReviews={allReviews} spotOwner={spotOwner} />
             </section>
