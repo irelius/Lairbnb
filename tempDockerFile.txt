@@ -1,0 +1,17 @@
+FROM --platform=amd64 node:16-alpine as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+ARG SCHEMA=test_lairbnb
+ENV SCHEMA=${SCHEMA}
+
+ARG DATABASE_URL=postgres://irelius_database_7on3_user:eFWcuIQDVvxi9FRx9g1ZeAit0mVMIThD@dpg-cl8pldivokcc73b28ks0-a.oregon-postgres.render.com/irelius_database_7on3
+ENV DATABASE_URL=${DATABASE_URL}
+
+
+ARG JWT_SECRET=rBYR9313XglTIg==
+ENV JWT_SECRET=${JWT_SECRET}
+
+ARG JWT_EXPIRES_IN=60400
+ENV JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
