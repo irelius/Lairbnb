@@ -16,22 +16,30 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      reviewId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'Reviews'
-        },
-        onDelete: 'CASCADE'
+      type: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
-      spotId: {
+      typeId: {
         type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'Spots'
-        },
-        onDelete: 'CASCADE'
+        allowNull: false,
       },
+    //   reviewId: {
+    //     type: Sequelize.INTEGER,
+    //     allowNull: true,
+    //     references: {
+    //       model: 'Reviews'
+    //     },
+    //     onDelete: 'CASCADE'
+    //   },
+    //   spotId: {
+    //     type: Sequelize.INTEGER,
+    //     allowNull: true,
+    //     references: {
+    //       model: 'Spots'
+    //     },
+    //     onDelete: 'CASCADE'
+    //   },
       url: {
         type: Sequelize.STRING,
         allowNull: false,
