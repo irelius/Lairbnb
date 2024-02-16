@@ -28,7 +28,7 @@ const reviewAuthorization = async function (req, res, next) {
 }
 
 // Authorization not required for Booking
-const authorizationNotRequiredBookings = async function (req, res, next) {
+const bookingOwnerAuthorization = async function (req, res, next) {
     const spot = await Spot.findByPk(req.params.spotId);
     if (!spot) {
         return next(notFound("Spot", 404))
@@ -98,7 +98,7 @@ const imagesAuthorization = async function (req, res, next) {
 module.exports = {
     spotAuthorization,
     reviewAuthorization,
-    authorizationNotRequiredBookings,
+    bookingOwnerAuthorization,
     bookingAuthorization,
     imagesAuthorization
 }

@@ -2,11 +2,10 @@ const express = require('express')
 const router = express.Router();
 
 const { User, Spot, Booking } = require('../../db/models');
-const { check } = require('express-validator');
 
-const { handleValidationErrors, validateBooking } = require('../../utils/validations')
+const { validateBooking } = require('../../utils/validations')
 const { restoreUser, authRequired } = require("../../utils/authentication.js");
-const { authorizationNotRequiredBookings, bookingAuthorization } = require("../../utils/authorization")
+const { bookingOwnerAuthorization, bookingAuthorization } = require("../../utils/authorization")
 const { validationError, notFound } = require('../../utils/helper.js')
 
 
@@ -48,6 +47,9 @@ router.get("/current", [restoreUser, authRequired], async (req, res) => {
 // Get all Bookings for a Spot based on the Spot's id
 router.get("/:spotId", [restoreUser, authRequired], async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
+
+    console.log('asdf', spot)
+
     // send error if spot is not found
     if (!spot) {
         return next(notFound("Spot", 404))
@@ -79,11 +81,11 @@ router.get("/:spotId", [restoreUser, authRequired], async (req, res, next) => {
 
 
 // Create a Booking from a Spot based on the Spot's id
-router.post("/:spotId", [validateBooking, restoreUser, authRequired, authorizationNotRequiredBookings], async (req, res, next) => {
+router.post("/:spotId", [validateBooking, restoreUser, authRequired, bookingOwnerAuthorization], async (req, res, next) => {
     const { startDate, endDate } = req.body;
     // error response: body validation errors
     if (endDate <= startDate) {
-        return next(validationError("endDate cannot be on or before startDate", 400))
+        return next(validationError("End date cannot be on or before start date", 400))
     }
     // error response: booking conflict
     const bookingCheck = await Booking.findAll({
@@ -181,7 +183,7 @@ router.delete("/:bookingId", [restoreUser, authRequired, bookingAuthorization], 
     let compareCurrentDate = new Date()
     compareCurrentDate = compareCurrentDate.toISOString().split("T")[0]
     if (deleteBooking.startDate <= compareCurrentDate) {
-        const error = new Error("Booking that have been started can't be deleted");
+        const error = new Error("Bookings that have been started can't be deleted");
         error.statusCode = 403;
         error.status = 403;
         return next(error);
