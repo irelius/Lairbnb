@@ -2,42 +2,12 @@
 const express = require('express')
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
-const { check } = require('express-validator');
 
-const { handleValidationErrors } = require('../../utils/validations');
-const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth');
+const { validateLogin, validateSignup } = require('../../utils/validations')
+const { setTokenCookie } = require('../../utils/authentication');
 const { User } = require('../../db/models');
 
 const router = express.Router();
-
-const validateLogin = [
-    check('email')
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .withMessage('Please provide a valid email.'),
-    check('password')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide a password.'),
-    handleValidationErrors
-];
-
-const validateSignup = [
-    check('email')
-        .exists({ checkFalsy: true })
-        .isEmail()
-        .withMessage('Please provide a valid email.'),
-    check('firstName')
-        .exists({ checkFalsy: true })
-        .withMessage("Please provie a first name."),
-    check('lastName')
-        .exists({ checkFalsy: true })
-        .withMessage("Please provide a last name."),
-    check('password')
-        .exists({ checkFalsy: true })
-        .isLength({ min: 6 })
-        .withMessage('Password must be 6 characters or more.'),
-    handleValidationErrors
-];
 
 
 // Log in
@@ -78,12 +48,12 @@ router.post('/login', validateLogin, async (req, res, next) => {
     });
 });
 
-
 // Log out
 router.delete('/logout', (_req, res) => {
     res.clearCookie('token');
     return res.json({ message: 'Successfully logged out' });
 });
+
 
 // Sign up
 router.post('/signup', validateSignup, async (req, res) => {
@@ -104,7 +74,6 @@ router.post('/signup', validateSignup, async (req, res) => {
         user: safeUser
     });
 });
-
 
 // Restore session user
 router.get('/restore', (req, res) => {

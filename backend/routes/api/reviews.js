@@ -2,36 +2,17 @@ const express = require('express')
 const router = express.Router();
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validations');
-
-const { setTokenCookie, requireAuth, restoreUser, authenticationRequired, authorizationRequiredReviews } = require('../../utils/auth');
 const { User, Spot, Image, Review } = require('../../db/models');
 
-
-// helper function for a particular element not found
-const notFound = (el, code) => {
-    let error = new Error(`${el} couldn't be found`);
-    error.status = code;
-    error.statusCode = code;
-    return error
-}
-
-const validateReviews = [
-    check("review")
-        .notEmpty()
-        .withMessage("Review test is required"),
-    check("stars")
-        .notEmpty()
-        .isInt({ min: 1, max: 5 })
-        .withMessage("Stars must be an integer from 1 to 5"),
-    handleValidationErrors
-]
-
+const { handleValidationErrors, validateReviews } = require('../../utils/validations');
+const { setTokenCookie, restoreUser, authRequired } = require("../../utils/authentication.js");
+const { reviewAuthorization } = require("../../utils/authorization")
+const { notFound } = require('../../utils/helper.js')
 
 // ___________________________________________________________________________________________________________________
 
 // Get all Reviews of the Current User
-router.get("/current", [restoreUser, authenticationRequired], async (req, res, next) => {
+router.get("/current", [restoreUser, authRequired], async (req, res, next) => {
     const allReviews = await Review.findAll({
         where: {
             userId: req.user.id
@@ -61,7 +42,7 @@ router.get("/current", [restoreUser, authenticationRequired], async (req, res, n
 
 
 // Get a Review by its ID number
-router.get("/:reviewId", [restoreUser, authenticationRequired], async (req, res, next) => {
+router.get("/:reviewId", [restoreUser, authRequired], async (req, res, next) => {
     const review = await Review.findByPk(req.params.reviewId, {
         include: [
             {
@@ -83,7 +64,7 @@ router.get("/:reviewId", [restoreUser, authenticationRequired], async (req, res,
 
 
 // Get the review of a particular spot that belongs to the current user
-router.get("/spot/:spotId/current", [restoreUser, authenticationRequired], async (req, res, next) => {
+router.get("/spot/:spotId/current", [restoreUser, authRequired], async (req, res, next) => {
     const review = await Review.findAll({
         where: {
             userId: req.user.id,
@@ -137,7 +118,7 @@ router.get("/spot/:spotId", async (req, res, next) => {
 
 
 // Create a Review for a Spot based on the Spot's id
-router.post("/spot/:spotId", [validateReviews, restoreUser, authenticationRequired], async (req, res, next) => {
+router.post("/spot/:spotId", [validateReviews, restoreUser, authRequired], async (req, res, next) => {
     const { review, stars } = req.body;
     const currentReviews = await Review.findAll({
         where: {
@@ -169,7 +150,7 @@ router.post("/spot/:spotId", [validateReviews, restoreUser, authenticationRequir
 
 // Edit a Review
 // TODO: i don't like how i have the validation here, try to figure out how to implement validation on models and format the try-catch
-router.put("/:reviewId", [validateReviews, restoreUser, authenticationRequired, authorizationRequiredReviews], async (req, res, next) => {
+router.put("/:reviewId", [validateReviews, restoreUser, authRequired, reviewAuthorization], async (req, res, next) => {
     const { review, stars } = req.body;
     const updateReview = await Review.findByPk(req.params.reviewId)
     // update review
@@ -183,7 +164,7 @@ router.put("/:reviewId", [validateReviews, restoreUser, authenticationRequired, 
 
 
 // Delete a Review
-router.delete("/:reviewId", [restoreUser, authenticationRequired, authorizationRequiredReviews], async (req, res, next) => {
+router.delete("/:reviewId", [restoreUser, authRequired, reviewAuthorization], async (req, res, next) => {
     // destroy review
     await Review.destroy({
         where: {

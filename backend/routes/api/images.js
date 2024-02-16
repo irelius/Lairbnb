@@ -3,30 +3,18 @@ const router = express.Router();
 const { Op } = require("sequelize")
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validations');
-
-const { setTokenCookie, requireAuth, restoreUser, authenticationRequired, authorizationRequiredImages } = require('../../utils/auth');
 const { User, Spot, Image, Review } = require('../../db/models');
 
+const { handleValidationErrors, validateURL } = require('../../utils/validations');
+const { setTokenCookie, restoreUser, authRequired } = require('../../utils/authentication');
+const { imagesAuthorization } = require("../../utils/authorization")
+const { validationError, notFound } = require('../../utils/helper.js')
 
-// helper function: not found
-const notFound = (el, code) => {
-    let error = new Error(`${el} couldn't be found`);
-    error.status = code;
-    error.statusCode = code;
-    return error
-}
 
-const validateURL = [
-    check("url")
-        .isURL()
-        .withMessage("URL is not valid"),
-    handleValidationErrors
-]
 // ____________________________________________________________________________________
 
 // Add an Image to a Spot based on the Spot's id
-router.post("/spots/:spotId", [validateURL, restoreUser, authenticationRequired], async (req, res, next) => {
+router.post("/spots/:spotId", [validateURL, restoreUser, authRequired], async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId)
     // error if spot couldn't be found
     if (!spot) {
@@ -45,7 +33,7 @@ router.post("/spots/:spotId", [validateURL, restoreUser, authenticationRequired]
 
 
 // Add an Image to a Review based on the Review's id
-router.post("/reviews/:reviewId", [validateURL, restoreUser, authenticationRequired, authorizationRequiredImages], async (req, res, next) => {
+router.post("/reviews/:reviewId", [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
     const review = await Review.findByPk(req.params.reviewId)
     // error if spot couldn't be found
     if (!review) {
@@ -79,7 +67,7 @@ router.post("/reviews/:reviewId", [validateURL, restoreUser, authenticationRequi
 
 
 // Delete an Image
-router.delete("/:imageId", [restoreUser, authenticationRequired, authorizationRequiredImages], async (req, res, next) => {
+router.delete("/:imageId", [restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
     const deleteImage = await Image.findByPk(req.params.imageId)
     // error if image doesn't exist
     if (!deleteImage) {

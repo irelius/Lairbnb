@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        // type ID is to refer to the id of user, spot or review
+        // type ID is for the id of the type (user, spot, review)
         typeId: {
             type: DataTypes.INTEGER,
             allowNull: false,
