@@ -94,12 +94,22 @@ module.exports = {
                 type: "spot",
                 typeId: spotId10,
                 url: "https://www.designcurial.com/Uploads/NewsArticle/4809815/main.jpg",
+            },
+            {
+                type: "review",
+                typeId: reviewId1,
+                url: "https://www.thehousedesigners.com/images/plans/01/URD/bulk/6583/the-destination-front-rendering_m.webp"
+            },
+            {
+                type: "review",
+                typeId: reviewId3,
+                url: "https://www.mydomaine.com/thmb/7Z1D20vZj7Eex5SIr3E_nJMWw8k=/2048x1536/filters:no_upscale():max_bytes(150000):strip_icc()/SuCasaDesign-Modern-9335be77ca0446c7883c5cf8d974e47c.jpg",
+            },
+            {
+                type: "review",
+                typeId: reviewId5,
+                url: "https://www.designcurial.com/Uploads/NewsArticle/4809815/main.jpg",
             }
-            //   {
-            //     type: "review",
-            //     typeId: reviewId1,
-            //     url: "https://www.thehousedesigners.com/images/plans/01/URD/bulk/6583/the-destination-front-rendering_m.webp"
-            //   },
             //   {
             //     type: "spot",
             //     typeId: spotId1,

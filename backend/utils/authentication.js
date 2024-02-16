@@ -1,8 +1,8 @@
-// backend/utils/auth.js
+// backend/utils/authentication.js
+
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User, Spot, Image, Review, Booking } = require('../db/models');
-const { notFound, forbidden } = require('./helper')
+const { User } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -69,8 +69,7 @@ const authRequired = function (req, res, next) {
     if (req.user) return next();
 
     const error = new Error("Authentication required");
-    err.title = 'Authentication required';
-    err.errors = { message: 'Authentication required' };
+    error.title = 'Authentication required';
     error.status = 401
     return next(error);
 }

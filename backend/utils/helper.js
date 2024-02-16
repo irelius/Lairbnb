@@ -1,10 +1,4 @@
-// backend/utils/authentication.js
-const jwt = require('jsonwebtoken');
-const { jwtConfig } = require('../config');
-const { User, Spot, Image, Review, Booking } = require('../db/models');
-
-const { secret, expiresIn } = jwtConfig;
-
+// backend/utils/helper.js
 
 // helper function for a particular element not found
 const notFound = (el, code) => {

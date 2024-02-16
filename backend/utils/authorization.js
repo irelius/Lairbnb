@@ -1,6 +1,5 @@
 // backend/utils/authorization.js
-const jwt = require('jsonwebtoken');
-const { jwtConfig } = require('../config');
+
 const { Spot, Image, Review, Booking } = require('../db/models');
 const { notFound, forbidden } = require('./helper')
 
@@ -54,6 +53,7 @@ const bookingAuthorization = async function (req, res, next) {
 
 
 // Authorization required for Images
+// TO DO: fix this authorization for images now that images is a separate table
 const imagesAuthorization = async function (req, res, next) {
     // checking if image url is being added to a spot
     if (req.params.spotId) {

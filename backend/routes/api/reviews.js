@@ -1,11 +1,10 @@
 const express = require('express')
 const router = express.Router();
 
-const { check } = require('express-validator');
 const { User, Spot, Image, Review } = require('../../db/models');
 
-const { handleValidationErrors, validateReviews } = require('../../utils/validations');
-const { setTokenCookie, restoreUser, authRequired } = require("../../utils/authentication.js");
+const { validateReviews } = require('../../utils/validations');
+const { restoreUser, authRequired } = require("../../utils/authentication.js");
 const { reviewAuthorization } = require("../../utils/authorization")
 const { notFound } = require('../../utils/helper.js')
 
@@ -26,9 +25,10 @@ router.get("/current", [restoreUser, authRequired], async (req, res, next) => {
                 model: Spot,
                 attributes: { exclude: ["description", "numReviews", "avgStarRating", "createdAt", "updatedAt", "OwnerId"] }
             },
+
             {
                 model: Image,
-                attributes: ["id", ["spotId", "imageableId"], ["reviewId", "imageableId"], "url"]
+                attributes: ["id", "type", "typeId", "url"]
             }
         ]
     })
@@ -51,7 +51,7 @@ router.get("/:reviewId", [restoreUser, authRequired], async (req, res, next) => 
             },
             {
                 model: Spot,
-                attributes: { exclude: ["description", "numReviews", "avgStarRating", "createdAt", "updatedAt", "OwnerId"] }
+                attributes: { exclude: ["address", "city", "state", "country", "lat", "lng", "price", "numReviews"] }
             }
         ]
     })
@@ -81,7 +81,7 @@ router.get("/spot/:spotId/current", [restoreUser, authRequired], async (req, res
             },
             {
                 model: Image,
-                attributes: ["id", ["spotId", "imageableId"], ["reviewId", "imageableId"], "url"]
+                attributes: ["id", "type", "typeId", "url"]
             }
         ]
     })
@@ -109,7 +109,7 @@ router.get("/spot/:spotId", async (req, res, next) => {
             },
             {
                 model: Image,
-                attributes: ["id", ["spotId", "imageableId"], ["reviewId", "imageableId"], "url"]
+                attributes: ["id", "type", "typeId", "url"]
             }
         ]
     })
@@ -144,6 +144,8 @@ router.post("/spot/:spotId", [validateReviews, restoreUser, authRequired], async
         review: review,
         stars: stars
     })
+
+    // Review this route to check if any images were attached. will need to create a new entry in the image table
     res.status(201).json(newReview)
 })
 
