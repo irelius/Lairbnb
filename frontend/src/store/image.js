@@ -93,18 +93,23 @@ export const loadImagesThunk = (type, typeId) => async (dispatch) => {
 
 
 export const addImageThunk = (image) => async dispatch => {
-    const response = await csrfFetch(`/api/images/`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(image)
-    })
+    try {
+        const response = await csrfFetch(`/api/images`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(image)
+        })
 
-    if (response.ok) {
-        const image = await response.json();
-        dispatch(addImage(image))
+        if (response.ok) {
+            const image = await response.json();
+            dispatch(addImage(image))
+        }
+    } catch (e) {
+        console.error(e)
     }
+
 }
 
 // export const editImageThunk = (imageId, imageDetails) => async dispatch => {
@@ -128,6 +133,7 @@ export const deleteImageThunk = (imageId) => async dispatch => {
     })
 
     if (response.ok) {
+        dispatch(deleteImage(imageId))
         console.log("Listing successfully deleted.")
     }
 }
@@ -151,15 +157,21 @@ const imageReducer = (state = imageState, action) => {
             }
 
             return newState
-        // case ADD_IMAGE:
-        //     newState[action.payload.id] = action.payload
-        //     return newState;
+        case ADD_IMAGE:
+            let newImage = action.payload
+            newState.byId[newImage.id] = newImage
+            newState.allIds.push(newImage.id)
+
+            return newState;
         // case EDIT_IMAGE:
         //     newState[action.payload.id] = action.payload;
         //     return newState;
-        // case DELETE_IMAGE:
-        //     delete newState[action.payload.id]
-        //     return newState;
+        case DELETE_IMAGE:
+            delete newState.byId[action.payload]
+            const indexToDelete = imageState.allIds.indexOf(action.payload)
+            imageState.allIds.splice(indexToDelete, 1)
+
+            return newState;
         default:
             return newState;
     }

@@ -39,6 +39,7 @@ router.get("/:type/:typeId", async (req, res) => {
 
 // Create an Image
 router.post('/', [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
+    // router.post('/', [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
     const { type, typeId, url } = req.body
 
     let typeCategory;
@@ -66,6 +67,7 @@ router.post('/', [validateURL, restoreUser, authRequired, imagesAuthorization], 
         }
     }
 
+
     // If Spot/Review doesn't exist, return error
     if (!typeRes) {
         return next(notFound(typeCategory, 404))
@@ -73,18 +75,18 @@ router.post('/', [validateURL, restoreUser, authRequired, imagesAuthorization], 
 
     // if spot/review exists, create new image
     const newImage = await Image.create({
-        typeId: typeId,
+        userId: req.user.id,
         type: type,
+        typeId: typeId,
         url: url,
-        userId: req.user.id
     })
 
     res.json({
         id: newImage.id,
+        userId: req.user.id,
         type: newImage.type,
         typeId: newImage.typeId,
         url: newImage.url,
-        userId: req.user.id
     })
 })
 
