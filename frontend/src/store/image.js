@@ -3,7 +3,7 @@ import { csrfFetch } from "./csrf"
 const LOAD_IMAGE = "/image/load"
 const LOAD_IMAGES = "/images/load"
 const ADD_IMAGE = "/images/add"
-const EDIT_IMAGE = "/images/edit"
+// const EDIT_IMAGE = "/images/edit"
 const DELETE_IMAGE = "/images/delete"
 const CLEAR_IMAGE = "/images/clear"
 
@@ -21,16 +21,37 @@ export const loadImages = (images) => {
     }
 }
 
-export const addSpot = (newImage) => {
+export const addImage = (newImage) => {
     return {
         type: ADD_IMAGE,
         payload: newImage
     }
 }
 
-export const loadImageThunk = (type, typeId) => async (dispatch) => {
+// export const editImage = (image) => {
+//     return {
+//         type: EDIT_IMAGE,
+//         payload: image
+//     }
+// }
+
+export const deleteImage = (image) => {
+    return {
+        type: DELETE_IMAGE,
+        payload: image
+    }
+}
+
+export const resetImage = () => {
+    return {
+        type: CLEAR_IMAGE
+    }
+}
+
+// thunk action to get one image
+export const loadImageThunk = (imageId) => async (dispatch) => {
     try {
-        const res = await csrfFetch(`/api/images/${type}/${typeId}`)
+        const res = await csrfFetch(`/api/images/${imageId}`)
         if (res.ok) {
             const image = await res.json();
             dispatch(loadImage(image))
@@ -42,42 +63,51 @@ export const loadImageThunk = (type, typeId) => async (dispatch) => {
     return []
 }
 
-export const loadImagesThunk = () => async (dispatch) => {
+// thunk action to get all images
+export const loadAllImagesThunk = () => async (dispatch) => {
+
     try {
         const res = await csrfFetch(`/api/images`);
         if (res.ok) {
             const images = await res.json();
             dispatch(loadImages(images))
         }
-    } catch (error) {
-        console.error("Error loading images:", error)
+    } catch (e) {
+        console.error("Error loading images:", e)
     }
 }
 
 
-export const addSpotThunk = (type, typeId, newSpot) => async dispatch => {
-    const response = await csrfFetch(`/api/images/${type}/${typeId}`, {
+// thunk action to get all images for a review or spot
+export const loadImagesThunk = (type, typeId) => async (dispatch) => {
+    try {
+        const res = await csrfFetch(`/api/${type}/${typeId}`)
+        if (res.ok) {
+            const images = await res.json()
+            dispatch(loadImages(images))
+        }
+    } catch (e) {
+        console.error("Ereror loading images:", e)
+    }
+}
+
+
+export const addImageThunk = (image) => async dispatch => {
+    const response = await csrfFetch(`/api/images/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(newSpot)
+        body: JSON.stringify(image)
     })
 
     if (response.ok) {
         const image = await response.json();
-        dispatch(addSpot(image))
+        dispatch(addImage(image))
     }
 }
 
-// export const editSpot = (image) => {
-//     return {
-//         type: EDIT_IMAGE,
-//         payload: image
-//     }
-// }
-
-// export const editSpotThunk = (imageId, imageDetails) => async dispatch => {
+// export const editImageThunk = (imageId, imageDetails) => async dispatch => {
 //     const response = await csrfFetch(`/api/images/${imageId}`, {
 //         method: "PUT",
 //         headers: {
@@ -88,36 +118,23 @@ export const addSpotThunk = (type, typeId, newSpot) => async dispatch => {
 
 //     if (response.ok) {
 //         const image = await response.json();
-//         dispatch(editSpot(image))
+//         dispatch(editImage(image))
 //     }
 // }
 
-// export const deleteSpot = (image) => {
-//     return {
-//         type: DELETE_IMAGE,
-//         payload: image
-//     }
-// }
+export const deleteImageThunk = (imageId) => async dispatch => {
+    const response = await csrfFetch(`/api/images/${imageId}`, {
+        method: "DELETE"
+    })
 
-// export const deleteSpotThunk = (deleteSpot) => async dispatch => {
-//     const response = await csrfFetch(`/api/images/${deleteSpot.id}`, {
-//         method: "DELETE"
-//     })
-
-//     if (response.ok) {
-//         console.log("Listing successfully deleted.")
-//     }
-// }
-
-// export const resetSpot = () => {
-//     return {
-//         type: CLEAR_IMAGE
-//     }
-// }
+    if (response.ok) {
+        console.log("Listing successfully deleted.")
+    }
+}
 
 const imageState = {
     byId: {},
-    allIds: {}
+    allIds: []
 }
 
 // ----------------------------------------------------------------------------------------------------------
@@ -126,18 +143,14 @@ const imageReducer = (state = imageState, action) => {
     switch (action.type) {
         case LOAD_IMAGE:
             return action.payload
-        // case LOAD_IMAGES:
-        //     const images = {}
+        case LOAD_IMAGES:
+            for (let i = 0; i < action.payload.length; i++) {
+                let curr = action.payload[i]
+                newState.byId[curr.id] = curr
+                newState.allIds.push(curr.id)
+            }
 
-        //     if (!action.payload.Spots) {
-        //         return images
-        //     }
-
-        //     action.payload.Spots.forEach((el, i) => {
-        //         images[el.id] = el
-        //     })
-
-        //     return images
+            return newState
         // case ADD_IMAGE:
         //     newState[action.payload.id] = action.payload
         //     return newState;

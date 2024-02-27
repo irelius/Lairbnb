@@ -5,11 +5,13 @@ import thunk from 'redux-thunk';
 import userReducer from './user';
 import spotReducer from './spot';
 import reviewReducer from './review';
+import imageReducer from './image';
 
 const rootReducer = combineReducers({
     user: userReducer,
     spot: spotReducer,
-    review: reviewReducer
+    review: reviewReducer,
+    image: imageReducer,
 });
 
 let enhancer;
