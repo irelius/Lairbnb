@@ -21,7 +21,6 @@ function Test() {
     }
 
     const images = useSelector(state => state.image)
-    // console.log('booba', images)
 
     return (
         <div>
@@ -29,7 +28,7 @@ function Test() {
                 {images.allIds.map((el) => {
                     return (
                         <div>
-                            <img src={images.byId[el].url} alt='booba' />
+                            <img src={images.byId[el].url} alt='test' />
                         </div>
                     )
                 })}

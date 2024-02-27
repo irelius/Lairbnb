@@ -5,7 +5,6 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 
 function Spot({ el }) {
-    // console.log('booba', el)
 
     // const dispatch = useDispatch()
     // useEffect(() =>  {
