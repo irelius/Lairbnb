@@ -1,8 +1,16 @@
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
 import "./Spot.css"
 import loadImage from "../../utils/loadImage"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
 
 function Spot({ el }) {
+    // console.log('booba', el)
+
+    // const dispatch = useDispatch()
+    // useEffect(() =>  {
+    // }, [dispatch])
+
     return (
         <NavLink exact to={`/spot-details/${el.id}`} id="spot-container">
             <section id="spot-image-container">{loadImage(el)}</section>

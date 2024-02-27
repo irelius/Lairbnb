@@ -52,46 +52,66 @@ const bookingAuthorization = async function (req, res, next) {
 }
 
 
-// Authorization required for Images
+// Authorization required for Images. Only owner of review or spot should be able to create images
 // TO DO: fix this authorization for images now that images is a separate table
 const imagesAuthorization = async function (req, res, next) {
-    // checking if image url is being added to a spot
-    if (req.params.spotId) {
-        const spot = await Spot.findByPk(req.params.spotId);
+    let type = req.params.type
+    let typeId = req.params.typeId
+
+    // check if user is owner of spot. forbidden if not owner
+    if (type === "spot") {
+        const spot = await Spot.findByPk(typeId)
         if (spot.ownerId !== req.user.id) {
             return next(forbidden())
         }
-        return next();
     }
-    // checking if image url is being added to a review
-    if (req.params.reviewId) {
-        const review = await Review.findByPk(req.params.reviewId);
-        if (req.user.id !== review.userId) {
+    // check if user is owner of review. forbidden if not reviewer
+    else {
+        const review = await Review.findByPk(typeId)
+        if (review.userId !== req.user.id) {
             return next(forbidden())
         }
-        return next();
     }
-    // checking if image url is being deleted
-    if (req.params.imageId) {
-        const deleteImage = await Image.findByPk(req.params.imageId)
-        const reviewCheck = await Review.findOne({
-            where: {
-                id: deleteImage.reviewId
-            }
-        })
-        const spotCheck = await Spot.findOne({
-            where: {
-                id: deleteImage.spotId
-            }
-        })
-        if (reviewCheck && reviewCheck.userId !== req.user.id) {
-            return next(forbidden())
-        }
-        if (spotCheck && spotCheck.ownerId !== req.user.id) {
-            return next(forbidden())
-        }
-        return next();
-    }
+
+    return next()
+
+    // // checking if image url is being added to a spot
+    // if (req.params.spotId) {
+    //     const spot = await Spot.findByPk(req.params.spotId);
+    //     if (spot.ownerId !== req.user.id) {
+    //         return next(forbidden())
+    //     }
+    //     return next();
+    // }
+    // // checking if image url is being added to a review
+    // if (req.params.reviewId) {
+    //     const review = await Review.findByPk(req.params.reviewId);
+    //     if (req.user.id !== review.userId) {
+    //         return next(forbidden())
+    //     }
+    //     return next();
+    // }
+    // // checking if image url is being deleted
+    // if (req.params.imageId) {
+    //     const deleteImage = await Image.findByPk(req.params.imageId)
+    //     const reviewCheck = await Review.findOne({
+    //         where: {
+    //             id: deleteImage.reviewId
+    //         }
+    //     })
+    //     const spotCheck = await Spot.findOne({
+    //         where: {
+    //             id: deleteImage.spotId
+    //         }
+    //     })
+    //     if (reviewCheck && reviewCheck.userId !== req.user.id) {
+    //         return next(forbidden())
+    //     }
+    //     if (spotCheck && spotCheck.ownerId !== req.user.id) {
+    //         return next(forbidden())
+    //     }
+    //     return next();
+    // }
 }
 
 
