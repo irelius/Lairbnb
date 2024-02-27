@@ -14,83 +14,61 @@ export const loadImage = (image) => {
     }
 }
 
-// export const loadSpot = (image) => {
-//     return {
-//         type: LOAD_IMAGE,
-//         payload: image
-//     }
-// }
+export const loadImages = (images) => {
+    return {
+        type: LOAD_IMAGES,
+        payload: images
+    }
+}
 
-// export const loadSpots = (images) => {
-//     return {
-//         type: LOAD_IMAGES,
-//         payload: images
-//     }
-// }
+export const addSpot = (newImage) => {
+    return {
+        type: ADD_IMAGE,
+        payload: newImage
+    }
+}
 
-// // thunk action for all images
-// export const loadAllSpotsThunk = () => async (dispatch) => {
-//     try {
-//         const response = await csrfFetch('/api/images');
-//         if (response.ok) {
-//             const allSpots = await response.json();
-//             dispatch(loadSpots(allSpots));
-//         }
-//     } catch (error) {
-//         console.error("Error loading images:", error);
-//     }
-//     return []
-// };
+export const loadImageThunk = (type, typeId) => async (dispatch) => {
+    try {
+        const res = await csrfFetch(`/api/images/${type}/${typeId}`)
+        if (res.ok) {
+            const image = await res.json();
+            dispatch(loadImage(image))
+        }
+    } catch (e) {
+        console.error("Error loading image:", e)
+    }
 
-// // thunk action for one specific image
-// export const loadSpotThunk = (imageId) => async (dispatch) => {
-//     try {
-//         const res = await csrfFetch(`/api/images/${imageId}`)
-//         if (res.ok) {
-//             const image = await res.json();
-//             dispatch(loadSpot(image))
-//         }
-//     } catch (error) {
-//         console.log("Error loading one image:", error)
-//     }
-//     return []
-// }
+    return []
+}
 
-// // thunk action for user's listings/images
-// export const loadUserSpotsThunk = () => async (dispatch) => {
-//     try {
-//         const res = await csrfFetch(`/api/images/current`)
-//         if (res.ok) {
-//             const userSpots = await res.json();
-//             dispatch(loadSpots(userSpots))
-//         }
-//     } catch (error) {
-//         console.log('Error loading user images:', error)
-//     }
-//     return []
-// }
+export const loadImagesThunk = () => async (dispatch) => {
+    try {
+        const res = await csrfFetch(`/api/images`);
+        if (res.ok) {
+            const images = await res.json();
+            dispatch(loadImages(images))
+        }
+    } catch (error) {
+        console.error("Error loading images:", error)
+    }
+}
 
-// export const addSpot = (newSpot) => {
-//     return {
-//         type: ADD_IMAGE,
-//         payload: newSpot
-//     }
-// }
 
-// export const addSpotThunk = (newSpot) => async dispatch => {
-//     const response = await csrfFetch("/api/images/", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(newSpot)
-//     })
+export const addSpotThunk = (type, typeId, newSpot) => async dispatch => {
+    const response = await csrfFetch(`/api/images/${type}/${typeId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newSpot)
+    })
 
-//     if (response.ok) {
-//         const image = await response.json();
-//         dispatch(addSpot(image))
-//     }
-// }
+    if (response.ok) {
+        const image = await response.json();
+        dispatch(addSpot(image))
+    }
+}
 
 // export const editSpot = (image) => {
 //     return {

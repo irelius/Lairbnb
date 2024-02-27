@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
                 constraints: false
             })
             Image.belongsTo(models.User, {
-                foreignKey: 'typeId',
+                foreignKey: 'userId',
                 constraints: false
             })
         }
@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
+        },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
         },
         // determine if image url is for a profile, spot, or review
         type: {

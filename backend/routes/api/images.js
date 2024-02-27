@@ -7,7 +7,7 @@ const { User, Spot, Image, Review } = require('../../db/models');
 const { validateURL } = require('../../utils/validations');
 const { setTokenCookie, restoreUser, authRequired } = require('../../utils/authentication');
 const { imagesAuthorization } = require("../../utils/authorization")
-const { notFound } = require('../../utils/helper.js');
+const { notFound, forbidden } = require('../../utils/helper.js');
 const image = require('../../db/models/image.js');
 
 
@@ -19,24 +19,18 @@ router.get("/", async (req, res) => {
     res.json(images)
 })
 
-// Get all Images for a Spot
-router.get('/spots/:spotId', async (req, res) => {
-    const images = await Image.findAll({
-        where: {
-            type: "spot",
-            typeId: req.params.spotId
-        }
-    })
-
-    res.json(images)
+// Get one image by pk
+router.get('/:imageId', async (req, res) => {
+    const image = await Image.findByPk(req.params.imageId)
+    res.json(image)
 })
 
-// Get all Images for a Review
-router.get('/reviews/:reviewId', async (req, res) => {
+// Get all images belonging to spot or review. type should either be "spot" or "review" (note singular, not plural)
+router.get("/:type/:typeId", async (req, res) => {
     const images = await Image.findAll({
         where: {
-            type: "review",
-            typeId: req.params.reviewId
+            type: req.params.type,
+            typeId: req.params.typeId
         }
     })
 
@@ -44,19 +38,15 @@ router.get('/reviews/:reviewId', async (req, res) => {
 })
 
 // Create an Image
-router.post('/:type/:typeId', [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
-    const { type, typeId } = req.params
+router.post('/', [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
+    const { type, typeId, url } = req.body
 
     let typeCategory;
-    let typeRes
-    // if type is for Spot, then check if spot exists
-    if (type === "spots") {
+    let typeRes;
+    if (type === "spot") {
         typeCategory = "Spot"
         typeRes = await Spot.findByPk(typeId)
-
-    }
-    // else, if type is for Review, check if review exists
-    else {
+    } else {
         typeCategory = "Review"
         typeRes = await Review.findByPk(typeId)
 
@@ -85,14 +75,16 @@ router.post('/:type/:typeId', [validateURL, restoreUser, authRequired, imagesAut
     const newImage = await Image.create({
         typeId: typeId,
         type: type,
-        url: req.body.url
+        url: url,
+        userId: req.user.id
     })
 
     res.json({
         id: newImage.id,
         type: newImage.type,
         typeId: newImage.typeId,
-        url: newImage.url
+        url: newImage.url,
+        userId: req.user.id
     })
 })
 
@@ -160,12 +152,17 @@ router.post('/:type/:typeId', [validateURL, restoreUser, authRequired, imagesAut
 // TO DO: Add a route to allow users to edit their photos
 
 // Delete an Image
-router.delete("/:type/:typeId", [restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
+router.delete("/:imageId", [restoreUser, authRequired], async (req, res, next) => {
     const deleteImage = await Image.findByPk(req.params.imageId)
     // error if image doesn't exist
     if (!deleteImage) {
         return next(notFound("Image", 404))
     }
+
+    if (deleteImage.userId !== req.user.id) {
+        return next(forbidden())
+    }
+
     // successfully delete image
     await Image.destroy({
         where: {
