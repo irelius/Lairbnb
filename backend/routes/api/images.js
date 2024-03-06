@@ -1,14 +1,12 @@
 const express = require('express')
 const router = express.Router();
-const { Op } = require("sequelize")
 
-const { User, Spot, Image, Review } = require('../../db/models');
+const { Spot, Image, Review } = require('../../db/models');
 
 const { validateURL } = require('../../utils/validations');
-const { setTokenCookie, restoreUser, authRequired } = require('../../utils/authentication');
+const { restoreUser, authRequired } = require('../../utils/authentication');
 const { imagesAuthorization } = require("../../utils/authorization")
 const { notFound, forbidden } = require('../../utils/helper.js');
-const image = require('../../db/models/image.js');
 
 
 // ____________________________________________________________________________________
@@ -20,7 +18,7 @@ router.get("/", async (req, res) => {
 })
 
 // Get one image by pk
-router.get('/:imageId', async (req, res) => {
+router.get('/image/:imageId', async (req, res) => {
     const image = await Image.findByPk(req.params.imageId)
     res.json(image)
 })
@@ -38,9 +36,10 @@ router.get("/:type/:typeId", async (req, res) => {
 })
 
 // Create an Image
-router.post('/', [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
-    // router.post('/', [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
-    const { type, typeId, url } = req.body
+router.post('/:type/:typeId', [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
+    // may need to refactor later to loop through all of the urls that is uploaded (or the images uploaded)
+    const { url } = req.body
+    const { type, typeId } = req.params
 
     let typeCategory;
     let typeRes;
@@ -51,15 +50,15 @@ router.post('/', [validateURL, restoreUser, authRequired, imagesAuthorization], 
         typeCategory = "Review"
         typeRes = await Review.findByPk(typeId)
 
-        // error due to max resources because users can only have up to 10 pictures for their review
-        // TO DO: check if the following checks are necessary on the POST route. Should be necessary for the PUT route
-        const currentReviewImages = await Image.findAll({
+        const currImages = await Image.findAll({
             where: {
                 type: type,
                 typeId: typeId
             }
         })
-        if (currentReviewImages && currentReviewImages.length > 10) {
+
+        // if trying to add photos to a review, and user is trying to add more than 10 picutres, return error
+        if (currImages.length > 10) {
             const error = new Error("Maximum number of images for this resource was reached")
             error.status = 403;
             error.statusCode = 403;
@@ -67,8 +66,7 @@ router.post('/', [validateURL, restoreUser, authRequired, imagesAuthorization], 
         }
     }
 
-
-    // If Spot/Review doesn't exist, return error
+    // if spot or review doesn't exist, return 404 error
     if (!typeRes) {
         return next(notFound(typeCategory, 404))
     }
@@ -90,80 +88,36 @@ router.post('/', [validateURL, restoreUser, authRequired, imagesAuthorization], 
     })
 })
 
-
-// // Add an Image to a Spot based on the Spot's id
-// router.post("/spots/:spotId", [validateURL, restoreUser, authRequired], async (req, res, next) => {
-//     const spot = await Spot.findByPk(req.params.spotId)
-//     // error if spot couldn't be found
-//     if (!spot) {
-//         return next(notFound("Spot", 404))
-//     }
-//     const newImage = await Image.create({
-//         type: "spot",
-//         typeId: req.params.spotId,
-//         url: req.body.url
-//     })
-//     res.json({
-//         id: newImage.id,
-//         type: newImage.type,
-//         typeId: newImage.typeId,
-//         url: newImage.url
-//     })
-// })
-
-
-// // Add an Image to a Review based on the Review's id
-// router.post("/reviews/:reviewId", [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
-//     const review = await Review.findByPk(req.params.reviewId)
-
-//     // error if spot couldn't be found
-//     if (!review) {
-//         return next(notFound("Review", 404))
-//     }
-
-//     // error due to max resources because users can only have up to 10 pictures for their review
-//     const allImages = await Image.findAll({
-//         where: {
-//             reviewId: {
-//                 [Op.not]: null
-//             }
-//         }
-//     })
-//     if (allImages.length > 10) {
-//         const error = new Error("Maximum number of images for this resource was reached")
-//         error.status = 403;
-//         error.statusCode = 403;
-//         return next(error);
-//     }
-
-//     // create new Image for Review
-//     const newImage = await Image.create({
-//         type: "review",
-//         typeId: req.params.spotId,
-//         url: req.body.url
-//     })
-//     res.json({
-//         id: newImage.id,
-//         type: newImage.type,
-//         typeId: newImage.typeId,
-//         url: newImage.url
-//     })
-// })
-
-
-// TO DO: Add a route to allow users to edit their photos
-
 // Delete an Image
-router.delete("/:imageId", [restoreUser, authRequired], async (req, res, next) => {
+router.delete("/image/:imageId", [restoreUser, authRequired], async (req, res, next) => {
     const deleteImage = await Image.findByPk(req.params.imageId)
     // error if image doesn't exist
     if (!deleteImage) {
         return next(notFound("Image", 404))
     }
 
+    // error if image doesn't belong to user
     if (deleteImage.userId !== req.user.id) {
         return next(forbidden())
     }
+
+    // error if image being deleted is the last image for a spot
+    if (deleteImage.type === "spot") {
+        const spotImages = await Image.findAll({
+            where: {
+                type: "spot",
+                typeId: req.params.imageId
+            }
+        })
+
+        if (spotImages.length === 1) {
+            const error = new Error("A rental spot must have at least 1 image to show to renters.")
+            error.status = 403;
+            error.statusCode = 403;
+            return next(error);
+        }
+    }
+
 
     // successfully delete image
     await Image.destroy({

@@ -55,8 +55,8 @@ const bookingAuthorization = async function (req, res, next) {
 // Authorization required for Images
 // TO DO, remove uncessary code after testing that new validation method works for all requirements
 const imagesAuthorization = async function (req, res, next) {
-    let type = req.body.type
-    let typeId = req.body.typeId
+    let type = req.params.type
+    let typeId = req.params.typeId
 
     // check if user is owner of spot. forbidden if not owner
     if (type === "spot") {
