@@ -122,7 +122,6 @@ const imagesAuthorization = async function (req, res, next) {
     // }
 }
 
-
 module.exports = {
     spotAuthorization,
     reviewAuthorization,
