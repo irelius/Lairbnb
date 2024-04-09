@@ -37,8 +37,7 @@ const ProfileDropDownMenu = () => {
         dispatch(loginThunk(demoUser));
     }
 
-    const handleOptionClick = (e) => {
-        e.stopPropagation();
+    const handleOptionClick = () => {
         setShowMenu(false);
     };
 
@@ -50,18 +49,21 @@ const ProfileDropDownMenu = () => {
 
     const loggedIn = useSelector(state => state.user.loggedIn)
     const user = useSelector(state => state.user.user)
-
     return (
         <div id="profile-main-container">
-            <button id={`profile-button-container${showMenu ? '-shadow' : ''}`} className="border-235 ffffff-bg pointer" onClick={openMenu}>
+            <button id={`profile-button-container${showMenu ? '-shadow' : ''}`} className="border-235 ffffff-bg pointer" onClick={() => openMenu()}>
                 <i id="profile-bars" className="fa-solid fa-bars" />
                 <div id="profile-icon-container">
                     {loggedIn ? user.firstName.slice(0, 1) : <i id="profile-icon" className="fa-solid fa-user fa-lg" />}
                 </div>
             </button>
-            <div id="profile-dropdown-main-container">
+            <div className="profile-dropdown-main-container">
                 {showMenu && (
-                    <div id="profile-dropdown-container" className="shadow ffffff-bg" onClick={handleOptionClick}>
+                    <div id="profile-dropdown-container" className="shadow ffffff-bg" onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault()
+                        handleOptionClick(e)
+                    }}>
                         {user ? (
                             <>
                                 <section className="semi-bold">
@@ -129,8 +131,8 @@ const ProfileDropDownMenu = () => {
                     </div>
                 </div>
             ) : (
-                <></>)
-            }
+                <></>
+            )}
             {showSignupForm ? (
                 <div className="modal" onClick={() => setShowSignupForm(false)}>
                     <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>

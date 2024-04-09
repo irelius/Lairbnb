@@ -85,8 +85,10 @@ const userReducer = (state = initialState, action) => {
     let newState = { ...state };
     switch (action.type) {
         case SET_USER:
-            newState.loggedIn = true;
-            newState.user = action.payload
+            if(action.payload !== null) {
+                newState.loggedIn = true;
+                newState.user = action.payload
+            }
             return newState;
         case REMOVE_USER:
             newState.loggedIn = false
