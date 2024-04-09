@@ -15,13 +15,12 @@ function Main() {
         setLoad(true)
     }, [dispatch])
 
-    const spots = useSelector(state => Object.values(state.spot))
-
+    const spots = useSelector(state => state.spot)
     return load ? (
         <div id="all-spots">
-            {spots.map((el, i) => {
+            {spots.spotIds.map((id, i) => {
                 return (
-                    <Spot key={i} el={el} />
+                    <Spot id={id} key={i} />
                 )
             })}
         </div>

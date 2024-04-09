@@ -1,25 +1,22 @@
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
 import "./Spot.css"
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
+import { useSelector } from "react-redux"
 import loadImage from "../../utils/loadImage"
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
 
-function Spot({ el }) {
-
-    // const dispatch = useDispatch()
-    // useEffect(() =>  {
-    // }, [dispatch])
+function Spot({ id }) {
+    const spot = useSelector(state => state.spot.spots[id])
 
     return (
-        <NavLink exact to={`/spot-details/${el.id}`} id="spot-container">
-            <section id="spot-image-container">{loadImage(el)}</section>
+        <NavLink exact to={`/spot-details/${id}`} id="spot-container">
+            {/* TO DO: implement how to do images */}
+            <section id="spot-image-container">{loadImage(spot)}</section>
             <div id="spot-description">
                 <section id="spot-name" className="semi-bold">
-                    {`${el.name}`}, {`${el.state}`}
+                    {`${spot.name}`}, {`${spot.state}`}
                 </section>
-                <section id="spot-city">{`${el.city}`}</section>
+                <section id="spot-city">{`${spot.city}`}</section>
                 <section id="spot-price-container">
-                    <section id="spot-price" className="semi-bold">${(`${el.price}`)} </section> night
+                    <section id="spot-price" className="semi-bold">${(`${spot.price}`)} </section> night
                 </section>
             </div>
         </NavLink>

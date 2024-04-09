@@ -23,17 +23,16 @@ router.use("/maps", mapsRouter)
 
 // Error middleware
 router.use((error, req, res, next) => {
-  res.status(error.status || 500)
-  res.json({
-    message: error.message,
-    statusCode: error.status,
-    errors: error.errors
-  })
+    res.status(error.status || 500)
+    res.json({
+        message: error.message,
+        statusCode: error.status,
+        errors: error.errors
+    })
 })
 
-
 router.get('/test', (req, res) => {
-    res.json({message: "hello lairbnb"})
+    res.json({ message: "hello lairbnb" })
 });
 
 module.exports = router;

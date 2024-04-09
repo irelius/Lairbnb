@@ -74,9 +74,6 @@ export const restoreUserThunk = () => async (dispatch) => {
     return response;
 };
 
-
-// const initialState = { user: null };
-
 const initialState = {
     loggedIn: false
 }

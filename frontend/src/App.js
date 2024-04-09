@@ -33,15 +33,15 @@ function App() {
                     {/* <Route exact path="/become-a-host/property-form">
             <CreateSpotPage />
           </Route> */}
-                    {/* <Route exact path="/manage-listings">
-            <ManageListings />
-          </Route> */}
+                    <Route exact path="/manage-listings">
+                        <ManageListings />
+                    </Route>
                     {/* <Route exact path="/edit-spot/:spotId">
             <EditSpot />
           </Route> */}
-                    {/* <Route exact path="/spot-details/:spotId">
-            <SpotPage />
-          </Route> */}
+                    <Route exact path="/spot-details/:spotId">
+                        <SpotPage />
+                    </Route>
                     {/* <Route exact path="/submit-review/:spotId">
             <CreateReview />
           </Route> */}

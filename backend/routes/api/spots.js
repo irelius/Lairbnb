@@ -34,7 +34,7 @@ router.get("/", validateFilters, async (req, res, next) => {
         size = 20
     }
 
-    const Spots = await Spot.findAll({
+    const spots = await Spot.findAll({
         where: {
             lat: {
                 [Op.between]: [minLat, maxLat]
@@ -51,7 +51,7 @@ router.get("/", validateFilters, async (req, res, next) => {
     })
 
     res.json({
-        Spots,
+        spots,
         page,
         size
     });
@@ -63,31 +63,27 @@ router.get("/", validateFilters, async (req, res, next) => {
 // Get Spots owned by Current User
 router.get("/current", [restoreUser, authRequired], async (req, res) => {
     try {
-        const Spots = await Spot.findAll({
+        const spots = await Spot.findAll({
             where: {
-                ownerId: req.user.id,
+                ownerId: req.user.id
             },
             attributes: { exclude: ["numReviews"] },
-        });
+        })
 
-        if (Spots.length === 0) {
+        if (spots.length === 0) {
             return res.status(404).json({
                 message: `No spots for User ${req.user.id}`,
-            });
+            })
         }
 
-        return res.json({
-            Spots
-        });
-    } catch (error) {
-        // Handle any unexpected errors here
+        return res.json({ spots })
+    } catch (e) {
         console.error("Error:", error);
         return res.status(500).json({
             message: "Internal Server Error",
         });
     }
-}
-);
+});
 
 
 // Get details of a Spot from an id
@@ -178,8 +174,10 @@ router.delete("/:spotId", [restoreUser, authRequired, spotAuthorization], async 
             id: req.params.spotId
         }
     })
+
     // send message
     res.status(200).json({
+        id: parseInt(req.params.spotId),
         message: "Successfully deleted",
         statusCode: 200
     })

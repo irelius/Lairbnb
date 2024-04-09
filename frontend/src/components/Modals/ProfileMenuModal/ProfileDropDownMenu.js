@@ -38,11 +38,11 @@ const ProfileDropDownMenu = () => {
         dispatch(loginThunk(demoUser));
     }
 
-    // useEffect(() => {
-    //     if (!showMenu) return;
-    //     document.addEventListener('click', closeMenu);
-    //     return () => document.removeEventListener("click", closeMenu);
-    // }, [showMenu]);
+    useEffect(() => {
+        if (!showMenu) return;
+        document.addEventListener('click', closeMenu);
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu]);
 
     const loggedIn = useSelector(state => state.user.loggedIn)
     const user = useSelector(state => state.user.user)
@@ -65,7 +65,10 @@ const ProfileDropDownMenu = () => {
                             <section className="semi-bold">
                                 {user.email}
                             </section>
-                            <section className="f7f7f7-bg-hover pointer" onClick={() => history.push("/manage-listings")}>
+                            <section className="f7f7f7-bg-hover pointer" onClick={() => {
+                                closeMenu()
+                                history.push("/manage-listings")
+                            }}>
                                 Manage Your Listings
                             </section>
                             <section className="f7f7f7-bg-hover pointer" onClick={(e) => logout(e)}>
