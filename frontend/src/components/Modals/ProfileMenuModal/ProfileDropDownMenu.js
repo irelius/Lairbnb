@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import "./ProfileDropDownMenu.css"
 
 import React, { useState, useEffect } from "react";
@@ -14,9 +15,9 @@ const ProfileDropDownMenu = () => {
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [showSignupForm, setShowSignupForm] = useState(false)
 
-    const openMenu = () => {
-        if (showMenu) return;
-        setShowMenu(true);
+    const menuSwitch = () => {
+        if (showMenu) setShowMenu(false);
+        else setShowMenu(true);
     };
 
     const closeMenu = () => {
@@ -37,78 +38,72 @@ const ProfileDropDownMenu = () => {
         dispatch(loginThunk(demoUser));
     }
 
-    const handleOptionClick = () => {
-        setShowMenu(false);
-    };
-
-    useEffect(() => {
-        if (!showMenu) return;
-        document.addEventListener('click', closeMenu);
-        return () => document.removeEventListener("click", closeMenu);
-    }, [showMenu]);
+    // useEffect(() => {
+    //     if (!showMenu) return;
+    //     document.addEventListener('click', closeMenu);
+    //     return () => document.removeEventListener("click", closeMenu);
+    // }, [showMenu]);
 
     const loggedIn = useSelector(state => state.user.loggedIn)
     const user = useSelector(state => state.user.user)
+
     return (
-        <div id="profile-main-container">
-            <button id={`profile-button-container${showMenu ? '-shadow' : ''}`} className="border-235 ffffff-bg pointer" onClick={() => openMenu()}>
+        <div>
+            <button id={`profile-button-container${showMenu ? '-shadow' : ''}`} className="border-235 ffffff-bg pointer" onClick={() => menuSwitch()}>
                 <i id="profile-bars" className="fa-solid fa-bars" />
                 <div id="profile-icon-container">
                     {loggedIn ? user.firstName.slice(0, 1) : <i id="profile-icon" className="fa-solid fa-user fa-lg" />}
                 </div>
             </button>
-            <div className="profile-dropdown-main-container">
-                {showMenu && (
-                    <div id="profile-dropdown-container" className="shadow ffffff-bg" onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault()
-                        handleOptionClick(e)
-                    }}>
-                        {user ? (
-                            <>
-                                <section className="semi-bold">
-                                    {user.firstName} {user.lastName}
-                                </section>
-                                <section className="semi-bold">
-                                    {user.email}
-                                </section>
-                                <section className="f7f7f7-bg-hover pointer" onClick={() => history.push("/manage-listings")}>
-                                    Manage Your Listings
-                                </section>
-                                <section className="f7f7f7-bg-hover pointer" onClick={(e) => logout(e)}>
-                                    Log Out
-                                </section>
-                            </>
-                        ) : (
-                            <>
-                                <section className="f7f7f7-bg-hover pointer bold" onClick={() => signInDemo()}>
-                                    Sign in as Demo User
-                                </section>
-                                <section
-                                    className="f7f7f7-bg-hover pointer"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setShowMenu(false);
-                                        setShowSignupForm(true);
-                                    }}
-                                >
-                                    Sign Up
-                                </section>
-                                <section
-                                    className="f7f7f7-bg-hover pointer"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setShowMenu(false);
-                                        setShowLoginForm(true);
-                                    }}
-                                >
-                                    Log In
-                                </section>
-                            </>
-                        )}
-                    </div>
-                )}
-            </div>
+            {showMenu ? (
+                <div className="profile-dropdown-container shadow ffffff-bg" onClick={(e) => e.stopPropagation()}>
+                    {user ? (
+                        <>
+                            <section className="semi-bold">
+                                {user.firstName} {user.lastName}
+                            </section>
+                            <section className="semi-bold">
+                                {user.email}
+                            </section>
+                            <section className="f7f7f7-bg-hover pointer" onClick={() => history.push("/manage-listings")}>
+                                Manage Your Listings
+                            </section>
+                            <section className="f7f7f7-bg-hover pointer" onClick={(e) => logout(e)}>
+                                Log Out
+                            </section>
+                        </>
+                    ) : (
+                        <>
+                            <section className="f7f7f7-bg-hover pointer bold" onClick={() => signInDemo()}>
+                                Sign in as Demo User
+                            </section>
+                            <section
+                                className="f7f7f7-bg-hover pointer"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setShowMenu(false);
+                                    setShowSignupForm(true);
+                                }}
+                            >
+                                Sign Up
+                            </section>
+                            <section
+                                className="f7f7f7-bg-hover pointer"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setShowMenu(false);
+                                    setShowLoginForm(true);
+                                }}
+                            >
+                                Log In
+                            </section>
+                        </>
+                    )}
+                </div>
+
+            ) : (
+                <></>
+            )}
             {showLoginForm ? (
                 <div className="modal" onClick={() => setShowLoginForm(false)}>
                     <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
@@ -157,7 +152,7 @@ const ProfileDropDownMenu = () => {
             ) : (
                 <></>
             )}
-        </div>
+        </div >
     )
 }
 
