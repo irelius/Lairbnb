@@ -1,25 +1,18 @@
 // components/Header/Header.js
 import './Header.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { restoreUserThunk } from '../../store/user';
-
+import { useSelector } from 'react-redux';
 
 import ProfileDropdownMenu from '../Modals/ProfileMenuModal';
 
 function Header({ isLoaded }) {
-    const dispatch = useDispatch();
     const history = useHistory()
 
-    useEffect(() => {
-        dispatch(restoreUserThunk());
-    }, [dispatch]);
-
-    const user = useSelector(state => state.user.user);
+    const user = useSelector(state => state.user);
 
     let sessionLinks;
-    if (user) {
+    if (user.loggedIn) {
         sessionLinks = (
             <div id="header-right-container">
                 <aside id="header-host-button-container">
@@ -33,7 +26,7 @@ function Header({ isLoaded }) {
     } else {
         sessionLinks = (
             <div id="header-right-container">
-                <ProfileDropdownMenu/>
+                <ProfileDropdownMenu />
             </div>
         );
     }

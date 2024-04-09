@@ -48,8 +48,6 @@ router.get("/current", [restoreUser, authRequired], async (req, res) => {
 router.get("/:spotId", [restoreUser, authRequired], async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
 
-    console.log('asdf', spot)
-
     // send error if spot is not found
     if (!spot) {
         return next(notFound("Spot", 404))

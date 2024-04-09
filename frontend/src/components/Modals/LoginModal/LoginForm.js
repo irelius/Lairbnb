@@ -87,7 +87,7 @@ function LoginForm() {
                 <SubmitButton buttonText="Continue" />
             </form>
             <div id="demo-login-container">
-                <button className="button font-12 pointer no-border" id="demo-login-button" onClick={signInDemo}>Demo Login</button>
+                <button className="button font-12 pointer no-border" id="demo-login-button" onClick={() => signInDemo()}>Demo Login</button>
             </div>
         </div>
     );

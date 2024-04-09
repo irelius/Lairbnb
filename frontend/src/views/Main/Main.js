@@ -13,10 +13,6 @@ function Main() {
     useEffect(() => {
         dispatch(loadAllSpotsThunk())
         setLoad(true)
-
-        return (() => {
-            dispatch(resetSpot())
-        })
     }, [dispatch])
 
     const spots = useSelector(state => Object.values(state.spot))
@@ -25,7 +21,7 @@ function Main() {
         <div id="all-spots">
             {spots.map((el, i) => {
                 return (
-                    <Spot key={i} el={el}/>
+                    <Spot key={i} el={el} />
                 )
             })}
         </div>

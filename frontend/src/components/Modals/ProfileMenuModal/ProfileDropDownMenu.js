@@ -48,15 +48,15 @@ const ProfileDropDownMenu = () => {
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
+    const loggedIn = useSelector(state => state.user.loggedIn)
     const user = useSelector(state => state.user.user)
-
 
     return (
         <div id="profile-main-container">
             <button id={`profile-button-container${showMenu ? '-shadow' : ''}`} className="border-235 ffffff-bg pointer" onClick={openMenu}>
                 <i id="profile-bars" className="fa-solid fa-bars" />
                 <div id="profile-icon-container">
-                    {user ? user.firstName.slice(0, 1) : <i id="profile-icon" className="fa-solid fa-user fa-lg" />}
+                    {loggedIn ? user.firstName.slice(0, 1) : <i id="profile-icon" className="fa-solid fa-user fa-lg" />}
                 </div>
             </button>
             <div id="profile-dropdown-main-container">
@@ -73,13 +73,13 @@ const ProfileDropDownMenu = () => {
                                 <section className="f7f7f7-bg-hover pointer" onClick={() => history.push("/manage-listings")}>
                                     Manage Your Listings
                                 </section>
-                                <section className="f7f7f7-bg-hover pointer" onClick={logout}>
+                                <section className="f7f7f7-bg-hover pointer" onClick={(e) => logout(e)}>
                                     Log Out
                                 </section>
                             </>
                         ) : (
                             <>
-                                <section className="f7f7f7-bg-hover pointer bold" onClick={signInDemo}>
+                                <section className="f7f7f7-bg-hover pointer bold" onClick={() => signInDemo()}>
                                     Sign in as Demo User
                                 </section>
                                 <section
