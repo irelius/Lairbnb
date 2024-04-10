@@ -50,7 +50,7 @@ function ManageListings() {
                                         </div>
                                     </div>
                                     <div id="edit">
-                                        <button id="edit-button" className="semi-bold" onClick={() => history.push(`/edit-spot/${el}`)}>
+                                        <button id="edit-button" className="semi-bold pointer" onClick={() => history.push(`/edit-spot/${el}`)}>
                                             Edit Listing
                                         </button>
                                     </div>
@@ -65,7 +65,7 @@ function ManageListings() {
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     ) : (
         <div></div>
     )

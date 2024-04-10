@@ -145,16 +145,20 @@ const spotReducer = (state = initialSpot, action) => {
     const newState = { ...state }
     switch (action.type) {
         case LOAD_SPOT:
-            return { ...action.payload };
+            newState.spots = { [action.payload.id]: { ...action.payload } }
+            newState.spotIds = [action.payload.id]
+            return newState
         case LOAD_SPOTS:
             const loadSpotIds = []
+            const loadSpots = {}
 
             for (let i = 0; i < action.payload.spots.length; i++) {
                 let currSpot = action.payload.spots[i]
-                newState.spots[currSpot.id] = currSpot
+                loadSpots[currSpot.id] = currSpot
                 loadSpotIds.push(currSpot.id)
             }
 
+            newState.spots = loadSpots
             newState.spotIds = loadSpotIds
             return newState
         case ADD_SPOT:
@@ -170,7 +174,13 @@ const spotReducer = (state = initialSpot, action) => {
             delete newState[action.payload.id]
             return newState;
         case CLEAR_SPOT:
-            return initialSpot
+            const resetSpot = {
+                spots: {},
+                spotIds: [],
+                // userSpots: {},
+                // userSpotIds: []
+            }
+            return resetSpot
         default:
             return newState;
     }
