@@ -16,7 +16,6 @@ function Main() {
     }, [dispatch])
 
     const spots = useSelector(state => state.spot)
-    console.log('booba test', spots)
 
     return load ? (
         <div id="all-spots">

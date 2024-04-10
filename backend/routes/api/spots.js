@@ -162,8 +162,7 @@ router.put("/:spotId", [validateSpot, restoreUser, authRequired, spotAuthorizati
     // update and send updated spot
     updateSpot.updatedAt = new Date()
     res.json(updateSpot)
-})
-)
+}))
 
 
 // Delete a Spot

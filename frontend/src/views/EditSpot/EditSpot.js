@@ -42,11 +42,9 @@ function EditSpot() {
         history.push("/manage-listings")
     }
 
-    if (load) console.log('booba', location.address)
-
     return load ? (
         <div id="edit-spot-main">
-            <form onSubmit={() => handleSubmit()} id="edit-spot-form">
+            <form onSubmit={(e) => handleSubmit(e)} id="edit-spot-form">
                 Address
                 <input
                     type="text"
