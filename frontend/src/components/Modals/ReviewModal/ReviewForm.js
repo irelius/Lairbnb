@@ -7,7 +7,7 @@ import { addReviewThunk } from "../../../store/review"
 // verify that the host is not submitting a review
 // verify that the user submitting a review has booked the location
 
-function ReviewForm({ closeModal, setReviewSubmitted }) {
+function ReviewForm({ setShowReviewForm, setReviewSubmitted }) {
     const dispatch = useDispatch()
     const spotId = useParams().spotId;
 
@@ -24,44 +24,46 @@ function ReviewForm({ closeModal, setReviewSubmitted }) {
         }
 
         dispatch(addReviewThunk(newReview)).then(() => {
-            closeModal()
-            setReviewSubmitted((prevState) => !prevState)
+            setShowReviewForm(false)
+            setReviewSubmitted(true)
         })
     }
 
     return (
-        <div id="submit-review-main">
-            <form onSubmit={(e) => {
-                e.stopPropagation()
-                handleSubmit(e)
-            }} id="review-form">
-                <p id="review-title">Type Your Review</p>
-                <input
-                    type="text"
-                    required
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                    onClick={(e) => e.stopPropagation()}
-                />
-                <p id="review-title">Give This Location a Rating</p>
-                <input
-                    type="number"
-                    required
-                    min="1"
-                    max="5"
-                    value={stars}
-                    onChange={(e) => setStars(e.target.value)}
-                    onClick={(e) => e.stopPropagation()}
-                />
-                <button
-                    type="submit"
-                    id="submit-review-button"
-                    className="ffffff-bg no-border"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    Submit Review
-                </button>
-            </form>
+        <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
+            <div id="submit-review-main">
+                <form onSubmit={(e) => {
+                    e.stopPropagation()
+                    handleSubmit(e)
+                }} id="review-form">
+                    <p id="review-title">Type Your Review</p>
+                    <input
+                        type="text"
+                        required
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                    />
+                    <p id="review-title">Give This Location a Rating</p>
+                    <input
+                        type="number"
+                        required
+                        min="1"
+                        max="5"
+                        value={stars}
+                        onChange={(e) => setStars(e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                    />
+                    <button
+                        type="submit"
+                        id="submit-review-button"
+                        className="ffffff-bg no-border"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        Submit Review
+                    </button>
+                </form>
+            </div >
         </div >
     )
 }

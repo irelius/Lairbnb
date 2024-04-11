@@ -94,7 +94,7 @@ router.get("/:spotId", async (req, res, next) => {
             attributes: ["id", "type", "typeId", "url"]
         }, {
             model: User,
-            as: "Owner",
+            as: "owner",
         }]
     })
 

@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const express = require('express')
 const router = express.Router();
 
@@ -62,10 +63,9 @@ router.get("/:reviewId", [restoreUser, authRequired], async (req, res, next) => 
     }
 })
 
-
 // Get the review of a particular spot that belongs to the current user
 router.get("/spot/:spotId/current", [restoreUser, authRequired], async (req, res, next) => {
-    const review = await Review.findAll({
+    const reviews = await Review.findAll({
         where: {
             userId: req.user.id,
             spotId: req.params.spotId
@@ -85,35 +85,92 @@ router.get("/spot/:spotId/current", [restoreUser, authRequired], async (req, res
             }
         ]
     })
-    res.json(review)
 
+    return res.json({ reviews })
 })
 
 
 // Get all Reviews by a Spot's id
 router.get("/spot/:spotId", async (req, res, next) => {
-    const spotId = await Spot.findByPk(req.params.spotId);
+    const spot = await Spot.findByPk(req.params.spotId);
+
     // error if spot doesn't exist
-    if (!spotId) {
+    if (!spot) {
         return next(notFound("Spot", 404))
     }
-    // find all reviews based on spot id
-    const reviews = await Review.findAll({
-        where: {
-            spotId: req.params.spotId
-        },
-        include: [
-            {
-                model: User,
-                attributes: ["id", "firstName", "lastName"]
+
+    let userReviews;
+    let otherReviews;
+
+    if (req.user === null) {
+        userReviews = []
+        otherReviews = await Review.findAll({
+            where: {
+                spotId: req.params.spotId
             },
-            {
-                model: Image,
-                attributes: ["id", "type", "typeId", "url"]
-            }
-        ]
+            include: [
+                {
+                    model: User,
+                    attributes: ["id", "firstName", "lastName"]
+                },
+                {
+                    model: Spot,
+                    attributes: { exclude: ["description", "numReviews", "avgStarRating", "createdAt", "updatedAt", "OwnerId"] }
+                },
+                {
+                    model: Image,
+                    attributes: ["id", "type", "typeId", "url"]
+                }
+            ]
+        })
+    } else {
+        // Get user's reviews for spot
+        userReviews = await Review.findAll({
+            where: {
+                userId: req.user.id,
+                spotId: req.params.spotId
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ["id", "firstName", "lastName"]
+                },
+                {
+                    model: Spot,
+                    attributes: { exclude: ["description", "numReviews", "avgStarRating", "createdAt", "updatedAt", "OwnerId"] }
+                },
+                {
+                    model: Image,
+                    attributes: ["id", "type", "typeId", "url"]
+                }
+            ]
+        })
+
+        // find all reviews excluding current user's
+        otherReviews = await Review.findAll({
+            where: {
+                userId: {
+                    [Op.not]: req.user.id
+                },
+                spotId: req.params.spotId
+            },
+            include: [
+                {
+                    model: User,
+                    attributes: ["id", "firstName", "lastName"]
+                },
+                {
+                    model: Image,
+                    attributes: ["id", "type", "typeId", "url"]
+                }
+            ]
+        })
+    }
+
+    return res.json({
+        userReviews: userReviews,
+        otherReviews: otherReviews
     })
-    res.json(reviews)
 })
 
 

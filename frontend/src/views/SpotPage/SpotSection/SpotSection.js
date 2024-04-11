@@ -1,7 +1,9 @@
 import "./SpotSection.css"
 
-function SpotSection({spot, rating, allReviews, spotOwner}) {
-    return (
+function SpotSection({ spot, reviews }) {
+    const totalReviewsCount = reviews.allReviewsId.length + reviews.userReviewsId.length
+
+    return spot.owner ? (
         <div id="spot-section">
             <div id="spot-header" className="semi-bold">
                 {spot.name}
@@ -10,16 +12,16 @@ function SpotSection({spot, rating, allReviews, spotOwner}) {
                 <aside>
                     <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
                     <p className="semi-bold">
-                        {rating}
+                        {spot.avgStarRating}
                     </p>
                 </aside>
                 <aside>-</aside>
                 <aside className="bold underline">
-                    {Object.values(allReviews).length} reviews
+                    {totalReviewsCount} reviews
                 </aside>
                 <aside>-</aside>
                 <aside>
-                    {spotOwner}
+                    {spot.owner.firstName} {spot.owner.lastName}
                 </aside>
                 <aside>-</aside>
                 <aside className="semi-bold underline">
@@ -33,6 +35,8 @@ function SpotSection({spot, rating, allReviews, spotOwner}) {
                 <div></div>
             )}
         </div>
+    ) : (
+        <></>
     )
 }
 

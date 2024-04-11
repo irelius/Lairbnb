@@ -109,48 +109,14 @@ const ProfileDropDownMenu = () => {
             )}
             {showLoginForm ? (
                 <div className="modal" onClick={() => setShowLoginForm(false)}>
-                    <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
-                        <section id="modal-exit-button" className="pointer f7f7f7-bg-hover" onClick={() => setShowLoginForm(false)}>
-                            <i className="fa-solid fa-xmark" />
-                        </section>
-                        <section className="modal-form-header bbot-235">
-                            <section className="bold font-14">
-                                Log in
-                            </section>
-                        </section>
-                        <section className="modal-form-body">
-                            <section>
-                                <LoginForm />
-                            </section>
-                        </section>
-                        {/* <section id="google-login">
-                            Google login functionality to be added
-                        </section> */}
-                    </div>
+                    <LoginForm setShowLoginForm={setShowLoginForm} />
                 </div>
             ) : (
                 <></>
             )}
             {showSignupForm ? (
                 <div className="modal" onClick={() => setShowSignupForm(false)}>
-                    <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
-                        <section id="modal-exit-button" className="pointer f7f7f7-bg-hover" onClick={() => setShowSignupForm(false)}>
-                            <i className="fa-solid fa-xmark" />
-                        </section>
-                        <section className="modal-form-header bbot-235">
-                            <section className="bold font-14">
-                                Sign up
-                            </section>
-                        </section>
-                        <section className="modal-form-body">
-                            <section>
-                                <SignupForm />
-                            </section>
-                        </section>
-                        {/* <section id="google-login">
-                            Google login functionality to be added
-                        </section> */}
-                    </div>
+                    <SignupForm setShowSignupForm={setShowSignupForm} />
                 </div>
             ) : (
                 <></>
