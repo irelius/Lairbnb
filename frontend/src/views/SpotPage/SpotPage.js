@@ -15,13 +15,14 @@ function SpotPage() {
     const { spotId } = useParams()
 
     const [load, setLoad] = useState(false)
+    const [reviewSubmitted, setReviewSubmitted] = useState(false)
     const user = useSelector(state => state.user)
 
     useEffect(() => {
         dispatch(loadSpotReviewsThunk(spotId))
         dispatch(loadSpotThunk(spotId))
         setLoad(true)
-    }, [dispatch, spotId, user])
+    }, [dispatch, spotId, user, reviewSubmitted])
 
     const spot = useSelector(state => state.spot.spots[spotId])
     const reviews = useSelector(state => state.review)
@@ -54,8 +55,8 @@ function SpotPage() {
     return spot && load ? (
         <div>
             <section><SpotSection spot={spot} reviews={reviews} /></section>
-            <section><UserReviewSection user={user} reviews={reviews} /></section>
-            <section><OtherReviewSection reviews={reviews}/></section>
+            <section><UserReviewSection user={user} reviews={reviews} setReviewSubmitted={setReviewSubmitted}/></section>
+            <section><OtherReviewSection reviews={reviews} /></section>
         </div>
     ) : (
         <></>

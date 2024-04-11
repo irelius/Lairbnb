@@ -9,19 +9,14 @@ import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
 import ReviewForm from "../../../components/Modals/ReviewModal";
 
 // { user, spotId, setUpdateReviewAndRating, setReviewDeleted }
-function UserReviewSection({ user, reviews }) {
+function UserReviewSection({ user, reviews, setReviewSubmitted }) {
     const dispatch = useDispatch()
     const { spotId } = useParams()
 
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [showReviewForm, setShowReviewForm] = useState(false)
-    const [reviewSubmitted, setReviewSubmitted] = useState(false)
 
     const userReview = reviews.userReviews[reviews.userReviewsId[0]]
-
-    useEffect(() => {
-        dispatch(loadSpotReviewsThunk(spotId))
-    }, [reviewSubmitted])
 
     // If user is not logged in
     return user.loggedIn === false ? (
