@@ -57,7 +57,6 @@ function UserReviewSection({ user, reviews }) {
 
         // if user is logged in and there's a review made by user
     ) : (
-        // <div>booba</div>
         <div className="hidden-container">
             <section id="review-user-info">
                 <div id='review-icon-container'>
