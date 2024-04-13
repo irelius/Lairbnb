@@ -31,18 +31,6 @@ export const loadSpotReviewsThunk = (spotId) => async dispatch => {
 }
 
 
-// export const loadUserReviewThunk = (spotId) => async dispatch => {
-//     const res = await csrfFetch(`/api/reviews/spot/${spotId}/current`)
-
-//     if (res.ok) {
-//         const userReview = await res.json()
-//         dispatch(loadUserReview(userReview))
-//         return userReview
-//     }
-//     return null;
-// }
-
-
 export const addReview = (review) => {
     return {
         type: ADD_REVIEW,

@@ -63,32 +63,6 @@ router.get("/:reviewId", [restoreUser, authRequired], async (req, res, next) => 
     }
 })
 
-// Get the review of a particular spot that belongs to the current user
-router.get("/spot/:spotId/current", [restoreUser, authRequired], async (req, res, next) => {
-    const reviews = await Review.findAll({
-        where: {
-            userId: req.user.id,
-            spotId: req.params.spotId
-        },
-        include: [
-            {
-                model: User,
-                attributes: ["id", "firstName", "lastName"]
-            },
-            {
-                model: Spot,
-                attributes: { exclude: ["description", "numReviews", "avgStarRating", "createdAt", "updatedAt", "OwnerId"] }
-            },
-            {
-                model: Image,
-                attributes: ["id", "type", "typeId", "url"]
-            }
-        ]
-    })
-
-    return res.json({ reviews })
-})
-
 
 // Get all Reviews by a Spot's id
 router.get("/spot/:spotId", async (req, res, next) => {
@@ -99,6 +73,7 @@ router.get("/spot/:spotId", async (req, res, next) => {
         return next(notFound("Spot", 404))
     }
 
+    // separate reviews made by current user or by other users
     let userReviews;
     let otherReviews;
 
