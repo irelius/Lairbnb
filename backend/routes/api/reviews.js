@@ -205,6 +205,7 @@ router.delete("/:reviewId", [restoreUser, authRequired, reviewAuthorization], as
         }
     })
     res.status(200).json({
+        id: parseInt(req.params.reviewId),
         message: "Successfully deleted",
         statusCode: 200
     })

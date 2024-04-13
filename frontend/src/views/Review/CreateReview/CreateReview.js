@@ -6,9 +6,10 @@ import { useParams, useHistory } from "react-router-dom";
 
 function CreateReview() {
     const history = useHistory();
-    const dispatch = useDispatch();
     const spotId = useParams().spotId;
+    const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user);
+
     if (!currentUser) {
         history.push("/")
     }

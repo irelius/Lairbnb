@@ -14,27 +14,18 @@ function SpotPage() {
     const dispatch = useDispatch()
     const { spotId } = useParams()
 
-    const [load, setLoad] = useState(false)
     const [reviewSubmitted, setReviewSubmitted] = useState(false)
     const user = useSelector(state => state.user)
 
     useEffect(() => {
         dispatch(loadSpotReviewsThunk(spotId))
         dispatch(loadSpotThunk(spotId))
-        setLoad(true)
     }, [dispatch, spotId, user, reviewSubmitted])
 
     const spot = useSelector(state => state.spot.spots[spotId])
     const reviews = useSelector(state => state.review)
 
-    // const [load, setLoad] = useState(false)
-    // const [spotOwner, setSpotOwner] = useState(null)
-    // const [rating, setRating] = useState()
-    // const [updateReviewAndRating, setUpdateReviewAndRating] = useState(false)
-    // const [reviewDeleted, setReviewDeleted] = useState(false)
-
-    // const allReviews = useSelector(state => state.review.all)
-    // // const userReview = useSelector(state => state.review.user)
+    console.log('booba', spot)
 
     // // fetch the spot's reviews
     // // TO DO: recalculate the spot review and average when use submits a review
@@ -52,51 +43,37 @@ function SpotPage() {
     // }, [dispatch, user, spotId, updateReviewAndRating, reviewDeleted])
 
 
-    return spot && load ? (
-        <div>
+    return spot ? (
+        <div id="spot-detail-main">
             <section><SpotSection spot={spot} reviews={reviews} /></section>
-            <section><UserReviewSection user={user} reviews={reviews} setReviewSubmitted={setReviewSubmitted}/></section>
-            <section><OtherReviewSection reviews={reviews} /></section>
-        </div>
+            <section id="spot-line"></section>
+            {/* Review Header section */}
+            <section id="review-section">
+                <section id="review-header">
+                    <aside>
+                        <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
+                        <p className="semi-bold">
+                            {spot.avgStarRating}
+                        </p>
+                    </aside>
+                    <aside>-</aside>
+                    <aside className="semi-bold">
+                        {reviews.userReviewsId.length + reviews.allReviewsId.length} reviews
+                    </aside>
+                </section>
+                <section id="reviews">
+
+                    <section><UserReviewSection user={user} reviews={reviews} setReviewSubmitted={setReviewSubmitted} /></section>
+                    <section id="other-reviews-container">
+
+                        <section><OtherReviewSection reviews={reviews} /></section>
+                    </section>
+                </section>
+            </section>
+        </div >
     ) : (
         <></>
     )
-
-    // return load ? (
-    //     <div id="spot-detail-main">
-    //         <section>
-    //             <SpotSection spot={spot} rating={rating} allReviews={allReviews} spotOwner={spotOwner} />
-    //         </section>
-
-    //         <section id="spot-line"></section>
-
-    //         {/* Review Header section */}
-    //         <section id="review-section">
-    //             <section id="review-header">
-    //                 <aside>
-    //                     <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
-    //                     <p className="semi-bold">
-    //                         {rating}
-    //                     </p>
-    //                 </aside>
-    //                 <aside>-</aside>
-    //                 <aside className="semi-bold">
-    //                     {Object.values(allReviews).length} reviews
-    //                 </aside>
-    //             </section>
-    //             <section id="reviews">
-    //                 <section>
-    //                     <UserReviewSection user={user} spotId={spotId} setUpdateReviewAndRating={setUpdateReviewAndRating} setReviewDeleted={setReviewDeleted} />
-    //                 </section>
-    //                 <section id="other-reviews-container">
-    //                     <OtherReviewSection allReviews={allReviews} user={user} />
-    //                 </section>
-    //             </section>
-    //         </section>
-    //     </div>
-    // ) : (
-    //     <></>
-    // )
 }
 
 export default SpotPage

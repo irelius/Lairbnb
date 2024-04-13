@@ -42,9 +42,6 @@ function App() {
                     <Route exact path="/spot-details/:spotId">
                         <SpotPage />
                     </Route>
-                    {/* <Route exact path="/submit-review/:spotId">
-            <CreateReview />
-          </Route> */}
                     {/* <Route exact path="/test">
             <Test />
           </Route> */}

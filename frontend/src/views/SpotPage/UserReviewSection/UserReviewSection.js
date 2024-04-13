@@ -3,20 +3,24 @@ import "./UserReviewSection.css"
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { loadSpotReviewsThunk } from "../../../store/review";
+import { deleteReview, deleteReviewThunk, loadSpotReviewsThunk } from "../../../store/review";
 import formatMonthAndYear from "../../../utils/formatMonthAndYear";
 import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
 import ReviewForm from "../../../components/Modals/ReviewModal";
 
 // { user, spotId, setUpdateReviewAndRating, setReviewDeleted }
 function UserReviewSection({ user, reviews, setReviewSubmitted }) {
-    const dispatch = useDispatch()
-    const { spotId } = useParams()
-
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [showReviewForm, setShowReviewForm] = useState(false)
 
     const userReview = reviews.userReviews[reviews.userReviewsId[0]]
+
+    const dispatch = useDispatch()
+
+    const handleDelete = (e) => {
+        e.preventDefault()
+        dispatch(deleteReviewThunk(userReview.id))
+    }
 
     // If user is not logged in
     return user.loggedIn === false ? (
@@ -34,7 +38,7 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
             )}
         </div>
 
-        // If user is logged in AND has no reviews
+    // If user is logged in AND has no reviews
     ) : user.loggedIn === true && reviews.userReviewsId.length === 0 ? (
         <div>
             <section id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => setShowReviewForm(true)}>
@@ -43,14 +47,14 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
 
             {showReviewForm ? (
                 <section className="modal" onClick={() => setShowReviewForm(false)}>
-                    <ReviewForm setShowReviewForm={setShowReviewForm} setReviewSubmitted={setReviewSubmitted} />
+                    <ReviewForm />
                 </section>
             ) : (
                 <></>
             )}
         </div>
 
-        // if user is logged in and there's a review made by user
+    // if user is logged in and there's a review made by user
     ) : (
         <div className="hidden-container">
             <section id="review-user-info">
@@ -71,10 +75,10 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
             </section>
             <section id="review-edit-container">
                 <aside id="review-edit">
-                    {/* TO DO: create edit option */}
+                    Edit
                 </aside>
                 <aside id="review-delete">
-                    {/* <i className="pointer fa-regular fa-circle-xmark fa-xl" onClick={(e) => { handleDelete(e) }}></i> */}
+                    <i className="pointer fa-regular fa-circle-xmark fa-xl" onClick={(e) => { handleDelete(e) }}></i>
                 </aside>
             </section>
         </div>

@@ -90,8 +90,8 @@ export const deleteReviewThunk = (reviewId) => async dispatch => {
     })
 
     if (response.ok) {
-        dispatch(deleteReview(reviewId))
-        console.log("Review successfully deleted.")
+        const review = await response.json()
+        dispatch(deleteReview(review))
     }
 }
 
@@ -143,16 +143,23 @@ const reviewReducer = (state = initialReviews, action) => {
 
             return newState;
         case ADD_REVIEW:
-            newState[action.payload.id] = action.payload;
+            newState.userReviews[action.payload.id] = action.payload;
+            newState.userReviewsId.push(action.payload.id)
             return newState;
         case EDIT_REVIEW:
-            newState[action.payload.spotId] = action.payload;
+            newState.userReviews[action.payload.id] = action.payload;
             return newState;
         case DELETE_REVIEW:
-            return {
-                user: {},
-                all: { ...newState.all }
-            }
+            const deleteUserReviewId = newState.userReviewsId.filter(el => el !== action.payload.id)
+            const deleteOtherUserReviewId = newState.allReviewsId.filter(el => el !== action.payload.id)
+
+            newState.userReviewsId = deleteUserReviewId
+            newState.allReviewsId = deleteOtherUserReviewId
+
+            delete newState.userReviews[action.payload.id]
+            delete newState.allReviews[action.payload.id]
+
+            return newState
         case CLEAR_REVIEW:
             return {
                 user: {},
