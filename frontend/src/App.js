@@ -9,7 +9,6 @@ import Main from "./views/Main/Main";
 import CreateSpotPage from "./views/CreateSpot/CreateSpot";
 import SpotPage from "./views/SpotPage/SpotPage";
 import EditSpot from "./views/EditSpot/EditSpot";
-import CreateReview from "./views/Review/CreateReview";
 import ManageListings from "./views/ManageListings/ManageListings";
 
 import * as userActions from "./store/user";

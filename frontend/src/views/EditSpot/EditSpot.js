@@ -5,6 +5,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { editSpotThunk, loadSpotThunk } from "../../store/spot";
 import { useEffect } from "react";
 
+import NotAuthorized from "../../components/NotAuthorized"
+
 function EditSpot() {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -16,6 +18,7 @@ function EditSpot() {
 
     const currentSpot = useSelector(state => state.spot)
     const currentSpotId = useSelector(state => state.spot.spotIds[0])
+    const user = useSelector(state => state.user.user)
 
     const [load, setLoad] = useState(false)
     const [location, setLocation] = useState()
@@ -35,14 +38,15 @@ function EditSpot() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const edits = location
-
-        dispatch(editSpotThunk(spotId, edits))
+        dispatch(editSpotThunk(spotId, location))
         history.push("/manage-listings")
     }
 
-    return load ? (
+    return user === undefined || user.id !== currentSpot.ownerId ? (
+        <div>
+            <NotAuthorized />
+        </div>
+    ) : load ? (
         <div id="edit-spot-main">
             <form onSubmit={(e) => handleSubmit(e)} id="edit-spot-form">
                 Address
