@@ -13,7 +13,6 @@ const { validationError, notFound } = require('../../utils/helper.js')
 const bookingExists = (bookingError) => {
     let error = new Error("Sorry, this spot is already booked for the specified dates");
     error.status = 403;
-    error.statusCode = 403;
     error.errors = {}
     if (bookingError.startDate) {
         error.errors.startDate = bookingError.startDate
@@ -112,7 +111,6 @@ router.post("/:spotId", [validateBooking, restoreUser, authRequired, bookingOwne
         startDate: startDate,
         endDate: endDate
     })
-    res.statusCode = 200;
     res.json(newBooking)
 
 })
@@ -141,7 +139,6 @@ router.put("/:bookingId", [restoreUser, authRequired, bookingAuthorization], asy
     if (updateBooking.endDate < compareCurrentDate) {
         const error = new Error("Past bookings can't be modified")
         error.status = 403;
-        error.statusCode = 403;
         return next(error);
     }
     // booking conflict
@@ -182,7 +179,6 @@ router.delete("/:bookingId", [restoreUser, authRequired, bookingAuthorization], 
     compareCurrentDate = compareCurrentDate.toISOString().split("T")[0]
     if (deleteBooking.startDate <= compareCurrentDate) {
         const error = new Error("Bookings that have been started can't be deleted");
-        error.statusCode = 403;
         error.status = 403;
         return next(error);
     }

@@ -49,105 +49,77 @@ module.exports = {
                 userId: 1,
                 type: "spot",
                 typeId: spotId1,
-                url: "https://www.thehousedesigners.com/images/plans/01/URD/bulk/6583/the-destination-front-rendering_m.webp"
+                url: "https://kb-lairbnb.s3.us-west-1.amazonaws.com/1.jpg"
             },
             {
                 userId: 1,
                 type: "spot",
                 typeId: spotId2,
-                url: "https://hips.hearstapps.com/hmg-prod/images/3799-flamingo-ave-siesta-key-print-005-14-flamingo-ave-sarasota-fl-4200x2799-300dpi-1675178841.jpg?crop=0.9992857142857143xw:1xh;center,top&resize=980:*"
+                url: "https://kb-lairbnb.s3.us-west-1.amazonaws.com/2.jpg",
             },
             {
                 userId: 1,
                 type: "spot",
                 typeId: spotId3,
-                url: "https://static01.nyt.com/images/2020/10/14/realestate/14IHH-Croatia-slide-VV0Q/14IHH-Croatia-slide-VV0Q-superJumbo.jpg?quality=75&auto=webp&disable=upscale"
+                url: "https://kb-lairbnb.s3.us-west-1.amazonaws.com/3.jpg",
             },
             {
                 userId: 1,
                 type: "spot",
                 typeId: spotId4,
-                url: "https://westernartandarchitecture.com/wp-content/uploads/2020/05/A_Sonoran_Villa_JJ_20-2.jpg"
+                url: "https://kb-lairbnb.s3.us-west-1.amazonaws.com/4.jpg",
             },
             {
                 userId: 1,
                 type: "spot",
                 typeId: spotId5,
-                url: "https://freedesignfile.com/upload/2019/01/Snow-Mountain-Villa-Scenery-Stock-Photo.jpg",
+                url: "https://kb-lairbnb.s3.us-west-1.amazonaws.com/5.jpg",
             },
             {
                 userId: 2,
                 type: "spot",
                 typeId: spotId6,
-                url: "https://www.christiesrealestate.com/blog/wp-content/uploads/2021/12/river-house-estate-telkwa-british-columbia-1.jpg",
+                url: "https://kb-lairbnb.s3.us-west-1.amazonaws.com/6.jpg",
             },
             {
                 userId: 2,
                 type: "spot",
                 typeId: spotId7,
-                url: "https://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2019/9/16/0/IO_Tongue-and-Groove_Beech-Street_3.jpg.rend.hgtvcom.616.411.suffix/1568648112267.jpeg",
+                url: "https://kb-lairbnb.s3.us-west-1.amazonaws.com/7.jpg",
             },
             {
                 userId: 2,
                 type: "spot",
                 typeId: spotId8,
-                url: "https://www.gannett-cdn.com/presto/2020/10/27/USAT/34e32c2d-d30c-4459-b3a0-792ba7c07c4d-Sallie_House.jpg",
+                url: "https://kb-lairbnb.s3.us-west-1.amazonaws.com/8.jpg",
             },
             {
                 userId: 3,
                 type: "spot",
                 typeId: spotId9,
-                url: "https://www.mydomaine.com/thmb/7Z1D20vZj7Eex5SIr3E_nJMWw8k=/2048x1536/filters:no_upscale():max_bytes(150000):strip_icc()/SuCasaDesign-Modern-9335be77ca0446c7883c5cf8d974e47c.jpg",
+                url: "https://kb-lairbnb.s3.us-west-1.amazonaws.com/9.jpg",
             },
             {
                 userId: 3,
                 type: "spot",
                 typeId: spotId10,
-                url: "https://www.designcurial.com/Uploads/NewsArticle/4809815/main.jpg",
+                url: "https://kb-lairbnb.s3.us-west-1.amazonaws.com/10.jpg",
             },
             {
                 userId: 1,
                 type: "review",
-                typeId: reviewId1,
-                url: "https://www.thehousedesigners.com/images/plans/01/URD/bulk/6583/the-destination-front-rendering_m.webp"
+                typeId: reviewId1
             },
             {
                 userId: 2,
                 type: "review",
-                typeId: reviewId2,
-                url: "https://www.mydomaine.com/thmb/7Z1D20vZj7Eex5SIr3E_nJMWw8k=/2048x1536/filters:no_upscale():max_bytes(150000):strip_icc()/SuCasaDesign-Modern-9335be77ca0446c7883c5cf8d974e47c.jpg",
+                typeId: reviewId2
             },
             {
                 userId: 3,
                 type: "review",
-                typeId: reviewId3,
-                url: "https://www.designcurial.com/Uploads/NewsArticle/4809815/main.jpg",
+                typeId: reviewId3
             }
-            //   {
-            //     type: "spot",
-            //     typeId: spotId1,
-            //     url: "https://res.cloudinary.com/dtpgi0zck/image/upload/s--IJwO_Hss--/c_fill,h_580,w_860/v1/EducationHub/photos/ocean-waves.webp"
-            //   },
-            //   {
-            //     type: "spot",
-            //     typeId: spotId2,
-            //     url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1473&q=80"
-            //   },
-            //   {
-            //     type: "review",
-            //     typeId: reviewId3,
-            //     url: "https://image.shutterstock.com/image-illustration/five-golden-stars-best-rating-260nw-657712999.jpg"
-            //   },
-            //   {
-            //     type: "spot",
-            //     typeId: spotId4,
-            //     url: "https://www.worldatlas.com/r/w1200/upload/7a/f8/f7/lost-city-of-atlantis.jpg"
-            //   },
-            //   {
-            //     type: "review",
-            //     typeId: reviewId5,
-            //     url: "https://www.pngkey.com/png/detail/4-47353_3-stars-3-.png"
-            //   }
         ]
 
 

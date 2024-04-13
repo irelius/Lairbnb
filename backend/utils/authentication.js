@@ -69,7 +69,6 @@ const authRequired = function (req, res, next) {
     if (req.user) return next();
 
     const error = new Error("Authentication required");
-    error.title = 'Authentication required';
     error.status = 401
     return next(error);
 }

@@ -167,7 +167,6 @@ router.post("/spot/:spotId", [validateReviews, restoreUser, authRequired], async
     if (currentReviews.length > 0) {
         const error = new Error("User already has a review for this spot");
         error.status = 403;
-        error.statusCode = 403;
         return next(error);
     }
     const newReview = await Review.create({

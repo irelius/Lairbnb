@@ -61,7 +61,6 @@ router.post('/:type/:typeId', [validateURL, restoreUser, authRequired, imagesAut
         if (currImages.length > 10) {
             const error = new Error("Maximum number of images for this resource was reached")
             error.status = 403;
-            error.statusCode = 403;
             return next(error);
         }
     }
@@ -113,7 +112,6 @@ router.delete("/image/:imageId", [restoreUser, authRequired], async (req, res, n
         if (spotImages.length === 1) {
             const error = new Error("A rental spot must have at least 1 image to show to renters.")
             error.status = 403;
-            error.statusCode = 403;
             return next(error);
         }
     }

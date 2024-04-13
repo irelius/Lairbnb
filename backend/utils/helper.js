@@ -4,7 +4,6 @@
 const notFound = (el, code) => {
     let error = new Error(`${el} couldn't be found`);
     error.status = code;
-    error.statusCode = code;
     return error
 }
 
@@ -13,7 +12,6 @@ const notFound = (el, code) => {
 const forbidden = () => {
     let error = new Error("Forbidden");
     error.status = 403;
-    error.statusCode = 403;
     return error;
 }
 
