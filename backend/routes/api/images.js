@@ -109,8 +109,8 @@ router.post("/:type/:typeId", [restoreUser, authRequired, imagesAuthorization], 
 
             // if trying to add photos to a review, and user is trying to add more than 10 picutres, return error
             if (currImages.length + images.length > 10) {
-                const error = new Error("Maximum number of images for this resource was reached")
-                error.status = 403;
+                const error = new Error("Error: Attempting to exceed the limit of images for this review.")
+                error.status = 413;
                 return next(error);
             }
         }
