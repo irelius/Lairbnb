@@ -21,10 +21,10 @@ export const loadImages = (images) => {
     }
 }
 
-export const addImage = (newImage) => {
+export const addImage = (imageUpload) => {
     return {
         type: ADD_IMAGE,
-        payload: newImage
+        payload: imageUpload
     }
 }
 
@@ -49,12 +49,12 @@ export const resetImage = () => {
 }
 
 // thunk action to get one image
-export const loadImageThunk = (imageId) => async (dispatch) => {
+export const loadImageThunk = (type, typeId) => async (dispatch) => {
     try {
-        const res = await csrfFetch(`/api/images/${imageId}`)
+        const res = await csrfFetch(`/api/images/${type}/${typeId}`)
         if (res.ok) {
             const image = await res.json();
-            dispatch(loadImage(image))
+            dispatch(loadImages(image))
         }
     } catch (e) {
         console.error("Error loading image:", e)
@@ -92,24 +92,67 @@ export const loadImagesThunk = (type, typeId) => async (dispatch) => {
 }
 
 
-export const addImageThunk = (image) => async dispatch => {
+// export const addImageThunk = (image) => async dispatch => {
+//     try {
+//         const response = await csrfFetch(`/api/images`, {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify(image)
+//         })
+
+//         if (response.ok) {
+//             const image = await response.json();
+//             dispatch(addImage(image))
+//         }
+//     } catch (e) {
+//         console.error(e)
+//     }
+
+// }
+
+// Revised thunk action for AWS S3
+export const addImageThunk = (imageUpload) => async dispatch => {
     try {
-        const response = await csrfFetch(`/api/images`, {
+        const { images, type, typeId, userId } = imageUpload;
+
+        const formData = new FormData();
+        formData.append("type", type)
+        formData.append("typeId", typeId)
+        formData.append("userId", userId)
+
+        // TO DO: catch if user is uploading no images
+        if (images && images.length === 1) {
+            formData.append("images", images[0])
+        } else if (images && images.length > 1) {
+            for (let i = 0; i < images.length; i++) {
+                formData.append("images", images[i])
+            }
+        }
+
+        const response = await csrfFetch(`/api/images/${type}/${typeId}`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data"
             },
-            body: JSON.stringify(image)
+            body: formData
         })
 
-        if (response.ok) {
-            const image = await response.json();
-            dispatch(addImage(image))
-        }
-    } catch (e) {
-        console.error(e)
-    }
+        const test = await response.json()
+        console.log('booba thunk', test)
 
+        // if(res.ok) {
+        //     const images = await res.json()
+        //     console.log('booba', images)
+        // } else {
+        //     console.log('booba not ok')
+        //     dispatch(addImage(data.imageUpload))
+        // }
+
+    } catch (e) {
+        console.error("Error uploading image: ", e)
+    }
 }
 
 // export const editImageThunk = (imageId, imageDetails) => async dispatch => {
@@ -139,8 +182,8 @@ export const deleteImageThunk = (imageId) => async dispatch => {
 }
 
 const imageState = {
-    byId: {},
-    allIds: []
+    images: {},
+    imageIds: []
 }
 
 // ----------------------------------------------------------------------------------------------------------
@@ -148,19 +191,27 @@ const imageReducer = (state = imageState, action) => {
     const newState = { ...state }
     switch (action.type) {
         case LOAD_IMAGE:
-            return action.payload
+            newState.images = { [action.payload.images.id]: { ...action.payload.images } }
+            newState.imageIds = [action.payload.images.id]
+            return newState
         case LOAD_IMAGES:
-            for (let i = 0; i < action.payload.length; i++) {
-                let curr = action.payload[i]
-                newState.byId[curr.id] = curr
-                newState.allIds.push(curr.id)
+            const loadImageIds = []
+            const loadImages = {}
+
+            for (let i = 0; i < action.payload.images.length; i++) {
+                let currImage = action.payload.images[i]
+                loadImages[currImage.id] = currImage
+                loadImageIds.push(currImage.id)
             }
+
+            newState.images = loadImages
+            newState.imageIds = loadImageIds
 
             return newState
         case ADD_IMAGE:
-            let newImage = action.payload
-            newState.byId[newImage.id] = newImage
-            newState.allIds.push(newImage.id)
+            // let newImage = action.payload
+            // newState.byId[newImage.id] = newImage
+            // newState.allIds.push(newImage.id)
 
             return newState;
         // case EDIT_IMAGE:

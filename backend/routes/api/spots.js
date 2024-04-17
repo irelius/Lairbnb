@@ -103,7 +103,7 @@ router.get("/:spotId", async (req, res, next) => {
         return next(notFound("Spot", 404))
     }
 
-    return res.json(spot)
+    return res.json({ spot })
     // Following code should be moved to a review api route. Recalculation of ratings should be done whenever a new review is submitted
     // get all reviews to find out how many reviews a spot has
     let starTotal = 0;
@@ -139,7 +139,7 @@ router.post("/", [validateSpot, restoreUser, authRequired], async (req, res, nex
         price: price,
         previewImg: image
     })
-    res.status(201).json(newSpot);
+    res.status(201).json({ newSpot });
 })
 
 
@@ -161,7 +161,7 @@ router.put("/:spotId", [validateSpot, restoreUser, authRequired, spotAuthorizati
     })
     // update and send updated spot
     updateSpot.updatedAt = new Date()
-    res.json(updateSpot)
+    res.json({ updateSpot })
 }))
 
 

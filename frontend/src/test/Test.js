@@ -1,41 +1,61 @@
-import { useDispatch, useSelector } from "react-redux";
-import TestChild from "./TestChild"
-import { useEffect, useState } from "react"
-import * as imageActions from "../store/image"
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addImageThunk, loadImageThunk } from "../store/image";
+// import { deleteSpotThunk, loadAllSpotsThunk, loadSpotThunk, loadUserSpotsThunk } from "../store/spot";
 
 function Test() {
     const dispatch = useDispatch()
 
-    let test = {
-        "type": "spot",
-        "typeId": 1,
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png"
+    const [type, setType] = useState("spot")
+    const [typeId, setTypeId] = useState(1)
+    const [userId, setUserId] = useState(1)
+    const [images, setImages] = useState([])
+
+
+    const updateFiles = (e) => {
+        const files = e.target.files;
+        if (files.length > 0) {
+            setImages(files)
+        }
     }
 
-    useEffect(() => {
-        dispatch(imageActions.loadAllImagesThunk())
-    }, [dispatch])
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(addImageThunk({images, type, typeId, userId}))
 
-    const handleSubmit = () => {
-        dispatch(imageActions.deleteImageThunk(1))
     }
 
-    const images = useSelector(state => state.image)
 
     return (
         <div>
-            {/* <div>
-                {images.allIds.map((el) => {
-                    return (
-                        <div>
-                            <img src={images.byId[el].url} alt='test' />
-                        </div>
-                    )
-                })}
-            </div> */}
-            <div onClick={handleSubmit}>
-                button
-            </div>
+            <section>AWS Test</section>
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <label>
+                    <input
+                        type="text"
+                        value={type}
+                        onChange={(e) => setType(e.target.value)}
+                    />
+                    <input
+                        type="number"
+                        value={typeId}
+                        onChange={(e) => setTypeId(e.target.value)}
+                    />
+                    <input
+                        type="number"
+                        value={userId}
+                        onChange={(e) => setUserId(e.target.value)}
+                    />
+                </label>
+                <label>
+                    Multiple Upload
+                    <input
+                        type="file"
+                        multiple
+                        onChange={updateFiles} />
+                </label>
+                <button type="submit">upload image(s)</button>
+            </form>
         </div>
     );
 }

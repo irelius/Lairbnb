@@ -12,7 +12,7 @@ import EditSpot from "./views/EditSpot/EditSpot";
 import ManageListings from "./views/ManageListings/ManageListings";
 
 import * as userActions from "./store/user";
-// import Test from "./test";
+import Test from "./test";
 
 function App() {
     const dispatch = useDispatch();
@@ -41,9 +41,9 @@ function App() {
                     <Route exact path="/spot-details/:spotId">
                         <SpotPage />
                     </Route>
-                    {/* <Route exact path="/test">
-            <Test />
-          </Route> */}
+                    <Route exact path="/test">
+                        <Test />
+                    </Route>
                 </Switch>
             )}
             <Footer />

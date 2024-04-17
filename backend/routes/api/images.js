@@ -7,6 +7,7 @@ const { validateURL } = require('../../utils/validations');
 const { restoreUser, authRequired } = require('../../utils/authentication');
 const { imagesAuthorization } = require("../../utils/authorization")
 const { notFound, forbidden } = require('../../utils/helper.js');
+const { multipleMulterUpload, multiplePublicFileUpload, singlePublicFileUpload } = require('../../awsS3.js');
 
 
 // ____________________________________________________________________________________
@@ -14,16 +15,16 @@ const { notFound, forbidden } = require('../../utils/helper.js');
 // Get all Images
 router.get("/", async (req, res) => {
     const images = await Image.findAll()
-    res.json(images)
+    res.json({ images })
 })
 
 // Get one image by pk
-router.get('/image/:imageId', async (req, res) => {
+router.get('/:imageId', async (req, res) => {
     const image = await Image.findByPk(req.params.imageId)
-    res.json(image)
+    return res.json({ image })
 })
 
-// Get all images belonging to spot or review. type should either be "spot" or "review" (note singular, not plural)
+// Get the image belonging to spot, review, or user image. type should either be "spot", "review", "user" (note singular, not plural)
 router.get("/:type/:typeId", async (req, res) => {
     const images = await Image.findAll({
         where: {
@@ -32,59 +33,100 @@ router.get("/:type/:typeId", async (req, res) => {
         }
     })
 
-    res.json(images)
+    return res.json({ images })
 })
 
-// Create an Image
-router.post('/:type/:typeId', [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
-    // may need to refactor later to loop through all of the urls that is uploaded (or the images uploaded)
-    const { url } = req.body
-    const { type, typeId } = req.params
+// // Create an Image - before aws
+// router.post('/:type/:typeId', [validateURL, restoreUser, authRequired, imagesAuthorization], async (req, res, next) => {
+//     // may need to refactor later to loop through all of the urls that is uploaded (or the images uploaded)
+//     const { url } = req.body
+//     const { type, typeId } = req.params
 
-    let typeCategory;
-    let typeRes;
-    if (type === "spot") {
-        typeCategory = "Spot"
-        typeRes = await Spot.findByPk(typeId)
-    } else {
-        typeCategory = "Review"
-        typeRes = await Review.findByPk(typeId)
+//     let typeCategory;
+//     let typeRes;
+//     if (type === "spot") {
+//         typeCategory = "Spot"
+//         typeRes = await Spot.findByPk(typeId)
+//     } else {
+//         typeCategory = "Review"
+//         typeRes = await Review.findByPk(typeId)
 
-        const currImages = await Image.findAll({
-            where: {
-                type: type,
-                typeId: typeId
-            }
-        })
+//         const currImages = await Image.findAll({
+//             where: {
+//                 type: type,
+//                 typeId: typeId
+//             }
+//         })
 
-        // if trying to add photos to a review, and user is trying to add more than 10 picutres, return error
-        if (currImages.length > 10) {
-            const error = new Error("Maximum number of images for this resource was reached")
-            error.status = 403;
-            return next(error);
+//         // if trying to add photos to a review, and user is trying to add more than 10 picutres, return error
+//         if (currImages.length > 10) {
+//             const error = new Error("Maximum number of images for this resource was reached")
+//             error.status = 403;
+//             return next(error);
+//         }
+//     }
+
+//     // if spot or review doesn't exist, return 404 error
+//     if (!typeRes) {
+//         return next(notFound(typeCategory, 404))
+//     }
+
+//     // if spot/review exists, create new image
+//     const newImage = await Image.create({
+//         userId: req.user.id,
+//         type: type,
+//         typeId: typeId,
+//         url: url,
+//     })
+
+//     res.json({
+//         id: newImage.id,
+//         userId: req.user.id,
+//         type: newImage.type,
+//         typeId: newImage.typeId,
+//         url: newImage.url,
+//     })
+// })
+
+
+router.post("/:type/:typeId", [restoreUser, authRequired, imagesAuthorization], multipleMulterUpload("images"), async (req, res) => {
+    try {
+        const { userId } = req.body
+        const { typeId, type } = req.params
+
+        let images;
+        if (req.files) {
+            images = await multiplePublicFileUpload(req.files)
         }
+
+        if (type === "review") {
+            const currImages = await Image.findAll({
+                where: {
+                    type: type,
+                    typeId: typeId
+                }
+            })
+
+            // if trying to add photos to a review, and user is trying to add more than 10 picutres, return error
+            if (currImages.length + images.length > 10) {
+                const error = new Error("Maximum number of images for this resource was reached")
+                error.status = 403;
+                return next(error);
+            }
+        }
+
+        for (let i = 0; i < images.length; i++) {
+            await Image.create({
+                userId: userId,
+                type: type,
+                typeId: typeId,
+                url: images[i]
+            })
+        }
+        return res.json({ images })
+    } catch (e) {
+        console.error("Error creating images:", e)
     }
-
-    // if spot or review doesn't exist, return 404 error
-    if (!typeRes) {
-        return next(notFound(typeCategory, 404))
-    }
-
-    // if spot/review exists, create new image
-    const newImage = await Image.create({
-        userId: req.user.id,
-        type: type,
-        typeId: typeId,
-        url: url,
-    })
-
-    res.json({
-        id: newImage.id,
-        userId: req.user.id,
-        type: newImage.type,
-        typeId: newImage.typeId,
-        url: newImage.url,
-    })
 })
 
 // Delete an Image

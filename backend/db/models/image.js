@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        // determine if image url is for a profile, spot, or review
+        // determine if image type is for a user, spot, or review
         type: {
             type: DataTypes.STRING,
             allowNull: false,

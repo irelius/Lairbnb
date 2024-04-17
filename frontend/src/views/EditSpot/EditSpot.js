@@ -16,18 +16,18 @@ function EditSpot() {
         dispatch(loadSpotThunk(spotId))
     }, [dispatch, spotId])
 
-    const currentSpot = useSelector(state => state.spot)
-    const currentSpotId = useSelector(state => state.spot.spotIds[0])
     const user = useSelector(state => state.user.user)
+    const spotSelector = useSelector(state => state.spot)
+    const currentSpot = spotSelector.spots[spotId]
 
     const [load, setLoad] = useState(false)
     const [location, setLocation] = useState()
 
     useEffect(() => {
-        setLocation({ ...currentSpot.spots[currentSpotId] })
-        if (currentSpot.spotIds.length > 0) setLoad(true)
+        setLocation({ ...spotSelector.spots[spotId] })
+        if (spotSelector.spotIds.length > 0) setLoad(true)
 
-    }, [dispatch, currentSpot, currentSpotId])
+    }, [dispatch, spotSelector, spotId])
 
     const handleChange = (e, key) => {
         setLocation(prev => ({
@@ -42,7 +42,7 @@ function EditSpot() {
         history.push("/manage-listings")
     }
 
-    return user === undefined || user.id !== currentSpot.ownerId ? (
+    return currentSpot && (user === undefined || user.id !== currentSpot.ownerId) ? (
         <div>
             <NotAuthorized />
         </div>

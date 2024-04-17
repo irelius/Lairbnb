@@ -136,17 +136,15 @@ export const resetSpot = () => {
 
 const initialSpot = {
     spots: {},
-    spotIds: [],
-    // userSpots: {},
-    // userSpotIds: []
+    spotIds: []
 }
 
 const spotReducer = (state = initialSpot, action) => {
     const newState = { ...state }
     switch (action.type) {
         case LOAD_SPOT:
-            newState.spots = { [action.payload.id]: { ...action.payload } }
-            newState.spotIds = [action.payload.id]
+            newState.spots = { [action.payload.spot.id]: { ...action.payload.spot } }
+            newState.spotIds = [action.payload.spot.id]
             return newState
         case LOAD_SPOTS:
             const loadSpotIds = []
@@ -162,11 +160,11 @@ const spotReducer = (state = initialSpot, action) => {
             newState.spotIds = loadSpotIds
             return newState
         case ADD_SPOT:
-            newState.spots[action.payload.id] = action.payload
-            newState.spotIds.push(action.payload.id)
+            newState.spots[action.payload.newSpot.id] = action.payload.newSpot
+            newState.spotIds.push(action.payload.newSpot.id)
             return newState;
         case EDIT_SPOT:
-            newState.spots[action.payload.id] = action.payload;
+            newState.spots[action.payload.updateSpot.id] = action.payload.updateSpot;
             return newState;
         case DELETE_SPOT:
             const deleteSpotIds = newState.spotIds.filter(el => el !== action.payload.id)
@@ -176,9 +174,7 @@ const spotReducer = (state = initialSpot, action) => {
         case CLEAR_SPOT:
             const resetSpot = {
                 spots: {},
-                spotIds: [],
-                // userSpots: {},
-                // userSpotIds: []
+                spotIds: []
             }
             return resetSpot
         default:

@@ -1,7 +1,9 @@
 // backend/utils/authorization.js
 
-const { Spot, Image, Review, Booking } = require('../db/models');
+const { Spot, Image, Review, Booking, User } = require('../db/models');
 const { notFound, forbidden } = require('./helper')
+
+// ----------------------------------- Spot Authorization Methods -----------------------------------
 
 // Authorization required for Spots
 const spotAuthorization = async function (req, res, next) {
@@ -15,6 +17,9 @@ const spotAuthorization = async function (req, res, next) {
     return next();
 }
 
+
+// ----------------------------------- Review Authorization Methods -----------------------------------
+
 // Authorization required for Reviews
 const reviewAuthorization = async function (req, res, next) {
     const review = await Review.findByPk(req.params.reviewId);
@@ -26,6 +31,9 @@ const reviewAuthorization = async function (req, res, next) {
     }
     return next();
 }
+
+
+// ----------------------------------- Booking Authorization Methods -----------------------------------
 
 // Authorization not required for Booking
 const bookingOwnerAuthorization = async function (req, res, next) {
@@ -52,8 +60,9 @@ const bookingAuthorization = async function (req, res, next) {
 }
 
 
+// ----------------------------------- Image Authorization Methods -----------------------------------
+
 // Authorization required for Images
-// TO DO, remove uncessary code after testing that new validation method works for all requirements
 const imagesAuthorization = async function (req, res, next) {
     let type = req.params.type
     let typeId = req.params.typeId
@@ -70,7 +79,7 @@ const imagesAuthorization = async function (req, res, next) {
         }
     }
     // check if user is owner of review. forbidden if not reviewer
-    else {
+    else if (type === "review") {
         const review = await Review.findByPk(typeId)
 
         if (!review) {
@@ -79,47 +88,19 @@ const imagesAuthorization = async function (req, res, next) {
         if (review.userId !== req.user.id) {
             return next(forbidden())
         }
+    // check if user uploading image is the owner of account
+    } else {
+        const account = await User.findByPk(typeId)
+
+        if(!account) {
+            return next(notFound("User"), 404)
+        }
+        if(account.id !== req.user.id) {
+            return next(forbidden())
+        }
     }
 
     return next()
-
-    // // checking if image url is being added to a spot
-    // if (req.params.spotId) {
-    //     const spot = await Spot.findByPk(req.params.spotId);
-    //     if (spot.ownerId !== req.user.id) {
-    //         return next(forbidden())
-    //     }
-    //     return next();
-    // }
-    // // checking if image url is being added to a review
-    // if (req.params.reviewId) {
-    //     const review = await Review.findByPk(req.params.reviewId);
-    //     if (req.user.id !== review.userId) {
-    //         return next(forbidden())
-    //     }
-    //     return next();
-    // }
-    // // checking if image url is being deleted
-    // if (req.params.imageId) {
-    //     const deleteImage = await Image.findByPk(req.params.imageId)
-    //     const reviewCheck = await Review.findOne({
-    //         where: {
-    //             id: deleteImage.reviewId
-    //         }
-    //     })
-    //     const spotCheck = await Spot.findOne({
-    //         where: {
-    //             id: deleteImage.spotId
-    //         }
-    //     })
-    //     if (reviewCheck && reviewCheck.userId !== req.user.id) {
-    //         return next(forbidden())
-    //     }
-    //     if (spotCheck && spotCheck.ownerId !== req.user.id) {
-    //         return next(forbidden())
-    //     }
-    //     return next();
-    // }
 }
 
 module.exports = {

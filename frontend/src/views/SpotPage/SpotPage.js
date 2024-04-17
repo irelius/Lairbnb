@@ -25,8 +25,6 @@ function SpotPage() {
     const spot = useSelector(state => state.spot.spots[spotId])
     const reviews = useSelector(state => state.review)
 
-    console.log('booba', spot)
-
     // // fetch the spot's reviews
     // // TO DO: recalculate the spot review and average when use submits a review
     // useEffect(() => {
