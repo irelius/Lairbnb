@@ -1,0 +1,15 @@
+.spot-page-image-primary {
+    height: 300px;
+    width: auto;
+    object-fit: cover;
+
+    border: 5px solid transparent;
+}
+
+.spot-page-image-primary > img {
+    border-radius: 15px 0px 0px 15px;
+}
+
+.spot-page-image-test {
+    height: 300px;
+}
