@@ -4,8 +4,6 @@ import "./SpotSection.css"
 function SpotSection({ spot, reviews }) {
     const totalReviewsCount = reviews.allReviewsId.length + reviews.userReviewsId.length
 
-    console.log('booba', spot)
-
     return spot.owner ? (
         <div id="spot-section">
             <div id="spot-header" className="semi-bold">

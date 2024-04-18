@@ -1,8 +1,6 @@
 import "./SpotPageImage.css"
 
 const SpotPageImage = ({ images }) => {
-    console.log('booba', images)
-
     const testLength = [1, 2]
 
     return testLength.length === 1 ? (
