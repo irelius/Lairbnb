@@ -3,8 +3,8 @@
 
 #spot-container {
     margin-top: 20px;
-    width: 375px;
-    height: 355px;
+    width: 350px;
+    height: 400px;
     padding: 12px;
     padding-bottom: 90px;
 }
@@ -14,8 +14,8 @@
 }
 
 #spot-image {
-    width: 375px;
-    height: 355px;
+    width: 325px;
+    height: 300px;
     object-fit: cover;
     border-radius: 10px;
 

@@ -1,7 +1,10 @@
+import SpotPageImage from "../../../components/SpotPageImage"
 import "./SpotSection.css"
 
 function SpotSection({ spot, reviews }) {
     const totalReviewsCount = reviews.allReviewsId.length + reviews.userReviewsId.length
+
+    console.log('booba', spot)
 
     return spot.owner ? (
         <div id="spot-section">
@@ -29,11 +32,12 @@ function SpotSection({ spot, reviews }) {
                 </aside>
             </div>
             {/* Spot image. TO DO: set up airbnb's multiple photo set up */}
-            {spot.previewImg ? (
+            <SpotPageImage images={spot.Images} />
+            {/* {spot.previewImg ? (
                 <img id="spot-header-image" src={`${spot.previewImg}`} alt={`${spot.name}`} />
             ) : (
                 <div></div>
-            )}
+            )} */}
         </div>
     ) : (
         <></>

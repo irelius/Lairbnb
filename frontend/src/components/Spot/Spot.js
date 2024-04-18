@@ -1,6 +1,5 @@
 import "./Spot.css"
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
-import loadImage from "../../utils/loadImage"
 import SpotImage from "./SpotImage.js/SpotImage"
 
 function Spot({ spot }) {
