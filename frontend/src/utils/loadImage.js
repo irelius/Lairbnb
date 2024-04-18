@@ -1,15 +1,15 @@
-const loadImage = (el) => {
-    if (el.previewImg) {
-        return (
-            <img id="spot-image" src={`${el.previewImg}`} alt={`${el.name}`} />
-        )
-    } else {
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }
+const loadImage = (images) => {
+    const frontImage = images[0]
+
+    return images ? (
+        <div>
+            <img id="spot-image" src={`${frontImage.url}`} alt={'test'} />
+        </div>
+    ) : (
+        <div>
+            Loading Image...
+        </div>
+    )
 }
 
 export default loadImage

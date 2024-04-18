@@ -20,7 +20,7 @@ function Main() {
         <div id="all-spots">
             {spots.spotIds.map((id, i) => {
                 return (
-                    <Spot id={id} key={i} />
+                    <Spot spot={spots.spots[id]} key={i} />
                 )
             })}
         </div>

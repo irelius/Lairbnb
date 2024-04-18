@@ -21,7 +21,7 @@ function Test() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(addImageThunk({images, type, typeId, userId}))
+        dispatch(addImageThunk({ images, type, typeId, userId }))
 
     }
 

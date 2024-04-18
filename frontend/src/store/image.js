@@ -64,10 +64,9 @@ export const loadImageThunk = (type, typeId) => async (dispatch) => {
 }
 
 // thunk action to get all images
-export const loadAllImagesThunk = () => async (dispatch) => {
-
+export const loadAllImagesThunk = (type) => async (dispatch) => {
     try {
-        const res = await csrfFetch(`/api/images`);
+        const res = await csrfFetch(`/api/images/${type}`);
         if (res.ok) {
             const images = await res.json();
             dispatch(loadImages(images))
@@ -140,13 +139,10 @@ export const addImageThunk = (imageUpload) => async dispatch => {
         })
 
         const test = await response.json()
-        console.log('booba thunk', test)
 
         // if(res.ok) {
         //     const images = await res.json()
-        //     console.log('booba', images)
         // } else {
-        //     console.log('booba not ok')
         //     dispatch(addImage(data.imageUpload))
         // }
 

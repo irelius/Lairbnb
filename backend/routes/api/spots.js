@@ -47,7 +47,12 @@ router.get("/", validateFilters, async (req, res, next) => {
             }
         },
         limit: size,
-        offset: (size * (page - 1))
+        offset: (size * (page - 1)),
+        include: [
+            {
+                model: Image
+            }
+        ]
     })
 
     res.json({

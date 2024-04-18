@@ -18,6 +18,16 @@ router.get("/", async (req, res) => {
     res.json({ images })
 })
 
+// Get all Images by type
+router.get("/:type", async (req, res) => {
+    const images = await Image.findAll({
+        where: {
+            type: req.params.type
+        }
+    })
+    res.json({ images })
+})
+
 // Get one image by pk
 router.get('/:imageId', async (req, res) => {
     const image = await Image.findByPk(req.params.imageId)

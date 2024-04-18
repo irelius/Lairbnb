@@ -1,15 +1,16 @@
 import "./Spot.css"
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
-import { useSelector } from "react-redux"
 import loadImage from "../../utils/loadImage"
+import SpotImage from "./SpotImage.js/SpotImage"
 
-function Spot({ id }) {
-    const spot = useSelector(state => state.spot.spots[id])
-
+function Spot({ spot }) {
     return (
-        <NavLink exact to={`/spot-details/${id}`} id="spot-container">
-            {/* TO DO: implement how to do images */}
-            <section id="spot-image-container">{loadImage(spot)}</section>
+        <NavLink exact to={`/spot-details/${spot.id}`} id="spot-container">
+            {/* TO DO: implement how to do images carosel */}
+            <section id="spot-image-container">
+                <SpotImage images={spot.Images} spot={spot}/>
+                {/* {loadImage(spot.Images)} */}
+            </section>
             <div id="spot-description">
                 <section id="spot-name" className="semi-bold">
                     {`${spot.name}`}, {`${spot.state}`}
