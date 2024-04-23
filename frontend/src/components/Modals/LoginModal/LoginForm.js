@@ -10,6 +10,8 @@ function LoginForm({ setShowLoginForm }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState("");
+    const [inputFocus, setInputFocus] = useState(null)
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -44,21 +46,29 @@ function LoginForm({ setShowLoginForm }) {
         dispatch(loginThunk(demoUser));
     }
 
+    const changeFocus = (e) => {
+        const inputField = e.target.placeholder.toLowerCase()
+        if (inputField === "email") {
+            setInputFocus("password")
+        } else {
+            setInputFocus('email')
+        }
+    }
+
     return (
-        <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
-            <section className="modal-exit-button pointer f7f7f7-bg-hover" onClick={() => setShowLoginForm(false)}>
+        <div className="modal-form-container" onClick={(e) => e.stopPropagation()}>
+            <section className="modal-exit-button mouse-pointer bg-off-white-hover" onClick={() => setShowLoginForm(false)}>
                 <i className="fa-solid fa-xmark" />
             </section>
-            <section className="modal-form-header bbot-235">
-                <section className="bold font-14">
+            <section className="modal-form-header">
+                <section className="font-bold font-14">
                     Log in
                 </section>
             </section>
             <div>
-                <form onSubmit={handleSubmit} id="login-form">
+                <form onSubmit={() => handleSubmit()} className="login-form">
                     <input
-                        id="login-form-email-input"
-                        className="border-176"
+                        className={`login-form-email-input email-${inputFocus}`}
                         type="text"
                         value={email}
                         onChange={(e) => {
@@ -67,12 +77,12 @@ function LoginForm({ setShowLoginForm }) {
                                 setErrors("")
                             }
                         }}
+                        onFocus={(e) => changeFocus(e)}
                         required
                         placeholder="Email"
                     />
                     <input
-                        id="login-form-password-input"
-                        className="border-176"
+                        className={`login-form-password-input password-${inputFocus}`}
                         type="password"
                         value={password}
                         onChange={(e) => {
@@ -81,25 +91,26 @@ function LoginForm({ setShowLoginForm }) {
                                 setErrors("")
                             }
                         }}
+                        onFocus={(e) => changeFocus(e)}
                         required
                         placeholder="Password"
                     />
                     {errors ? (
-                        <div id="login-error-section" className="font-12 red">
-                            <i id="exclamation-mark" className="fa-solid fa-circle-exclamation" /> {errors}
+                        <div className="login-error-section font-12 red">
+                            <i className="exclamation-mark fa-solid fa-circle-exclamation" /> {errors}
                         </div>
                     ) : (
-                        <div id="login-error-section" className="font-12">
+                        <div className="login-error-section font-12">
                             Enter your account information to log in.
                         </div>
                     )}
                     <SubmitButton buttonText="Continue" />
                 </form>
-                <div id="demo-login-container">
-                    <button className="button font-12 pointer no-border" id="demo-login-button" onClick={() => signInDemo()}>Demo Login</button>
-                </div>
             </div>
-            {/* <section id="google-login">
+            <div className="demo-login-container">
+                <button className="button font-12 mouse-pointer border-none demo-login-button" onClick={() => signInDemo()}>Demo Login</button>
+            </div>
+            {/* <section className="google-login">
                     Google login functionality to be added
                 </section> */}
         </div>
