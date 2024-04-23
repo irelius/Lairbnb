@@ -4,7 +4,7 @@ const SpotImage = ({ images, spot }) => {
     const frontImage = images[0]
     return images ? (
         <div>
-            <img id="spot-image" src={`${frontImage.url}`} alt={`${spot.name}`} />
+            <img className="spot-image" src={`${frontImage.url}`} alt={`${spot.name}`} />
         </div>
     ) : (
         <div>

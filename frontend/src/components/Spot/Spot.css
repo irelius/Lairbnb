@@ -1,42 +1,29 @@
 /* src/components/Spot/Spot.css */
 /* Single Spot CSS */
 
-#spot-container {
-    margin-top: 20px;
-    width: 350px;
-    height: 400px;
+.spot-container {
+    height: 440px;
+    width: 375px;
+    margin: 12px;
+
+    /* margin-top: 20px;
     padding: 12px;
-    padding-bottom: 90px;
+    padding-bottom: 90px; */
 }
 
-#spot-city {
+.spot-description {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+    margin-top: 7px;
+}
+
+.spot-city {
     color: #717171;
 }
 
-#spot-image {
-    width: 325px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-
-    transition: filter 0.2s ease;
-}
-
-#spot-container:hover #spot-image {
-    filter: brightness(0.9);
-}
-
-#spot-description {
-    max-height: 100px;
-    padding: 10px;
-}
-
-#spot-price-container {
+.spot-price-container {
     display: flex;
-    flex-direction: row;
-    padding-top: 5px;
-}
-
-#spot-price {
-    padding-right: 5px;
+    gap: 3px;
 }

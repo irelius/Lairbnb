@@ -17,7 +17,7 @@ function Main() {
     const spots = useSelector(state => state.spot)
 
     return load ? (
-        <div id="all-spots">
+        <div className="all-spots">
             {spots.spotIds.map((id, i) => {
                 return (
                     <Spot spot={spots.spots[id]} key={i} />

@@ -6,7 +6,7 @@
   --white: #FFFFFF;
   --off-white: #f7f7f7;
   --bold: bold;
-  --semi-bold: 600;
+  --semi-bold: 500;
   --10: 10px;
   --12: 12px;
   --14: 14px;
@@ -16,11 +16,13 @@
 
 body {
   position: relative;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: Montserrat;
+  font-weight: var(--semi-bold);
+  font-size: var(--14);
 }
 
 button {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: Montserrat;
 }
 
 /* ---------------------------------------------------- Color CSS ---------------------------------------------------- */
@@ -132,8 +134,6 @@ button {
   background-color: rgba(0, 0, 0, 0.6);
 }
 .modal-form-container {
-  display: flex;
-  flex-direction: column;
   border-radius: 15px;
   height: 500px;
   width: 450px;
@@ -142,21 +142,21 @@ button {
 .modal-form-header {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 25px;
-  padding-bottom: 20px;
   margin-bottom: 20px;
+  border-bottom: 1px solid black;
+  font-weight: var(--bold);
 }
 .modal-exit-button {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  margin: 15px;
-  padding: 5px;
-  padding-left: 6px;
-  height: 20px;
-  width: 20px;
-  border-radius: 90%;
+  margin: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
 }
 
 /*# sourceMappingURL=index.css.map */
