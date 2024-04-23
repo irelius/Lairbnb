@@ -11,39 +11,39 @@ function Header({ isLoaded }) {
 
     const user = useSelector(state => state.user);
 
-    let sessionLinks;
-    if (user.loggedIn) {
-        sessionLinks = (
-            <div id="header-right-container">
-                <aside id="header-host-button-container">
-                    <button id="header-host-button" className="ffffff-bg f7f7f7-bg-hover bold pointer no-border" onClick={() => history.push("/become-a-host/property-form")}>
-                        Become a host
-                    </button>
-                </aside>
-                <ProfileDropdownMenu />
-            </div>
-        );
-    } else {
-        sessionLinks = (
-            <div id="header-right-container">
-                <ProfileDropdownMenu />
-            </div>
-        );
-    }
-
     return (
-        <div id="header-main-container" className='bbot-235'>
+        // <div className="header-main-container border-bot-235"></div>
+        <div className="header-main-container">
             <aside>
-                <section id="header-lairbnb-icon-container" className="pointer" onClick={() => history.push("/")}>
-                    <img id="lairbnb-icon" src="https://raw.githubusercontent.com/irelius/Airbnb/main/frontend/public/assets/favicon-32x32.png"
+                <section className="header-lairbnb-icon-container mouse-pointer" onClick={() => history.push("/")}>
+                    <img className="lairbnb-icon" src="https://raw.githubusercontent.com/irelius/Airbnb/main/frontend/public/assets/favicon-32x32.png"
                         alt="lairbnb-icon"
                     />
-                    <p id="lairbnb-header-text" className='bold'>
+                    <p className="lairbnb-header-text font-bold">
                         Lairbnb
                     </p>
                 </section>
             </aside>
-            {isLoaded && sessionLinks}
+            {/* If user is logged in */}
+            {isLoaded && user.loggedIn === true ? (
+                <div className="header-right-container">
+                    <aside className="header-host-button-container">
+                        {/* <button className="header-host-button bg-white bg-off-white-hover bold mouse-pointer border-none" onClick={() => history.push("/become-a-host/property-form")}> */}
+
+                        <button className="header-host-button" onClick={() => history.push("/become-a-host/property-form")}>
+                            Become a host
+                        </button>
+                    </aside>
+                    <ProfileDropdownMenu />
+                </div>
+            // {/* If user is not logged in */}
+            ) : isLoaded && user.loggedIn === false ? (
+                <div className="header-right-container">
+                    <ProfileDropdownMenu />
+                </div>
+            ) : (
+                <></>
+            )}
         </div>
     )
 }
