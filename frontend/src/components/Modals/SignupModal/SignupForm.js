@@ -46,12 +46,12 @@ function SignupForm({ setShowSignupForm }) {
     }
 
     return (
-        <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
-            <section className="modal-exit-button pointer f7f7f7-bg-hover" onClick={() => setShowSignupForm(false)}>
+        <div className="modal-form-container" onClick={(e) => e.stopPropagation()}>
+            <section className="modal-exit-button mouse-pointer bg-off-white-hover" onClick={() => setShowSignupForm(false)}>
                 <i className="fa-solid fa-xmark" />
             </section>
-            <section className="modal-form-header bbot-235">
-                <section className="bold font-14">
+            <section className="modal-form-header border-bot-235">
+                <section className="font-bold font-14">
                     Sign up
                 </section>
             </section>

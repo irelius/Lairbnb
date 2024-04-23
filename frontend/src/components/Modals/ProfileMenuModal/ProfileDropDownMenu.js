@@ -49,39 +49,39 @@ const ProfileDropDownMenu = () => {
 
     return (
         <div>
-            <button id={`profile-button-container${showMenu ? '-shadow' : ''}`} className="border-235 ffffff-bg pointer" onClick={() => menuSwitch()}>
-                <i id="profile-bars" className="fa-solid fa-bars" />
-                <div id="profile-icon-container">
-                    {loggedIn ? user.firstName.slice(0, 1) : <i id="profile-icon" className="fa-solid fa-user fa-lg" />}
+            <button className={`border-235 bg-white mouse-pointer profile-button-container${showMenu ? '-shadow' : ''}`} onClick={() => menuSwitch()}>
+                <i className="fa-solid fa-bars profile-bars" />
+                <div className="profile-icon-container">
+                    {loggedIn ? user.firstName.slice(0, 1) : <i className="fa-solid fa-user fa-lg"/>}
                 </div>
             </button>
             {showMenu ? (
-                <div className="profile-dropdown-container shadow ffffff-bg" onClick={(e) => e.stopPropagation()}>
+                <div className="profile-dropdown-container shadow bg-white" onClick={(e) => e.stopPropagation()}>
                     {user ? (
                         <>
-                            <section className="semi-bold">
+                            <section className="font-semi-bold">
                                 {user.firstName} {user.lastName}
                             </section>
-                            <section className="semi-bold">
+                            <section className="font-semi-bold">
                                 {user.email}
                             </section>
-                            <section className="f7f7f7-bg-hover pointer" onClick={() => {
+                            <section className="bg-off-white-hover mouse-pointer" onClick={() => {
                                 closeMenu()
                                 history.push("/manage-listings")
                             }}>
                                 Manage Your Listings
                             </section>
-                            <section className="f7f7f7-bg-hover pointer" onClick={(e) => logout(e)}>
+                            <section className="bg-off-white-hover mouse-pointer" onClick={(e) => logout(e)}>
                                 Log Out
                             </section>
                         </>
                     ) : (
                         <>
-                            <section className="f7f7f7-bg-hover pointer bold" onClick={() => signInDemo()}>
+                            <section className="bg-off-white-hover mouse-pointer bold" onClick={() => signInDemo()}>
                                 Sign in as Demo User
                             </section>
                             <section
-                                className="f7f7f7-bg-hover pointer"
+                                className="bg-off-white-hover mouse-pointer"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setShowMenu(false);
@@ -91,7 +91,7 @@ const ProfileDropDownMenu = () => {
                                 Sign Up
                             </section>
                             <section
-                                className="f7f7f7-bg-hover pointer"
+                                className="bg-off-white-hover mouse-pointer"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     setShowMenu(false);
