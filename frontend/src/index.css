@@ -1,210 +1,162 @@
-
-/* try to implement more with root variables */
 :root {
-    --test-color: rgba(235, 235, 235);
+  --light-gray: #f7f7f7;
+  --gray: #B0B0B0;
+  --dark-gray: #717171;
+  --red: rgb(193, 53, 21);
+  --white: #FFFFFF;
+  --off-white: #f7f7f7;
+  --bold: bold;
+  --semi-bold: 600;
+  --10: 10px;
+  --12: 12px;
+  --14: 14px;
+  --16: 16px;
+  --18: 18xp;
 }
 
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Body */
 body {
-    position: relative;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  position: relative;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 button {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Foreground Color stuff */
-.light-gray {
-    color: #f7f7f7;
+/* ---------------------------------------------------- Color CSS ---------------------------------------------------- */
+.color-light-gray {
+  color: var(--light-gray);
+}
+.color-dark-gray {
+  color: var(--dark-gray);
+}
+.color-red {
+  color: var(--red);
+}
+.color-white {
+  color: var(--white);
 }
 
-.gray {
-    color: #717171;
+/* ------------------------------------------------- Background CSS ------------------------------------------------- */
+.bg-white {
+  background-color: var(--white);
+}
+.bg-white-hover:hover {
+  background-color: var(--white);
+}
+.bg-off-white {
+  background-color: var(--off-white);
+}
+.bg-off-white-hover:hover {
+  background-color: var(--off-white);
 }
 
-.red {
-    color: rgb(193, 53, 21)
+/* --------------------------------------------------- Border CSS --------------------------------------------------- */
+.border-none {
+  border: none;
 }
-
-.white {
-    color: rgb(255, 255, 255)
+.border-black {
+  border: 1px solid black;
 }
-
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Background Color stuff */
-.ffffff-bg {
-    background-color: white;
+.border-gray {
+  border: 1px solid var(--gray);
 }
-
-.ffffff-bg-hover:hover {
-    background-color: white;
-}
-
-.f7f7f7-bg {
-    background-color: #f7f7f7;
-}
-
-.f7f7f7-bg-hover:hover {
-    background-color: #f7f7f7;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Border Stuff */
-.no-border {
-    border: none;
-}
-
-.black-border {
-    border: 1px solid black;
-}
-
-.border-176 {
-    border: 1px solid rgba(176, 176, 176);
-}
-
 .border-235 {
-    border: 1px solid rgba(235, 235, 235);
+  border: 1ps solid rbg(235, 235, 235);
+}
+.border-top-235 {
+  border-top: 1px solid rgb(235, 235, 235);
+}
+.border-bot-235 {
+  border-bottom: 1ps solid rbg(235, 235, 235);
 }
 
-.btop-235 {
-    border-top: 1px solid rgb(235, 235, 235)
-}
-
-.bbot-235 {
-    border-bottom: 1px solid rgb(235, 235, 235)
-}
-
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Font Stuff */
-.bold {
-    font-weight: bold;
-}
-
-.semi-bold {
-    font-weight: 600;
-}
-
-.underline {
-    text-decoration: underline;
-}
-
+/* ---------------------------------------------------- Font CSS ---------------------------------------------------- */
 .font-10 {
-    font-size: 10px;
+  font-size: var(--10);
 }
-
 .font-12 {
-    font-size: 12px;
+  font-size: var(--12);
 }
-
 .font-14 {
-    font-size: 14px;
+  font-size: var(--14);
 }
-
 .font-16 {
-    font-size: 16px;
+  font-size: var(--16);
 }
-
 .font-18 {
-    font-size: 18px;
+  font-size: var(--18);
+}
+.font-bold {
+  font-weight: var(--bold);
+}
+.font-semi-bold {
+  font-weight: var(--semi-bold);
+}
+.font-underline {
+  text-decoration: underline;
 }
 
-
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Mouse Stuff */
-.pointer {
-    cursor: pointer;
+/* --------------------------------------------------- Mouse CSS --------------------------------------------------- */
+.mouse-pointer {
+  cursor: pointer;
+}
+.mouse-hidden {
+  display: none;
+}
+.mouse-hidden-container {
+  position: relative;
+}
+.mouse-hidden-container:hover .hidden {
+  display: block;
 }
 
-.hidden {
-    display: none;
-}
-
-.hidden-container {
-    position: relative;
-}
-
-.hidden-container:hover .hidden {
-    display: block;
-}
-
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Shadow */
+/* --------------------------------------------------- Shadow CSS --------------------------------------------------- */
 .shadow {
-    box-shadow: 0 0 3mm rgba(219, 219, 219);
+  box-shadow: 0 0 3mm rgb(219, 219, 219);
 }
 
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Spacing stuff */
-/* .dot-spacing {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Modal Stuff - General */
+/* ---------------------------------------------------- Modal CSS ---------------------------------------------------- */
 .modal {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    height: 100%;
-    width: 100%;
-
-    background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
 }
-
 .modal-form-container {
-    display: flex;
-    flex-direction: column;
-
-    border-radius: 15px;
-
-    height: 500px;
-    width: 450px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  height: 500px;
+  width: 450px;
+  background-color: var(--white);
 }
-
 .modal-form-header {
-    display: flex;
-    justify-content: center;
-
-    padding: 25px;
-    padding-bottom: 20px;
-
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  padding: 25px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.modal-exit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  margin: 15px;
+  padding: 5px;
+  padding-left: 6px;
+  height: 20px;
+  width: 20px;
+  border-radius: 90%;
 }
 
-#modal-exit-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    position: absolute;
-    margin: 15px;
-    padding: 5px;
-    padding-left: 6px;
-
-    height: 20px;
-    width: 20px;
-
-    border-radius: 90%;
-}
+/*# sourceMappingURL=index.css.map */

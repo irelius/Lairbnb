@@ -46,7 +46,7 @@ function LoginForm({ setShowLoginForm }) {
 
     return (
         <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
-            <section id="modal-exit-button" className="pointer f7f7f7-bg-hover" onClick={() => setShowLoginForm(false)}>
+            <section className="modal-exit-button pointer f7f7f7-bg-hover" onClick={() => setShowLoginForm(false)}>
                 <i className="fa-solid fa-xmark" />
             </section>
             <section className="modal-form-header bbot-235">

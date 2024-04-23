@@ -13,3 +13,11 @@
 .spot-page-image-test {
     height: 300px;
 }
+
+/* .my-module_ {
+    &header {}
+    &body {}
+    &button {
+        &_button-bg {}
+    }
+} */
