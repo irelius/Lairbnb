@@ -5,19 +5,19 @@ function SpotSection({ spot, reviews }) {
     const totalReviewsCount = reviews.allReviewsId.length + reviews.userReviewsId.length
 
     return spot.owner ? (
-        <div id="spot-section">
-            <div id="spot-header" className="semi-bold">
+        <div className="spot-section">
+            <div className="spot-header font-semi-bold">
                 {spot.name}
             </div>
-            <div id="spot-subheader">
+            <div className="spot-subheader">
                 <aside>
-                    <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
-                    <p className="semi-bold">
+                    <i className="spot-star-icon fa-solid fa-star fa"></i>
+                    <p className="font-semi-bold">
                         {spot.avgStarRating}
                     </p>
                 </aside>
                 <aside>-</aside>
-                <aside className="bold underline">
+                <aside className="font-semi-bold font-underline">
                     {totalReviewsCount} reviews
                 </aside>
                 <aside>-</aside>
@@ -25,14 +25,14 @@ function SpotSection({ spot, reviews }) {
                     {spot.owner.firstName} {spot.owner.lastName}
                 </aside>
                 <aside>-</aside>
-                <aside className="semi-bold underline">
+                <aside className="font-semi-bold font-underline">
                     {spot.city}, {spot.state}, {spot.country}
                 </aside>
             </div>
             {/* Spot image. TO DO: set up airbnb's multiple photo set up */}
             <SpotPageImage images={spot.Images} />
             {/* {spot.previewImg ? (
-                <img id="spot-header-image" src={`${spot.previewImg}`} alt={`${spot.name}`} />
+                <img className="spot-header-image" src={`${spot.previewImg}`} alt={`${spot.name}`} />
             ) : (
                 <div></div>
             )} */}

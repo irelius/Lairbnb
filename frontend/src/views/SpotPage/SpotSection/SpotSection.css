@@ -1,32 +1,32 @@
 /* ------------------------------------------------------------------------ */
 /* spot section */
 
-#spot-section {
+.spot-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 1000px
 }
 
-#spot-section>* {
+.spot-section>* {
     padding: 0px;
     margin: 0px;
 }
 
-#spot-header {
+.spot-header {
     display: flex;
     justify-self: start;
     font-size: 28px;
 }
 
-#spot-subheader {
+.spot-subheader {
     display: flex;
     flex-direction: row;
 
     height: 30px;
 }
 
-#spot-subheader>* {
+.spot-subheader>* {
     display: flex;
     align-items: center;
 
@@ -34,12 +34,12 @@
     font-size: 14px;
 }
 
-#spot-star-icon {
+.spot-star-icon {
     padding-right: 3px;
 }
 
 /* causes issue on front page of spots */
-#spot-header-image {
+.spot-header-image {
     margin-top: 25px;
     object-fit: cover;
     border-radius: 10px;
