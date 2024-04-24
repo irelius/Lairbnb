@@ -24,38 +24,38 @@ function ManageListings() {
     }
 
     return load ? (
-        <div id="user-spots-main">
+        <div className="user-spots-main">
             <div>
-                <h1 id="h1">
+                <h1 className="h1">
                     Your Listings
                 </h1>
             </div>
-            <div id="listings">
+            <div className="listings">
                 {userSpotIds.length === 0 ? (
                     <div>
                         <p>You don't have any locations to host.</p>
                     </div>
                 ) : (
-                    <div id="all-spots">
+                    <div className="all-spots">
                         {userSpotIds.map((el, i) => {
                             return (
-                                <div id="listing" key={i}>
-                                    <div id="listing-details">
-                                        {/* <img src={`${userSpots[el].previewImg}`} alt={`${userSpots[el].name}`} id="listing-image" /> */}
-                                        <div id="listing-name">
+                                <div className="listing" key={i}>
+                                    <div className="listing-details">
+                                        {/* <img src={`${userSpots[el].previewImg}`} alt={`${userSpots[el].name}`} className="listing-image" /> */}
+                                        <div className="listing-name">
                                             {userSpots[el].name}
                                         </div>
-                                        <div id="listing-address">
+                                        <div className="listing-address">
                                             {userSpots[el].city}, {userSpots[el].state}, {userSpots[el].country}
                                         </div>
                                     </div>
-                                    <div id="edit">
-                                        <button id="edit-button" className="semi-bold pointer" onClick={() => history.push(`/edit-spot/${el}`)}>
+                                    <div className="edit">
+                                        <button className="edit-button font-semi-bold mouse-pointer" onClick={() => history.push(`/edit-spot/${el}`)}>
                                             Edit Listing
                                         </button>
                                     </div>
-                                    <div id="delete">
-                                        <button onClick={(e) => deleteSpot(e, userSpots[el])} id="delete-button" className="bold pointer">
+                                    <div className="delete">
+                                        <button onClick={(e) => deleteSpot(e, userSpots[el])} className="delete-button font-bold mouse-pointer">
                                             Delete Listing
                                         </button>
                                     </div>
