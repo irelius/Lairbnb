@@ -1,9 +1,8 @@
 import "./UserReviewSection.css"
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { deleteReview, deleteReviewThunk, loadSpotReviewsThunk } from "../../../store/review";
+import { deleteReviewThunk } from "../../../store/review";
 import formatMonthAndYear from "../../../utils/formatMonthAndYear";
 import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
 import ReviewForm from "../../../components/Modals/ReviewModal";
@@ -38,7 +37,7 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
             )}
         </div>
 
-    // If user is logged in AND has no reviews
+        // If user is logged in AND has no reviews
     ) : user.loggedIn === true && reviews.userReviewsId.length === 0 ? (
         <div>
             <section className="submit-review-button border-black font-semi-bold mouse-pointer bg-off-white-hover" onClick={() => setShowReviewForm(true)}>
@@ -54,7 +53,7 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
             )}
         </div>
 
-    // if user is logged in and there's a review made by user
+        // if user is logged in and there's a review made by user
     ) : (
         <div className="hidden-container">
             <section className="review-user-info">

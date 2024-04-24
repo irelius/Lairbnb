@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { loadSpotReviewsThunk } from "../../store/review";
 import { loadSpotThunk } from "../../store/spot";
 
-import calculateStars from "../../utils/calculateStars";
+// import calculateStars from "../../utils/calculateStars";
 import SpotSection from "./SpotSection/SpotSection";
 import OtherReviewSection from "./OtherReviewSection";
 import UserReviewSection from "./UserReviewSection/UserReviewSection";

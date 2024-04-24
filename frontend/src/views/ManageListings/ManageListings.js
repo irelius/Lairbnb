@@ -2,7 +2,7 @@ import "./ManageListings.css"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom";
-import { loadUserSpotsThunk, deleteSpotThunk, resetSpot } from "../../store/spot";
+import { loadUserSpotsThunk, deleteSpotThunk } from "../../store/spot";
 
 function ManageListings() {
     const dispatch = useDispatch();

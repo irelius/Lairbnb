@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------------------------------- */
 /* Create Spot CSS */
 
-#create-spot-main {
+.create-spot-main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     margin-top: 70px;
@@ -10,7 +10,7 @@
 /* ------------------------------------------------------------------------------------- */
 /* Create Spot Left Section */
 
-#left {
+.left {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +19,7 @@
     padding: 5px;
 }
 
-#left-header {
+.left-header {
     display: flex;
     justify-content: center;
     color: white;
@@ -28,13 +28,13 @@
 /* ------------------------------------------------------------------------------------- */
 /* Create Spot Right Section */
 
-#right {
+.right {
     margin-top: 10px;
     margin-right: 10px;
     height: 91.7vh;
 }
 
-#right-section {
+.right-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,7 +42,7 @@
     height: 88vh;
 }
 
-#create-spot-form {
+.create-spot-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,18 +50,18 @@
     font-size: 14px;
 }
 
-#create-spot-form > * {
+.create-spot-form > * {
     width: 200px;
     padding: 5px;
     margin: 5px;
 }
 
-#submit-button-div {
+.submit-button-div {
     display: flex;
     justify-content: center;
 }
 
-#submit-button {
+.submit-button {
     display: flex;
     justify-content: center;
     width: 170px;
@@ -71,23 +71,23 @@
     border-radius: 15px;
 }
 
-#submit-button:hover {
+.submit-button:hover {
     color: white;
     background-color: 202020;
 }
 
-#back-button-container {
+.back-button-container {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 5px;
     text-decoration: none;
 }
 
-#back-button-container > * {
+.back-button-container > * {
     text-decoration: none;
 }
 
-#back-button {
+.back-button {
     display: flex;
     border-radius: 10px;
     padding: 5px;
@@ -101,6 +101,6 @@
     background-color: #EBEBEB;
 }
 
-#back-button:hover {
+.back-button:hover {
     font-weight: 550;
 }

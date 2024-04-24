@@ -47,8 +47,8 @@ function EditSpot() {
             <NotAuthorized />
         </div>
     ) : load ? (
-        <div id="edit-spot-main">
-            <form onSubmit={(e) => handleSubmit(e)} id="edit-spot-form">
+        <div className="edit-spot-main">
+            <form onSubmit={(e) => handleSubmit(e)} className="edit-spot-form">
                 Address
                 <input
                     type="text"
@@ -112,7 +112,7 @@ function EditSpot() {
                     value={location.price}
                     onChange={(e) => handleChange(e, "price")}
                 />
-                <button type="submit" id="save-button">
+                <button type="submit" className="save-button">
                     Save Edits
                 </button>
             </form>
