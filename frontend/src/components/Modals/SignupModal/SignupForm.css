@@ -1,47 +1,48 @@
-#signup-form {
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.signup-input-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
 
-#signup-form>input {
-    height: 15px;
     width: 375px;
     outline: none;
-
-    padding: 15px;
-
-    border: 1px solid rgb(176, 176, 176);
-    border-bottom: none;
 }
 
-#signup-form>input:focus {
-    border: 2px solid black;
-    width: 373px;
-    height: 12px;
+.signup-input-section>input {
+    width: 100%;
+    height: 30px;
+    padding: 20px;
+    border: 1px solid var(--gray);
+    border-bottom: 2px solid transparent;
 }
 
-#signup-first-name-input {
+.signup-input-section>input:last-child {
+    width: 100%;
+    height: 30px;
+    padding: 20px;
+    border: 1px solid var(--gray);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.signup-first-name-input {
     border-radius: 10px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
 }
 
-#signup-form>#signup-confirm-input {
-    border-bottom: 1px solid rgb(176, 176, 176);
-    border-radius: 10px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-}
-
-#signup-form>#signup-confirm-input:focus {
+.signup-input-section>input:focus-within {
     border: 2px solid black;
-    width: 373px;
-    height: 13px;
 }
 
-#signup-error-section {
+.signup-error-section {
     display: flex;
     flex-direction: column;
     justify-content: start;

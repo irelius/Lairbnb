@@ -56,62 +56,64 @@ function SignupForm({ setShowSignupForm }) {
                 </section>
             </section>
             <section className="modal-form-body">
-                <form onSubmit={handleSubmit} id="signup-form">
-                    <input
-                        id="signup-first-name-input"
-                        type="text"
-                        placeholder="First Name"
-                        required
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                    <input
-                        id="signup-last-name-input"
-                        type="text"
-                        placeholder="Last Name"
-                        required
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                    <input
-                        id="signup-email-input"
-                        type="text"
-                        placeholder="Email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <input
-                        id="signup-password-input"
-                        type="password"
-                        placeholder="Password"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <input
-                        id="signup-confirm-input"
-                        type="password"
-                        placeholder="Confirm Password"
-                        required
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
+                <form onSubmit={handleSubmit} className="signup-form">
+                    <section className="signup-input-section">
+                        <input
+                            className="signup-first-name-input"
+                            type="text"
+                            placeholder="First Name"
+                            required
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
+                        <input
+                            className="signup-last-name-input"
+                            type="text"
+                            placeholder="Last Name"
+                            required
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+                        <input
+                            className="signup-email-input"
+                            type="text"
+                            placeholder="Email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <input
+                            className="signup-password-input"
+                            type="password"
+                            placeholder="Password"
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <input
+                            className="signup-confirm-input"
+                            type="password"
+                            placeholder="Confirm Password"
+                            required
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                    </section>
                     {errors.length > 0 ? (
-                        <div id="signup-error-section" className="font-12 red">
+                        <div className="signup-error-section font-12">
                             {errors.map((error, idx) => <li key={idx}>
-                                <i id="exclamation-mark" className="fa-solid fa-circle-exclamation" /> {error}
+                                <i className="exclamation-mark fa-solid fa-circle-exclamation" /> {error}
                             </li>)}
                         </div>
                     ) : (
-                        <div id="signup-error-section" className="modal-error-section font-12">
+                        <div className="signup-error-section modal-error-section font-12">
                             Enter your information to create an account.
                         </div>
                     )}
                     <SubmitButton buttonText="Continue" />
                 </form>
             </section>
-            {/* <section id="google-login">
+            {/* <section className="google-login">
                             Google login functionality to be added
                         </section> */}
         </div>
