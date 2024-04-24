@@ -28,12 +28,12 @@ function ReviewForm() {
 
     return (
         <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
-            <div id="submit-review-main">
+            <div className="submit-review-main">
                 <form onSubmit={(e) => {
                     e.stopPropagation()
                     handleSubmit(e)
-                }} id="review-form">
-                    <p id="review-title">Type Your Review</p>
+                }} className="review-form">
+                    <p className="review-title">Type Your Review</p>
                     <input
                         type="text"
                         required
@@ -41,7 +41,7 @@ function ReviewForm() {
                         onChange={(e) => setReview(e.target.value)}
                         onClick={(e) => e.stopPropagation()}
                     />
-                    <p id="review-title">Give This Location a Rating</p>
+                    <p className="review-title">Give This Location a Rating</p>
                     <input
                         type="number"
                         required
@@ -53,8 +53,7 @@ function ReviewForm() {
                     />
                     <button
                         type="submit"
-                        id="submit-review-button"
-                        className="ffffff-bg no-border"
+                        className="submit-review-button bg-white border-none"
                         onClick={(e) => e.stopPropagation()}
                     >
                         Submit Review
