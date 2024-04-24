@@ -96,7 +96,7 @@ function LoginForm({ setShowLoginForm }) {
                         placeholder="Password"
                     />
                     {errors ? (
-                        <div className="login-error-section font-12 red">
+                        <div className="login-error-section font-12 color-red">
                             <i className="exclamation-mark fa-solid fa-circle-exclamation" /> {errors}
                         </div>
                     ) : (

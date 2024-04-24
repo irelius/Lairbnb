@@ -1,5 +1,4 @@
 :root {
-    --light-gray: #f7f7f7;
     --gray: #B0B0B0;
     --dark-gray: #717171;
     --red: rgb(193, 53, 21);
@@ -26,9 +25,6 @@ button {
 }
 
 /* ---------------------------------------------------- Color CSS ---------------------------------------------------- */
-.color-light-gray {
-    color: var(--light-gray);
-}
 
 .color-dark-gray {
     color: var(--dark-gray);
@@ -36,6 +32,10 @@ button {
 
 .color-red {
     color: var(--red);
+}
+
+.color-off-white {
+    color: var(--off-white);
 }
 
 .color-white {

@@ -7,21 +7,21 @@ function OtherReviewSection({ reviews }) {
         reviews.allReviewsId.map((el, i) => {
             const currReview = reviews.allReviews[el]
             return (
-                <div id="other-reviews" key={i}>
-                    <section id="review-user-info">
-                        <div id='review-icon-container'>
+                <div className="other-reviews" key={i}>
+                    <section className="review-user-info">
+                        <div className='review-icon-container'>
                             {reviews.allReviews[el].User.firstName.slice(0, 1)}
                         </div>
                         <aside>
-                            <section id="review-name">
+                            <section className="review-name">
                                 {currReview.User.firstName} {currReview.User.lastName}
                             </section>
-                            <section id="review-date">
+                            <section className="review-date">
                                 {formatMonthAndYear(currReview.createdAt.slice(0, 10))}
                             </section>
                         </aside>
                     </section>
-                    <div id="review">
+                    <div className="review">
                         {currReview.review}
                     </div>
                 </div>
