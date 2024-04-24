@@ -42,14 +42,14 @@ function SpotPage() {
 
 
     return spot ? (
-        <div id="spot-detail-main">
+        <div className="spot-detail-main">
             <section><SpotSection spot={spot} reviews={reviews} /></section>
-            <section id="spot-line"></section>
+            <section className="spot-line"></section>
             {/* Review Header section */}
-            <section id="review-section">
-                <section id="review-header">
+            <section className="review-section">
+                <section className="review-header">
                     <aside>
-                        <i id="spot-star-icon" className="fa-solid fa-star fa"></i>
+                        <i className="spot-star-icon fa-solid fa-star fa"></i>
                         <p className="semi-bold">
                             {spot.avgStarRating}
                         </p>
@@ -59,10 +59,10 @@ function SpotPage() {
                         {reviews.userReviewsId.length + reviews.allReviewsId.length} reviews
                     </aside>
                 </section>
-                <section id="reviews">
+                <section className="reviews">
 
                     <section><UserReviewSection user={user} reviews={reviews} setReviewSubmitted={setReviewSubmitted} /></section>
-                    <section id="other-reviews-container">
+                    <section className="other-reviews-container">
 
                         <section><OtherReviewSection reviews={reviews} /></section>
                     </section>

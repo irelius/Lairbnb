@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------------------ */
 /* page general */
 
-#spot-detail-main {
+.spot-detail-main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,7 +9,7 @@
     margin-top: 15px;
 }
 
-#spot-detail-main * {
+.spot-detail-main * {
     max-width: 90vw;
 }
 
@@ -17,8 +17,8 @@
 /* ------------------------------------------------------------------------ */
 /* divider line */
 
-#spot-line {
-    border-bottom: 2px solid #f7f7f7;
+.spot-line {
+    border-bottom: 2px solid .f7f7f7;
     width: 1000px;
 
     margin-top: 30px;
@@ -28,18 +28,18 @@
 /* ------------------------------------------------------------------------ */
 /* review section */
 
-#review-section {
+.review-section {
     max-width: 90vw;
     width: 1000px;
 
     /* background-color: orange; */
 }
 
-#review-header {
+.review-header {
     display: flex;
 }
 
-#review-header * {
+.review-header * {
     display: flex;
     align-items: center;
 
@@ -47,22 +47,22 @@
     font-size: 20px;
 }
 
-#reviews {
+.reviews {
     display: flex;
     flex-direction: column;
 }
 
-#review {
+.review {
     margin-top: 15px;
 }
 
-#review-user-info {
+.review-user-info {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#review-icon-container {
+.review-icon-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,41 +72,41 @@
     height: 40px;
 
     border-radius: 90%;
-    background-color: #242424;
+    background-color: .242424;
 
     font-size: 10px;
     color: white;
 }
 
-#review-date {
+.review-date {
     color: gray;
     font-size: small;
     margin-top: 3px;
 }
 
-#submit-review-button {
+.submit-review-button {
     height: 40px;
     padding: 30px;
     color: black;
 
 }
 
-#delete-user-review {
+.delete-user-review {
     display: flex;
     margin: 10px;
     margin-left: 30px;
 }
 
-#review-delete-container {
+.review-delete-container {
     margin-left: 30px;
     border-radius: 90%;
 }
 
-#review-delete-container:hover {
+.review-delete-container:hover {
     box-shadow: 0 1mm 1mm rgba(219, 219, 219);
 }
 
-#review-delete {
+.review-delete {
     width: 100px;
     color: black;
     text-decoration: none;
