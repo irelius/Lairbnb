@@ -50,17 +50,16 @@ function SpotPage() {
                 <section className="review-header">
                     <aside>
                         <i className="spot-star-icon fa-solid fa-star fa"></i>
-                        <p className="semi-bold">
+                        <p className="font-semi-bold">
                             {spot.avgStarRating}
                         </p>
                     </aside>
-                    <aside>-</aside>
-                    <aside className="semi-bold">
+                    <aside>·</aside>
+                    <aside className="font-semi-bold">
                         {reviews.userReviewsId.length + reviews.allReviewsId.length} reviews
                     </aside>
                 </section>
                 <section className="reviews">
-
                     <section><UserReviewSection user={user} reviews={reviews} setReviewSubmitted={setReviewSubmitted} /></section>
                     <section className="other-reviews-container">
 

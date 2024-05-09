@@ -28,6 +28,17 @@ button {
     font-family: Montserrat;
 }
 
+$margin-t: 5, 10, 15, 20, 25;
+$margin-r: 5, 10, 15, 20, 25;
+$margin-l: 5, 10, 15, 20, 25;
+$margin-b: 5, 10, 15, 20, 25;
+
+@each $margin in $margin-t {
+    .margin-#{$margin} {
+        margin: #{$margin}px;
+    }
+}
+
 
 /* ---------------------------------------------------- Color CSS ---------------------------------------------------- */
 .color {

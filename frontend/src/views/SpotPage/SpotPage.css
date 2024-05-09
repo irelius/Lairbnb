@@ -5,23 +5,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    margin-top: 15px;
+    justify-self: center;
+    margin: auto;
+    margin-top: 20px;
 }
-
-.spot-detail-main * {
-    max-width: 90vw;
-}
-
 
 /* ------------------------------------------------------------------------ */
 /* divider line */
 
 .spot-line {
-    border-bottom: 2px solid var(--off-white);
-    width: 1000px;
 
+    border-bottom: 2px solid var(--off-white);
+    width: 90vw;
+    max-width: 1150px;
+    margin: auto;
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 
@@ -29,10 +28,8 @@
 /* review section */
 
 .review-section {
-    max-width: 90vw;
-    width: 1000px;
-
-    /* background-color: orange; */
+    max-width: 95vw;
+    width: 1150px;
 }
 
 .review-header {

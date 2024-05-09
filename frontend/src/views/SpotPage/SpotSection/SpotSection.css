@@ -5,42 +5,35 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 1000px
+    width: 90vw;
+    margin: auto;
+    max-width: 1150px;
 }
 
 .spot-section>* {
     padding: 0px;
-    margin: 0px;
 }
 
 .spot-header {
     display: flex;
     justify-self: start;
-    font-size: 28px;
+    font-size: 26px;
+    font-weight: 550;
+    margin-bottom: 20px;
 }
 
-.spot-subheader {
+.spot-sub-section {
     display: flex;
-    flex-direction: row;
-
-    height: 30px;
+    flex-direction: column;
 }
 
-.spot-subheader>* {
+.spot-sub-section>* {
     display: flex;
     align-items: center;
 
     padding-right: 5px;
-    font-size: 14px;
 }
 
 .spot-star-icon {
     padding-right: 3px;
-}
-
-/* causes issue on front page of spots */
-.spot-header-image {
-    margin-top: 25px;
-    object-fit: cover;
-    border-radius: 10px;
 }

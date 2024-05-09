@@ -1,4 +1,4 @@
-.spot-page-image-primary {
+.spot-page-image {
     height: 300px;
     width: auto;
     object-fit: cover;
@@ -6,7 +6,11 @@
     border: 5px solid transparent;
 }
 
-.spot-page-image-primary > img {
+.spot-page-image:hover {
+    filter: brightness(0.9);
+}
+
+.spot-page-image > img {
     border-radius: 15px 0px 0px 15px;
 }
 
