@@ -1,6 +1,4 @@
-/* ------------------------------------------------------------------------ */
-/* page general */
-
+/* ------------------------------- Page General ------------------------------- */
 .spot-detail-main {
     display: flex;
     flex-direction: column;
@@ -10,9 +8,7 @@
     margin-top: 20px;
 }
 
-/* ------------------------------------------------------------------------ */
-/* divider line */
-
+/* ------------------------------- Divider Line ------------------------------- */
 .spot-line {
 
     border-bottom: 2px solid var(--off-white);
@@ -24,41 +20,25 @@
 }
 
 
-/* ------------------------------------------------------------------------ */
-/* review section */
-
+/* ------------------------------ Review Section ------------------------------ */
 .review-section {
+    margin-bottom: 50px;
     max-width: 95vw;
     width: 1150px;
 }
 
 .review-header {
     display: flex;
-}
-
-.review-header * {
-    display: flex;
     align-items: center;
-
-    padding-right: 5px;
     font-size: 20px;
 }
 
 .reviews {
-    display: flex;
-    flex-direction: column;
+    gap: 30px;
 }
 
-.review {
-    margin-top: 15px;
-}
 
-.review-user-info {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
+/* ------------------------- Common Children CSS Rules ------------------------- */
 .review-icon-container {
     display: flex;
     justify-content: center;
@@ -68,41 +48,27 @@
     width: 40px;
     height: 40px;
 
-    border-radius: 90%;
-    background-color: .242424;
+    border-radius: 100%;
+    background-color: #242424;
 
     font-size: 10px;
     color: white;
 }
 
+.review-user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
 .review-date {
     color: gray;
-    font-size: small;
+    font-size: var(--12);
     margin-top: 3px;
 }
 
-.submit-review-button {
-    padding: 30px;
-    color: black;
-}
-
-.delete-user-review {
-    display: flex;
-    margin: 10px;
-    margin-left: 30px;
-}
-
-.review-delete-container {
-    margin-left: 30px;
-    border-radius: 90%;
-}
-
-.review-delete-container:hover {
-    box-shadow: 0 1mm 1mm rgba(219, 219, 219);
-}
-
-.review-delete {
-    width: 100px;
-    color: black;
-    text-decoration: none;
+.other-reviews-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

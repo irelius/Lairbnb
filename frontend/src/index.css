@@ -5,7 +5,7 @@
     --white: #FFFFFF;
     --off-white: #f7f7f7;
     --bold: bold;
-    --semi-bold: 500;
+    --semi-bold: 600;
     --10: 10px;
     --12: 12px;
     --14: 14px;
@@ -16,7 +16,6 @@
 body {
     position: relative;
     font-family: Montserrat;
-    font-weight: var(--semi-bold);
     font-size: var(--14);
 }
 

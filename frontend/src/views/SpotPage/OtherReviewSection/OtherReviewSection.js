@@ -7,7 +7,7 @@ function OtherReviewSection({ reviews }) {
         reviews.allReviewsId.map((el, i) => {
             const currReview = reviews.allReviews[el]
             return (
-                <div className="other-reviews" key={i}>
+                <div className="other-reviews-section" key={i}>
                     <section className="review-user-info">
                         <div className='review-icon-container'>
                             {reviews.allReviews[el].User.firstName.slice(0, 1)}
@@ -21,7 +21,7 @@ function OtherReviewSection({ reviews }) {
                             </section>
                         </aside>
                     </section>
-                    <div className="review">
+                    <div className="other-reviews-review">
                         {currReview.review}
                     </div>
                 </div>

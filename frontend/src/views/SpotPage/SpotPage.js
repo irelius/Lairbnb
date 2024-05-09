@@ -44,27 +44,24 @@ function SpotPage() {
     return spot ? (
         <div className="spot-detail-main">
             <section><SpotSection spot={spot} reviews={reviews} /></section>
+
             <section className="spot-line"></section>
+
             {/* Review Header section */}
             <section className="review-section">
-                <section className="review-header">
-                    <aside>
-                        <i className="spot-star-icon fa-solid fa-star fa"></i>
-                        <p className="font-semi-bold">
-                            {spot.avgStarRating}
-                        </p>
-                    </aside>
+                <section className="review-header gap-5 m-b-20">
+                    <i className="fa-solid fa-star fa"></i>
+                    <p className="font-semi-bold">
+                        {spot.avgStarRating}
+                    </p>
                     <aside>·</aside>
                     <aside className="font-semi-bold">
                         {reviews.userReviewsId.length + reviews.allReviewsId.length} reviews
                     </aside>
                 </section>
-                <section className="reviews">
+                <section className="reviews df-c">
                     <section><UserReviewSection user={user} reviews={reviews} setReviewSubmitted={setReviewSubmitted} /></section>
-                    <section className="other-reviews-container">
-
-                        <section><OtherReviewSection reviews={reviews} /></section>
-                    </section>
+                    <section className="other-reviews-container"><OtherReviewSection reviews={reviews} /></section>
                 </section>
             </section>
         </div >

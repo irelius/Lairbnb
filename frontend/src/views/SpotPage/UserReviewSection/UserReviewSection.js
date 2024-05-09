@@ -24,8 +24,8 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
     // If user is not logged in
     return user.loggedIn === false ? (
         <div>
-            <section>
-                Please <b className="mouse-pointer" onClick={() => setShowLoginForm(true)}>log in</b> to submit a review.
+            <section className="df-r gap-5">
+                Please <p className="mouse-pointer font-semi-bold font-underline" onClick={() => setShowLoginForm(true)}>log in</p> to submit a review.
             </section>
 
             {showLoginForm ? (
@@ -55,30 +55,32 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
 
         // if user is logged in and there's a review made by user
     ) : (
-        <div className="hidden-container">
-            <section className="review-user-info">
-                <div className='review-icon-container'>
-                    {user.user.firstName.slice(0, 1)}
-                </div>
-                <aside>
-                    <section className="review-name">
-                        {user.user.firstName} {user.user.lastName}
-                    </section>
-                    <section className="review-date">
-                        {formatMonthAndYear(userReview.createdAt.slice(0, 10))}
-                    </section>
+        <div className="user-review-section">
+            <section className="user-review-info-container">
+                <aside className="review-user-info">
+                    <aside className='review-icon-container'>
+                        {user.user.firstName.slice(0, 1)}
+                    </aside>
+                    <aside>
+                        <section className="font-semi-bold">
+                            {user.user.firstName} {user.user.lastName}
+                        </section>
+                        <section className="review-date">
+                            {formatMonthAndYear(userReview.createdAt.slice(0, 10))}
+                        </section>
+                    </aside>
                 </aside>
+                <section className="review-edit-container hover-hidden">
+                    <aside className="review-edit">
+                        <i className="mouse-pointer fa-regular fa-pen-to-square fa-xl"></i>
+                    </aside>
+                    <aside className="review-delete">
+                        <i className="mouse-pointer fa-regular fa-circle-xmark fa-xl" onClick={(e) => { handleDelete(e) }}></i>
+                    </aside>
+                </section>
             </section>
-            <section className="review">
+            <section className="user-review m-b-10">
                 {userReview.review}
-            </section>
-            <section className="review-edit-container">
-                <aside className="review-edit">
-                    Edit
-                </aside>
-                <aside className="review-delete">
-                    <i className="mouse-pointer fa-regular fa-circle-xmark fa-xl" onClick={(e) => { handleDelete(e) }}></i>
-                </aside>
             </section>
         </div>
     )

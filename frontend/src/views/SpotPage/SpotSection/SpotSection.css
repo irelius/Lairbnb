@@ -10,30 +10,10 @@
     max-width: 1150px;
 }
 
-.spot-section>* {
-    padding: 0px;
-}
-
 .spot-header {
     display: flex;
     justify-self: start;
     font-size: 26px;
     font-weight: 550;
     margin-bottom: 20px;
-}
-
-.spot-sub-section {
-    display: flex;
-    flex-direction: column;
-}
-
-.spot-sub-section>* {
-    display: flex;
-    align-items: center;
-
-    padding-right: 5px;
-}
-
-.spot-star-icon {
-    padding-right: 3px;
 }
