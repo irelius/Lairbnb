@@ -38,10 +38,10 @@ function ReviewForm() {
                     e.stopPropagation()
                     handleSubmit(e)
                 }} className="review-form">
-                    <section className="review-form-title">Type Your Review</section>
+                    <section className="review-form-title">Leave Your Review</section>
 
                     <textarea
-                        className="review-input border-black"
+                        className="review-input"
                         type="text"
                         required
                         value={review}
@@ -49,9 +49,7 @@ function ReviewForm() {
                         onClick={(e) => e.stopPropagation()}
                     />
 
-                    <section className="">Give This Location a Rating</section>
-
-                    <section className="df-r">
+                    <section className="star-container">
                         <i className={`star-${stars >= 1 ? "selected": "unselected"}  mouse-pointer fa-solid fa-star fa-xl`} onClick={() => {setStars(1)}}></i>
                         <i className={`star-${stars >= 2 ? "selected": "unselected"}  mouse-pointer fa-solid fa-star fa-xl`} onClick={() => {setStars(2)}}></i>
                         <i className={`star-${stars >= 3 ? "selected": "unselected"}  mouse-pointer fa-solid fa-star fa-xl`} onClick={() => {setStars(3)}}></i>
