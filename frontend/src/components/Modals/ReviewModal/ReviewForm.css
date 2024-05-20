@@ -86,3 +86,62 @@
     color: var(--red);
     transition: color 0.25s linear;
 }
+
+
+.review-error-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 350px;
+    gap: 5px;
+
+    color: red;
+}
+
+
+.error-open {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: all 0.5s ease;
+}
+
+.error-close {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: all 0.5s ease;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+
+/* .review-error-open {
+    display: grid;
+    transition: grid-template-rows 1s ease;
+    grid-template-rows: 1fr;
+}
+
+.review-error-close {
+    display: grid;
+    transition: grid-template-rows 1s ease;
+    grid-template-rows: 0fr;
+}
+
+.test * {
+    overflow: hidden;
+} */
+
+/* .review-error-open {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    overflow: hidden;
+
+    background-color: orange;
+}
+
+.review-error-close {
+    background-color: blue;
+} */

@@ -199,11 +199,11 @@ const validateBooking = [
 const validateReviews = [
     check("review")
         .notEmpty()
-        .withMessage("Review test is required"),
+        .withMessage("Please leave a review"),
     check("stars")
         .notEmpty()
         .isInt({ min: 1, max: 5 })
-        .withMessage("Stars must be an integer from 1 to 5"),
+        .withMessage("Please give this location a rating from 1 to 5"),
     handleValidationErrors
 ]
 

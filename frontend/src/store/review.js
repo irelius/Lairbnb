@@ -47,6 +47,8 @@ export const addReviewThunk = (review) => async dispatch => {
         body: JSON.stringify(review)
     })
 
+    console.log('booba asdf', response)
+
     if (response.ok) {
         const newReview = await response.json();
         dispatch(addReview(newReview))

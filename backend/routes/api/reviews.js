@@ -148,7 +148,6 @@ router.get("/spot/:spotId", async (req, res, next) => {
     })
 })
 
-
 // Create a Review for a Spot based on the Spot's id
 router.post("/spot/:spotId", [validateReviews, restoreUser, authRequired], async (req, res, next) => {
     const { review, stars } = req.body;
@@ -179,7 +178,6 @@ router.post("/spot/:spotId", [validateReviews, restoreUser, authRequired], async
     // Review this route to check if any images were attached. will need to create a new entry in the image table
     res.status(201).json(newReview)
 })
-
 
 // Edit a Review
 // TODO: i don't like how i have the validation here, try to figure out how to implement validation on models and format the try-catch

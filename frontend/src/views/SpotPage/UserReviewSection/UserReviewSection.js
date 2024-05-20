@@ -46,7 +46,7 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
 
             {showReviewForm ? (
                 <section className="modal" onClick={() => setShowReviewForm(false)}>
-                    <ReviewForm />
+                    <ReviewForm setShowReviewForm={setShowReviewForm}/>
                 </section>
             ) : (
                 <></>
