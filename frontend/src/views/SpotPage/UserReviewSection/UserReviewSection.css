@@ -4,22 +4,6 @@
     justify-content: space-between;
 }
 
-.submit-review-button {
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 125px;
-    margin-top: 15px;
-
-    text-decoration: none;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 10px;
-
-    padding: 30px; */
-}
-
 .user-review-section {
     display: flex;
     flex-direction: column;
@@ -45,4 +29,9 @@
 
 .user-review-section:hover .hover-hidden {
     opacity: 1;
+}
+
+.submit-review-container {
+    display: flex;
+    width: fit-content;
 }

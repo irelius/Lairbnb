@@ -40,7 +40,7 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
 
         // If user is logged in AND has no reviews
     ) : user.loggedIn === true && reviews.userReviewsId.length === 0 ? (
-        <div>
+        <div className="submit-review-container">
             <section className="submit-review-button border-black font-semi-bold mouse-pointer bg-off-white-hover" onClick={() => setShowReviewForm(true)}>
                 Submit a Review
             </section >

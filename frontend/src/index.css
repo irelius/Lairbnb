@@ -176,6 +176,7 @@ button {
 
 .bg-white-hover:hover {
     background-color: var(--white);
+    transition: all 0.2s linear;
 }
 
 .bg-off-white {
@@ -184,6 +185,7 @@ button {
 
 .bg-off-white-hover:hover {
     background-color: var(--off-white);
+    transition: all 0.2s linear;
 }
 
 /* --------------------------------------------------- Border CSS --------------------------------------------------- */
