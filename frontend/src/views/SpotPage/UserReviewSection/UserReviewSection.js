@@ -18,6 +18,7 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
 
     const handleDelete = (e) => {
         e.preventDefault()
+        setShowReviewForm(false)
         dispatch(deleteReviewThunk(userReview.id))
     }
 

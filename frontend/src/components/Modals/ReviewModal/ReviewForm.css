@@ -114,34 +114,3 @@
 .overflow-hidden {
     overflow: hidden;
 }
-
-
-/* .review-error-open {
-    display: grid;
-    transition: grid-template-rows 1s ease;
-    grid-template-rows: 1fr;
-}
-
-.review-error-close {
-    display: grid;
-    transition: grid-template-rows 1s ease;
-    grid-template-rows: 0fr;
-}
-
-.test * {
-    overflow: hidden;
-} */
-
-/* .review-error-open {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    overflow: hidden;
-
-    background-color: orange;
-}
-
-.review-error-close {
-    background-color: blue;
-} */
