@@ -2,7 +2,7 @@ import "./ReviewForm.css"
 
 import { useParams } from "react-router-dom/cjs/react-router-dom.min"
 import { useDispatch } from "react-redux"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { addReviewThunk } from "../../../store/review"
 
 // to do:

@@ -247,6 +247,11 @@ button {
     text-decoration: underline;
 }
 
+.overflow-hidden {
+    overflow: hidden;
+}
+
+
 /* --------------------------------------------------- Mouse CSS --------------------------------------------------- */
 .mouse-pointer {
     cursor: pointer;

@@ -9,13 +9,12 @@ function LoginForm({ setShowLoginForm }) {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState("");
+    const [errors, setErrors] = useState({});
     const [inputFocus, setInputFocus] = useState(null)
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors([]);
 
         const user = {
             email: email,
@@ -26,13 +25,7 @@ function LoginForm({ setShowLoginForm }) {
             async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
-                    setErrors(data.errors.error)
-                }
-                if (data.errors.error === "Invalid email") {
-                    setEmail("")
-                }
-                if (data.errors.error === "Invalid password") {
-                    setPassword("")
+                    setErrors(data.errors)
                 }
             }
         );
@@ -66,19 +59,20 @@ function LoginForm({ setShowLoginForm }) {
                 </section>
             </section>
             <div>
-                <form onSubmit={() => handleSubmit()} className="login-form">
+                <form onSubmit={(e) => handleSubmit(e)} className="login-form">
                     <input
                         className={`login-form-email-input email-${inputFocus}`}
                         type="text"
                         value={email}
                         onChange={(e) => {
                             setEmail(e.target.value)
-                            if (errors === "Invalid email") {
-                                setErrors("")
+                            if (errors.error === "Invalid email" || errors.error === "Invalid credentials") {
+                                const newErrors = { ...errors }
+                                delete newErrors.error
+                                setErrors({ ...newErrors })
                             }
                         }}
                         onFocus={(e) => changeFocus(e)}
-                        required
                         placeholder="Email"
                     />
                     <input
@@ -87,23 +81,39 @@ function LoginForm({ setShowLoginForm }) {
                         value={password}
                         onChange={(e) => {
                             setPassword(e.target.value)
-                            if (errors === "Invalid password") {
-                                setErrors("")
+                            if (errors.error === "Invalid credentials") {
+                                const newErrors = { ...errors }
+                                delete newErrors.error
+                                setErrors({ ...newErrors })
                             }
                         }}
                         onFocus={(e) => changeFocus(e)}
-                        required
                         placeholder="Password"
                     />
-                    {errors ? (
-                        <div className="login-error-section font-12 color-red">
-                            <i className="exclamation-mark fa-solid fa-circle-exclamation" /> {errors}
-                        </div>
-                    ) : (
-                        <div className="login-error-section font-12">
-                            Enter your account information to log in.
-                        </div>
-                    )}
+
+                    {/* Error handling */}
+                    <div className="login-error-section font-12 color-red">
+                        <section className={`${"error" in errors ? "error-open" : "error-close"}`}>
+                            <section className="overflow-hidden">
+                                <i className="exclamation-mark fa-solid fa-circle-exclamation" />
+                                {errors.error}
+                            </section>
+                        </section>
+                        <section className={`${"email" in errors ? "error-open" : "error-close"}`}>
+                            <section className="overflow-hidden">
+                                <i className="exclamation-mark fa-solid fa-circle-exclamation" />
+                                {errors.email}
+                            </section>
+                        </section>
+                        <section className={`${"password" in errors ? "error-open" : "error-close"}`}>
+                            <section className="overflow-hidden">
+                                <i className="exclamation-mark fa-solid fa-circle-exclamation" />
+                                {errors.password}
+                            </section>
+                        </section>
+                    </div>
+
+
                     <SubmitButton buttonText="Continue" />
                 </form>
             </div>
