@@ -1,0 +1,10 @@
+@media screen and (min-width: 1440px) {
+    .main {
+        background-color: orange;
+
+        &-title {
+            background-color: blue;
+            width: 300px;
+        }
+    }
+}

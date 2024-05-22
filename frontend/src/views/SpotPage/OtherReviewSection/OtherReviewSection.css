@@ -1,10 +1,8 @@
-#other-reviews-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
+.other-reviews-section {
     margin-bottom: 30px;
+    margin-right: 8.333%;
 }
 
-#other-reviews {
-    margin-bottom: 30px;
+.other-reviews-review {
+    margin-top: 15px;
 }

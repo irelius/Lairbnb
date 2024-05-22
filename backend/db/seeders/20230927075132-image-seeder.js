@@ -2,65 +2,132 @@
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+    options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 options.tableName = "Images"
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    let reviewId1 = 1
-    let reviewId3 = 3
-    let reviewId5 = 5
+    async up(queryInterface, Sequelize) {
+        let reviewId1 = 1
+        let reviewId2 = 2
+        let reviewId3 = 3
 
-    let spotId1 = 1
-    let spotId2 = 2
-    let spotId4 = 4
+        let spotId1 = 1
+        let spotId2 = 2
+        let spotId3 = 3
+        let spotId4 = 4
+        let spotId5 = 5
+        let spotId6 = 6
+        let spotId7 = 7
+        let spotId8 = 8
+        let spotId9 = 9
+        let spotId10 = 10
 
-    if (process.env.NODE_ENV !== 'production') {
-      const reviews = await queryInterface.sequelize.query("SELECT id FROM Reviews")
-      const spots = await queryInterface.sequelize.query("SELECT id FROM Spots")
+        if (process.env.NODE_ENV !== 'production') {
+            const reviews = await queryInterface.sequelize.query("SELECT id FROM Reviews")
+            const spots = await queryInterface.sequelize.query("SELECT id FROM Spots")
 
-      reviewId1 = reviews[0][0].id
-      reviewId3 = reviews[0][2].id
-      reviewId5 = reviews[0][4].id
+            reviewId1 = reviews[0][0].id
+            reviewId2 = reviews[0][1].id
+            reviewId3 = reviews[0][2].id
 
-      spotId1 = spots[0][0].id
-      spotId2 = spots[0][1].id
-      spotId4 = spots[0][3].id
+            spotId1 = spots[0][0].id
+            spotId2 = spots[0][1].id
+            spotId3 = spots[0][2].id
+            spotId4 = spots[0][3].id
+            spotId5 = spots[0][4].id
+            spotId6 = spots[0][5].id
+            spotId7 = spots[0][6].id
+            spotId8 = spots[0][7].id
+            spotId9 = spots[0][8].id
+            spotId10 = spots[0][9].id
+        }
+
+        const validImages = [
+            {
+                userId: 1,
+                type: "spot",
+                typeId: spotId1,
+                url: "https://kblairbnb.s3.us-west-1.amazonaws.com/1.jpg"
+            },
+            {
+                userId: 1,
+                type: "spot",
+                typeId: spotId2,
+                url: "https://kblairbnb.s3.us-west-1.amazonaws.com/2.jpg",
+            },
+            {
+                userId: 1,
+                type: "spot",
+                typeId: spotId3,
+                url: "https://kblairbnb.s3.us-west-1.amazonaws.com/3.jpg",
+            },
+            {
+                userId: 1,
+                type: "spot",
+                typeId: spotId4,
+                url: "https://kblairbnb.s3.us-west-1.amazonaws.com/4.jpg",
+            },
+            {
+                userId: 1,
+                type: "spot",
+                typeId: spotId5,
+                url: "https://kblairbnb.s3.us-west-1.amazonaws.com/5.jpg",
+            },
+            {
+                userId: 2,
+                type: "spot",
+                typeId: spotId6,
+                url: "https://kblairbnb.s3.us-west-1.amazonaws.com/6.jpg",
+            },
+            {
+                userId: 2,
+                type: "spot",
+                typeId: spotId7,
+                url: "https://kblairbnb.s3.us-west-1.amazonaws.com/7.jpg",
+            },
+            {
+                userId: 2,
+                type: "spot",
+                typeId: spotId8,
+                url: "https://kblairbnb.s3.us-west-1.amazonaws.com/8.jpg",
+            },
+            {
+                userId: 3,
+                type: "spot",
+                typeId: spotId9,
+                url: "https://kblairbnb.s3.us-west-1.amazonaws.com/9.jpg",
+            },
+            {
+                userId: 3,
+                type: "spot",
+                typeId: spotId10,
+                url: "https://kblairbnb.s3.us-west-1.amazonaws.com/10.jpg",
+            },
+            {
+                userId: 1,
+                type: "review",
+                typeId: reviewId1
+            },
+            {
+                userId: 2,
+                type: "review",
+                typeId: reviewId2
+            },
+            {
+                userId: 3,
+                type: "review",
+                typeId: reviewId3
+            }
+        ]
+
+
+
+        await queryInterface.bulkInsert(options, validImages, {})
+    },
+
+    async down(queryInterface, Sequelize) {
+        await queryInterface.bulkDelete(options, {}, {})
     }
-
-    const validImages = [
-      {
-        reviewId: reviewId1,
-        url: "https://www.thehousedesigners.com/images/plans/01/URD/bulk/6583/the-destination-front-rendering_m.webp"
-      },
-      {
-        spotId: spotId1,
-        url: "https://res.cloudinary.com/dtpgi0zck/image/upload/s--IJwO_Hss--/c_fill,h_580,w_860/v1/EducationHub/photos/ocean-waves.webp"
-      },
-      {
-        spotId: spotId2,
-        url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1473&q=80"
-      },
-      {
-        reviewId: reviewId3,
-        url: "https://image.shutterstock.com/image-illustration/five-golden-stars-best-rating-260nw-657712999.jpg"
-      },
-      {
-        spotId: spotId4,
-        url: "https://www.worldatlas.com/r/w1200/upload/7a/f8/f7/lost-city-of-atlantis.jpg"
-      },
-      {
-        reviewId: reviewId5,
-        url: "https://www.pngkey.com/png/detail/4-47353_3-stars-3-.png"
-      }
-    ]
-
-    await queryInterface.bulkInsert(options, validImages, {})
-  },
-
-  async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete(options, {}, {})
-  }
 };

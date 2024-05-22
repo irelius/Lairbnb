@@ -1,0 +1,11 @@
+@media screen and (min-width: 1440px) {
+  .main {
+    background-color: orange;
+  }
+  .main-title {
+    background-color: blue;
+    width: 300px;
+  }
+}
+
+/*# sourceMappingURL=Test.css.map */

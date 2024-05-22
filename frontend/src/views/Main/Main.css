@@ -1,17 +1,10 @@
-/* src/views/Main/Main.css */
-/* Main Page CSS */
-
-#all-spots {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    margin-bottom: 70px;
-    margin-left: 10px;
-    margin-right: 10px;
+.all-spots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-#all-spots>* {
-    text-decoration: none;
-    color: black;
-}
+/*# sourceMappingURL=Main.css.map */

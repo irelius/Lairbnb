@@ -18,8 +18,7 @@ function SubmitButton(props) {
     return (
         <button
             type="submit"
-            id="modal-continue-button"
-            className="font-16 semi-bold white pointer"
+            className="modal-continue-button font-16 font-semi-bold color-white mouse-pointer"
             style={{
                 background: isHovered ? 'rgb(189, 30, 89)' : 'rgb(189, 30, 89)',
             }}

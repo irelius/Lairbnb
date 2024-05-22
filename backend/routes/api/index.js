@@ -1,6 +1,6 @@
 // backend/routes/api/index.js
 const router = require("express").Router()
-const { restoreUser } = require("../../utils/auth.js");
+const { restoreUser } = require("../../utils/authentication.js");
 
 // Connect restoreUser middleware to the API router
 // If current user session is valid, set req.user to the user in the database
@@ -23,17 +23,16 @@ router.use("/maps", mapsRouter)
 
 // Error middleware
 router.use((error, req, res, next) => {
-  res.status(error.status || 500)
-  res.json({
-    message: error.message,
-    statusCode: error.status,
-    errors: error.errors
-  })
+    res.status(error.status || 500)
+    res.json({
+        message: error.message,
+        statusCode: error.status,
+        errors: error.errors
+    })
 })
 
-
-router.post('/test', (req, res) => {
-  res.json({ requestBody: req.body });
+router.get('/test', (req, res) => {
+    res.json({ message: "hello lairbnb" })
 });
 
 module.exports = router;

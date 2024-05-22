@@ -1,0 +1,27 @@
+.spot-page-image {
+    height: 300px;
+    width: auto;
+    object-fit: cover;
+
+    border: 5px solid transparent;
+}
+
+.spot-page-image:hover {
+    filter: brightness(0.9);
+}
+
+.spot-page-image > img {
+    border-radius: 15px 0px 0px 15px;
+}
+
+.spot-page-image-test {
+    height: 300px;
+}
+
+/* .my-module_ {
+    &header {}
+    &body {}
+    &button {
+        &_button-bg {}
+    }
+} */

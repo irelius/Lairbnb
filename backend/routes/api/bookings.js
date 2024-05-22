@@ -1,37 +1,18 @@
 const express = require('express')
 const router = express.Router();
 
-const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validations')
-
-const { setTokenCookie, requireAuth, restoreUser, authenticationRequired, authorizationNotRequiredBookings, authorizationRequiredBookings } = require('../../utils/auth');
 const { User, Spot, Booking } = require('../../db/models');
 
+const { validateBooking } = require('../../utils/validations')
+const { restoreUser, authRequired } = require("../../utils/authentication.js");
+const { bookingOwnerAuthorization, bookingAuthorization } = require("../../utils/authorization")
+const { validationError, notFound } = require('../../utils/helper.js')
 
-// Helper function for validation error
-const validationError = (message, code) => {
-    let error = new Error("Validation error");
-    error.status = code;
-    error.errors = {
-        endDate: message,
-        statusCode: code
-    }
-    return error;
-}
-
-// helper function for a particular element not found
-const notFound = (el, code) => {
-    let error = new Error(`${el} couldn't be found`);
-    error.status = code;
-    error.statusCode = code;
-    return error
-}
 
 // helper function for a review that already exists, may not need since this only occurs once?
 const bookingExists = (bookingError) => {
     let error = new Error("Sorry, this spot is already booked for the specified dates");
     error.status = 403;
-    error.statusCode = 403;
     error.errors = {}
     if (bookingError.startDate) {
         error.errors.startDate = bookingError.startDate
@@ -43,23 +24,10 @@ const bookingExists = (bookingError) => {
 }
 
 
-const validateBooking = [
-    check("startDate")
-        .exists({ checkFalsy: true })
-        .isString()
-        .withMessage("Start date is required"),
-    check("endDate")
-        .exists({ checkFalsy: true })
-        .isString()
-        .withMessage("End date is required"),
-    handleValidationErrors
-]
-
-
-// _________________________________________________________________________________________
+// ------------------------------------------------------------------------------------------------------
 
 // Get all of the Current User's Bookings
-router.get("/current", [restoreUser, authenticationRequired], async (req, res) => {
+router.get("/current", [restoreUser, authRequired], async (req, res) => {
     const Bookings = await Booking.findAll({
         where: {
             userId: req.user.id
@@ -76,8 +44,9 @@ router.get("/current", [restoreUser, authenticationRequired], async (req, res) =
 
 
 // Get all Bookings for a Spot based on the Spot's id
-router.get("/:spotId", [restoreUser, authenticationRequired], async (req, res, next) => {
+router.get("/:spotId", [restoreUser, authRequired], async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId);
+
     // send error if spot is not found
     if (!spot) {
         return next(notFound("Spot", 404))
@@ -109,11 +78,11 @@ router.get("/:spotId", [restoreUser, authenticationRequired], async (req, res, n
 
 
 // Create a Booking from a Spot based on the Spot's id
-router.post("/:spotId", [validateBooking, restoreUser, authenticationRequired, authorizationNotRequiredBookings], async (req, res, next) => {
+router.post("/:spotId", [validateBooking, restoreUser, authRequired, bookingOwnerAuthorization], async (req, res, next) => {
     const { startDate, endDate } = req.body;
     // error response: body validation errors
     if (endDate <= startDate) {
-        return next(validationError("endDate cannot be on or before startDate", 400))
+        return next(validationError("End date cannot be on or before start date", 400))
     }
     // error response: booking conflict
     const bookingCheck = await Booking.findAll({
@@ -142,14 +111,13 @@ router.post("/:spotId", [validateBooking, restoreUser, authenticationRequired, a
         startDate: startDate,
         endDate: endDate
     })
-    res.statusCode = 200;
     res.json(newBooking)
 
 })
 
 
 // Edit a Booking
-router.put("/:bookingId", [restoreUser, authenticationRequired, authorizationRequiredBookings], async (req, res, next) => {
+router.put("/:bookingId", [restoreUser, authRequired, bookingAuthorization], async (req, res, next) => {
     const { startDate, endDate } = req.body;
     let compareCurrentDate = new Date();
     compareCurrentDate = compareCurrentDate.toISOString().split("T")[0]
@@ -171,7 +139,6 @@ router.put("/:bookingId", [restoreUser, authenticationRequired, authorizationReq
     if (updateBooking.endDate < compareCurrentDate) {
         const error = new Error("Past bookings can't be modified")
         error.status = 403;
-        error.statusCode = 403;
         return next(error);
     }
     // booking conflict
@@ -201,7 +168,7 @@ router.put("/:bookingId", [restoreUser, authenticationRequired, authorizationReq
 })
 
 
-router.delete("/:bookingId", [restoreUser, authenticationRequired, authorizationRequiredBookings], async (req, res, next) => {
+router.delete("/:bookingId", [restoreUser, authRequired, bookingAuthorization], async (req, res, next) => {
     const deleteBooking = await Booking.findByPk(req.params.bookingId);
     // error if booking doesn't exist
     if (!deleteBooking) {
@@ -211,8 +178,7 @@ router.delete("/:bookingId", [restoreUser, authenticationRequired, authorization
     let compareCurrentDate = new Date()
     compareCurrentDate = compareCurrentDate.toISOString().split("T")[0]
     if (deleteBooking.startDate <= compareCurrentDate) {
-        const error = new Error("Booking that have been started can't be deleted");
-        error.statusCode = 403;
+        const error = new Error("Bookings that have been started can't be deleted");
         error.status = 403;
         return next(error);
     }

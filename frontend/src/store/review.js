@@ -7,10 +7,6 @@ const EDIT_REVIEW = "/reviews/edit"
 const DELETE_REVIEW = "/reviews/delete"
 const CLEAR_REVIEW = "/reviews/clear"
 
-const initialReviews = {
-    user: {},
-    all: {},
-}
 
 export const loadReview = (review) => {
     return {
@@ -26,26 +22,12 @@ export const loadReviews = (reviews) => {
     }
 }
 
-export const loadReviewsThunk = (spotId) => async dispatch => {
+export const loadSpotReviewsThunk = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/reviews/spot/${spotId}`)
-
     const allReviews = await response.json();
 
     await dispatch(loadReviews(allReviews))
     return response;
-}
-
-
-export const loadUserReviewThunk = (spotId) => async dispatch => {
-    const res = await csrfFetch(`/api/reviews/spot/${spotId}/current`)
-
-
-    if (res.ok) {
-        const userReview = await res.json()
-        dispatch(loadReview(userReview))
-        return userReview
-    }
-    return null;
 }
 
 
@@ -86,7 +68,6 @@ export const addReviewThunk = (review) => async dispatch => {
 //         },
 //         body: JSON.stringify(editReview)
 //     })
-//     console.log(await response.json())
 
 //     if(response.ok) {
 //         const review = await response.json();
@@ -109,8 +90,8 @@ export const deleteReviewThunk = (reviewId) => async dispatch => {
     })
 
     if (response.ok) {
-        dispatch(deleteReview(reviewId))
-        console.log("Review successfully deleted.")
+        const review = await response.json()
+        dispatch(deleteReview(review))
     }
 }
 
@@ -120,31 +101,65 @@ export const resetReview = () => {
     }
 }
 
+const initialReviews = {
+    allReviews: {},
+    allReviewsId: [],
+    userReviews: {},
+    userReviewsId: []
+}
 
 // ----------------------------------------------------------------------------------------------------------
 const reviewReducer = (state = initialReviews, action) => {
     const newState = { ...state }
     switch (action.type) {
         case LOAD_REVIEW:
-
             newState.user = { ...action.payload[0] }
             return newState
         case LOAD_REVIEWS:
-            action.payload.forEach(el => {
-                newState.all[el.id] = el
-            })
+            const loadOtherReviews = {}
+            const loadOtherReviewsId = []
+            const loadUserReviews = {}
+            const loadUserReviewsId = []
+
+            const userReviews = action.payload.userReviews
+            const otherReviews = action.payload.otherReviews
+
+            for (let i = 0; i < otherReviews.length; i++) {
+                let currReview = otherReviews[i]
+                loadOtherReviews[currReview.id] = currReview
+                loadOtherReviewsId.push(currReview.id)
+            }
+
+            for (let i = 0; i < userReviews.length; i++) {
+                let currReview = userReviews[i]
+                loadUserReviews[currReview.id] = currReview
+                loadUserReviewsId.push(currReview.id)
+            }
+
+            newState.allReviews = loadOtherReviews
+            newState.allReviewsId = loadOtherReviewsId
+            newState.userReviews = loadUserReviews
+            newState.userReviewsId = loadUserReviewsId
+
             return newState;
         case ADD_REVIEW:
-            newState[action.payload.id] = action.payload;
+            newState.userReviews[action.payload.id] = action.payload;
+            newState.userReviewsId.push(action.payload.id)
             return newState;
         case EDIT_REVIEW:
-            newState[action.payload.spotId] = action.payload;
+            newState.userReviews[action.payload.id] = action.payload;
             return newState;
         case DELETE_REVIEW:
-            return {
-                user: {},
-                all: { ...newState.all }
-            }
+            const deleteUserReviewId = newState.userReviewsId.filter(el => el !== action.payload.id)
+            const deleteOtherUserReviewId = newState.allReviewsId.filter(el => el !== action.payload.id)
+
+            newState.userReviewsId = deleteUserReviewId
+            newState.allReviewsId = deleteOtherUserReviewId
+
+            delete newState.userReviews[action.payload.id]
+            delete newState.allReviews[action.payload.id]
+
+            return newState
         case CLEAR_REVIEW:
             return {
                 user: {},

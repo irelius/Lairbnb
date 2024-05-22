@@ -3,148 +3,12 @@ const router = express.Router();
 const { Op } = require("sequelize")
 
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validations');
-
-
-const { setTokenCookie, requireAuth, restoreUser, authenticationRequired, authorizationRequiredSpots } = require('../../utils/auth');
 const { User, Spot, Image, Review } = require('../../db/models');
 
-// helper function for a particular element not found
-const notFound = (el, code) => {
-    let error = new Error(`${el} couldn't be found`);
-    error.status = code;
-    error.statusCode = code;
-    return error
-}
-
-
-const validateSpot = [
-    check("address")
-        .notEmpty()
-        .withMessage("Street address is required"),
-    check("city")
-        .notEmpty()
-        .withMessage("City is required"),
-    check("state")
-        .notEmpty()
-        .withMessage("State is required"),
-    check("country")
-        .notEmpty()
-        .withMessage("Country is required"),
-    check("lat")
-        .notEmpty()
-        .isDecimal()
-        .withMessage("Latitude is not valid")
-        .custom(lat => {
-            if (lat < -90 || lat > 90) {
-                throw new Error("Latitude is not valid")
-            }
-            return true;
-        }),
-    check("lng")
-        .notEmpty()
-        .isDecimal()
-        .withMessage("Longitude is not valid")
-        .custom(lng => {
-            if (lng < -180 || lng > 180) {
-                throw new Error("Longitude is not valid")
-            }
-            return true;
-        }),
-    check("name")
-        .notEmpty()
-        .isLength({ max: 50 })
-        .withMessage("Name must be less than 50 characters"),
-    check("description")
-        .notEmpty()
-        .withMessage("Description is required"),
-    check("price")
-        .notEmpty()
-        .isDecimal()
-        .withMessage("Price per day is required")
-        .custom(price => {
-            if (price < 0) {
-                throw new Error("Price per day is required")
-            }
-            return true;
-        }),
-    handleValidationErrors
-]
-
-
-const validateFilters = [
-    check("page")
-        .optional()
-        .isInt({ min: 0 })
-        .withMessage("Page must be greater than or equal to 0"),
-    check("size")
-        .optional()
-        .isInt({ min: 0 })
-        .withMessage("Size must be greater than or equal to 0"),
-    check("minLat")
-        .optional()
-        .isDecimal()
-        .withMessage("Minimum latitude is not valid")
-        .custom(minLat => {
-            if (minLat < -90) {
-                throw new Error("Minimum latitude is not valid")
-            }
-            return true;
-        }),
-    check("maxLat")
-        .optional()
-        .isDecimal()
-        .withMessage("Maximum latitude is not valid")
-        .custom(maxLat => {
-            if (maxLat > 90) {
-                throw new Error("Maximum latitude is not valid")
-            }
-            return true;
-        }),
-    check("minLng")
-        .optional()
-        .isDecimal()
-        .withMessage("Minimum longitude is not valid")
-        .custom(minLng => {
-            if (minLng < -180) {
-                throw new Error("Minimum longitude is invalid")
-            }
-            return true;
-        }),
-    check("maxLng")
-        .optional()
-        .isDecimal()
-        .withMessage("Maximum longitude is not valid")
-        .custom(maxLng => {
-            if (maxLng > 180) {
-                throw new Error("Maximum longitude is invalid")
-            }
-            return true;
-        }),
-    check("minPrice")
-        .optional()
-        .isDecimal()
-        .withMessage("Minimum price must be greater than or equal to 0")
-        .custom(minPrice => {
-            if (minPrice < 0) {
-                throw new Error("Minimum price must be greater than or equal to 0")
-            }
-            return true;
-        })
-    ,
-    check("maxPrice")
-        .optional()
-        .isDecimal()
-        .withMessage("Maximum price must be greater than or equal to 0")
-        .custom(maxPrice => {
-            if (maxPrice < 0) {
-                throw new Error("Maximum price must be greater than or equal to 0")
-            }
-            return true;
-        })
-    ,
-    handleValidationErrors
-]
+const { handleValidationErrors, validateFilters, validateSpot } = require('../../utils/validations');
+const { setTokenCookie, restoreUser, authRequired } = require("../../utils/authentication.js");
+const { spotAuthorization } = require("../../utils/authorization")
+const { notFound } = require('../../utils/helper.js')
 
 // ___________________________________________________________________________________________________
 
@@ -170,7 +34,7 @@ router.get("/", validateFilters, async (req, res, next) => {
         size = 20
     }
 
-    const Spots = await Spot.findAll({
+    const spots = await Spot.findAll({
         where: {
             lat: {
                 [Op.between]: [minLat, maxLat]
@@ -183,11 +47,16 @@ router.get("/", validateFilters, async (req, res, next) => {
             }
         },
         limit: size,
-        offset: (size * (page - 1))
+        offset: (size * (page - 1)),
+        include: [
+            {
+                model: Image
+            }
+        ]
     })
 
     res.json({
-        Spots,
+        spots,
         page,
         size
     });
@@ -197,34 +66,29 @@ router.get("/", validateFilters, async (req, res, next) => {
 
 
 // Get Spots owned by Current User
-router.get("/current", [restoreUser, authenticationRequired], async (req, res) => {
+router.get("/current", [restoreUser, authRequired], async (req, res) => {
     try {
-        const Spots = await Spot.findAll({
+        const spots = await Spot.findAll({
             where: {
-                ownerId: req.user.id,
+                ownerId: req.user.id
             },
             attributes: { exclude: ["numReviews"] },
-        });
+        })
 
-        if (Spots.length === 0) {
+        if (spots.length === 0) {
             return res.status(404).json({
                 message: `No spots for User ${req.user.id}`,
-            });
+            })
         }
 
-        return res.json({
-            Spots
-        });
-    } catch (error) {
-        // Handle any unexpected errors here
+        return res.json({ spots })
+    } catch (e) {
         console.error("Error:", error);
         return res.status(500).json({
             message: "Internal Server Error",
         });
     }
-}
-);
-
+});
 
 
 // Get details of a Spot from an id
@@ -232,18 +96,20 @@ router.get("/:spotId", async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId, {
         include: [{
             model: Image,
-            attributes: ["id", ["reviewId", "imageableId"], ["spotId", "imageableId"], "url"]
-        },
-        {
+            attributes: ["id", "type", "typeId", "url"]
+        }, {
             model: User,
-            as: "Owner",
-            attributes: ["id", "firstName", "lastName"]
+            as: "owner",
         }]
-    });
-    // error if spot doesn't exist
+    })
+
+    // if spot doesn't exist, return error for element not found
     if (!spot) {
         return next(notFound("Spot", 404))
     }
+
+    return res.json({ spot })
+    // Following code should be moved to a review api route. Recalculation of ratings should be done whenever a new review is submitted
     // get all reviews to find out how many reviews a spot has
     let starTotal = 0;
     let starCount = 0;
@@ -259,34 +125,31 @@ router.get("/:spotId", async (req, res, next) => {
         starCount++
     })
     spot.avgStarRating = (starTotal / starCount)
-    // successfully send spot
-    res.json(spot)
 })
 
 
 // Create a Spot
-router.post("/",
-    [validateSpot, restoreUser, authenticationRequired], async (req, res, next) => {
-        const { address, city, state, country, lat, lng, name, description, price, image } = req.body;
-        const newSpot = await Spot.create({
-            ownerId: req.user.id,
-            address: address,
-            city: city,
-            state: state,
-            country: country,
-            lat: lat,
-            lng: lng,
-            name: name,
-            description: description,
-            price: price,
-            previewImg: image
-        })
-        res.status(201).json(newSpot);
+router.post("/", [validateSpot, restoreUser, authRequired], async (req, res, next) => {
+    const { address, city, state, country, lat, lng, name, description, price, image } = req.body;
+    const newSpot = await Spot.create({
+        ownerId: req.user.id,
+        address: address,
+        city: city,
+        state: state,
+        country: country,
+        lat: lat,
+        lng: lng,
+        name: name,
+        description: description,
+        price: price,
+        previewImg: image
     })
+    res.status(201).json({ newSpot });
+})
 
 
 // Edit a Spot
-router.put("/:spotId", [validateSpot, restoreUser, authenticationRequired, authorizationRequiredSpots], (async (req, res, next) => {
+router.put("/:spotId", [validateSpot, restoreUser, authRequired, spotAuthorization], (async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
     const updateSpot = await Spot.findByPk(req.params.spotId)
     // update spot
@@ -303,21 +166,22 @@ router.put("/:spotId", [validateSpot, restoreUser, authenticationRequired, autho
     })
     // update and send updated spot
     updateSpot.updatedAt = new Date()
-    res.json(updateSpot)
-})
-)
+    res.json({ updateSpot })
+}))
 
 
 // Delete a Spot
-router.delete("/:spotId", [restoreUser, authenticationRequired, authorizationRequiredSpots], async (req, res, next) => {
+router.delete("/:spotId", [restoreUser, authRequired, spotAuthorization], async (req, res, next) => {
     // destroy spot
     await Spot.destroy({
         where: {
             id: req.params.spotId
         }
     })
+
     // send message
     res.status(200).json({
+        id: parseInt(req.params.spotId),
         message: "Successfully deleted",
         statusCode: 200
     })

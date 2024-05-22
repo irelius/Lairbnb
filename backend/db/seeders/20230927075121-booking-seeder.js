@@ -38,32 +38,32 @@ module.exports = {
       {
         spotId: spotId1,
         userId: userId2,
-        startDate: "2022-01-17",
-        endDate: "2023-01-17"
+        startDate: new Date("2022-01-17"),
+        endDate: new Date("2023-01-17")
       },
       {
         spotId: spotId2,
         userId: userId1,
-        startDate: "2022-06-23",
-        endDate: "2023-06-23"
+        startDate: new Date("2022-06-23"),
+        endDate: new Date("2023-06-23")
       },
       {
         spotId: spotId3,
         userId: userId2,
-        startDate: "2022-06-23",
-        endDate: "2023-06-23"
+        startDate: new Date("2022-06-23"),
+        endDate: new Date("2023-06-23")
       },
       {
         spotId: spotId4,
         userId: userId3,
-        startDate: "2055-05-15",
-        endDate: "2055-12-35"
+        startDate: new Date("2055-05-15"),
+        endDate: new Date("2055-12-35")
       },
       {
         spotId: spotId5,
         userId: userId3,
-        startDate: "2055-05-15",
-        endDate: "2055-12-35"
+        startDate: new Date("2055-05-15"),
+        endDate: new Date("2055-12-35")
       }
     ]
 

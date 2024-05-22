@@ -1,68 +1,45 @@
-/* ------------------------------------------------------------------------ */
-/* page general */
-
-#spot-detail-main {
+/* ------------------------------- Page General ------------------------------- */
+.spot-detail-main {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    margin-top: 15px;
+    justify-self: center;
+    margin: auto;
+    margin-top: 20px;
 }
 
-#spot-detail-main * {
-    max-width: 90vw;
-}
+/* ------------------------------- Divider Line ------------------------------- */
+.spot-line {
 
-
-/* ------------------------------------------------------------------------ */
-/* divider line */
-
-#spot-line {
-    border-bottom: 2px solid #f7f7f7;
-    width: 1000px;
-
+    border-bottom: 2px solid var(--off-white);
+    width: 90vw;
+    max-width: 1150px;
+    margin: auto;
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 
-/* ------------------------------------------------------------------------ */
-/* review section */
-
-#review-section {
-    max-width: 90vw;
-    width: 1000px;
-
-    /* background-color: orange; */
+/* ------------------------------ Review Section ------------------------------ */
+.review-section {
+    margin-bottom: 50px;
+    max-width: 95vw;
+    width: 1150px;
 }
 
-#review-header {
-    display: flex;
-}
-
-#review-header * {
+.review-header {
     display: flex;
     align-items: center;
-
-    padding-right: 5px;
     font-size: 20px;
 }
 
-#reviews {
-    display: flex;
-    flex-direction: column;
+.reviews {
+    gap: 30px;
 }
 
-#review {
-    margin-top: 15px;
-}
 
-#review-user-info {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-#review-icon-container {
+/* ------------------------- Common Children CSS Rules ------------------------- */
+.review-icon-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,43 +48,27 @@
     width: 40px;
     height: 40px;
 
-    border-radius: 90%;
+    border-radius: 100%;
     background-color: #242424;
 
     font-size: 10px;
     color: white;
 }
 
-#review-date {
+.review-user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review-date {
     color: gray;
-    font-size: small;
+    font-size: var(--12);
     margin-top: 3px;
 }
 
-#submit-review-button {
-    height: 40px;
-    padding: 30px;
-    color: black;
-
-}
-
-#delete-user-review {
-    display: flex;
-    margin: 10px;
-    margin-left: 30px;
-}
-
-#review-delete-container {
-    margin-left: 30px;
-    border-radius: 90%;
-}
-
-#review-delete-container:hover {
-    box-shadow: 0 1mm 1mm rgba(219, 219, 219);
-}
-
-#review-delete {
-    width: 100px;
-    color: black;
-    text-decoration: none;
+.other-reviews-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

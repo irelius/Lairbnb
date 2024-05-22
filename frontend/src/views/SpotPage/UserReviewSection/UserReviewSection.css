@@ -1,9 +1,37 @@
-#review-edit-container {
+.user-review-info-container {
     display: flex;
-    flex-direction: row;
-    margin-top: 5px;
+    align-items: center;
+    justify-content: space-between;
 }
 
-#review-edit {
+.user-review-section {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+.review-edit-container {
+    display: flex;
+    flex-direction: row;
+
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.review-edit {
     margin-right: 10px;
+}
+
+.hover-hidden {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.user-review-section:hover .hover-hidden {
+    opacity: 1;
+}
+
+.submit-review-container {
+    display: flex;
+    width: fit-content;
 }

@@ -1,13 +1,14 @@
-import TestChild from "./TestChild"
-import { useState } from "react"
+import "./Test.css"
 
 function Test() {
-    const [counter, setCounter] = useState(0);
-
     return (
-        <div>
-            {counter}
-            <TestChild setCounter={setCounter} />
+        <div className="main">
+            <section className="main-title">
+                Title
+            </section>
+            <section className="main-subtitle">
+                subtitle
+            </section>
         </div>
     );
 }

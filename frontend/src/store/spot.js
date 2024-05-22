@@ -7,8 +7,6 @@ const EDIT_SPOT = "/spots/edit"
 const DELETE_SPOT = "/spots/delete"
 const CLEAR_SPOT = "/spots/clear"
 
-const initialSpot = {}
-
 export const loadSpot = (spot) => {
     return {
         type: LOAD_SPOT,
@@ -116,13 +114,15 @@ export const deleteSpot = (spot) => {
     }
 }
 
-export const deleteSpotThunk = (deleteSpot) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${deleteSpot.id}`, {
+export const deleteSpotThunk = (spotToDelete) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotToDelete.id}`, {
         method: "DELETE"
     })
 
     if (response.ok) {
         console.log("Listing successfully deleted.")
+        const spot = await response.json();
+        dispatch(deleteSpot(spot))
     }
 }
 
@@ -133,34 +133,50 @@ export const resetSpot = () => {
 }
 
 // ----------------------------------------------------------------------------------------------------------
+
+const initialSpot = {
+    spots: {},
+    spotIds: []
+}
+
 const spotReducer = (state = initialSpot, action) => {
     const newState = { ...state }
     switch (action.type) {
         case LOAD_SPOT:
-            return action.payload
+            newState.spots = { [action.payload.spot.id]: { ...action.payload.spot } }
+            newState.spotIds = [action.payload.spot.id]
+            return newState
         case LOAD_SPOTS:
-            const spots = {}
+            const loadSpotIds = []
+            const loadSpots = {}
 
-            if (!action.payload.Spots) {
-                return spots
+            for (let i = 0; i < action.payload.spots.length; i++) {
+                let currSpot = action.payload.spots[i]
+                loadSpots[currSpot.id] = currSpot
+                loadSpotIds.push(currSpot.id)
             }
 
-            action.payload.Spots.forEach((el, i) => {
-                spots[el.id] = el
-            })
-
-            return spots
+            newState.spots = loadSpots
+            newState.spotIds = loadSpotIds
+            return newState
         case ADD_SPOT:
-            newState[action.payload.id] = action.payload
+            newState.spots[action.payload.newSpot.id] = action.payload.newSpot
+            newState.spotIds.push(action.payload.newSpot.id)
             return newState;
         case EDIT_SPOT:
-            newState[action.payload.id] = action.payload;
+            newState.spots[action.payload.updateSpot.id] = action.payload.updateSpot;
             return newState;
         case DELETE_SPOT:
+            const deleteSpotIds = newState.spotIds.filter(el => el !== action.payload.id)
+            newState.spotIds = deleteSpotIds
             delete newState[action.payload.id]
             return newState;
         case CLEAR_SPOT:
-            return initialSpot
+            const resetSpot = {
+                spots: {},
+                spotIds: []
+            }
+            return resetSpot
         default:
             return newState;
     }

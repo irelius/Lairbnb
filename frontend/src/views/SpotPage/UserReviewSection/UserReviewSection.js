@@ -1,125 +1,87 @@
 import "./UserReviewSection.css"
 
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { deleteReviewThunk } from "../../../store/review";
 import formatMonthAndYear from "../../../utils/formatMonthAndYear";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteReviewThunk, loadReviewsThunk, loadUserReviewThunk } from "../../../store/review";
-import { useEffect, useState } from "react";
 import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
 import ReviewForm from "../../../components/Modals/ReviewModal";
 
-
-function UserReviewSection({ user, spotId, setUpdateReviewAndRating, setReviewDeleted }) {
-    const dispatch = useDispatch()
+// { user, spotId, setUpdateReviewAndRating, setReviewDeleted }
+function UserReviewSection({ user, reviews, setReviewSubmitted }) {
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [showReviewForm, setShowReviewForm] = useState(false)
 
-    const userReview = useSelector(state => state.review.user)
-    const [reviewSubmitted, setReviewSubmitted] = useState(userReview.id !== undefined)
+    const userReview = reviews.userReviews[reviews.userReviewsId[0]]
 
-    useEffect(() => {
-        dispatch(loadReviewsThunk(spotId))
-    }, [dispatch, spotId])
-
-    useEffect(() => {
-        if(user !== -1) {
-            dispatch(loadUserReviewThunk(spotId))
-        }
-        setUpdateReviewAndRating((prevState) => !prevState)
-    }, [dispatch, spotId, reviewSubmitted, setUpdateReviewAndRating])
-
+    const dispatch = useDispatch()
 
     const handleDelete = (e) => {
-        e.preventDefault();
-
-        dispatch(deleteReviewThunk(userReview.id))
-        dispatch(loadUserReviewThunk(spotId))
-
-        setReviewDeleted(prevState => !prevState)
-    }
-
-    const closeReviewForm = () => {
+        e.preventDefault()
         setShowReviewForm(false)
+        dispatch(deleteReviewThunk(userReview.id))
     }
 
-    // if user is not logged in
-    return user === -1 ? (
-        // did user click on the log in? if yes, open login modal
-        showLoginForm ? (
-            <div className="modal" onClick={() => setShowLoginForm(false)}>
-                <div className="modal-form-container ffffff-bg" onClick={(e) => e.stopPropagation()}>
-                    <section id="modal-exit-button" className="pointer f7f7f7-bg-hover" onClick={() => setShowLoginForm(false)}>
-                        <i className="fa-solid fa-xmark" />
-                    </section>
-                    <section className="modal-form-header bbot-235">
-                        <section className="bold font-14">
-                            Log in
-                        </section>
-                    </section>
-                    <section className="modal-form-body">
-                        <section>
-                            <LoginForm />
-                        </section>
-                    </section>
-                    {/* <section id="google-login">
-                        Google login functionality to be added
-                    </section> */}
-                </div>
-            </div>
-        ) : (
-            // login section, set login form true when clicked on
-            <div id="login-container">
-                <div onClick={() => setShowLoginForm(true)}>
-                    Please <b className="pointer">log in</b> to submit a review.
-                </div>
-            </div>
-        )
+    // If user is not logged in
+    return user.loggedIn === false ? (
+        <div>
+            <section className="df-r gap-5">
+                Please <p className="mouse-pointer font-semi-bold font-underline" onClick={() => setShowLoginForm(true)}>log in</p> to submit a review.
+            </section>
 
-        // if user is logged in, but there's no review, give option to submit a review
-    ) : user.id && Object.keys(userReview).length === 0 ? (
-        // did user click on the submit review button? if yes, open submit review modal
-        showReviewForm ? (
-            <div>
-                <section id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => setShowReviewForm(true)}>
-                    Submit a Review
-                </section >
-                <section className="modal" onClick={() => { setShowReviewForm(false) }}>
-                    <ReviewForm closeModal={closeReviewForm} setReviewSubmitted={setReviewSubmitted} />
+            {showLoginForm ? (
+                <div className="modal" onClick={() => setShowLoginForm(false)}>
+                    <LoginForm setShowLoginForm={setShowLoginForm} />
+                </div>
+            ) : (
+                <></>
+            )}
+        </div>
+
+        // If user is logged in AND has no reviews
+    ) : user.loggedIn === true && reviews.userReviewsId.length === 0 ? (
+        <div className="submit-review-container">
+            <section className="submit-review-button border-black font-semi-bold mouse-pointer bg-off-white-hover" onClick={() => setShowReviewForm(true)}>
+                Submit a Review
+            </section >
+
+            {showReviewForm ? (
+                <section className="modal" onClick={() => setShowReviewForm(false)}>
+                    <ReviewForm setShowReviewForm={setShowReviewForm}/>
                 </section>
-            </div>
-        ) : (
-            <div>
-                <div id="submit-review-button" className="black-border semi-bold pointer f7f7f7-bg-hover" onClick={() => setShowReviewForm(true)}>
-                    Submit a Review
-                </div >
-            </div>
-        )
+            ) : (
+                <></>
+            )}
+        </div>
 
         // if user is logged in and there's a review made by user
     ) : (
-        <div className="hidden-container">
-            <section id="review-user-info">
-                <div id='review-icon-container'>
-                    {userReview.User.firstName.slice(0, 1)}
-                </div>
-                <aside>
-                    <section id="review-name">
-                        {userReview.User.firstName} {userReview.User.lastName}
-                    </section>
-                    <section id="review-date">
-                        {formatMonthAndYear(userReview.createdAt.slice(0, 10))}
-                    </section>
+        <div className="user-review-section">
+            <section className="user-review-info-container">
+                <aside className="review-user-info">
+                    <aside className='review-icon-container'>
+                        {user.user.firstName.slice(0, 1)}
+                    </aside>
+                    <aside>
+                        <section className="font-semi-bold">
+                            {user.user.firstName} {user.user.lastName}
+                        </section>
+                        <section className="review-date">
+                            {formatMonthAndYear(userReview.createdAt.slice(0, 10))}
+                        </section>
+                    </aside>
                 </aside>
+                <section className="review-edit-container hover-hidden">
+                    <aside className="review-edit">
+                        <i className="mouse-pointer fa-regular fa-pen-to-square fa-xl"></i>
+                    </aside>
+                    <aside className="review-delete">
+                        <i className="mouse-pointer fa-regular fa-circle-xmark fa-xl" onClick={(e) => { handleDelete(e) }}></i>
+                    </aside>
+                </section>
             </section>
-            <section id="review">
+            <section className="user-review m-b-10">
                 {userReview.review}
-            </section>
-            <section id="review-edit-container">
-                <aside id="review-edit">
-                    {/* TO DO: create edit option */}
-                </aside>
-                <aside id="review-delete">
-                    <i className="pointer fa-regular fa-circle-xmark fa-xl" onClick={(e) => { handleDelete(e) }}></i>
-                </aside>
             </section>
         </div>
     )

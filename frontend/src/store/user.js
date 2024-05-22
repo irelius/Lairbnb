@@ -28,6 +28,7 @@ export const clearUsers = () => {
 
 export const loginThunk = (user) => async (dispatch) => {
     const { email, password } = user;
+
     const response = await csrfFetch("/api/users/login", {
         method: "POST",
         body: JSON.stringify({
@@ -35,6 +36,7 @@ export const loginThunk = (user) => async (dispatch) => {
             password,
         }),
     });
+
     const data = await response.json();
     dispatch(setUser(data.user));
     return response;
@@ -74,17 +76,22 @@ export const restoreUserThunk = () => async (dispatch) => {
     return response;
 };
 
-
-const initialState = { user: null };
+const initialState = {
+    loggedIn: false
+}
 
 const userReducer = (state = initialState, action) => {
     let newState = { ...state };
     switch (action.type) {
         case SET_USER:
-            newState.user = action.payload;
+            if(action.payload !== null) {
+                newState.loggedIn = true;
+                newState.user = action.payload
+            }
             return newState;
         case REMOVE_USER:
-            newState.user = null;
+            newState.loggedIn = false
+            delete newState.user
             return newState;
         default:
             return state;

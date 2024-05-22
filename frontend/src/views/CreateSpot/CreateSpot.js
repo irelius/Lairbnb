@@ -44,24 +44,24 @@ function CreateSpot() {
     }
 
     return (
-        <div id="create-spot-main">
+        <div className="create-spot-main">
 
-            <aside id="left">
-                <h1 id="left-header">
+            <aside className="left">
+                <h1 className="left-header">
                     What kind of place will you host?
                 </h1>
             </aside>
 
-            <aside id="right" className="ffffff-bg">
-                <div id="back-button-container">
+            <aside className="right bg-white">
+                <div className="back-button-container">
                     <NavLink exact to="/">
-                        <div id="back-button" className="no-border" >
+                        <div className="back-button border-none">
                             Exit
                         </div>
                     </NavLink>
                 </div>
-                <div id="right-section">
-                    <form onSubmit={handleSubmit} id="create-spot-form">
+                <div className="right-section">
+                    <form onSubmit={handleSubmit} className="create-spot-form">
                         <input
                             type="text"
                             placeholder="Address"
@@ -136,12 +136,12 @@ function CreateSpot() {
                             value={image}
                             onChange={(e) => setImage(e.target.value)}
                         />
-                        <div id="submit-button-div">
-                            <button type="submit" id="submit-button" className="bold no-border">
+                        <div className="submit-button-div">
+                            <button type="submit" className="submit-button font-bold border-none">
                                 Host Your Spot
                             </button>
                         </div>
-                        {/* <div id="map-container">
+                        {/* <div className="map-container">
                             <Maps />
                         </div> */}
                     </form>

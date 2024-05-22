@@ -1,46 +1,55 @@
-#login-form {
+.login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#login-form>input {
-    height: 15px;
+.login-form>input {
+    height: 50px;
     width: 375px;
     outline: none;
 
     padding: 15px;
 }
 
-#login-form-email-input {
+
+.login-form-email-input {
+    border: 1px solid var(--gray);
     border-radius: 10px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
 }
-
-#login-form-email-input:focus {
+.login-form-email-input:focus-within {
     border: 2px solid black;
-    width: 373px;
-    height: 13px;
+}
+.email-email {
+    border-bottom: 1px solid transparent;
 }
 
-#login-form-password-input {
-    border-top: none;
+
+.login-form-password-input {
+    border: 1px solid var(--gray);
     border-radius: 10px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 }
-
-#login-form-password-input:focus {
+.login-form-password-input:focus-within {
     border: 2px solid black;
-    width: 373px;
-    height: 12px;
+}
+.password-password {
+    border-top: 1px solid transparent;
+}
+.password-null {
+    border-top: none;
 }
 
-#login-error-section {
+
+.login-error-section {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
 
     height: 15px;
     width: 375px;
@@ -49,18 +58,22 @@
     margin-left: 0px;
 }
 
-#exclamation-mark {
+.exclamation-mark {
     margin-right: 5px;
 
 }
 
-#demo-login-container {
+.demo-login-container {
     display: flex;
     justify-content: center;
     margin-top: 10px;
 }
 
-#demo-login-button {
+.demo-login-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     border-radius: 5px;
     height: 25px;
     width: 100px;
@@ -70,6 +83,6 @@
     background-color: inherit;
 }
 
-#demo-login-button:hover {
+.demo-login-button:hover {
     background-color: #f7f7f7;
 }

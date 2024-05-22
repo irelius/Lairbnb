@@ -1,18 +1,22 @@
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
 import "./Spot.css"
-import loadImage from "../../utils/loadImage"
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
+import SpotImage from "./SpotImage.js/SpotImage"
 
-function Spot({ el }) {
+function Spot({ spot }) {
     return (
-        <NavLink exact to={`/spot-details/${el.id}`} id="spot-container">
-            <section id="spot-image-container">{loadImage(el)}</section>
-            <div id="spot-description">
-                <section id="spot-name" className="semi-bold">
-                    {`${el.name}`}, {`${el.state}`}
+        <NavLink exact to={`/spot-details/${spot.id}`} className="spot-container">
+            {/* TO DO: implement how to do images carosel */}
+            <section className="spot-image-container">
+                <SpotImage images={spot.Images} spot={spot} />
+            </section>
+            <div className="spot-description">
+                <section className="spot-name font-bold">
+                    {`${spot.name}`}, {`${spot.state}`}
                 </section>
-                <section id="spot-city">{`${el.city}`}</section>
-                <section id="spot-price-container">
-                    <section id="spot-price" className="semi-bold">${(`${el.price}`)} </section> night
+                <section className="spot-city">{`${spot.city}`}</section>
+                <section className="spot-price-container">
+                    <aside className="spot-price font-bold">${(`${spot.price}`)} </aside>
+                    <aside>night</aside>
                 </section>
             </div>
         </NavLink>

@@ -2,123 +2,123 @@ import "./EditSpot.css"
 import { useDispatch, useSelector } from "react-redux"
 import { useState } from "react"
 import { useHistory, useParams } from "react-router-dom";
-import { editSpotThunk } from "../../store/spot";
+import { editSpotThunk, loadSpotThunk } from "../../store/spot";
+import { useEffect } from "react";
+
+import NotAuthorized from "../../components/NotAuthorized"
 
 function EditSpot() {
     const dispatch = useDispatch();
     const history = useHistory();
     const spotId = useParams().spotId;
-    const currentSpot = useSelector(state => state.spot[spotId])
 
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
-    const [lat, setLat] = useState("");
-    const [lng, setLng] = useState("");
-    const [name, setName] = useState("");
-    const [description, setDesription] = useState("");
-    const [price, setPrice] = useState("");
+    useEffect(() => {
+        dispatch(loadSpotThunk(spotId))
+    }, [dispatch, spotId])
+
+    const user = useSelector(state => state.user.user)
+    const spotSelector = useSelector(state => state.spot)
+    const currentSpot = spotSelector.spots[spotId]
+
+    const [load, setLoad] = useState(false)
+    const [location, setLocation] = useState()
+
+    useEffect(() => {
+        setLocation({ ...spotSelector.spots[spotId] })
+        if (spotSelector.spotIds.length > 0) setLoad(true)
+
+    }, [dispatch, spotSelector, spotId])
+
+    const handleChange = (e, key) => {
+        setLocation(prev => ({
+            ...prev,
+            [key]: e.target.value
+        }))
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const edits = {
-            address,
-            city,
-            state,
-            country,
-            lat,
-            lng,
-            name,
-            description,
-            price
-        }
-
-        dispatch(editSpotThunk(spotId, edits))
+        dispatch(editSpotThunk(spotId, location))
         history.push("/manage-listings")
     }
 
-    return (
-        <div id="edit-spot-main">
-            <form onSubmit={handleSubmit} id="edit-spot-form">
+    return currentSpot && (user === undefined || user.id !== currentSpot.ownerId) ? (
+        <div>
+            <NotAuthorized />
+        </div>
+    ) : load ? (
+        <div className="edit-spot-main">
+            <form onSubmit={(e) => handleSubmit(e)} className="edit-spot-form">
                 Address
                 <input
                     type="text"
-                    placeholder={currentSpot.address}
                     required
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
+                    value={location.address}
+                    onChange={(e) => handleChange(e, "address")}
                 />
                 City
                 <input
                     type="text"
-                    placeholder={currentSpot.city}
                     required
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
+                    value={location.city}
+                    onChange={(e) => handleChange(e, "city")}
                 />
                 State
                 <input
                     type="text"
-                    placeholder={currentSpot.state}
                     required
-                    value={state}
-                    onChange={(e) => setState(e.target.value)}
+                    value={location.state}
+                    onChange={(e) => handleChange(e, "state")}
                 />
                 Country
                 <input
                     type="text"
-                    placeholder={currentSpot.country}
                     required
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
+                    value={location.country}
+                    onChange={(e) => handleChange(e, "country")}
                 />
                 Latitude
                 <input
                     type="number"
-                    placeholder={currentSpot.lat}
                     required
-                    value={lat}
-                    onChange={(e) => setLat(e.target.value)}
+                    value={location.lat}
+                    onChange={(e) => handleChange(e, "lat")}
                 />
                 Longitude
                 <input
                     type="number"
-                    placeholder={currentSpot.lng}
                     required
-                    value={lng}
-                    onChange={(e) => setLng(e.target.value)}
+                    value={location.lng}
+                    onChange={(e) => handleChange(e, "lng")}
                 />
                 Name
                 <input
                     type="text"
-                    placeholder={currentSpot.name}
                     required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={location.name}
+                    onChange={(e) => handleChange(e, "name")}
                 />
                 Description
                 <input
                     type="text"
-                    placeholder={currentSpot.description}
                     required
-                    value={description}
-                    onChange={(e) => setDesription(e.target.value)}
+                    value={location.description}
+                    onChange={(e) => handleChange(e, "description")}
                 />
                 Price
                 <input
                     type="number"
-                    placeholder={currentSpot.price}
                     required
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
+                    value={location.price}
+                    onChange={(e) => handleChange(e, "price")}
                 />
-                <button type="submit" id="save-button">
+                <button type="submit" className="save-button">
                     Save Edits
                 </button>
             </form>
         </div>
+    ) : (
+        <></>
     )
 }
 

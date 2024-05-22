@@ -1,210 +1,321 @@
-
-/* try to implement more with root variables */
 :root {
-    --test-color: rgba(235, 235, 235);
+    --gray: #B0B0B0;
+    --dark-gray: #717171;
+    --red: rgb(193, 53, 21);
+    --white: #FFFFFF;
+    --off-white: #f7f7f7;
+    --bold: bold;
+    --semi-bold: 600;
+    --10: 10px;
+    --12: 12px;
+    --14: 14px;
+    --16: 16px;
+    --18: 18px;
 }
 
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Body */
 body {
     position: relative;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: Montserrat;
+    font-size: var(--14);
 }
 
 button {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: Montserrat;
 }
 
-/* ---------------------------------------------------------------------------------------------------------------- */
 
-/* Foreground Color stuff */
-.light-gray {
-    color: #f7f7f7;
+/* --------------------------------------------------- Display CSS --------------------------------------------------- */
+.df-r {
+    display: flex;
+    flex-direction: row;
 }
 
-.gray {
-    color: #717171;
+.df-c {
+    display: flex;
+    flex-direction: column;
 }
 
-.red {
-    color: rgb(193, 53, 21)
+
+/* ----------------------------------------------------- Margin CSS ----------------------------------------------------- */
+.m-5 {
+    margin: 5px;
 }
 
-.white {
-    color: rgb(255, 255, 255)
+.m-t-5 {
+    margin-top: 5px;
 }
 
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Background Color stuff */
-.ffffff-bg {
-    background-color: white;
+.m-b-5 {
+    margin-bottom: 5px;
 }
 
-.ffffff-bg-hover:hover {
-    background-color: white;
+.m-l-5 {
+    margin-left: 5px;
 }
 
-.f7f7f7-bg {
-    background-color: #f7f7f7;
+.m-r-5 {
+    margin-right: 5px;
 }
 
-.f7f7f7-bg-hover:hover {
-    background-color: #f7f7f7;
+.m-10 {
+    margin: 10px;
 }
 
-/* ---------------------------------------------------------------------------------------------------------------- */
+.m-t-10 {
+    margin-top: 10px;
+}
 
-/* Border Stuff */
-.no-border {
+.m-b-10 {
+    margin-bottom: 10px;
+}
+
+.m-l-10 {
+    margin-left: 10px;
+}
+
+.m-r-10 {
+    margin-right: 10px;
+}
+
+.m-15 {
+    margin: 15px;
+}
+
+.m-t-15 {
+    margin-top: 15px;
+}
+
+.m-b-15 {
+    margin-bottom: 15px;
+}
+
+.m-l-15 {
+    margin-left: 15px;
+}
+
+.m-r-15 {
+    margin-right: 15px;
+}
+
+.m-20 {
+    margin: 20px;
+}
+
+.m-t-20 {
+    margin-top: 20px;
+}
+
+.m-b-20 {
+    margin-bottom: 20px;
+}
+
+.m-l-20 {
+    margin-left: 20px;
+}
+
+.m-r-20 {
+    margin-right: 20px;
+}
+
+.m-25 {
+    margin: 25px;
+}
+
+.m-t-25 {
+    margin-top: 25px;
+}
+
+.m-b-25 {
+    margin-bottom: 25px;
+}
+
+.m-l-25 {
+    margin-left: 25px;
+}
+
+.m-r-25 {
+    margin-right: 25px;
+}
+
+
+/* ----------------------------------------------------- Gap CSS ----------------------------------------------------- */
+.gap-5 {
+    gap: 5px;
+}
+
+.gap-10 {
+    gap: 10px;
+}
+
+.gap-15 {
+    gap: 15px;
+}
+
+/* ---------------------------------------------------- Color CSS ---------------------------------------------------- */
+
+.color-dark-gray {
+    color: var(--dark-gray);
+}
+
+.color-red {
+    color: var(--red);
+}
+
+.color-off-white {
+    color: var(--off-white);
+}
+
+.color-white {
+    color: var(--white);
+}
+
+/* ------------------------------------------------- Background CSS ------------------------------------------------- */
+.bg-white {
+    background-color: var(--white);
+}
+
+.bg-white-hover:hover {
+    background-color: var(--white);
+    transition: all 0.2s linear;
+}
+
+.bg-off-white {
+    background-color: var(--off-white);
+}
+
+.bg-off-white-hover:hover {
+    background-color: var(--off-white);
+    transition: all 0.2s linear;
+}
+
+/* --------------------------------------------------- Border CSS --------------------------------------------------- */
+.border-none {
     border: none;
 }
 
-.black-border {
+.border-black {
     border: 1px solid black;
 }
 
-.border-176 {
-    border: 1px solid rgba(176, 176, 176);
+.border-gray {
+    border: 1px solid var(--gray);
 }
 
 .border-235 {
-    border: 1px solid rgba(235, 235, 235);
+    border: 1px solid rgb(235, 235, 235);
 }
 
-.btop-235 {
-    border-top: 1px solid rgb(235, 235, 235)
+.border-top-235 {
+    border-top: 1px solid rgb(235, 235, 235);
 }
 
-.bbot-235 {
-    border-bottom: 1px solid rgb(235, 235, 235)
+.border-bot-235 {
+    border-bottom: 1px solid rgb(235, 235, 235);
 }
 
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Font Stuff */
-.bold {
-    font-weight: bold;
-}
-
-.semi-bold {
-    font-weight: 600;
-}
-
-.underline {
-    text-decoration: underline;
-}
-
+/* ---------------------------------------------------- Font CSS ---------------------------------------------------- */
 .font-10 {
-    font-size: 10px;
+    font-size: var(--10);
 }
 
 .font-12 {
+    font-size: var(--12);
     font-size: 12px;
 }
 
 .font-14 {
-    font-size: 14px;
+    font-size: var(--14);
 }
 
 .font-16 {
-    font-size: 16px;
+    font-size: var(--16);
 }
 
 .font-18 {
-    font-size: 18px;
+    font-size: var(--18);
+}
+
+.font-bold {
+    font-weight: var(--bold);
+}
+
+.font-semi-bold {
+    font-weight: var(--semi-bold);
+}
+
+.font-underline {
+    text-decoration: underline;
+}
+
+.overflow-hidden {
+    overflow: hidden;
 }
 
 
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Mouse Stuff */
-.pointer {
+/* --------------------------------------------------- Mouse CSS --------------------------------------------------- */
+.mouse-pointer {
     cursor: pointer;
 }
 
-.hidden {
+.mouse-hidden {
     display: none;
 }
 
-.hidden-container {
+.mouse-hidden-container {
     position: relative;
 }
 
-.hidden-container:hover .hidden {
+.mouse-hidden-container:hover .hidden {
     display: block;
 }
 
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Shadow */
+/* --------------------------------------------------- Shadow CSS --------------------------------------------------- */
 .shadow {
-    box-shadow: 0 0 3mm rgba(219, 219, 219);
+    box-shadow: 0 0 3mm rgb(219, 219, 219);
 }
 
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Spacing stuff */
-/* .dot-spacing {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
-/* ---------------------------------------------------------------------------------------------------------------- */
-
-/* Modal Stuff - General */
+/* ---------------------------------------------------- Modal CSS ---------------------------------------------------- */
 .modal {
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     height: 100%;
     width: 100%;
-
     background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal-form-container {
-    display: flex;
-    flex-direction: column;
-
     border-radius: 15px;
-
     height: 500px;
     width: 450px;
+    background-color: var(--white);
 }
 
 .modal-form-header {
     display: flex;
     justify-content: center;
-
+    align-items: center;
     padding: 25px;
-    padding-bottom: 20px;
-
     margin-bottom: 20px;
+    border-bottom: 1px solid rgb(235, 235, 235);
+    font-weight: var(--bold);
 }
 
-#modal-exit-button {
+.modal-exit-button {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    position: absolute;
-    margin: 15px;
-    padding: 5px;
-    padding-left: 6px;
-
-    height: 20px;
-    width: 20px;
-
-    border-radius: 90%;
+    margin: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
 }
+
+/*# sourceMappingURL=index.css.map */
