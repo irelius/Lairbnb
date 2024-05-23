@@ -11,7 +11,7 @@ function SpotSection({ spot, reviews }) {
             </div>
 
             <section className="m-b-25">
-                <SpotPageImage images={spot.Images} />
+                {/* <SpotPageImage images={spot.Images} /> */}
             </section>
 
             <section className="df-c gap-5">

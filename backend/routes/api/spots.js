@@ -55,6 +55,10 @@ router.get("/", validateFilters, async (req, res, next) => {
         ]
     })
 
+    // spots.forEach(el => {
+    //     console.log(el.toJSON())
+    // })
+
     res.json({
         spots,
         page,

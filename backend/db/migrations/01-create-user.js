@@ -4,7 +4,7 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-options.tableName = "Reviews"
+options.tableName = "Users"
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -16,25 +16,22 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-        },
-        onDelete: 'CASCADE'
+      firstName: {
+        type: Sequelize.STRING(60),
+        allowNull: false,
       },
-      spotId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Spots'
-        },
-        onDelete: 'CASCADE'
+      lastName: {
+        type: Sequelize.STRING(60),
+        allowNull: false,
       },
-      review: {
-        type: Sequelize.STRING
+      email: {
+        type: Sequelize.STRING(256),
+        allowNull: false,
+        unique: true
       },
-      stars: {
-        type: Sequelize.INTEGER
+      hashedPassword: {
+        type: Sequelize.STRING(60),
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
