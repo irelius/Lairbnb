@@ -4,7 +4,7 @@ import "./SpotImage.css"
 const SpotImage = ({ images, spot }) => {
     // will need refactoring in order to implement new images for the additional spots
     // will also need to incorporate the previewImg functionality
-    const [frontImage, setFrontImage] = useState({})
+    const [frontImage, setFrontImage] = useState()
 
     const [load, setLoad] = useState(false)
 
