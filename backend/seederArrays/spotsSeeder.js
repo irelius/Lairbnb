@@ -175,8 +175,8 @@ const validSpots = [
         country: "USA",
         lat: 39.7392,
         lng: -104.9903,
-        name: "Mountain Retreat",
-        description: "Nestled in the mountains, this retreat offers breathtaking views and luxurious comfort. Ideal for nature lovers.",
+        name: "Oceanfront Villa",
+        description: "A beautiful oceanfront villa offering spectacular views and modern comforts. Ideal for a seaside vacation.",
         price: 600.00,
     },
     {
@@ -187,8 +187,8 @@ const validSpots = [
         country: "USA",
         lat: 33.4484,
         lng: -112.0740,
-        name: "Desert Oasis",
-        description: "An oasis in the desert, featuring modern amenities and beautiful desert landscapes. Perfect for a peaceful escape.",
+        name: "Family-Friendly Suburban Haven",
+        description: "Family-Friendly Suburban Haven provides a spacious and comfortable home in a safe, family-oriented neighborhood. Enjoy nearby playgrounds, shopping centers, and a homey atmosphere perfect for all ages.",
         price: 370.00,
     },
     {
@@ -211,8 +211,8 @@ const validSpots = [
         country: "USA",
         lat: 45.5152,
         lng: -122.6784,
-        name: "Oceanfront Villa",
-        description: "A beautiful oceanfront villa offering spectacular views and modern comforts. Ideal for a seaside vacation.",
+        name: "Mountain Retreat",
+        description: "Nestled in the mountains, this retreat offers breathtaking views and luxurious comfort. Ideal for nature lovers.",
         price: 550.00,
     },
     {
