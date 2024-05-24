@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { loadAllSpotsThunk } from "../../store/spot";
 import Spot from "../../components/Spot/Spot";
+import { loadAllImagesThunk } from "../../store/image";
 
 function Main() {
     const dispatch = useDispatch();
@@ -11,10 +12,12 @@ function Main() {
 
     useEffect(() => {
         dispatch(loadAllSpotsThunk())
+        // dispatch(loadAllImagesThunk())
         setLoad(true)
     }, [dispatch])
 
     const spots = useSelector(state => state.spot)
+    const images = useSelector(state => state.image)
 
     return load ? (
         <div className="all-spots">

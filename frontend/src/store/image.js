@@ -64,9 +64,9 @@ export const loadImageThunk = (type, typeId) => async (dispatch) => {
 }
 
 // thunk action to get all images
-export const loadAllImagesThunk = (type) => async (dispatch) => {
+export const loadAllImagesThunk = () => async (dispatch) => {
     try {
-        const res = await csrfFetch(`/api/images/${type}`);
+        const res = await csrfFetch(`/api/images/`);
         if (res.ok) {
             const images = await res.json();
             dispatch(loadImages(images))
@@ -178,8 +178,12 @@ export const deleteImageThunk = (imageId) => async dispatch => {
 }
 
 const imageState = {
-    images: {},
-    imageIds: []
+    spotImages: {},
+    userImages: {},
+    reviewImages: {},
+    spotImageIds: [],
+    userImageIds: [],
+    reviewImageIds: []
 }
 
 // ----------------------------------------------------------------------------------------------------------
@@ -187,21 +191,39 @@ const imageReducer = (state = imageState, action) => {
     const newState = { ...state }
     switch (action.type) {
         case LOAD_IMAGE:
-            newState.images = { [action.payload.images.id]: { ...action.payload.images } }
-            newState.imageIds = [action.payload.images.id]
+            // newState.images = { [action.payload.images.id]: { ...action.payload.images } }
+            // newState.imageIds = [action.payload.images.id]
             return newState
         case LOAD_IMAGES:
-            const loadImageIds = []
-            const loadImages = {}
+            const loadSpotImages = {}
+            const loadUserImages = {}
+            const loadReviewImages = {}
+
+            const loadSpotImageIds = []
+            const loadUserImageIds = []
+            const loadReviewImageIds = []
+
 
             for (let i = 0; i < action.payload.images.length; i++) {
                 let currImage = action.payload.images[i]
-                loadImages[currImage.id] = currImage
-                loadImageIds.push(currImage.id)
+                if (currImage.type === "spot") {
+                    loadSpotImages[currImage.id] = currImage
+                    loadSpotImageIds.push(currImage.id)
+                } else if (currImage.type === "user") {
+                    loadUserImages[currImage.id] = currImage
+                    loadUserImageIds.push(currImage.id)
+                } else if (currImage.type === "review") {
+                    loadReviewImages[currImage.id] = currImage
+                    loadReviewImageIds.push(currImage.id)
+                }
             }
 
-            newState.images = loadImages
-            newState.imageIds = loadImageIds
+            newState.spotImages = loadSpotImages
+            newState.userImages = loadUserImages
+            newState.reviewImages = loadReviewImages
+            newState.spotImageIds = loadSpotImageIds
+            newState.userImageIds = loadUserImageIds
+            newState.reviewImageIds = loadReviewImageIds
 
             return newState
         case ADD_IMAGE:
@@ -214,9 +236,9 @@ const imageReducer = (state = imageState, action) => {
         //     newState[action.payload.id] = action.payload;
         //     return newState;
         case DELETE_IMAGE:
-            delete newState.byId[action.payload]
-            const indexToDelete = imageState.allIds.indexOf(action.payload)
-            imageState.allIds.splice(indexToDelete, 1)
+            // delete newState.byId[action.payload]
+            // const indexToDelete = imageState.allIds.indexOf(action.payload)
+            // imageState.allIds.splice(indexToDelete, 1)
 
             return newState;
         default:

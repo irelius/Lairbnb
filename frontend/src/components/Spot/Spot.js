@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min"
 import SpotImage from "./SpotImage.js/SpotImage"
 
 function Spot({ spot }) {
-    // console.log('booba', spot)
-
     return (
         <NavLink exact to={`/spot-details/${spot.id}`} className="spot-container">
             {/* TO DO: implement how to do images carosel */}
