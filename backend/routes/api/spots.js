@@ -72,7 +72,9 @@ router.get("/current", [restoreUser, authRequired], async (req, res) => {
             where: {
                 ownerId: req.user.id
             },
-            attributes: { exclude: ["numReviews"] },
+            include: {
+                model: Image
+            }
         })
 
         if (spots.length === 0) {

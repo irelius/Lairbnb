@@ -114,12 +114,11 @@ export const loadImagesThunk = (type, typeId) => async (dispatch) => {
 // Revised thunk action for AWS S3
 export const addImageThunk = (imageUpload) => async dispatch => {
     try {
-        const { images, type, typeId, userId } = imageUpload;
+        const { images, type, typeId } = imageUpload;
 
         const formData = new FormData();
         formData.append("type", type)
         formData.append("typeId", typeId)
-        formData.append("userId", userId)
 
         // TO DO: catch if user is uploading no images
         if (images && images.length === 1) {
@@ -230,6 +229,10 @@ const imageReducer = (state = imageState, action) => {
             // let newImage = action.payload
             // newState.byId[newImage.id] = newImage
             // newState.allIds.push(newImage.id)
+
+            let newImage = action.payload
+            console.log('test add image store', newImage)
+
 
             return newState;
         // case EDIT_IMAGE:

@@ -1,8 +1,8 @@
 import "./Main.css"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { loadAllSpotsThunk } from "../../store/spot";
 import Spot from "../../components/Spot/Spot";
+import { loadAllSpotsThunk } from "../../store/spot";
 import { loadAllImagesThunk } from "../../store/image";
 
 function Main() {
@@ -17,7 +17,7 @@ function Main() {
     }, [dispatch])
 
     const spots = useSelector(state => state.spot)
-    const images = useSelector(state => state.image)
+    // const images = useSelector(state => state.image)
 
     return load ? (
         <div className="all-spots">

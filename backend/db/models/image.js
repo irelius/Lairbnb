@@ -19,9 +19,21 @@ module.exports = (sequelize, DataTypes) => {
                 constraints: false,
                 onDelete: "CASCADE"
             })
+            Image.belongsTo(models.User, {
+                foreignKey: "userId",
+                constraints: false,
+                onDelete: "CASCADE",
+                as: "ownerId"
+
+            })
         }
     }
     Image.init({
+        // who is the one who posted the image
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         // determine if image type is for a user, spot, or review
         type: {
             type: DataTypes.TEXT,
@@ -41,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: true,
             validate: {
                 checkIfForSpot(value) {
-                    if(this.type !== "spot") {
+                    if (this.type !== "spot") {
                         throw new Error("Preview image status should only be for spots")
                     }
                 }
