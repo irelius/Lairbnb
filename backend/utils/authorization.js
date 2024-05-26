@@ -1,7 +1,7 @@
 // backend/utils/authorization.js
 
 const { Spot, Image, Review, Booking, User } = require('../db/models');
-const { notFound, forbidden } = require('./helper')
+const { notFound, forbidden, unexpectedError, validationError } = require('./helper')
 
 // ----------------------------------- Spot Authorization Methods -----------------------------------
 
@@ -20,7 +20,7 @@ const spotAuthorization = async function (req, res, next) {
 
 // ----------------------------------- Review Authorization Methods -----------------------------------
 
-// Authorization required for Reviews
+// Authorization required for Reviews. Current user must be the review creator
 const reviewAuthorization = async function (req, res, next) {
     const review = await Review.findByPk(req.params.reviewId);
     if (!review) {
@@ -32,17 +32,33 @@ const reviewAuthorization = async function (req, res, next) {
     return next();
 }
 
+// Owner should not be able to make a review to their own spot
+const reviewOwnerAuthorization = async function (req, res, next) {
+    const spot = await Spot.findByPk(req.params.spotId)
+    if (!spot) {
+        return next(notFound("Spot", 404))
+    }
+    if (req.user.id === spot.ownerId) {
+        const error = new Error("Owners cannot leave a review for their own hosting. (You fraud).")
+        error.status = 403
+        return next(error)
+    }
+    return next()
+}
+
 
 // ----------------------------------- Booking Authorization Methods -----------------------------------
 
-// Authorization not required for Booking
+// Owner should not be able to make a booking to their own spot
 const bookingOwnerAuthorization = async function (req, res, next) {
     const spot = await Spot.findByPk(req.params.spotId);
     if (!spot) {
         return next(notFound("Spot", 404))
     }
     if (req.user.id === spot.ownerId) {
-        return next(forbidden())
+        const error = new Error("you own this location... why would you? wut?")
+        error.status = 403
+        return next(error)
     }
     return next();
 }
@@ -61,6 +77,18 @@ const bookingAuthorization = async function (req, res, next) {
 
 
 // ----------------------------------- Image Authorization Methods -----------------------------------
+const imageTypeCheck = async function (req, res, next) {
+    try {
+        if (req.params.type !== "spot" && req.params.type !== "review" && req.params.type !== "profile") {
+            return next(notFound(`Images of ${req.params.type} type`, 404))
+        }
+
+        return next();
+    } catch (e) {
+        unexpectedError(res, e)
+    }
+}
+
 
 // Authorization required for Images
 const imagesAuthorization = async function (req, res, next) {
@@ -88,16 +116,19 @@ const imagesAuthorization = async function (req, res, next) {
         if (review.userId !== req.user.id) {
             return next(forbidden())
         }
-    // check if user uploading image is the owner of account
-    } else {
+    }
+    // check if user uploading image is the owner of account for profile pic
+    else if (type === "profile") {
         const account = await User.findByPk(typeId)
 
-        if(!account) {
+        if (!account) {
             return next(notFound("User"), 404)
         }
-        if(account.id !== req.user.id) {
+        if (account.id !== req.user.id) {
             return next(forbidden())
         }
+    } else {
+        return next(validationError("Images must be for spots, reviews, or profile image", 400))
     }
 
     return next()
@@ -105,8 +136,10 @@ const imagesAuthorization = async function (req, res, next) {
 
 module.exports = {
     spotAuthorization,
+    reviewOwnerAuthorization,
     reviewAuthorization,
     bookingOwnerAuthorization,
     bookingAuthorization,
-    imagesAuthorization
+    imageTypeCheck,
+    imagesAuthorization,
 }

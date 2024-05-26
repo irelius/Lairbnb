@@ -10,13 +10,14 @@ module.exports = (sequelize, DataTypes) => {
                 scope: {
                     type: "review"
                 },
-                onDelete: "CASCADE"
             })
             Review.belongsTo(models.User, {
-                foreignKey: 'userId'
+                foreignKey: 'userId',
+                onDelete: "CASCADE"
             })
             Review.belongsTo(models.Spot, {
-                foreignKey: 'spotId'
+                foreignKey: 'spotId',
+                onDelete: "CASCADE"
             })
         }
     }
@@ -30,16 +31,26 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         review: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         },
         stars: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                min: 1,
+                max: 5
+            }
         },
     }, {
         sequelize,
         modelName: 'Review',
+        indexes: [
+            {
+                unique: true,
+                fields: ['spotId', 'userId']
+            }
+        ]
     });
     return Review;
 };

@@ -4,7 +4,7 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
     options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-options.tableName = "Images"
+options.tableName = "Reviews"
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -18,19 +18,27 @@ module.exports = {
             },
             userId: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
+                references: {
+                    model: 'Users',
+                },
+                onDelete: 'CASCADE',
+                allowNull: false
             },
-            type: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            typeId: {
+            spotId: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
+                references: {
+                    model: 'Spots'
+                },
+                onDelete: 'CASCADE',
+                allowNull: false
             },
-            url: {
-                type: Sequelize.STRING,
-                allowNull: true,
+            review: {
+                type: Sequelize.TEXT,
+                allowNull: false
+            },
+            stars: {
+                type: Sequelize.INTEGER,
+                allowNull: false
             },
             createdAt: {
                 allowNull: false,
@@ -43,6 +51,14 @@ module.exports = {
                 defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
             }
         }, options);
+
+        await queryInterface.addIndex(
+            options.tableName,
+            ["userId", "spotId"],
+            {
+                unique: true
+            }
+        )
     },
     async down(queryInterface, Sequelize) {
         await queryInterface.dropTable(options.tableName, options);

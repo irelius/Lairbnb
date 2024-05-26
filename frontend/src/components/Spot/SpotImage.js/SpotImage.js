@@ -1,10 +1,9 @@
 import "./SpotImage.css"
 
 const SpotImage = ({ images, spot }) => {
-    const frontImage = images[0]
-    return images ? (
+    return images.length > 0 ? (
         <div>
-            <img className="spot-image" src={`${frontImage.url}`} alt={`${spot.name}`} />
+            <img className="spot-image" src={`${images[0].url}`} alt={`${spot.name}`} />
         </div>
     ) : (
         <div>

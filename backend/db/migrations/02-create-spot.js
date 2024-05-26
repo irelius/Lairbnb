@@ -25,19 +25,19 @@ module.exports = {
                 onDelete: 'CASCADE'
             },
             address: {
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(60),
                 allowNull: false
             },
             city: {
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(60),
                 allowNull: false
             },
             state: {
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(20),
                 allowNull: false
             },
             country: {
-                type: Sequelize.STRING,
+                type: Sequelize.STRING(30),
                 allowNull: false
             },
             lat: {
@@ -49,7 +49,7 @@ module.exports = {
                 allowNull: false
             },
             name: {
-                type: Sequelize.TEXT,
+                type: Sequelize.STRING(60),
                 allowNull: false
             },
             description: {
@@ -59,18 +59,6 @@ module.exports = {
             price: {
                 type: Sequelize.DECIMAL,
                 allowNull: false
-            },
-            //   previewImg: {
-            //     type: Sequelize.TEXT,
-            //     allowNull: true
-            //   },
-            numReviews: {
-                type: Sequelize.INTEGER,
-                allowNull: true
-            },
-            avgStarRating: {
-                type: Sequelize.INTEGER,
-                allowNull: true
             },
             createdAt: {
                 allowNull: false,

@@ -4,7 +4,7 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-options.tableName = "Reviews"
+options.tableName = "Bookings"
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -16,6 +16,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      spotId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Spots',
+        },
+        onDelete: 'CASCADE'
+      },
       userId: {
         type: Sequelize.INTEGER,
         references: {
@@ -23,28 +30,23 @@ module.exports = {
         },
         onDelete: 'CASCADE'
       },
-      spotId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Spots'
-        },
-        onDelete: 'CASCADE'
+      startDate: {
+        type: Sequelize.DATE,
+        allowNull: false
       },
-      review: {
-        type: Sequelize.STRING
-      },
-      stars: {
-        type: Sequelize.INTEGER
+      endDate: {
+        type: Sequelize.DATE,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: new Date()
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: new Date()
       }
     }, options);
   },

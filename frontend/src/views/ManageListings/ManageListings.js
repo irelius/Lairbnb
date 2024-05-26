@@ -8,7 +8,7 @@ function ManageListings() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [load, setLoad] = useState(false)
+    const [load, setLoad] = useState(true)
 
     useEffect(() => {
         dispatch(loadUserSpotsThunk());
@@ -38,10 +38,14 @@ function ManageListings() {
                 ) : (
                     <div className="all-spots">
                         {userSpotIds.map((el, i) => {
+                            // temporary fix to use the proper image. Manage listings should have carousel effect?
+                            const images = userSpots[el].Images
+                            const lastImage = images[images.length - 1].url
+
                             return (
                                 <div className="listing" key={i}>
                                     <div className="listing-details">
-                                        {/* <img src={`${userSpots[el].previewImg}`} alt={`${userSpots[el].name}`} className="listing-image" /> */}
+                                        <img src={`${lastImage}`} alt={`${userSpots[el].name}`} className="listing-image" />
                                         <div className="listing-name">
                                             {userSpots[el].name}
                                         </div>
