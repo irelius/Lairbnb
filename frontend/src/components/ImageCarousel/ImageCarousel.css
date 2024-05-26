@@ -1,4 +1,4 @@
-.temp {
+.carousel-container {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -80,9 +80,15 @@
     transition: transform 1s ease;
 }
 
+.spot-image {
+    width: 375px;
+    height: 355px;
+    object-fit: cover;
+    border-radius: 10px;
 
-.temp {
-    /* translate: -100%; */
-    /* object-fit: cover; */
-    transition: all 1s ease;
+    transition: filter 0.2s ease;
+}
+
+.spot-image:hover {
+    filter: brightness(0.9);
 }

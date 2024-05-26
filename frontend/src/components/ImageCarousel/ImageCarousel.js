@@ -36,12 +36,12 @@ const ImageCarousel = ({ images, spot }) => {
     }
 
     return (
-        <div className="temp" onMouseOver={() => setVisible("visible")} onMouseLeave={() => setVisible("invisible")}>
+        <div className="carousel-container" onMouseOver={() => setVisible("visible")} onMouseLeave={() => setVisible("invisible")}>
             <section className={`carousel-left-button ${visible}`} onClick={(e) => handleLeftClick(e)}>
                 <i className="fa-solid fa-angle-left"></i>
             </section>
-            <section className="test-image">
-                <img className="spot-image temp" src={currImage} alt={`${spot.name}`} />
+            <section>
+                <img className="spot-image" src={currImage} alt={`${spot.name}`} />
             </section>
             <section className={`carousel-right-button ${visible}`} onClick={(e) => handleRightClick(e)}>
                 <i className="fa-solid fa-angle-right"></i>
