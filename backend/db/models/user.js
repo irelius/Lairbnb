@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         }
 
         static async login({ email, password }) {
-            const { Op } = require('sequelize');
             const user = await User.scope('loginUser').findOne({
                 where: {
                     email: email
@@ -55,6 +54,14 @@ module.exports = (sequelize, DataTypes) => {
                 scope: {
                     type: "user"
                 }
+            })
+            User.hasMany(models.Image, {
+                foreignKey: "userId",
+                constraints: false,
+                scope: {
+                    type: "user"
+                },
+                as: "ownerId"
             })
         }
     }

@@ -52,9 +52,9 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: true,
             validate: {
-                checkIfForSpot(value) {
+                checkIfForSpot() {
                     if (this.type !== "spot") {
-                        throw new Error("Preview image status should only be for spots")
+                        throw new Error("Only images for spots can be set as a preview image.")
                     }
                 }
             }

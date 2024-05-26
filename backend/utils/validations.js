@@ -23,8 +23,10 @@ const handleValidationErrors = (req, _res, next) => {
 const validateLogin = [
     check('email')
         .exists({ checkFalsy: true })
+        .isEmail()
+        .withMessage('Please provide a valid email.')
         .notEmpty()
-        .withMessage('Please provide a valid email.'),
+        .withMessage('Please provide an email.'),
     check('password')
         .exists({ checkFalsy: true })
         .notEmpty()
@@ -35,13 +37,17 @@ const validateLogin = [
 const validateSignup = [
     check('email')
         .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please provide an email.')
         .isEmail()
         .withMessage('Please provide a valid email.'),
     check('firstName')
         .exists({ checkFalsy: true })
+        .notEmpty()
         .withMessage("Please provie a first name."),
     check('lastName')
         .exists({ checkFalsy: true })
+        .notEmpty()
         .withMessage("Please provide a last name."),
     check('password')
         .exists({ checkFalsy: true })
@@ -55,23 +61,31 @@ const validateSignup = [
 const validateSpot = [
     check("address")
         .notEmpty()
-        .withMessage("Street address is required"),
+        .withMessage("Street address is required")
+        .isLength({ max: 60 })
+        .withMessage("Street address should not exceed 60 characters."),
     check("city")
         .notEmpty()
-        .withMessage("City is required"),
+        .withMessage("City is required")
+        .isLength({ max: 60 })
+        .withMessage("City should not exceed 60 characters."),
     check("state")
         .notEmpty()
-        .withMessage("State is required"),
+        .withMessage("State is required")
+        .isLength({ max: 20 })
+        .withMessage("City should not exceed 20 characters."),
     check("country")
         .notEmpty()
-        .withMessage("Country is required"),
+        .withMessage("Country is required")
+        .isLength({ max: 30 })
+        .withMessage("City should not exceed 30 characters."),
     check("lat")
         .notEmpty()
         .isDecimal()
         .withMessage("Latitude is not valid")
         .custom(lat => {
             if (lat < -90 || lat > 90) {
-                throw new Error("Latitude is not valid")
+                throw new Error("Latitude must be between -90 and 90")
             }
             return true;
         }),
@@ -81,24 +95,25 @@ const validateSpot = [
         .withMessage("Longitude is not valid")
         .custom(lng => {
             if (lng < -180 || lng > 180) {
-                throw new Error("Longitude is not valid")
+                throw new Error("Longitude must be between -180 and 180")
             }
             return true;
         }),
     check("name")
         .notEmpty()
-        .isLength({ max: 50 })
-        .withMessage("Name must be less than 50 characters"),
+        .withMessage("Hosting name is required")
+        .isLength({ max: 60 })
+        .withMessage("Name must be less than 60 characters"),
     check("description")
         .notEmpty()
         .withMessage("Description is required"),
     check("price")
-        .notEmpty()
         .isDecimal()
+        .notEmpty()
         .withMessage("Price per day is required")
         .custom(price => {
-            if (price < 0) {
-                throw new Error("Price per day is required")
+            if (price <= 0) {
+                throw new Error("Capitalism requires you to charge your customers more than 0 dollars.")
             }
             return true;
         }),
@@ -120,7 +135,7 @@ const validateFilters = [
         .withMessage("Minimum latitude is not valid")
         .custom(minLat => {
             if (minLat < -90) {
-                throw new Error("Minimum latitude is not valid")
+                throw new Error("Minimum latitude must not be below -90")
             }
             return true;
         }),
@@ -130,7 +145,7 @@ const validateFilters = [
         .withMessage("Maximum latitude is not valid")
         .custom(maxLat => {
             if (maxLat > 90) {
-                throw new Error("Maximum latitude is not valid")
+                throw new Error("Maximum latitude must not be above 90")
             }
             return true;
         }),
@@ -140,7 +155,7 @@ const validateFilters = [
         .withMessage("Minimum longitude is not valid")
         .custom(minLng => {
             if (minLng < -180) {
-                throw new Error("Minimum longitude is invalid")
+                throw new Error("Minimum longitude must not be below -180")
             }
             return true;
         }),
@@ -150,7 +165,7 @@ const validateFilters = [
         .withMessage("Maximum longitude is not valid")
         .custom(maxLng => {
             if (maxLng > 180) {
-                throw new Error("Maximum longitude is invalid")
+                throw new Error("Maximum longitude must not be above 180")
             }
             return true;
         }),
@@ -160,7 +175,7 @@ const validateFilters = [
         .withMessage("Minimum price must be greater than or equal to 0")
         .custom(minPrice => {
             if (minPrice < 0) {
-                throw new Error("Minimum price must be greater than or equal to 0")
+                throw new Error("Minimum price filter must be greater than or equal to 0")
             }
             return true;
         })
@@ -171,7 +186,7 @@ const validateFilters = [
         .withMessage("Maximum price must be greater than or equal to 0")
         .custom(maxPrice => {
             if (maxPrice < 0) {
-                throw new Error("Maximum price must be greater than or equal to 0")
+                throw new Error("Maximum price filter must be greater than or equal to 0")
             }
             return true;
         })
@@ -185,10 +200,12 @@ const validateBooking = [
     check("startDate")
         .exists({ checkFalsy: true })
         .isString()
+        .notEmpty()
         .withMessage("Start date is required"),
     check("endDate")
         .exists({ checkFalsy: true })
         .isString()
+        .notEmpty()
         .withMessage("End date is required"),
     handleValidationErrors
 ]
@@ -201,6 +218,7 @@ const validateReviews = [
         .withMessage("Please leave a review"),
     check("stars")
         .notEmpty()
+        .withMessage("Please leave a rating")
         .isInt({ min: 1, max: 5 })
         .withMessage("Please give this location a rating from 1 to 5"),
     handleValidationErrors

@@ -32,17 +32,32 @@ const reviewAuthorization = async function (req, res, next) {
     return next();
 }
 
+// Owner should not be able to make a review to their own spot
+const reviewOwnerAuthorization = async function (req, res, next) {
+    const spot = await Spot.findByPk(req.params.spotId)
+    if (!spot) {
+        return next(notFound("Spot", 404))
+    }
+    if (req.use.id === spot.ownerId) {
+        const error = new Error("Owners cannot leave a review for their own hosting. (You fraud).")
+        error.status = 403
+        return next(error)
+    }
+}
+
 
 // ----------------------------------- Booking Authorization Methods -----------------------------------
 
-// Authorization not required for Booking
+// Owner should not be able to make a booking to their own spot
 const bookingOwnerAuthorization = async function (req, res, next) {
     const spot = await Spot.findByPk(req.params.spotId);
     if (!spot) {
         return next(notFound("Spot", 404))
     }
     if (req.user.id === spot.ownerId) {
-        return next(forbidden())
+        const error = new Error("...You own this location... wut?")
+        error.status = 403
+        return next(error)
     }
     return next();
 }
@@ -88,14 +103,15 @@ const imagesAuthorization = async function (req, res, next) {
         if (review.userId !== req.user.id) {
             return next(forbidden())
         }
+    }
     // check if user uploading image is the owner of account
-    } else {
+    else {
         const account = await User.findByPk(typeId)
 
-        if(!account) {
+        if (!account) {
             return next(notFound("User"), 404)
         }
-        if(account.id !== req.user.id) {
+        if (account.id !== req.user.id) {
             return next(forbidden())
         }
     }

@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 len: [1, 30],
                 checkUSA(value) {
-                    if (value !== "United States of America" || value !== "USA") {
+                    if (value !== "United States of America" && value !== "USA") {
                         throw new Error("Currently, only locations in the USA are allowed. WIP")
                     }
                 }

@@ -1,6 +1,5 @@
 // backend/routes/api/users.js
 const express = require('express')
-const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { validateLogin, validateSignup } = require('../../utils/validations')
@@ -8,7 +7,6 @@ const { setTokenCookie } = require('../../utils/authentication');
 const { User } = require('../../db/models');
 
 const router = express.Router();
-
 
 // Log in
 router.post('/login', validateLogin, async (req, res, next) => {
