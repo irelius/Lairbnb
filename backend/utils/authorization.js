@@ -56,7 +56,7 @@ const bookingOwnerAuthorization = async function (req, res, next) {
         return next(notFound("Spot", 404))
     }
     if (req.user.id === spot.ownerId) {
-        const error = new Error("...You own this location... wut?")
+        const error = new Error("you own this location... why would you? wut?")
         error.status = 403
         return next(error)
     }

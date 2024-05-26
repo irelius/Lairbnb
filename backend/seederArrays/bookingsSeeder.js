@@ -84,7 +84,7 @@ const validBookings = [
         endDate: new Date("2025-04-05")
     },
     {
-        spotId: 10,
+        spotId: 11,
         userId: 1,
         startDate: new Date("2025-05-01"),
         endDate: new Date("2025-05-05")
@@ -120,7 +120,7 @@ const validBookings = [
         endDate: new Date("2025-05-15")
     },
     {
-        spotId: 11,
+        spotId: 12,
         userId: 2,
         startDate: new Date("2025-06-01"),
         endDate: new Date("2025-06-05")
@@ -150,7 +150,7 @@ const validBookings = [
         endDate: new Date("2025-10-05")
     },
     {
-        spotId: 11,
+        spotId: 12,
         userId: 2,
         startDate: new Date("2025-06-10"),
         endDate: new Date("2025-06-15")
