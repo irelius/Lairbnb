@@ -65,7 +65,7 @@ router.get("/", validateFilters, async (req, res, next) => {
             size
         });
     } catch (e) {
-        unexpectedError(e)
+        unexpectedError(res, e)
     }
 
 })
@@ -103,7 +103,7 @@ router.get("/current", [restoreUser, authRequired], async (req, res) => {
 
         return res.json({ spots })
     } catch (e) {
-        unexpectedError(e)
+        unexpectedError(res, e)
     }
 });
 
@@ -152,7 +152,7 @@ router.get("/:spotId", async (req, res, next) => {
             reviewCount: totalReview
         })
     } catch (e) {
-        unexpectedError(e)
+        unexpectedError(res, e)
     }
 })
 
@@ -175,7 +175,7 @@ router.post("/", [restoreUser, authRequired, validateSpot], async (req, res, nex
         })
         res.status(201).json({ newSpot });
     } catch (e) {
-        unexpectedError(e)
+        unexpectedError(res, e)
     }
 })
 
@@ -201,7 +201,7 @@ router.put("/:spotId", [restoreUser, authRequired, spotAuthorization, validateSp
         updateSpot.updatedAt = new Date()
         res.json({ updateSpot })
     } catch (e) {
-        unexpectedError(e)
+        unexpectedError(res, e)
     }
 }))
 
@@ -223,7 +223,7 @@ router.delete("/:spotId", [restoreUser, authRequired, spotAuthorization], async 
             statusCode: 200
         })
     } catch (e) {
-        unexpectedError(e)
+        unexpectedError(res, e)
     }
 })
 

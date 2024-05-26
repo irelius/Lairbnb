@@ -20,7 +20,7 @@ const spotAuthorization = async function (req, res, next) {
 
 // ----------------------------------- Review Authorization Methods -----------------------------------
 
-// Authorization required for Reviews
+// Authorization required for Reviews. Current user must be the review creator
 const reviewAuthorization = async function (req, res, next) {
     const review = await Review.findByPk(req.params.reviewId);
     if (!review) {
@@ -38,11 +38,12 @@ const reviewOwnerAuthorization = async function (req, res, next) {
     if (!spot) {
         return next(notFound("Spot", 404))
     }
-    if (req.use.id === spot.ownerId) {
+    if (req.user.id === spot.ownerId) {
         const error = new Error("Owners cannot leave a review for their own hosting. (You fraud).")
         error.status = 403
         return next(error)
     }
+    return next()
 }
 
 
@@ -124,5 +125,6 @@ module.exports = {
     reviewAuthorization,
     bookingOwnerAuthorization,
     bookingAuthorization,
-    imagesAuthorization
+    imagesAuthorization,
+    reviewOwnerAuthorization
 }

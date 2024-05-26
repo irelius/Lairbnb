@@ -27,10 +27,11 @@ const validationError = (message, code) => {
     return error;
 }
 
-const unexpectedError = (error) => {
+const unexpectedError = (res, error) => {
     console.error("Error: ", error)
     return res.status(500).json({
-        message: "An unexpected error has occured"
+        message: "An unexpected error has occured",
+        statusCode: 500
     })
 }
 
