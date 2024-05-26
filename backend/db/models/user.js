@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         }
 
         static async login({ email, password }) {
-            const { Op } = require('sequelize');
             const user = await User.scope('loginUser').findOne({
                 where: {
                     email: email
@@ -42,23 +41,27 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             User.hasMany(models.Spot, {
                 foreignKey: 'ownerId',
-                onDelete: "CASCADE"
             })
             User.hasMany(models.Review, {
                 foreignKey: 'userId',
-                onDelete: "CASCADE"
             })
             User.hasMany(models.Booking, {
                 foreignKey: 'userId',
-                onDelete: "CASCADE"
             })
             User.hasMany(models.Image, {
                 foreignKey: "typeId",
                 constraints: false,
                 scope: {
                     type: "user"
+                }
+            })
+            User.hasMany(models.Image, {
+                foreignKey: "userId",
+                constraints: false,
+                scope: {
+                    type: "user"
                 },
-                onDelete: "CASCADE"
+                as: "ownerId"
             })
         }
     }
@@ -66,10 +69,16 @@ module.exports = (sequelize, DataTypes) => {
         firstName: {
             type: DataTypes.STRING,
             allowNull: false,
+            validate: {
+                len: [1, 60]
+            }
         },
         lastName: {
             type: DataTypes.STRING,
             allowNull: false,
+            validate: {
+                len: [1, 60]
+            }
         },
         email: {
             type: DataTypes.STRING,

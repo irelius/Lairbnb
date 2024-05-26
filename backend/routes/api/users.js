@@ -1,6 +1,5 @@
 // backend/routes/api/users.js
 const express = require('express')
-const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { validateLogin, validateSignup } = require('../../utils/validations')
@@ -8,7 +7,6 @@ const { setTokenCookie } = require('../../utils/authentication');
 const { User } = require('../../db/models');
 
 const router = express.Router();
-
 
 // Log in
 router.post('/login', validateLogin, async (req, res, next) => {
@@ -24,7 +22,7 @@ router.post('/login', validateLogin, async (req, res, next) => {
         const err = new Error("Login failed")
         err.status = 401;
         err.title = "Login failed"
-        err.errors = { error: "Invalid email" }
+        err.errors = { error: "Invalid credentials" }
         return next(err)
     } else if (!bcrypt.compareSync(password, user.hashedPassword.toString())) {
         const err = new Error('Login failed')

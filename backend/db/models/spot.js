@@ -10,21 +10,19 @@ module.exports = (sequelize, DataTypes) => {
                 scope: {
                     type: "spot"
                 },
-                onDelete: "CASCADE"
             })
             Spot.hasMany(models.Review, {
                 foreignKey: 'spotId',
-                onDelete: "CASCADE",
                 hooks: true
             })
             Spot.hasMany(models.Booking, {
                 foreignKey: 'spotId',
-                onDelete: "CASCADE",
                 hooks: true
             })
             Spot.belongsTo(models.User, {
                 as: 'owner',
-                foreignKey: 'ownerId'
+                foreignKey: 'ownerId',
+                onDelete: "CASCADE"
             })
         }
 
@@ -36,31 +34,59 @@ module.exports = (sequelize, DataTypes) => {
         },
         address: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                len: [1, 60]
+            }
         },
         city: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                len: [1, 60]
+            }
         },
         state: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                len: [1, 20]
+            }
         },
         country: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                len: [1, 30],
+                checkUSA(value) {
+                    if (value !== "United States of America" && value !== "USA") {
+                        throw new Error("Currently, only locations in the USA are allowed. WIP")
+                    }
+                }
+            }
         },
         lat: {
             type: DataTypes.DECIMAL,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                min: -90,
+                max: 90
+            }
         },
         lng: {
             type: DataTypes.DECIMAL,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                min: -180,
+                max: 180
+            }
         },
         name: {
-            type: DataTypes.TEXT,
-            allowNull: false
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [1, 60]
+            }
         },
         description: {
             type: DataTypes.TEXT,
@@ -69,18 +95,9 @@ module.exports = (sequelize, DataTypes) => {
         price: {
             type: DataTypes.DECIMAL,
             allowNull: false,
-        },
-        // previewImg: {
-        //     type: DataTypes.TEXT,
-        //     allowNull: true
-        // },
-        numReviews: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        avgStarRating: {
-            type: DataTypes.INTEGER,
-            allowNull: true
+            validate: {
+                min: 0
+            }
         },
     }, {
         sequelize,
