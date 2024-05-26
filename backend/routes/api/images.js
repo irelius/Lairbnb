@@ -1,12 +1,11 @@
 const express = require('express')
 const router = express.Router();
 
-const { Spot, Image, Review } = require('../../db/models');
+const { Image } = require('../../db/models');
 
-const { validateURL } = require('../../utils/validations');
 const { restoreUser, authRequired } = require('../../utils/authentication');
-const { imagesAuthorization } = require("../../utils/authorization")
-const { notFound, forbidden } = require('../../utils/helper.js');
+const { imagesAuthorization, imageTypeCheck } = require("../../utils/authorization")
+const { notFound, forbidden, unexpectedError } = require('../../utils/helper.js');
 const { multipleMulterUpload, multiplePublicFileUpload, singlePublicFileUpload } = require('../../awsS3.js');
 
 
@@ -14,36 +13,58 @@ const { multipleMulterUpload, multiplePublicFileUpload, singlePublicFileUpload }
 
 // Get all Images
 router.get("/", async (req, res) => {
-    const images = await Image.findAll()
-    res.json({ images })
-})
-
-// Get all Images by type
-router.get("/:type", async (req, res) => {
-    const images = await Image.findAll({
-        where: {
-            type: req.params.type
-        }
-    })
-    res.json({ images })
+    try {
+        const images = await Image.findAll()
+        res.json({ images })
+    } catch (e) {
+        unexpectedError(res, e)
+    }
 })
 
 // Get one image by pk
-router.get('/:imageId', async (req, res) => {
-    const image = await Image.findByPk(req.params.imageId)
-    return res.json({ image })
+router.get('/:imageId', async (req, res, next) => {
+    try {
+        const image = await Image.findByPk(req.params.imageId)
+
+        if (!image) {
+            next(notFound("Image", 404))
+        }
+
+        return res.json({ image })
+    } catch (e) {
+        unexpectedError(res, e)
+    }
+})
+
+// Get all Images by type
+router.get("/type/:type", imageTypeCheck, async (req, res, next) => {
+    try {
+        const images = await Image.findAll({
+            where: {
+                type: req.params.type
+            }
+        })
+
+        res.json({ images })
+    } catch (e) {
+        unexpectedError(res, e)
+    }
 })
 
 // Get the image belonging to spot, review, or user image. type should either be "spot", "review", "user" (note singular, not plural)
-router.get("/:type/:typeId", async (req, res) => {
-    const images = await Image.findAll({
-        where: {
-            type: req.params.type,
-            typeId: req.params.typeId
-        }
-    })
+router.get("/type/:type/typeId/:typeId", imageTypeCheck, async (req, res) => {
+    try {
+        const images = await Image.findAll({
+            where: {
+                type: req.params.type,
+                typeId: req.params.typeId
+            }
+        })
 
-    return res.json({ images })
+        return res.json({ images })
+    } catch (e) {
+        unexpectedError(res, e)
+    }
 })
 
 // // Create an Image - before aws
@@ -99,9 +120,9 @@ router.get("/:type/:typeId", async (req, res) => {
 // })
 
 
-router.post("/:type/:typeId", [restoreUser, authRequired, imagesAuthorization], multipleMulterUpload("images"), async (req, res) => {
+router.post("/type/:type/typeId/:typeId", [restoreUser, authRequired, imagesAuthorization], multipleMulterUpload("images"), async (req, res) => {
     try {
-        const { userId } = req.body
+        const { userId } = req.user.id
         const { typeId, type } = req.params
 
         let images;
@@ -117,9 +138,23 @@ router.post("/:type/:typeId", [restoreUser, authRequired, imagesAuthorization], 
                 }
             })
 
-            // if trying to add photos to a review, and user is trying to add more than 10 picutres, return error
-            if (currImages.length + images.length > 10) {
-                const error = new Error("Error: Attempting to exceed the limit of images for this review.")
+            // if trying to add photos to a review, and user is trying to add more than 5 picutres, return error
+            if (currImages.length + images.length > 5) {
+                const error = new Error("Error: Reviews are limited to 5 images")
+                error.status = 413;
+                return next(error);
+            }
+        } else if (type === "spot") {
+            const currImages = await Image.findAll({
+                where: {
+                    type: type,
+                    typeId: typeId
+                }
+            })
+
+            // if trying to add photos to a spot, and user is trying to add more than 15 pictures, return error
+            if (currImages.length + images.length > 15) {
+                const error = new Error("Error: Spots are limited to 15 images")
                 error.status = 413;
                 return next(error);
             }
@@ -135,50 +170,57 @@ router.post("/:type/:typeId", [restoreUser, authRequired, imagesAuthorization], 
         }
         return res.json({ images })
     } catch (e) {
-        console.error("Error creating images:", e)
+        unexpectedError(res, e)
     }
 })
 
 // Delete an Image
-router.delete("/image/:imageId", [restoreUser, authRequired], async (req, res, next) => {
-    const deleteImage = await Image.findByPk(req.params.imageId)
-    // error if image doesn't exist
-    if (!deleteImage) {
-        return next(notFound("Image", 404))
-    }
+router.delete("/:imageId", [restoreUser, authRequired], async (req, res, next) => {
+    try {
+        const deleteImage = await Image.findByPk(req.params.imageId)
+        // error if image doesn't exist
+        if (!deleteImage) {
+            return next(notFound("Image", 404))
+        }
 
-    // error if image doesn't belong to user
-    if (deleteImage.userId !== req.user.id) {
-        return next(forbidden())
-    }
+        // error if image doesn't belong to user
+        if (deleteImage.userId !== req.user.id) {
+            return next(forbidden())
+        }
 
-    // error if image being deleted is the last image for a spot
-    if (deleteImage.type === "spot") {
-        const spotImages = await Image.findAll({
+        // const deleteImageParsed = deleteImage.toJSON()
+        const deleteType = deleteImage.type
+        const deleteTypeId = deleteImage.typeId
+
+        // error if image being deleted is the last image for a spot
+        if (deleteType === "spot") {
+            const spotImages = await Image.findAll({
+                where: {
+                    type: "spot",
+                    typeId: deleteTypeId
+                }
+            })
+
+            if (spotImages.length === 1) {
+                const error = new Error("A rental spot must have at least 1 image to show to renters.")
+                error.status = 403;
+                return next(error);
+            }
+        }
+
+        // delete image
+        await Image.destroy({
             where: {
-                type: "spot",
-                typeId: req.params.imageId
+                id: req.params.imageId
             }
         })
-
-        if (spotImages.length === 1) {
-            const error = new Error("A rental spot must have at least 1 image to show to renters.")
-            error.status = 403;
-            return next(error);
-        }
+        res.json({
+            message: "Successfully deleted",
+            statusCode: 200
+        })
+    } catch (e) {
+        unexpectedError(res, e)
     }
-
-
-    // successfully delete image
-    await Image.destroy({
-        where: {
-            id: req.params.imageId
-        }
-    })
-    res.json({
-        message: "Successfully deleted",
-        statusCode: 200
-    })
 
 })
 

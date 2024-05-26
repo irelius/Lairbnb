@@ -11,9 +11,9 @@ const { check } = require('express-validator');
 
 
 // helper function for a review that already exists, may not need since this only occurs once?
-const bookingExists = (next) => {
+const bookingExists = () => {
     let error = new Error("Sorry, an overlapping booking exists for this hosting");
-    error.status = 403;
+    error.status = 400;
     return error
 }
 
@@ -31,7 +31,7 @@ router.get("/:bookingId", [restoreUser, authRequired], async (req, res, next) =>
             }
         )
 
-        if(!booking) {
+        if (!booking) {
             return next(notFound("Booking", 404))
         } else {
             res.json({ booking })
@@ -43,21 +43,26 @@ router.get("/:bookingId", [restoreUser, authRequired], async (req, res, next) =>
 
 // Get all of the Current User's Bookings
 router.get("/current", [restoreUser, authRequired], async (req, res) => {
-    const bookings = await Booking.findAll({
-        where: {
-            userId: req.user.id
-        },
-        attributes: {
-            exclude: ['createdAt', 'updatedAt']
-        },
-        include: [
-            {
-                model: Spot,
-                attributes: { exclude: ["createdAt", "updatedAt"] }
-            }
-        ]
-    })
-    res.json({ bookings })
+    try {
+
+        const bookings = await Booking.findAll({
+            where: {
+                userId: req.user.id
+            },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt']
+            },
+            include: [
+                {
+                    model: Spot,
+                    attributes: { exclude: ["createdAt", "updatedAt"] }
+                }
+            ]
+        })
+        res.json({ bookings })
+    } catch (e) {
+        unexpectedError(res, e)
+    }
 })
 
 
@@ -208,28 +213,32 @@ router.put("/:bookingId", [restoreUser, authRequired, bookingAuthorization], asy
 
 
 router.delete("/:bookingId", [restoreUser, authRequired, bookingAuthorization], async (req, res, next) => {
-    const currentDate = new Date().toISOString().slice(0, 10)
+    try {
+        const currentDate = new Date().toISOString().slice(0, 10)
 
-    const deleteBooking = await Booking.findByPk(req.params.bookingId)
+        const deleteBooking = await Booking.findByPk(req.params.bookingId)
 
-    // error if booking has already started
-    if (deleteBooking.startDate <= currentDate) {
-        const error = new Error("Bookings that have been started can't be deleted");
-        error.status = 403;
-        return next(error);
-    }
-
-    // delete booking
-    await Booking.destroy({
-        where: {
-            id: req.params.bookingId
+        // error if booking has already started
+        if (deleteBooking.startDate <= currentDate) {
+            const error = new Error("Bookings that have been started can't be deleted");
+            error.status = 403;
+            return next(error);
         }
-    })
 
-    res.json({
-        message: "Successfully delete",
-        statusCode: 200
-    })
+        // delete booking
+        await Booking.destroy({
+            where: {
+                id: req.params.bookingId
+            }
+        })
+
+        res.json({
+            message: "Successfully delete",
+            statusCode: 200
+        })
+    } catch (e) {
+        unexpectedError(res, e)
+    }
 })
 
 

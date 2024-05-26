@@ -1,7 +1,7 @@
 // backend/utils/authorization.js
 
 const { Spot, Image, Review, Booking, User } = require('../db/models');
-const { notFound, forbidden } = require('./helper')
+const { notFound, forbidden, unexpectedError, validationError } = require('./helper')
 
 // ----------------------------------- Spot Authorization Methods -----------------------------------
 
@@ -77,6 +77,18 @@ const bookingAuthorization = async function (req, res, next) {
 
 
 // ----------------------------------- Image Authorization Methods -----------------------------------
+const imageTypeCheck = async function (req, res, next) {
+    try {
+        if (req.params.type !== "spot" && req.params.type !== "review" && req.params.type !== "profile") {
+            return next(notFound(`Images of ${req.params.type} type`, 404))
+        }
+
+        return next();
+    } catch (e) {
+        unexpectedError(res, e)
+    }
+}
+
 
 // Authorization required for Images
 const imagesAuthorization = async function (req, res, next) {
@@ -105,8 +117,8 @@ const imagesAuthorization = async function (req, res, next) {
             return next(forbidden())
         }
     }
-    // check if user uploading image is the owner of account
-    else {
+    // check if user uploading image is the owner of account for profile pic
+    else if (type === "profile") {
         const account = await User.findByPk(typeId)
 
         if (!account) {
@@ -115,6 +127,8 @@ const imagesAuthorization = async function (req, res, next) {
         if (account.id !== req.user.id) {
             return next(forbidden())
         }
+    } else {
+        return next(validationError("Images must be for spots, reviews, or profile image", 400))
     }
 
     return next()
@@ -122,9 +136,10 @@ const imagesAuthorization = async function (req, res, next) {
 
 module.exports = {
     spotAuthorization,
+    reviewOwnerAuthorization,
     reviewAuthorization,
     bookingOwnerAuthorization,
     bookingAuthorization,
+    imageTypeCheck,
     imagesAuthorization,
-    reviewOwnerAuthorization
 }

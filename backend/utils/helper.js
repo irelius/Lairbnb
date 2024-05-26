@@ -28,7 +28,7 @@ const validationError = (message, code) => {
 }
 
 const unexpectedError = (res, error) => {
-    console.error("Error: ", error)
+    console.error("Unexpected error: ", error)
     return res.status(500).json({
         message: "An unexpected error has occured",
         statusCode: 500

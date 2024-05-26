@@ -7,7 +7,8 @@ const { User, Spot, Image, Review } = require('../../db/models');
 const { validateReviews } = require('../../utils/validations');
 const { restoreUser, authRequired } = require("../../utils/authentication.js");
 const { reviewAuthorization, reviewOwnerAuthorization } = require("../../utils/authorization")
-const { notFound, unexpectedError } = require('../../utils/helper.js')
+const { notFound, unexpectedError } = require('../../utils/helper.js');
+const e = require("express");
 
 // ___________________________________________________________________________________________________________________
 
@@ -71,20 +72,47 @@ router.get("/:reviewId", [restoreUser, authRequired], async (req, res, next) => 
 
 // Get all Reviews by a Spot's id
 router.get("/spots/:spotId", async (req, res, next) => {
-    const spot = await Spot.findByPk(req.params.spotId);
+    try {
 
-    // error if spot doesn't exist
-    if (!spot) {
-        return next(notFound("Spot", 404))
-    }
+        const spot = await Spot.findByPk(req.params.spotId);
 
-    // separate reviews made by current user or by other users
-    let userReviews = [];
-    if (req.user) {
-        // Get user's reviews for spot
-        userReviews = await Review.findAll({
+        // error if spot doesn't exist
+        if (!spot) {
+            return next(notFound("Spot", 404))
+        }
+
+        // separate reviews made by current user or by other users
+        let userReviews = [];
+        if (req.user) {
+            // Get user's reviews for spot
+            userReviews = await Review.findAll({
+                where: {
+                    userId: req.user.id,
+                    spotId: req.params.spotId
+                },
+                include: [
+                    {
+                        model: User,
+                        attributes: ["id", "firstName", "lastName"]
+                    },
+                    {
+                        model: Spot,
+                        attributes: { exclude: ["description", "createdAt", "updatedAt", "OwnerId"] }
+                    },
+                    {
+                        model: Image,
+                        attributes: ["id", "type", "typeId", "url"]
+                    }
+                ]
+            })
+        }
+
+        // find all reviews excluding current user's
+        const otherReviews = await Review.findAll({
             where: {
-                userId: req.user.id,
+                userId: {
+                    [Op.not]: req.user.id
+                },
                 spotId: req.params.spotId
             },
             include: [
@@ -94,7 +122,7 @@ router.get("/spots/:spotId", async (req, res, next) => {
                 },
                 {
                     model: Spot,
-                    attributes: { exclude: ["description", "createdAt", "updatedAt", "OwnerId"] }
+                    attributes: { exclude: ["description", "createdAt", "updatedAt"] }
                 },
                 {
                     model: Image,
@@ -102,36 +130,14 @@ router.get("/spots/:spotId", async (req, res, next) => {
                 }
             ]
         })
+
+        return res.json({
+            userReviews,
+            otherReviews
+        })
+    } catch (e) {
+        unexpectedError(res, e)
     }
-
-    // find all reviews excluding current user's
-    const otherReviews = await Review.findAll({
-        where: {
-            userId: {
-                [Op.not]: req.user.id
-            },
-            spotId: req.params.spotId
-        },
-        include: [
-            {
-                model: User,
-                attributes: ["id", "firstName", "lastName"]
-            },
-            {
-                model: Spot,
-                attributes: { exclude: ["description", "createdAt", "updatedAt"] }
-            },
-            {
-                model: Image,
-                attributes: ["id", "type", "typeId", "url"]
-            }
-        ]
-    })
-
-    return res.json({
-        userReviews,
-        otherReviews
-    })
 })
 
 // Create a Review for a Spot based on the Spot's id
@@ -199,17 +205,21 @@ router.put("/:reviewId", [validateReviews, restoreUser, authRequired, reviewAuth
 
 // Delete a Review
 router.delete("/:reviewId", [restoreUser, authRequired, reviewAuthorization], async (req, res, next) => {
-    // destroy review
-    await Review.destroy({
-        where: {
-            id: req.params.reviewId
-        }
-    })
-    res.status(200).json({
-        id: parseInt(req.params.reviewId),
-        message: "Successfully deleted",
-        statusCode: 200
-    })
+    try {
+        // destroy review
+        await Review.destroy({
+            where: {
+                id: req.params.reviewId
+            }
+        })
+        res.status(200).json({
+            id: parseInt(req.params.reviewId),
+            message: "Successfully deleted",
+            statusCode: 200
+        })
+    } catch (e) {
+        unexpectedError(res, e)
+    }
 })
 
 
