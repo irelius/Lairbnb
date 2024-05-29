@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
                 constraints: false,
                 onDelete: "CASCADE",
                 as: "ownerId"
-
             })
         }
     }
@@ -39,7 +38,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false,
             validate: {
-                len: [1, 10]
+                len: [1, 10],
+                checkProperType(value) {
+                    if(value !== "user" && value !== "spot" && value !== "review") {
+                        throw new Error("Image type is not of the valid options (user, spot, or review).")
+                    }
+                }
             }
         },
         // type ID is for the id of the type (user, spot, review). functions as the PK of the parent table
