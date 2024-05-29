@@ -11,10 +11,10 @@ module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable(options.tableName, {
             id: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.INTEGER
             },
             userId: {
                 type: Sequelize.INTEGER,
@@ -52,13 +52,13 @@ module.exports = {
             }
         }, options);
 
-        await queryInterface.addIndex(
-            options.tableName,
-            ["userId", "spotId"],
-            {
-                unique: true
-            }
-        )
+        // await queryInterface.addIndex(
+        //     options.tableName,
+        //     ["userId", "spotId"],
+        //     {
+        //         unique: true
+        //     }
+        // )
     },
     async down(queryInterface, Sequelize) {
         await queryInterface.dropTable(options.tableName, options);
