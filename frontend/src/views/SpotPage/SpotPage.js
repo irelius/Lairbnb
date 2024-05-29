@@ -17,13 +17,21 @@ function SpotPage() {
     const [reviewSubmitted, setReviewSubmitted] = useState(false)
     const user = useSelector(state => state.user)
 
+
     useEffect(() => {
-        dispatch(loadSpotReviewsThunk(spotId))
         dispatch(loadSpotThunk(spotId))
+        dispatch(loadSpotReviewsThunk(spotId))
     }, [dispatch, spotId, user, reviewSubmitted])
 
     const spot = useSelector(state => state.spot.spots[spotId])
     const reviews = useSelector(state => state.review)
+
+    // return (
+    //     <div>
+    //         boboa
+    //     </div>
+    // )
+
 
     // // fetch the spot's reviews
     // // TO DO: recalculate the spot review and average when use submits a review
