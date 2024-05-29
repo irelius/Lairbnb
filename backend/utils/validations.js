@@ -19,6 +19,26 @@ const handleValidationErrors = (req, _res, next) => {
     next();
 };
 
+
+// Test validation
+
+const validateTest = [
+    check('body')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Please provide a body")
+        .custom((body, test) => {
+            if (body < test) {
+                throw new Error("body is less than test")
+            } else if (body > test) {
+                throw new Error("body is greater than test")
+            } else {
+                throw new Error("body is equal to test")
+            }
+        }),
+    handleValidationErrors
+]
+
 // ----------------------------------- User Validation Methods -----------------------------------
 const validateLogin = [
     check('email')
@@ -242,4 +262,5 @@ module.exports = {
     validateBooking,
     validateReviews,
     validateURL,
+    validateTest
 };

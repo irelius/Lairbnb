@@ -4,12 +4,13 @@ const { Op, Sequelize } = require("sequelize")
 
 const { User, Spot, Image, Review, Booking } = require('../../db/models');
 
-const { validateFilters, validateSpot } = require('../../utils/validations');
+const { validateFilters, validateSpot, validateTest } = require('../../utils/validations');
 const { restoreUser, authRequired } = require("../../utils/authentication.js");
 const { spotAuthorization } = require("../../utils/authorization")
 const { notFound, unexpectedError } = require('../../utils/helper.js')
 
 // ___________________________________________________________________________________________________
+
 
 // Get all Spots
 router.get("/", validateFilters, async (req, res, next) => {

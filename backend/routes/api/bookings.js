@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { User, Spot, Booking } = require('../../db/models');
 
-const { validateBooking } = require('../../utils/validations')
+const { validateBooking, handleValidationErrors } = require('../../utils/validations')
 const { restoreUser, authRequired } = require("../../utils/authentication.js");
 const { bookingOwnerAuthorization, bookingAuthorization } = require("../../utils/authorization")
 const { validationError, notFound, unexpectedError } = require('../../utils/helper.js');
@@ -16,7 +16,6 @@ const bookingExists = () => {
     error.status = 400;
     return error
 }
-
 
 // ------------------------------------------------------------------------------------------------------
 

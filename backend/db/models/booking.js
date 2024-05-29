@@ -26,6 +26,15 @@ module.exports = (sequelize, DataTypes) => {
         startDate: {
             type: DataTypes.DATE,
             allowNull: false,
+            validate: {
+                checkIfBeforeToday(value) {
+                    const today = new Date()
+                    const parsedToday = today.toISOString().slice(0, 10)
+                    if(parsedToday >= value) {
+                        throw new Error("Booking cannot be on or before today.")
+                    }
+                }
+            }
         },
         endDate: {
             type: DataTypes.DATE,
