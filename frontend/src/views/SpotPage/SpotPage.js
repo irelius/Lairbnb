@@ -26,13 +26,6 @@ function SpotPage() {
     const spot = useSelector(state => state.spot.spots[spotId])
     const reviews = useSelector(state => state.review)
 
-    // return (
-    //     <div>
-    //         boboa
-    //     </div>
-    // )
-
-
     // // fetch the spot's reviews
     // // TO DO: recalculate the spot review and average when use submits a review
     // useEffect(() => {

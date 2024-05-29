@@ -8,9 +8,11 @@ const { validateReviews } = require('../../utils/validations');
 const { restoreUser, authRequired } = require("../../utils/authentication.js");
 const { reviewAuthorization, reviewOwnerAuthorization } = require("../../utils/authorization")
 const { notFound, unexpectedError } = require('../../utils/helper.js');
-const e = require("express");
 
 // ___________________________________________________________________________________________________________________
+
+// Route append: "/reviews"
+
 
 // Get all Reviews of the Current User
 router.get("/current", [restoreUser, authRequired], async (req, res, next) => {
@@ -73,8 +75,14 @@ router.get("/:reviewId", [restoreUser, authRequired], async (req, res, next) => 
 // Get all Reviews by a Spot's id
 router.get("/spots/:spotId", async (req, res, next) => {
     try {
-
         const spot = await Spot.findByPk(req.params.spotId);
+
+        let userId = req.user ? req.user.id : -1
+        // if (req.user) {
+        //     userId = req.user.id
+        // } else {
+        //     userId = -1
+        // }
 
         // error if spot doesn't exist
         if (!spot) {
@@ -87,7 +95,7 @@ router.get("/spots/:spotId", async (req, res, next) => {
             // Get user's reviews for spot
             userReviews = await Review.findAll({
                 where: {
-                    userId: req.user.id,
+                    userId,
                     spotId: req.params.spotId
                 },
                 include: [
@@ -111,7 +119,7 @@ router.get("/spots/:spotId", async (req, res, next) => {
         const otherReviews = await Review.findAll({
             where: {
                 userId: {
-                    [Op.not]: req.user.id
+                    [Op.not]: userId
                 },
                 spotId: req.params.spotId
             },

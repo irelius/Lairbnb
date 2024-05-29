@@ -49,6 +49,9 @@ app.use((_req, _res, next) => {
     err.title = "Resource Not Found";
     err.errors = { message: "The requested resource couldn't be found." };
     err.status = 404;
+
+    console.log(`Resource not found for URL: ${_req.url}, Method: ${_req.method}`);
+
     next(err);
 });
 

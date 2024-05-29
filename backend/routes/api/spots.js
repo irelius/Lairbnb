@@ -12,6 +12,8 @@ const { notFound, unexpectedError } = require('../../utils/helper.js')
 // ___________________________________________________________________________________________________
 
 
+// Route append: "/spots"
+
 // Get all Spots
 router.get("/", validateFilters, async (req, res, next) => {
     try {
@@ -144,8 +146,8 @@ router.get("/:spotId", async (req, res, next) => {
         })
 
         const spotInfoParsed = spotInfo[0].toJSON()
-        const averageRating = spotInfoParsed.averageRating || 0
-        const totalReview = spotInfoParsed.reviewCount
+        const averageRating = parseFloat(spotInfoParsed.averageRating) || 0
+        const totalReview = parseInt(spotInfoParsed.reviewCount)
 
         return res.json({
             spot,

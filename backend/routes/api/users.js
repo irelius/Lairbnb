@@ -8,6 +8,8 @@ const { User } = require('../../db/models');
 
 const router = express.Router();
 
+// Router append: "/users/"
+
 // Log in
 router.post('/login', validateLogin, async (req, res, next) => {
     const { email, password } = req.body;

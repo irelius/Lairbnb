@@ -52,6 +52,7 @@ module.exports = {
             }
         }, options);
 
+        // adding index causes deployment on render to break.
         // await queryInterface.addIndex(
         //     options.tableName,
         //     ["userId", "spotId"],
