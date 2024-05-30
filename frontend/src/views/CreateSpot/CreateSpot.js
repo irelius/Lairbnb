@@ -23,7 +23,6 @@ function CreateSpot() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [image, setImage] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,8 +35,7 @@ function CreateSpot() {
             lng,
             name,
             description,
-            price,
-            image
+            price
         }
         dispatch(addSpotThunk(newSpot))
         history.push("/")
@@ -128,13 +126,6 @@ function CreateSpot() {
                             required
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            placeholder="Spot Image URL"
-                            required
-                            value={image}
-                            onChange={(e) => setImage(e.target.value)}
                         />
                         <div className="submit-button-div">
                             <button type="submit" className="submit-button font-bold border-none">

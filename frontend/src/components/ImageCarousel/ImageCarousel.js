@@ -4,13 +4,15 @@ import { useEffect, useState } from "react"
 
 const ImageCarousel = ({ images, spot }) => {
     const [currImageIndex, setCurrImageIndex] = useState(0)
-    const [currImage, setCurrImage] = useState(images[currImageIndex].url)
+    const [currImage, setCurrImage] = useState("https://kblairbnb.s3.us-west-1.amazonaws.com/spots-1.jpg")
 
     const [visible, setVisible] = useState("invisible")
 
 
     useEffect(() => {
-        setCurrImage(images[currImageIndex].url)
+        if (images[currImageIndex]) {
+            setCurrImage(images[currImageIndex].url)
+        }
     }, [images, currImageIndex])
 
     const handleLeftClick = async (e) => {

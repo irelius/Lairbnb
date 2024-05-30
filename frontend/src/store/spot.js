@@ -22,12 +22,13 @@ export const loadSpots = (spots) => {
 }
 
 // thunk action for all spots
-export const loadAllSpotsThunk = () => async (dispatch) => {
+export const loadAllSpotsThunk = (page = 1, size = 20) => async (dispatch) => {
     try {
-        const response = await csrfFetch('/api/spots');
+        const response = await csrfFetch(`/api/spots?page=${page}&size=${size}`);
         if (response.ok) {
             const allSpots = await response.json();
             dispatch(loadSpots(allSpots));
+            return allSpots
         }
     } catch (error) {
         console.error("Error loading spots:", error);
@@ -42,11 +43,12 @@ export const loadSpotThunk = (spotId) => async (dispatch) => {
         if (res.ok) {
             const spot = await res.json();
             dispatch(loadSpot(spot))
+            return spot
         }
     } catch (error) {
         console.log("Error loading one spot:", error)
     }
-    return []
+    return
 }
 
 // thunk action for user's listings/spots

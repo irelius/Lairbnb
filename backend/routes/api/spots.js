@@ -17,6 +17,7 @@ const { notFound, unexpectedError } = require('../../utils/helper.js')
 // Get all Spots
 router.get("/", validateFilters, async (req, res, next) => {
     try {
+
         let page = parseInt(req.query.page);
         let size = parseInt(req.query.size);
 
@@ -49,23 +50,28 @@ router.get("/", validateFilters, async (req, res, next) => {
                     [Op.between]: [minPrice, maxPrice]
                 }
             },
-            limit: size,
-            offset: (size * (page - 1)),
+            limit: size * page,
+            // offset: (size * (page - 1)),
             // should i include bookings in the query?
             include: [
                 {
                     model: Image,
                     where: {
                         type: "spot"
-                    }
+                    },
+                    required: false
                 }
             ]
         })
 
+        const maxPage = parseInt((spots.length / size) + 1)
+        console.log('maxPage', maxPage)
+
         res.json({
             spots,
             page,
-            size
+            size,
+            maxPage
         });
     } catch (e) {
         unexpectedError(res, e)
