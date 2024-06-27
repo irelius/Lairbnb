@@ -22,18 +22,20 @@ const handleValidationErrors = (req, _res, next) => {
 
 // Test validation
 
+let tempVariable
+
 const validateTest = [
     check('body')
         .exists({ checkFalsy: true })
         .notEmpty()
         .withMessage("Please provide a body")
-        .custom((body, test) => {
-            if (body < test) {
-                throw new Error("body is less than test")
-            } else if (body > test) {
-                throw new Error("body is greater than test")
-            } else {
-                throw new Error("body is equal to test")
+        .custom((body) => {
+            tempVariable = body
+        }),
+    check('test')
+        .custom((test) => {
+            if (tempVariable === test) {
+
             }
         }),
     handleValidationErrors

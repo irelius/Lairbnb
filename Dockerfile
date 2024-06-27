@@ -1,5 +1,5 @@
 # Backend layer
-FROM --platform=amd64 node:16-alpine as backend
+FROM --platform=amd64 node:18-alpine as backend
 
 WORKDIR /backend
 
@@ -11,7 +11,7 @@ COPY /backend .
 
 
 # Frontend layer
-FROM --platform=amd64 node:16-alpine as frontend
+FROM --platform=amd64 node:18-alpine as frontend
 
 WORKDIR /frontend
 
@@ -27,7 +27,7 @@ RUN npm run build
 
 
 # Production layer
-FROM --platform=amd64 node:16-alpine as production
+FROM --platform=amd64 node:18-alpine as production
 
 ARG NODE_ENV
 ENV NODE_ENV=${NODE_ENV}
