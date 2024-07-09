@@ -1,0 +1,10 @@
+AWS_ACCESS_KEY_ID=<<aws_access_key>>
+AWS_SECRET_ACCESS_KEY=<<aws_secret_access_key>>
+BUCKET_NAME=<<bucket_name>>
+BUCKET_REGION=<<bucket_region>>
+DATABASE_URL
+JWT_EXPIRES_IN=604800
+JWT_SECRET=<<openssl rand -base64 10>>
+NODE_ENV=production
+SCHEMA=<<some schema name>>
+PORT=8000
