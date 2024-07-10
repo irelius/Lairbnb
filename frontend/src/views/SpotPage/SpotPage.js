@@ -17,7 +17,6 @@ function SpotPage() {
     const [reviewSubmitted, setReviewSubmitted] = useState(false)
     const user = useSelector(state => state.user)
 
-
     useEffect(() => {
         dispatch(loadSpotThunk(spotId))
         dispatch(loadSpotReviewsThunk(spotId))
