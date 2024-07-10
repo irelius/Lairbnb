@@ -33,7 +33,7 @@ function Header({ isLoaded }) {
                     </aside>
                     <ProfileDropdownMenu />
                 </div>
-            // {/* If user is not logged in */}
+                // {/* If user is not logged in */}
             ) : isLoaded && user.loggedIn === false ? (
                 <div className="header-right-container">
                     <ProfileDropdownMenu />
