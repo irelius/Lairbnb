@@ -15,9 +15,9 @@ function Header({ isLoaded }) {
         <div className="header-main-container border-bot-235">
             <aside>
                 <section className="header-lairbnb-icon-container mouse-pointer" onClick={() => history.push("/")}>
-                    <img className="lairbnb-icon" src="https://raw.githubusercontent.com/irelius/Airbnb/main/frontend/public/assets/favicon-32x32.png"
+                    {/* <img className="lairbnb-icon" src="https://raw.githubusercontent.com/irelius/Airbnb/main/frontend/public/assets/favicon-32x32.png" */}
                         alt="lairbnb-icon"
-                    />
+                    {/* /> */}
                     <p className="lairbnb-header-text font-bold">
                         Lairbnb
                     </p>

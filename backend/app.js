@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path')
 require('express-async-errors');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -42,7 +43,15 @@ app.use(
     })
 );
 
+app.use(express.static(path.join(__dirname, "frontend")));
+app.use(express.static(path.join(__dirname, 'frontend/assets/favicon.ico')));
+
 app.use(routes); // Connect all the routes
+
+//send the react build as a static file
+app.get('/favicon.ico', (_req, res, _next) => {
+    res.sendFile(path.join(__dirname, '../frontend/assets/favicon.ico'));
+});
 
 app.use((_req, _res, next) => {
     const err = new Error("The requested resource couldn't be found.");
