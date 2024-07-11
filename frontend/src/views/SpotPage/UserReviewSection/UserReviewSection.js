@@ -8,7 +8,7 @@ import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
 import ReviewForm from "../../../components/Modals/ReviewModal";
 
 // { user, spotId, setUpdateReviewAndRating, setReviewDeleted }
-function UserReviewSection({ user, reviews, setReviewSubmitted }) {
+function UserReviewSection({ user, reviews, spot }) {
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [showReviewForm, setShowReviewForm] = useState(false)
 
@@ -21,7 +21,6 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
         setShowReviewForm(false)
         dispatch(deleteReviewThunk(userReview.id))
     }
-
     // If user is not logged in
     return user.loggedIn === false ? (
         <div>
@@ -38,6 +37,9 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
             )}
         </div>
 
+        // if user is the owner of the spot
+    ) : user.user.id === spot.ownerId ? (
+        <></>
         // If user is logged in AND has no reviews
     ) : user.loggedIn === true && reviews.userReviewsId.length === 0 ? (
         <div className="submit-review-container">
@@ -47,7 +49,7 @@ function UserReviewSection({ user, reviews, setReviewSubmitted }) {
 
             {showReviewForm ? (
                 <section className="modal" onClick={() => setShowReviewForm(false)}>
-                    <ReviewForm setShowReviewForm={setShowReviewForm}/>
+                    <ReviewForm setShowReviewForm={setShowReviewForm} />
                 </section>
             ) : (
                 <></>

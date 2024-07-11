@@ -159,7 +159,6 @@ router.post("/spots/:spotId", [validateReviews, restoreUser, authRequired, revie
             return next(notFound("Spot", 404));
         }
 
-
         const currentReviews = await Review.findAll({
             where: {
                 spotId: req.params.spotId,
@@ -180,8 +179,13 @@ router.post("/spots/:spotId", [validateReviews, restoreUser, authRequired, revie
             stars: stars
         })
 
+        const createdAt = newReview.createdAt
+        const updatedAt = newReview.updatedAt
+
+        // const createdAt = new
+
         // Review this route to check if any images were attached. will need to create a new entry in the image table
-        res.status(201).json({ newReview })
+        res.status(201).json(newReview)
     } catch (e) {
         unexpectedError(res, e)
     }
