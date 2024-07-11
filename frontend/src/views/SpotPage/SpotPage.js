@@ -63,7 +63,7 @@ function SpotPage() {
                     </aside>
                 </section>
                 <section className="reviews df-c">
-                    <section><UserReviewSection user={user} reviews={reviews} setReviewSubmitted={setReviewSubmitted} /></section>
+                    <section><UserReviewSection user={user} reviews={reviews} spot={spot} /></section>
                     <section className="other-reviews-container"><OtherReviewSection reviews={reviews} /></section>
                 </section>
             </section>
