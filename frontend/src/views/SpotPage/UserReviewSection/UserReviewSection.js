@@ -8,7 +8,7 @@ import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
 import ReviewForm from "../../../components/Modals/ReviewModal";
 
 // { user, spotId, setUpdateReviewAndRating, setReviewDeleted }
-function UserReviewSection({ user, reviews, setReviewSubmitted }) {
+function UserReviewSection({ user, reviews }) {
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [showReviewForm, setShowReviewForm] = useState(false)
 

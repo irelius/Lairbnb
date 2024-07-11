@@ -35,7 +35,7 @@ module.exports = {
             },
             previewImg: {
                 type: Sequelize.BOOLEAN,
-                allowNull: false,
+                allowNull: true,
                 defaultValue: true
             },
             url: {

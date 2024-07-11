@@ -164,8 +164,10 @@ const reviewReducer = (state = initialReviews, action) => {
             return newState
         case CLEAR_REVIEW:
             return {
-                user: {},
-                all: {},
+                allReviews: {},
+                allReviewsId: [],
+                userReviews: {},
+                userReviewsId: []
             }
         default:
             return newState;

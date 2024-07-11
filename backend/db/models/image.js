@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         // determine if image type is for a user, spot, or review
+        // TO DO: confirm that the allowNull is fine depending on review or spots
         type: {
             type: DataTypes.TEXT,
             allowNull: false,
@@ -53,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         previewImg: {
             type: DataTypes.BOOLEAN,
-            allowNull: false,
+            allowNull: true,
             defaultValue: true,
             validate: {
                 checkIfForSpot() {

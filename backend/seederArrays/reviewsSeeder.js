@@ -1,12 +1,6 @@
 const validReviews = [
     {
         userId: 1,
-        spotId: 1,
-        review: "Strictly speaking of quality, it is ok. But for the price, great value.",
-        stars: 4,
-    },
-    {
-        userId: 1,
         spotId: 2,
         review: "crummy location. rude hosts.",
         stars: 1,
@@ -16,6 +10,12 @@ const validReviews = [
         spotId: 4,
         review: "Lovely place for a date.",
         stars: 5
+    },
+    {
+        userId: 1,
+        spotId: 5,
+        review: "Strictly speaking of quality, it is ok. But for the price, great value.",
+        stars: 4,
     },
     {
         userId: 2,
