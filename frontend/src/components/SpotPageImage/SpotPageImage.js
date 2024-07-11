@@ -7,6 +7,7 @@ const SpotPageImage = ({ images }) => {
     // will need refactoring in order to implement new images for the additional spots
     // will also need to incorporate the previewImg functionality
     const [frontImage, setFrontImage] = useState()
+    const placeholder = (<img src=""/>)
 
     useEffect(() => {
         if (images.length > 0) {
