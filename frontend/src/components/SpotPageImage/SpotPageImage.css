@@ -1,6 +1,6 @@
 .spot-image-container {
     display: flex;
-    gap: 5px;
+    gap: 8px;
     flex-direction: row;
 }
 
@@ -30,7 +30,7 @@
     width: 575px;
     height: 575px;
     overflow: hidden;
-    gap: 5px;
+    gap: 8px;
     border-radius: 0px 15px 15px 0px;
 }
 
@@ -38,7 +38,7 @@
     display: flex;
     width: 100vw;
     height: 287.5px;
-    gap: 5px;
+    gap: 8px;
 }
 
 .spot-image-right-top-container img {
@@ -50,7 +50,7 @@
     display: flex;
     width: 100vw;
     height: 287.5px;
-    gap: 5px;
+    gap: 8px;
 }
 
 .spot-image-right-bottom-container img {
