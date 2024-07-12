@@ -37,9 +37,11 @@ export const loginThunk = (user) => async (dispatch) => {
         }),
     });
 
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
+    if(response.ok) {
+        const data = await response.json();
+        dispatch(setUser(data.user));
+        return response;
+    }
 };
 
 

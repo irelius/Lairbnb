@@ -145,19 +145,19 @@ router.post("/type/:type/typeId/:typeId", [restoreUser, authRequired, imagesAuth
                 return next(error);
             }
         } else if (type === "spot") {
-            const currImages = await Image.findAll({
-                where: {
-                    type: type,
-                    typeId: typeId
-                }
-            })
+            // const currImages = await Image.findAll({
+            //     where: {
+            //         type: type,
+            //         typeId: typeId
+            //     }
+            // })
 
-            // if trying to add photos to a spot, and user is trying to add more than 15 pictures, return error
-            if (currImages.length + images.length > 15) {
-                const error = new Error("Error: Spots are limited to 15 images")
-                error.status = 413;
-                return next(error);
-            }
+            // // if trying to add photos to a spot, and user is trying to add more than 15 pictures, return error
+            // if (currImages.length + images.length > 15) {
+            //     const error = new Error("Error: Spots are limited to 15 images")
+            //     error.status = 413;
+            //     return next(error);
+            // }
         }
 
         for (let i = 0; i < images.length; i++) {

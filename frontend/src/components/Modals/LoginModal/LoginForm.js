@@ -31,12 +31,14 @@ function LoginForm({ setShowLoginForm }) {
         );
     };
 
-    const signInDemo = () => {
+    const signInDemo = (e) => {
+        e.preventDefault()
         const demoUser = {
-            email: "demo@aa.io",
+            email: "demo@user.io",
             password: "password"
         }
         dispatch(loginThunk(demoUser));
+        setShowLoginForm(false)
     }
 
     const changeFocus = (e) => {
@@ -118,7 +120,7 @@ function LoginForm({ setShowLoginForm }) {
                 </form>
             </div>
             <div className="demo-login-container">
-                <button className="button font-12 mouse-pointer border-none demo-login-button" onClick={() => signInDemo()}>Demo Login</button>
+                <button className="button font-12 mouse-pointer border-none demo-login-button" onClick={(e) => signInDemo(e)}>Demo Login</button>
             </div>
             {/* <section className="google-login">
                     Google login functionality to be added

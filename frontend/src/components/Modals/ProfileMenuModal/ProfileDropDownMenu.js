@@ -32,7 +32,7 @@ const ProfileDropDownMenu = () => {
 
     const signInDemo = () => {
         const demoUser = {
-            email: "demo@aa.io",
+            email: "demo@user.io",
             password: "password"
         }
         dispatch(loginThunk(demoUser));
