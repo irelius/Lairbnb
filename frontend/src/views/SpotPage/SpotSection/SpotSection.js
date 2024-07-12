@@ -1,8 +1,7 @@
 import SpotPageImage from "../../../components/SpotPageImage"
 import "./SpotSection.css"
 
-function SpotSection({ spot, reviews }) {
-    const totalReviewsCount = reviews.allReviewsId.length + reviews.userReviewsId.length
+function SpotSection({ spot }) {
 
     return spot.owner ? (
         <div className="spot-section">
@@ -19,32 +18,14 @@ function SpotSection({ spot, reviews }) {
                 {/* TO DO: Add section to detail the rooms available and for how many guests available for */}
                 {/* Example: <section>2 guests · 1 bedroom · 1 bed · 1 bath </section> */}
                 <section className="df-r gap-5">
-                    <i className="spot-star-icon fa-solid fa-star"></i>{spot.avgStarRating}
+                    <i className="spot-star-icon fa-solid fa-star"></i>{spot.averageRating}
                     <aside>
                         ·
                     </aside>
                     <aside>
-                        {totalReviewsCount} reviews
+                        {spot.reviewCount} reviews
                     </aside>
                 </section>
-                {/* <aside>
-                    <i className="spot-star-icon fa-solid fa-star"></i>
-                    <p className="font-semi-bold">
-                        {spot.avgStarRating}
-                    </p>
-                </aside>
-                <aside>·</aside>
-                <aside className="font-semi-bold font-underline">
-                    {totalReviewsCount} reviews
-                </aside>
-                <aside>·</aside>
-                <aside>
-                    {spot.owner.firstName} {spot.owner.lastName}
-                </aside>
-                <aside>·</aside>
-                <aside className="font-semi-bold font-underline">
-                    {spot.city}, {spot.state}, {spot.country}
-                </aside> */}
             </section>
         </div >
     ) : (

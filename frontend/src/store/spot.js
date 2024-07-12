@@ -143,7 +143,13 @@ const spotReducer = (state = initialSpot, action) => {
     const newState = { ...state }
     switch (action.type) {
         case LOAD_SPOT:
-            newState.spots = { [action.payload.spot.id]: { ...action.payload.spot } }
+            newState.spots = {
+                [action.payload.spot.id]: {
+                    ...action.payload.spot,
+                    reviewCount: action.payload.reviewCount,
+                    averageRating: action.payload.averageRating
+                }
+            }
             newState.spotIds = [action.payload.spot.id]
             return newState
         case LOAD_SPOTS:

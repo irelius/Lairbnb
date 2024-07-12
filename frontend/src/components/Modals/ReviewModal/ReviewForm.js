@@ -9,7 +9,7 @@ import { addReviewThunk } from "../../../store/review"
 // verify that the host is not submitting a review
 // verify that the user submitting a review has booked the location
 
-function ReviewForm({ setShowReviewForm }) {
+function ReviewForm({ setShowReviewForm, setReviewSubmitted }) {
     const dispatch = useDispatch()
     const spotId = useParams().spotId;
 
@@ -34,6 +34,7 @@ function ReviewForm({ setShowReviewForm }) {
                 }
             }
         )
+        setReviewSubmitted(prev => !prev)
     }
 
     const handleStarSelection = (rating) => {

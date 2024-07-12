@@ -7,8 +7,7 @@ import formatMonthAndYear from "../../../utils/formatMonthAndYear";
 import LoginForm from "../../../components/Modals/LoginModal/LoginForm";
 import ReviewForm from "../../../components/Modals/ReviewModal";
 
-// { user, spotId, setUpdateReviewAndRating, setReviewDeleted }
-function UserReviewSection({ user, reviews, spot }) {
+function UserReviewSection({ user, reviews, spot, setReviewSubmitted, setReviewDeleted }) {
     const [showLoginForm, setShowLoginForm] = useState(false)
     const [showReviewForm, setShowReviewForm] = useState(false)
 
@@ -16,10 +15,11 @@ function UserReviewSection({ user, reviews, spot }) {
 
     const dispatch = useDispatch()
 
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault()
-        setShowReviewForm(false)
         dispatch(deleteReviewThunk(userReview.id))
+        setShowReviewForm(prev => !prev)
+        setReviewDeleted(prev => !prev)
     }
     // If user is not logged in
     return user.loggedIn === false ? (
@@ -49,7 +49,7 @@ function UserReviewSection({ user, reviews, spot }) {
 
             {showReviewForm ? (
                 <section className="modal" onClick={() => setShowReviewForm(false)}>
-                    <ReviewForm setShowReviewForm={setShowReviewForm} />
+                    <ReviewForm setShowReviewForm={setShowReviewForm} setReviewSubmitted={setReviewSubmitted} />
                 </section>
             ) : (
                 <></>

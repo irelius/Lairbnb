@@ -8,7 +8,7 @@ function ManageListings() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [load, setLoad] = useState(true)
+    const [load, setLoad] = useState(false)
 
     useEffect(() => {
         dispatch(loadUserSpotsThunk());

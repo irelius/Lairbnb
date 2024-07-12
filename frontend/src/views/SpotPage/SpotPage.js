@@ -16,38 +16,23 @@ function SpotPage() {
 
     const [load, setLoad] = useState(false)
     const [reviewSubmitted, setReviewSubmitted] = useState(false)
+    const [reviewDeleted, setReviewDeleted] = useState(false)
     const user = useSelector(state => state.user)
 
     useEffect(() => {
-        dispatch(loadSpotThunk(spotId))
-        dispatch(loadSpotReviewsThunk(spotId)).then(() => {
+        dispatch(loadSpotReviewsThunk(spotId))
+        dispatch(loadSpotThunk(spotId)).then(() => {
             setLoad(true)
         })
-    }, [dispatch, spotId, user, reviewSubmitted])
+    }, [dispatch, spotId, user, reviewSubmitted, reviewDeleted])
 
     const spot = useSelector(state => state.spot.spots[spotId])
     const reviews = useSelector(state => state.review)
 
-    // // fetch the spot's reviews
-    // // TO DO: recalculate the spot review and average when use submits a review
-    // useEffect(() => {
-    //     dispatch(loadReviewsThunk(spotId)).then(() => {
-    //         if (user !== -1) { // fetch user's review if logged in
-    //             dispatch(loadUserReviewThunk(spotId))
-    //         }
-    //     })
-    //     setLoad(true)
-
-    //     return (() => {
-    //         dispatch(resetReview())
-    //     })
-    // }, [dispatch, user, spotId, updateReviewAndRating, reviewDeleted])
-
-
     return load ? (
         <div className="spot-detail-main">
             {/* spot information sectoin */}
-            <section><SpotSection spot={spot} reviews={reviews} /></section>
+            <section><SpotSection spot={spot} /></section>
 
             <section className="spot-line"></section>
 
@@ -56,17 +41,23 @@ function SpotPage() {
                 <section className="review-header gap-5 m-b-20">
                     <i className="fa-solid fa-star fa"></i>
                     <p className="font-semi-bold">
-                        {spot.avgStarRating}
+                        {spot.averageRating}
                     </p>
                     <aside>·</aside>
                     <aside className="font-semi-bold">
-                        {reviews.userReviewsId.length + reviews.allReviewsId.length} reviews
+                        {spot.reviewCount} reviews
                     </aside>
                 </section>
 
                 <section className="reviews df-c">
                     {/* user review section */}
-                    <section><UserReviewSection user={user} reviews={reviews} spot={spot} /></section>
+                    <section><UserReviewSection
+                        user={user}
+                        reviews={reviews}
+                        spot={spot}
+                        setReviewSubmitted={setReviewSubmitted}
+                        setReviewDeleted={setReviewDeleted}
+                    /></section>
 
                     {/* other user review section */}
                     <section className="other-reviews-container"><OtherReviewSection reviews={reviews} /></section>
