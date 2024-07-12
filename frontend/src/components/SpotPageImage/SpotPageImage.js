@@ -15,8 +15,6 @@ const SpotPageImage = ({ images }) => {
         }
     }, [images])
 
-    console.log('booba', images)
-
     return previewImages.length > 0 ? (
         <div className="spot-image-container">
             <section className="spot-image-left-container mouse-pointer">
