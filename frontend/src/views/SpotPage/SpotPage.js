@@ -46,6 +46,7 @@ function SpotPage() {
 
     return load ? (
         <div className="spot-detail-main">
+            {/* spot information sectoin */}
             <section><SpotSection spot={spot} reviews={reviews} /></section>
 
             <section className="spot-line"></section>
@@ -62,8 +63,12 @@ function SpotPage() {
                         {reviews.userReviewsId.length + reviews.allReviewsId.length} reviews
                     </aside>
                 </section>
+
                 <section className="reviews df-c">
+                    {/* user review section */}
                     <section><UserReviewSection user={user} reviews={reviews} spot={spot} /></section>
+
+                    {/* other user review section */}
                     <section className="other-reviews-container"><OtherReviewSection reviews={reviews} /></section>
                 </section>
             </section>
