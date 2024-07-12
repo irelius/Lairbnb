@@ -11,14 +11,14 @@
 .spot-image-left-container {
     position: relative;
     width: 575px;
-    height: 500px;
+    height: 575px;
     overflow: hidden;
 }
 
 .spot-image-left-container img {
     position: absolute;
     width: 575px;
-    height: 500px;
+    height: 575px;
     object-fit: cover;
     border-radius: 15px 0px 0px 15px;
 }
@@ -28,7 +28,7 @@
     flex-direction: column;
     position: relative;
     width: 575px;
-    height: 500px;
+    height: 575px;
     overflow: hidden;
     gap: 5px;
     border-radius: 0px 15px 15px 0px;
@@ -37,7 +37,7 @@
 .spot-image-right-top-container {
     display: flex;
     width: 100vw;
-    height: 250px;
+    height: 287.5px;
     gap: 5px;
 }
 
@@ -49,7 +49,7 @@
 .spot-image-right-bottom-container {
     display: flex;
     width: 100vw;
-    height: 250px;
+    height: 287.5px;
     gap: 5px;
 }
 
