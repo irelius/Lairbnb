@@ -52,7 +52,7 @@ const ProfileDropDownMenu = () => {
             <button className={`border-235 bg-white mouse-pointer profile-button-container${showMenu ? '-shadow' : ''}`} onClick={() => menuSwitch()}>
                 <i className="fa-solid fa-bars profile-bars" />
                 <div className="profile-icon-container">
-                    {loggedIn ? user.firstName.slice(0, 1) : <i className="fa-solid fa-user fa-lg"/>}
+                    {loggedIn ? user.firstName.slice(0, 1) : <i className="fa-solid fa-user fa-2xl" />}
                 </div>
             </button>
             {showMenu ? (
