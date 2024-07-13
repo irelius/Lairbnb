@@ -35,6 +35,7 @@ function ReviewForm({ setShowReviewForm, setReviewSubmitted }) {
             }
         )
         setReviewSubmitted(prev => !prev)
+        setShowReviewForm(false)
     }
 
     const handleStarSelection = (rating) => {

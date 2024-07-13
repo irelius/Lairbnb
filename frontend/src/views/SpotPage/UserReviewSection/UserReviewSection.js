@@ -18,7 +18,6 @@ function UserReviewSection({ user, reviews, spot, setReviewSubmitted, setReviewD
     const handleDelete = async (e) => {
         e.preventDefault()
         dispatch(deleteReviewThunk(userReview.id))
-        setShowReviewForm(prev => !prev)
         setReviewDeleted(prev => !prev)
     }
     // If user is not logged in
