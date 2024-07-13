@@ -65,9 +65,11 @@ export const signupThunk = (user) => async (dispatch) => {
             password,
         }),
     });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
+    if(response.ok) {
+        const data = await response.json();
+        dispatch(setUser(data.user));
+        return response;
+    }
 };
 
 

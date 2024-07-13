@@ -14,12 +14,20 @@ function SignupForm({ setShowSignupForm }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState({});
 
     if (user) {
         return (
             <Redirect to='/' />
         )
+    }
+
+    const handleErrorFix = (errorKey) => {
+        if (errorKey in errors) {
+            const newErrors = { ...errors }
+            delete newErrors[errorKey]
+            setErrors({ ...newErrors })
+        }
     }
 
     const handleSubmit = async (e) => {
@@ -32,17 +40,16 @@ function SignupForm({ setShowSignupForm }) {
             password
         }
 
-        if (password === confirmPassword) {
-            setErrors([]);
-            return dispatch(signupThunk(newUser))
-                .catch(async (res) => {
-                    const data = await res.json();
-                    setErrors((prevErrors) => [...prevErrors, ...Object.values(data.errors)]);
-                });
-        } else {
-            return setErrors(['Passwords do not match']);
+        if (password !== confirmPassword) {
+            return setErrors(prev => ({ ...prev, confirmPassword: "Passwords do not match" }));
         }
-
+        return dispatch(signupThunk(newUser)).catch(
+            async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(prev => ({ ...prev, ...data.errors }))
+                }
+            });
     }
 
     return (
@@ -62,54 +69,86 @@ function SignupForm({ setShowSignupForm }) {
                             className="signup-first-name-input"
                             type="text"
                             placeholder="First Name"
-                            required
                             value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
+                            onChange={(e) => {
+                                setFirstName(e.target.value)
+                                handleErrorFix("firstName")
+                            }}
                         />
                         <input
                             className="signup-last-name-input"
                             type="text"
                             placeholder="Last Name"
-                            required
                             value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
+                            onChange={(e) => {
+                                setLastName(e.target.value)
+                                handleErrorFix("lastName")
+                            }}
                         />
                         <input
                             className="signup-email-input"
                             type="text"
                             placeholder="Email"
-                            required
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => {
+                                setEmail(e.target.value)
+                                handleErrorFix("email")
+                            }}
                         />
                         <input
                             className="signup-password-input"
                             type="password"
                             placeholder="Password"
-                            required
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => {
+                                setPassword(e.target.value)
+                                handleErrorFix("password")
+                            }}
                         />
                         <input
                             className="signup-confirm-input"
                             type="password"
                             placeholder="Confirm Password"
-                            required
                             value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            onChange={(e) => {
+                                setConfirmPassword(e.target.value)
+                                handleErrorFix("confirmPassword")
+                            }}
                         />
                     </section>
-                    {errors.length > 0 ? (
-                        <div className="signup-error-section font-12">
-                            {errors.map((error, idx) => <li key={idx}>
-                                <i className="exclamation-mark fa-solid fa-circle-exclamation" /> {error}
-                            </li>)}
-                        </div>
-                    ) : (
-                        <div className="signup-error-section modal-error-section font-12">
-                            Enter your information to create an account.
-                        </div>
-                    )}
+                    {/* Error Handling */}
+                    <div className="signup-error-section font-12 color-red">
+                        <section className={`${"firstName" in errors ? "error-open" : "error-close"}`}>
+                            <section className="overflow-hidden">
+                                <i className="exclamation-mark fa-solid fa-circle-exclamation" />
+                                {errors.firstName}
+                            </section>
+                        </section>
+                        <section className={`${"lastName" in errors ? "error-open" : "error-close"}`}>
+                            <section className="overflow-hidden">
+                                <i className="exclamation-mark fa-solid fa-circle-exclamation" />
+                                {errors.lastName}
+                            </section>
+                        </section>
+                        <section className={`${"email" in errors ? "error-open" : "error-close"}`}>
+                            <section className="overflow-hidden">
+                                <i className="exclamation-mark fa-solid fa-circle-exclamation" />
+                                {errors.email}
+                            </section>
+                        </section>
+                        <section className={`${"password" in errors ? "error-open" : "error-close"}`}>
+                            <section className="overflow-hidden">
+                                <i className="exclamation-mark fa-solid fa-circle-exclamation" />
+                                {errors.password}
+                            </section>
+                        </section>
+                        <section className={`${"confirmPassword" in errors ? "error-open" : "error-close"}`}>
+                            <section className="overflow-hidden">
+                                <i className="exclamation-mark fa-solid fa-circle-exclamation" />
+                                {errors.confirmPassword}
+                            </section>
+                        </section>
+                    </div>
                     <SubmitButton buttonText="Continue" />
                 </form>
             </section>
