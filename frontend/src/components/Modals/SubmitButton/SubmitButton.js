@@ -7,7 +7,7 @@ function SubmitButton(props) {
     const handleMouseMove = (e) => {
         const rect = e.target.getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
-        const gradientColor = `radial-gradient(ellipse 400px 2000px at ${mouseX}px 50%, rgb(253, 52, 90), rgb(189, 30, 89))`
+        const gradientColor = `radial-gradient(ellipse 400px 10000px at ${mouseX}px 50%, rgb(253, 52, 90), rgb(189, 30, 89))`
         e.target.style.background = gradientColor;
     };
 
@@ -20,7 +20,7 @@ function SubmitButton(props) {
             type="submit"
             className="modal-continue-button font-16 font-semi-bold color-white mouse-pointer"
             style={{
-                background: isHovered ? 'rgb(189, 30, 89)' : 'rgb(189, 30, 89)',
+                background: 'rgb(189, 30, 89)'
             }}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}

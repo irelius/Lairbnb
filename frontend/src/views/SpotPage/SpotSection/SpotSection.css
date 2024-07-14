@@ -1,7 +1,14 @@
+.vertical-line {
+    width: 1px;
+    height: 30px;
+    border-right: 2px solid #DDDDDD;
+}
+
+
 /* ------------------------------------------------------------------------ */
 /* spot section */
 
-.spot-section {
+.spot-section-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,3 +24,76 @@
     font-weight: 550;
     margin-bottom: 20px;
 }
+
+.spot-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.spot-section-details-container {
+    width: 80%;
+}
+
+.spot-section-box-container {
+    display: flex;
+    justify-content: center;
+    margin: 25px;
+}
+
+.spot-section-box {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 75px;
+    width: 350px;
+    border: 1px solid #DDDDDD;
+    border-radius: 15px;
+}
+
+.spot-section-box-stars {
+    display: flex;
+    margin: 5px;
+    gap: 3px;
+    font-size: 9px;
+}
+
+.spot-section-host-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+/* 
+.spot-section-host {
+    display: flex;
+    flex-direction: ;
+} */
+
+.spot-section-box-reviews {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.spot-section-line {
+    border-bottom: 1px solid #DDDDDD;
+    width: 100%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.spot-section-booking-container {
+    position: sticky;
+    padding: 25px;
+    height: 300px;
+    width: 300px;
+    max-width: 350px;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px #E8E8E8;
+}
+
+.spot-section-booking {}

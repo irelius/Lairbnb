@@ -4,13 +4,18 @@
     --red: rgb(193, 53, 21);
     --white: #FFFFFF;
     --off-white: #f7f7f7;
-    --bold: bold;
+    --bold: 700;
     --semi-bold: 600;
+    --light-bold: 550;
+    --light: 300;
     --10: 10px;
     --12: 12px;
     --14: 14px;
     --16: 16px;
     --18: 18px;
+    --20: 20px;
+    --24: 24px;
+    --28: 28px;
 }
 
 body {
@@ -30,9 +35,21 @@ button {
     flex-direction: row;
 }
 
+.df-r-jc {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .df-c {
     display: flex;
     flex-direction: column;
+}
+
+.df-c-ac {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -235,12 +252,32 @@ button {
     font-size: var(--18);
 }
 
+.font-20 {
+    font-size: var(--20);
+}
+
+.font-24 {
+    font-size: var(--24);
+}
+
+.font-28 {
+    font-size: var(--28);
+}
+
 .font-bold {
     font-weight: var(--bold);
 }
 
 .font-semi-bold {
     font-weight: var(--semi-bold);
+}
+
+.font-light-bold {
+    font-weight: var(--light-bold);
+}
+
+.font-light {
+    font-weight: var(--light);
 }
 
 .font-underline {

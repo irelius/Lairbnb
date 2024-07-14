@@ -10,7 +10,6 @@
 
 /* ------------------------------- Divider Line ------------------------------- */
 .spot-line {
-
     border-bottom: 2px solid var(--off-white);
     width: 90vw;
     max-width: 1150px;
@@ -49,7 +48,7 @@
     height: 40px;
 
     border-radius: 100%;
-    background-color: #242424;
+    background-color: #6A6A6A;
 
     font-size: 10px;
     color: white;
