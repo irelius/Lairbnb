@@ -1,54 +1,57 @@
 import { useEffect, useState } from "react"
 import SpotPageImage from "../../../components/SpotPageImage"
-import { calculateHostingTime } from "../../../utils/calculateHostingTime"
+import { calculateDateAndTime, add2Days, calculateDays } from "../../../utils/calculateDateAndTime"
 import "./SpotSection.css"
 import SubmitButton from "../../../components/Modals/SubmitButton/SubmitButton"
 
 function SpotSection({ spot }) {
     // calc how long spot was hosting for
-    const date = calculateHostingTime(spot)
+    const date = calculateDateAndTime(spot)
 
+    const [load, setLoad] = useState(false)
     // calc starting date on when page is loaded
     // calc ending date by adding 2 to startind date
-    const minDate = new Date()
-    let minDatePlus2 = new Date()
-    minDatePlus2.setDate(minDatePlus2.getDate() + 2)
+    const [minDate, setMinDate] = useState(new Date())
+    const [minDatePlus2, setMinDatePlus2] = useState(add2Days(minDate))
 
     const [startDate, setStartDate] = useState(minDate.toISOString().slice(0, 10))
     const [endDate, setEndDate] = useState(minDatePlus2.toISOString().slice(0, 10))
     const [days, setDays] = useState(2)
-
-    // calc difference in days
-    const calculateDays = () => {
-        const tempStart = new Date(startDate)
-        const tempEnd = new Date(endDate)
-
-        const diffTime = Math.abs(tempEnd - tempStart);
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays
-    }
-
-    // change diff in days when startDate and endDate are updated
-    useEffect(() => {
-        setDays(calculateDays())
-        setCost({
-            night: (spot.price * days).toFixed(2),
-            cleaning: (spot.price * days * 0.095).toFixed(2),
-            service: (spot.price * days * 0.142).toFixed(2)
-        })
-        const total = parseFloat(cost.night) + parseFloat(cost.cleaning) + parseFloat(cost.service)
-        setTotalCost(total.toFixed(2))
-    }, [minDate, startDate, endDate])
-
-
     const [cost, setCost] = useState({
         night: 0,
         cleaning: 0,
         service: 0,
+        total: 0,
     })
-    const [totalCost, setTotalCost] = useState(0)
 
-    return spot.owner ? (
+    useEffect(() => {
+        const calculations = async () => {
+            await setCost(prev => ({
+                ...prev,
+                night: (days * spot.price).toFixed(2),
+                cleaning: (days * spot.price * 0.095).toFixed(2),
+                service: (days * spot.price * 0.15).toFixed(2)
+            }))
+            await setDays(calculateDays(startDate, endDate))
+        }
+        calculations()
+    }, [days])
+
+    useEffect(() => {
+        setCost(prev => ({
+            ...prev,
+            total: (parseFloat(cost.night) + parseFloat(cost.cleaning) + parseFloat(cost.service)).toFixed(2)
+        }))
+    }, [cost.night, cost.cleaning, cost.service])
+
+    // a bunch of useeffects chaining off each other to make sure that data required for calculations is present
+    useEffect(() => {
+        if (cost.total > 0) {
+            setLoad(true)
+        }
+    }, [cost.total])
+
+    return load ? (
         <div className="spot-section-container">
             <div className="spot-header font-semi-bold">
                 {spot.name}
@@ -103,11 +106,15 @@ function SpotSection({ spot }) {
                                 <input
                                     className="booking-date-input"
                                     type="date"
-                                    min={minDate}
+                                    min={minDate.toISOString().slice(0, 10)}
                                     value={startDate}
-                                    onChange={(e) => {
-                                        setStartDate(e.target.value)
-                                        setEndDate(e.target.value)
+                                    onChange={async (e) => {
+                                        const diff = calculateDays(e.target.value, endDate)
+                                        await setStartDate(e.target.value)
+                                        if (diff < 2) {
+                                            await setEndDate(add2Days(e.target.value).toISOString().slice(0, 10))
+                                        }
+                                        await setDays(diff)
                                     }}
                                 />
                             </section>
@@ -118,14 +125,19 @@ function SpotSection({ spot }) {
                                 <input
                                     className="booking-date-input mouse-pointer"
                                     type="date"
-                                    min={startDate}
+                                    min={minDatePlus2.toISOString().slice(0, 10)}
                                     value={endDate}
-                                    onChange={(e) => setEndDate(e.target.value)}
+                                    onChange={async (e) => {
+                                        await setEndDate(e.target.value)
+                                        await setDays(calculateDays(startDate, e.target.value))
+                                    }}
                                 />
                             </section>
                         </aside>
                     </section>
-                    <section className="booking-reserve-button">
+                    <section className="booking-reserve-button" onClick={() => {
+                        window.alert("WIP")
+                    }}>
                         <SubmitButton buttonText="Reserve" />
                     </section>
                     <section className="df-r-jc m-t-15">
@@ -143,9 +155,10 @@ function SpotSection({ spot }) {
                         <aside className="font-16 font-underline">Aribnb service fee</aside>
                         <aside className="font-16">${cost.service}</aside>
                     </section>
+                    <section className="spot-section-line"></section>
                     <section className="booking-cost-preview">
                         <aside className="font-16 font-light-bold">Total before taxes</aside>
-                        <aside className="font-16 font-light-bold">${totalCost}</aside>
+                        <aside className="font-16 font-light-bold">${cost.total}</aside>
                     </section>
                 </aside>
             </section>
