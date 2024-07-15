@@ -4,6 +4,14 @@
     border-right: 2px solid #DDDDDD;
 }
 
+.spot-section-line {
+    border-bottom: 1px solid #DDDDDD;
+    width: 100%;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 
 /* ------------------------------------------------------------------------ */
 /* spot section */
@@ -65,11 +73,6 @@
     align-items: center;
     gap: 20px;
 }
-/* 
-.spot-section-host {
-    display: flex;
-    flex-direction: ;
-} */
 
 .spot-section-box-reviews {
     display: flex;
@@ -77,23 +80,65 @@
     align-items: center;
 }
 
-.spot-section-line {
-    border-bottom: 1px solid #DDDDDD;
-    width: 100%;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
 .spot-section-booking-container {
     position: sticky;
     padding: 25px;
-    height: 300px;
     width: 300px;
+    min-width: 350px;
     max-width: 350px;
     border: 1px solid #DDDDDD;
     border-radius: 10px;
     box-shadow: 0px 5px 10px #E8E8E8;
 }
 
-.spot-section-booking {}
+.spot-section-booking {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.booking-start-date-container {
+    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 1px solid var(--gray);
+    border-radius: 10px 0px 0px 10px;
+}
+
+.booking-end-date-container {
+    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 1px solid var(--gray);
+    border-left: none;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.booking-date-input {
+    font-size: 12px;
+    max-width: 125px;
+    min-width: 125px;
+}
+
+.booking-reserve-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+.booking-reserve-button > * {
+    width: 100%;
+}
+
+.booking-cost-preview {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+}

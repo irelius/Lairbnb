@@ -1,11 +1,52 @@
+import { useEffect, useState } from "react"
 import SpotPageImage from "../../../components/SpotPageImage"
 import { calculateHostingTime } from "../../../utils/calculateHostingTime"
 import "./SpotSection.css"
+import SubmitButton from "../../../components/Modals/SubmitButton/SubmitButton"
 
 function SpotSection({ spot }) {
-
+    // calc how long spot was hosting for
     const date = calculateHostingTime(spot)
-    console.log('booba', date)
+
+    // calc starting date on when page is loaded
+    // calc ending date by adding 2 to startind date
+    const minDate = new Date()
+    let minDatePlus2 = new Date()
+    minDatePlus2.setDate(minDatePlus2.getDate() + 2)
+
+    const [startDate, setStartDate] = useState(minDate.toISOString().slice(0, 10))
+    const [endDate, setEndDate] = useState(minDatePlus2.toISOString().slice(0, 10))
+    const [days, setDays] = useState(2)
+
+    // calc difference in days
+    const calculateDays = () => {
+        const tempStart = new Date(startDate)
+        const tempEnd = new Date(endDate)
+
+        const diffTime = Math.abs(tempEnd - tempStart);
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays
+    }
+
+    // change diff in days when startDate and endDate are updated
+    useEffect(() => {
+        setDays(calculateDays())
+        setCost({
+            night: (spot.price * days).toFixed(2),
+            cleaning: (spot.price * days * 0.095).toFixed(2),
+            service: (spot.price * days * 0.142).toFixed(2)
+        })
+        const total = parseFloat(cost.night) + parseFloat(cost.cleaning) + parseFloat(cost.service)
+        setTotalCost(total.toFixed(2))
+    }, [minDate, startDate, endDate])
+
+
+    const [cost, setCost] = useState({
+        night: 0,
+        cleaning: 0,
+        service: 0,
+    })
+    const [totalCost, setTotalCost] = useState(0)
 
     return spot.owner ? (
         <div className="spot-section-container">
@@ -48,27 +89,63 @@ function SpotSection({ spot }) {
                         </aside>
                     </section>
                     <section className="spot-section-line"></section>
-                    <section>{spot.description}</section>
+                    <section className="font-16">{spot.description}</section>
                 </aside>
 
                 <aside className="spot-section-booking-container">
                     <section className="font-16">
-                        <strong className="font-20 font-semi-bold">{`$${spot.price} `}</strong>
-                        night
+                        <strong className="font-20 font-semi-bold">{`$${spot.price} `}</strong> night
                     </section>
                     <section className="spot-section-booking">
-                        <aside>checkin</aside>
-                        <aside>checkout</aside>
+                        <aside className="booking-start-date-container">
+                            <section className="font-10 font-semi-bold">CHECK-IN</section>
+                            <section>
+                                <input
+                                    className="booking-date-input"
+                                    type="date"
+                                    min={minDate}
+                                    value={startDate}
+                                    onChange={(e) => {
+                                        setStartDate(e.target.value)
+                                        setEndDate(e.target.value)
+                                    }}
+                                />
+                            </section>
+                        </aside>
+                        <aside className="booking-end-date-container">
+                            <section className="font-10 font-semi-bold">CHECKOUT</section>
+                            <section className="font-14">
+                                <input
+                                    className="booking-date-input mouse-pointer"
+                                    type="date"
+                                    min={startDate}
+                                    value={endDate}
+                                    onChange={(e) => setEndDate(e.target.value)}
+                                />
+                            </section>
+                        </aside>
                     </section>
-                    <section>
-                        Reserve
+                    <section className="booking-reserve-button">
+                        <SubmitButton buttonText="Reserve" />
                     </section>
-                    <section>
+                    <section className="df-r-jc m-t-15">
                         You won't be charged yet
                     </section>
-                    <section>
-                        <aside># nights</aside>
-                        <aside>Total cost</aside>
+                    <section className="booking-cost-preview">
+                        <aside className="font-16 font-underline">{days} nights</aside>
+                        <aside className="font-16">${cost.night}</aside>
+                    </section>
+                    <section className="booking-cost-preview">
+                        <aside className="font-16 font-underline">Cleaning fee</aside>
+                        <aside className="font-16">${cost.cleaning}</aside>
+                    </section>
+                    <section className="booking-cost-preview">
+                        <aside className="font-16 font-underline">Aribnb service fee</aside>
+                        <aside className="font-16">${cost.service}</aside>
+                    </section>
+                    <section className="booking-cost-preview">
+                        <aside className="font-16 font-light-bold">Total before taxes</aside>
+                        <aside className="font-16 font-light-bold">${totalCost}</aside>
                     </section>
                 </aside>
             </section>
