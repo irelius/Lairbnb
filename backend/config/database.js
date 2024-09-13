@@ -1,4 +1,4 @@
-// backend/config/database.js
+// // backend/config/database.js
 // const config = require('./index');
 
 // module.exports = {
@@ -36,29 +36,29 @@ const host = db.host;
 const schema = db.schema
 
 module.exports = {
-  development: {
-    storage: config.dbFile,
-    dialect: "postgres",
-    seederStorage: "sequelize",
-    logQueryParameters: true,
-    typeValidation: true,
-    username,
-    password,
-    database,
-    host,
-  },
-  production: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
-    seederStorage: 'sequelize',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
+      development: {
+            storage: config.dbFile,
+            dialect: "postgres",
+            seederStorage: "sequelize",
+            logQueryParameters: true,
+            typeValidation: true,
+            username,
+            password,
+            database,
+            host,
+      },
+      production: {
+            use_env_variable: 'DATABASE_URL',
+            dialect: 'postgres',
+            seederStorage: 'sequelize',
+            dialectOptions: {
+                  ssl: {
+                        require: true,
+                        rejectUnauthorized: false
+                  }
+            },
+            define: {
+                  schema: process.env.SCHEMA
+            }
       }
-    },
-    define: {
-      schema: process.env.SCHEMA
-    }
-  }
 };
