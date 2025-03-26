@@ -31,11 +31,12 @@ function ReviewForm({ setShowReviewForm, setReviewSubmitted }) {
                 const data = await res.json()
                 if (data && data.errors) {
                     setErrors(data.errors)
+                } else {
+                    setReviewSubmitted(prev => !prev)
+                    setShowReviewForm(false)
                 }
             }
         )
-        setReviewSubmitted(prev => !prev)
-        setShowReviewForm(false)
     }
 
     const handleStarSelection = (rating) => {

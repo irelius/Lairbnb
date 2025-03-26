@@ -28,7 +28,6 @@ export const clearUsers = () => {
 
 export const loginThunk = (user) => async (dispatch) => {
     const { email, password } = user;
-
     const response = await csrfFetch("/api/users/login", {
         method: "POST",
         body: JSON.stringify({
@@ -36,6 +35,7 @@ export const loginThunk = (user) => async (dispatch) => {
             password,
         }),
     });
+
 
     if(response.ok) {
         const data = await response.json();
