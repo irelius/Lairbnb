@@ -1,6 +1,6 @@
 'use strict';
 
-const { validSpots } = require('../../seederArrays/spotsSeeder')
+const { validSpots } = require('./seederArrays/spotsSeeder')
 
 /** @type {import('sequelize-cli').Migration} */
 
