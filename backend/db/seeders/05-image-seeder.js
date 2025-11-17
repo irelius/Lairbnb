@@ -1,6 +1,6 @@
 'use strict';
 
-const { validImages } = require('../../seederArrays/imagesSeeder')
+const { validImages } = require('./seederArrays/imagesSeeder')
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {

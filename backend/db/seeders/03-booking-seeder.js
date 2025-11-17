@@ -1,6 +1,6 @@
 'use strict';
 
-const { validBookings } = require('../../seederArrays/bookingsSeeder')
+const { validBookings } = require('./seederArrays/bookingsSeeder')
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {

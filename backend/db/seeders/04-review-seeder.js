@@ -1,6 +1,6 @@
 'use strict';
 
-const { validReviews } = require("../../seederArrays/reviewsSeeder")
+const { validReviews } = require("./seederArrays/reviewsSeeder")
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
