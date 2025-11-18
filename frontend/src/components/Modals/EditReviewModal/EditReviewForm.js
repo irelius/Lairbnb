@@ -1,39 +1,40 @@
-import "./ReviewForm.css";
+import "./EditReviewForm.css";
 
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { addReviewThunk } from "../../../store/review";
+import { editReviewThunk } from "../../../store/review";
 
 // to do:
 // verify that the user submitting a review has booked the location
 
-function ReviewForm({ setShowReviewForm, setReviewSubmitted }) {
+function EditReviewForm({ userReview, setShowEditReviewForm, setReviewEdited }) {
 	const dispatch = useDispatch();
 	const spotId = useParams().spotId;
 
-	const [review, setReview] = useState("");
-	const [stars, setStars] = useState(null);
+	const [review, setReview] = useState(userReview.review);
+	const [stars, setStars] = useState(userReview.stars);
 	const [errors, setErrors] = useState({});
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const newReview = {
+		const editedReview = {
 			spotId: spotId,
 			review: review.trim(),
 			stars,
 		};
 
-		dispatch(addReviewThunk(newReview)).catch(async (res) => {
-			const data = await res.json();
+		dispatch(editReviewThunk(userReview.id, editedReview)).catch(async (res) => {
+            const data = await res.json();
+
 			if (data && data.errors) {
 				setErrors(data.errors);
 			}
 		}).then(() => {
-            setReviewSubmitted(prev => !prev)
+            setReviewEdited(prev => !prev)
+            setShowEditReviewForm(false)
         })
-        
 	};
 
 	const handleStarSelection = (rating) => {
@@ -59,7 +60,7 @@ function ReviewForm({ setShowReviewForm, setReviewSubmitted }) {
 			<section
 				className="review-exit-button mouse-pointer bg-off-white-hover"
 				onClick={() => {
-					setShowReviewForm(false);
+					setShowEditReviewForm(false);
 				}}>
 				<i className="fa-solid fa-xmark" />
 			</section>
@@ -70,7 +71,7 @@ function ReviewForm({ setShowReviewForm, setReviewSubmitted }) {
 						handleSubmit(e);
 					}}
 					className="review-form">
-					<section className="review-form-title">Leave Your Review</section>
+					<section className="review-form-title">Edit Your Review</section>
 
 					<textarea
 						className="review-input"
@@ -137,7 +138,7 @@ function ReviewForm({ setShowReviewForm, setReviewSubmitted }) {
 						type="submit"
 						className="submit-review-button mouse-pointer bg-white border-none"
 						onClick={(e) => e.stopPropagation()}>
-						Submit Review
+						Update Review
 					</button>
 				</form>
 			</div>
@@ -145,4 +146,4 @@ function ReviewForm({ setShowReviewForm, setReviewSubmitted }) {
 	);
 }
 
-export default ReviewForm;
+export default EditReviewForm;

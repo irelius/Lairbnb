@@ -53,27 +53,28 @@ export const addReviewThunk = (review) => async (dispatch) => {
 	}
 };
 
-// export const editReview = (review) => {
-//     return {
-//         type: EDIT_REVIEW,
-//         payload: review
-//     }
-// }
+export const editReview = (review) => {
+    return {
+        type: EDIT_REVIEW,
+        payload: review
+    }
+}
 
-// export const editReviewThunk = (spotId, editReview) => async dispatch => {
-//     const response = await csrfFetch(`/api/reviews/${spotId}`, {
-//         method: "PUT",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(editReview)
-//     })
+export const editReviewThunk = (reviewId, reviewData) => async dispatch => {
+    const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reviewData)
+    })
 
-//     if(response.ok) {
-//         const review = await response.json();
-//         dispatch(editReview(review))
-//     }
-// }
+    if(response.ok) {
+        const review = await response.json();
+        dispatch(editReview(review))
+        return review
+    }
+}
 
 export const deleteReview = (review) => {
 	return {

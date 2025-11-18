@@ -9,7 +9,7 @@ const { restoreUser, authRequired } = require("../../utils/authentication.js");
 const { reviewAuthorization, reviewOwnerAuthorization } = require("../../utils/authorization");
 const { notFound, unexpectedError } = require("../../utils/helper.js");
 
-// ___________________________________________________________________________________________________________________
+// ______________________________________________________________________________________________________________
 
 // Route append: "/reviews"
 
@@ -53,7 +53,9 @@ router.get("/:reviewId", [restoreUser, authRequired], async (req, res, next) => 
 				},
 				{
 					model: Spot,
-					attributes: { exclude: ["address", "city", "state", "country", "lat", "lng", "price", "numReviews"] },
+					attributes: {
+						exclude: ["address", "city", "state", "country", "lat", "lng", "price", "numReviews"],
+					},
 				},
 			],
 		});
@@ -75,12 +77,7 @@ router.get("/spots/:spotId", async (req, res, next) => {
 		const spot = await Spot.findByPk(req.params.spotId);
 
 		let userId = req.user ? req.user.id : -1;
-		// if (req.user) {
-		//     userId = req.user.id
-		// } else {
-		//     userId = -1
-		// }
-
+        
 		// error if spot doesn't exist
 		if (!spot) {
 			return next(notFound("Spot", 404));
@@ -196,7 +193,7 @@ router.post(
 // TODO: i don't like how i have the validation here, try to figure out how to implement validation on models and format the try-catch
 router.put(
 	"/:reviewId",
-	[validateReviews, restoreUser, authRequired, reviewAuthorization, reviewOwnerAuthorization],
+	[validateReviews, restoreUser, authRequired, reviewAuthorization],
 	async (req, res, next) => {
 		try {
 			const { review, stars } = req.body;
