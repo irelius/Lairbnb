@@ -81,8 +81,8 @@
 }
 
 .spot-image {
-    width: 375px;
-    height: 355px;
+    width: 20em;
+    height: 20em;
     object-fit: cover;
     border-radius: 10px;
 
