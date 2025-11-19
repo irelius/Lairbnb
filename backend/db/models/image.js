@@ -41,8 +41,8 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 len: [1, 10],
                 checkProperType(value) {
-                    if(value !== "user" && value !== "spot" && value !== "review") {
-                        throw new Error("Image type is not of the valid options (user, spot, or review).")
+                    if(value !== "profile" && value !== "spot" && value !== "review") {
+                        throw new Error("Image type is not of the valid options (profile, spot, or review).")
                     }
                 }
             }
@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: true,
             validate: {
                 checkIfForSpot() {
-                    if (this.type !== "spot") {
+                    if (this.type !== "spot" && this.value === true) {
                         throw new Error("Only images for spots can be set as a preview image.")
                     }
                 }

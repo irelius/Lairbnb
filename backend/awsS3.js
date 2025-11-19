@@ -118,20 +118,20 @@ const storage = multer.memoryStorage({
 const singleMulterUpload = (nameOfKey) =>
 	multer({
 		storage: storage,
-		limits: {
-			fileSize: 2 * 1024 * 1024,
-		},
-		fileFilter: function (req, file, cb) {
-			// Optional: Add a file filter to allow only image types
-			if (file.mimetype !== "image/png" && file.mimetype !== "image/jpg" && file.mimetype !== "image/jpeg") {
-				return cb(
-					new Error("Error: Invalid file format. Please upload only .png, .jpg, or .jpeg formatted files"),
-					false
-				);
-			}
+		// limits: {
+		// 	fileSize: 2 * 1024 * 1024,
+		// },
+		// fileFilter: function (req, file, cb) {
+		// 	// Optional: Add a file filter to allow only image types
+		// 	if (file.mimetype !== "image/png" && file.mimetype !== "image/jpg" && file.mimetype !== "image/jpeg") {
+		// 		return cb(
+		// 			new Error("Error: Invalid file format. Please upload only .png, .jpg, or .jpeg formatted files"),
+		// 			false
+		// 		);
+		// 	}
 
-			cb(null, true);
-		},
+		// 	cb(null, true);
+		// },
 	}).single(nameOfKey);
 
 const multipleMulterUpload = (nameOfKey) =>
