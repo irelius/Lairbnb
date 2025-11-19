@@ -1,6 +1,5 @@
 // components/Header/Header.js
 import './Header.css';
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 

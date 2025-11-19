@@ -1,73 +1,69 @@
-
 .header-wrapper {
-    display: flex;
-    justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 /* ------------------------------------------------------------------------------------- */
 /* Header Main Container */
 
 .header-main-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 
-    padding: 5px;
+	height: 5em;
 
-    height: 75px;
-
-    max-width: 92vw;
-    width: 1150px;
+	margin-left: 15em;
+	margin-right: 14em;
+	width: 100vw;
 }
-
 
 /* ------------------------------------------------------------------------------------- */
 /* Header Left Section */
 
 .header-lairbnb-icon-container {
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 
-    justify-content: center;
-    align-items: center;
+	justify-content: center;
+	align-items: center;
 }
 
 .lairbnb-icon {
-    display: flex;
-    border: none;
-    justify-content: center;
-    align-items: center;
-    height: fit-content
+	display: flex;
+	border: none;
+	justify-content: center;
+	align-items: center;
+	height: fit-content;
 }
 
 .lairbnb-header-text {
-    font-size: x-large;
-    text-decoration: none;
-    color: rgb(255, 56, 92);
+	font-size: x-large;
+	text-decoration: none;
+	color: rgb(255, 56, 92);
 }
-
 
 /* ------------------------------------------------------------------------------------- */
 /* Header Right Section */
 
 .header-right-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .header-host-button-container {
-    display: flex;
+	display: flex;
 
-    margin-right: 20px;
-    height: 40px;
+	margin-right: 20px;
+	height: 40px;
 }
 
 .header-host-button {
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: 15px;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 15px;
 
-    border-radius: 30px;
+	border-radius: 30px;
 }

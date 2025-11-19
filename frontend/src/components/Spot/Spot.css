@@ -2,13 +2,7 @@
 /* Single Spot CSS */
 
 .spot-container {
-    height: 440px;
-    width: 375px;
-    margin: 12px;
-
-    /* margin-top: 20px;
-    padding: 12px;
-    padding-bottom: 90px; */
+    margin: 0.75em;
 }
 
 .spot-description {
@@ -17,6 +11,8 @@
 
     gap: 3px;
     margin-top: 7px;
+
+    max-width: 20em;
 }
 
 .spot-city {
