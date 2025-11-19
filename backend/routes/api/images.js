@@ -7,10 +7,11 @@ const { restoreUser, authRequired } = require("../../utils/authentication");
 const { imagesAuthorization, imageTypeCheck } = require("../../utils/authorization");
 const { notFound, forbidden, unexpectedError } = require("../../utils/helper.js");
 const {
-	multipleMulterUpload,
-	multiplePublicFileUpload,
+	singleMulterUpload,
 	singlePublicFileUpload,
 	singlePublicFileDelete,
+	multipleMulterUpload,
+	multiplePublicFileUpload,
 	multiplePublicFileDelete,
 } = require("../../awsS3.js");
 
@@ -128,6 +129,66 @@ router.get("/type/:type/typeId/:typeId", imageTypeCheck, async (req, res) => {
 //     })
 // })
 
+router.post("/profile/current", [restoreUser, authRequired], multipleMulterUpload("images"), async (req, res) => {
+	try {
+		const userId = req.user.id;
+		const type = "profile";
+		const typeId = userId;
+
+		if (!req.files) {
+			const error = new Error("Error: Provide an image file to serve as your profile image.");
+			error.status = 413;
+			return next(error);
+		}
+
+		// Get the current images for the particular spot/review
+		const currImage = await Image.findOne({
+			where: {
+				type: "profile",
+				typeId: userId,
+			},
+		});
+
+		let images;
+
+		// if a profile image exists, update user's profile image
+		if (currImage) {
+			// Get the file name from the URL where the file is stored on AWS
+			const awsFileName = currImage.url.split("amazonaws.com/")[1];
+
+			// Helper function to send request to delete file from aws storage
+			await singlePublicFileDelete(awsFileName);
+
+			// create new file on storage
+			images = await multiplePublicFileUpload(req.files, type, typeId);
+
+			// Update existing image row for the current user's profile image to have the new aws image url
+			await currImage.update({
+				url: images[0],
+			});
+		}
+
+		// else, create a new profile image
+		else {
+			// upload file to aws bucket
+			images = await multiplePublicFileUpload(req.files, type, typeId);
+
+			// create new row in images table
+			await Image.create({
+				userId: userId,
+				type: "profile",
+				typeId: userId,
+				url: images[0],
+				previewImg: false,
+			});
+		}
+
+		return res.json({ images });
+	} catch (e) {
+		unexpectedError(res, e);
+	}
+});
+
 // upload images to spots and reviews (not profile)
 router.post(
 	"/:type/:typeId",
@@ -146,11 +207,6 @@ router.post(
 				},
 			});
 
-			let images;
-			if (req.files) {
-				images = await multiplePublicFileUpload(req.files, type, typeId);
-			}
-
 			if (type === "review") {
 				// if review already has 5 pictures, return error
 				if (currImages.length + images.length > 5) {
@@ -167,7 +223,12 @@ router.post(
 				}
 			}
 
-            // create new row in Images table of new image
+			let images;
+			if (req.files) {
+				images = await multiplePublicFileUpload(req.files, type, typeId);
+			}
+
+			// create new row in Images table of new image
 			for (let i = 0; i < images.length; i++) {
 				await Image.create({
 					userId: userId,
@@ -176,61 +237,13 @@ router.post(
 					url: images[i],
 				});
 			}
-            
+
 			return res.json({ images });
 		} catch (e) {
 			unexpectedError(res, e);
 		}
 	}
 );
-
-router.post("/profile/users/current", [restoreUser, authRequired, imagesAuthorization], async (req, res) => {
-	try {
-		const userId = req.user.id;
-		const { typeId, type } = req.params;
-
-		let images;
-		if (req.files) {
-			images = await singlePublicFileUpload(req.files);
-		}
-
-		// Get the current images for the particular spot/review
-		const currImages = await Image.findAll({
-			where: {
-				type: type,
-				typeId: typeId,
-			},
-		});
-
-		if (type === "review") {
-			// if review already has 5 pictures, return error
-			if (currImages.length + images.length > 5) {
-				const error = new Error("Error: Reviews are limited to 5 images");
-				error.status = 413;
-				return next(error);
-			}
-		} else if (type === "spot") {
-			// if spot already has 15 pictures, return error
-			if (currImages.length + images.length > 15) {
-				const error = new Error("Error: Spots are limited to 15 images");
-				error.status = 413;
-				return next(error);
-			}
-		}
-
-		for (let i = 0; i < images.length; i++) {
-			await Image.create({
-				userId: userId,
-				type: type,
-				typeId: typeId,
-				url: images[i],
-			});
-		}
-		return res.json({ images });
-	} catch (e) {
-		unexpectedError(res, e);
-	}
-});
 
 // Delete an Image (with AWS)
 router.delete("/:imageId", [restoreUser, authRequired], async (req, res, next) => {
