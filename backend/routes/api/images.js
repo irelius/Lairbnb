@@ -152,6 +152,8 @@ router.post("/profile/current", [restoreUser, authRequired], multipleMulterUploa
 		let images;
 
 		// if a profile image exists, update user's profile image
+        //      delete existing file in aws bucket, create new file, and update db row to have the updated url
+        //      feels like there's a better method than this
 		if (currImage) {
 			// Get the file name from the URL where the file is stored on AWS
 			const awsFileName = currImage.url.split("amazonaws.com/")[1];
