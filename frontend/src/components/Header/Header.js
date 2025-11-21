@@ -20,12 +20,17 @@ function Header({ isLoaded }) {
 				{/* Header left side (logo and name) */}
 				<aside>
 					<section className="header-lairbnb-icon-container mouse-pointer" onClick={() => history.push("/")}>
-						<img
+						{/* <img
 							className="lairbnb-icon"
 							src="https://raw.githubusercontent.com/irelius/Airbnb/main/frontend/public/assets/favicon-32x32.png"
 							alt="lairbnb-icon"
+						/> */}
+                        <img
+							className="lairbnb-icon"
+							src="lairbnb_logo.png"
+							alt="lairbnb-icon"
 						/>
-						<p className="lairbnb-header-text font-bold">Lairbnb</p>
+						{mode === "travel" ? <p className="lairbnb-header-text font-bold">Lairbnb</p> : <></>}
 					</section>
 				</aside>
 
@@ -33,7 +38,7 @@ function Header({ isLoaded }) {
 				{isLoaded && user.loggedIn === true ? (
 					<div className="header-right-container">
 						<aside className="header-host-button-container">
-                            {/* if user is in "travel" mode (making bookings) */}
+							{/* if user is in "travel" mode (making bookings) */}
 							{mode === "travel" ? (
 								<button
 									className="header-host-button bg-off-white-hover bold mouse-pointer"
@@ -43,20 +48,19 @@ function Header({ isLoaded }) {
 									}}>
 									Become a host
 								</button>
-							) :
-                            // else user is in "host" mode (creating a listing for reservation)
-                            (    
+							) : (
+								// user is on "host" mode (managing listings)
 								<button
-									className="header-host-button bg-off-white-hover bold mouse-pointer"
+									className="header-host-button bg-off-white-hover bold mouse-pointer border-gray"
 									onClick={() => {
-                                        setMode("travel")
+										setMode("travel");
 										history.push("/");
 									}}>
-									Switch to traveling
+									Exit
 								</button>
 							)}
 						</aside>
-						<ProfileDropdownMenu />
+						{mode === "travel" ? <ProfileDropdownMenu /> : <></>}
 					</div>
 				) : // {/* If user is not logged in */}
 				isLoaded && user.loggedIn === false ? (
