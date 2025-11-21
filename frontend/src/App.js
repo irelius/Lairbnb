@@ -29,7 +29,7 @@ function App() {
                     <Route exact path="/">
                         <Main />
                     </Route>
-                    <Route exact path="/become-a-host/property-form">
+                    <Route exact path="/hosting">
                         <CreateSpotPage />
                     </Route>
                     <Route exact path="/manage-listings">
