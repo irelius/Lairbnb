@@ -20,17 +20,12 @@ function Header({ isLoaded }) {
 				{/* Header left side (logo and name) */}
 				<aside>
 					<section className="header-lairbnb-icon-container mouse-pointer" onClick={() => history.push("/")}>
-						{/* <img
+						<img
 							className="lairbnb-icon"
-							src="https://raw.githubusercontent.com/irelius/Airbnb/main/frontend/public/assets/favicon-32x32.png"
-							alt="lairbnb-icon"
-						/> */}
-                        <img
-							className="lairbnb-icon"
-							src="lairbnb_logo.png"
+							src="https://raw.githubusercontent.com/irelius/Lairbnb/refs/heads/main/frontend/assets/lairbnb_logo.png"
 							alt="lairbnb-icon"
 						/>
-						{mode === "travel" ? <p className="lairbnb-header-text font-bold">Lairbnb</p> : <></>}
+						{mode === "travel" ? <div className="lairbnb-header-text font-bold">Lairbnb</div> : <></>}
 					</section>
 				</aside>
 

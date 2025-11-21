@@ -31,11 +31,17 @@
 }
 
 .lairbnb-icon {
-	display: flex;
+    display: flex;
 	border: none;
 	justify-content: center;
 	align-items: center;
-	height: fit-content;
+    margin-right: 0.5em;
+    
+    object-fit: cover;
+    height: 3em;
+    width: auto;
+    
+    background-color: orange;
 }
 
 .lairbnb-header-text {
