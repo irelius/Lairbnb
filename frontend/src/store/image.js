@@ -135,7 +135,7 @@ export const addImageThunk = (imageUpload) => async (dispatch) => {
 			body: formData,
 		});
 
-		const test = await response.json();
+		// const test = await response.json();
 
 		// if(res.ok) {
 		//     const images = await res.json()

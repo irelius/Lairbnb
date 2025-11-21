@@ -13,7 +13,7 @@ const SpotPageImage = ({ images }) => {
         if (previewImages.length > 0) {
             setPreviewImages(prev => prev.slice(0, 5))
         }
-    }, [images])
+    }, [images, previewImages.length])
 
     return previewImages.length > 0 ? (
         <div className="spot-image-container">

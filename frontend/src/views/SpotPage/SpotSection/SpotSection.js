@@ -26,13 +26,13 @@ function SpotSection({ spot }) {
 
     useEffect(() => {
         const calculations = async () => {
-            await setCost(prev => ({
+            setCost(prev => ({
                 ...prev,
                 night: (days * spot.price).toFixed(2),
                 cleaning: (days * spot.price * 0.095).toFixed(2),
                 service: (days * spot.price * 0.15).toFixed(2)
             }))
-            await setDays(calculateDays(startDate, endDate))
+            setDays(calculateDays(startDate, endDate))
         }
         calculations()
     }, [days])

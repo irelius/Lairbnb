@@ -12,7 +12,7 @@ function SubmitButton(props) {
     };
 
     const handleMouseLeave = (e) => {
-        e.target.style.background = 'rgb(189, 30, 89)';
+        e.target.style.backgroundImage = 'linear-gradient(0.25turn, #e61e4e, #d70466)';
     };
 
     return (
@@ -20,7 +20,7 @@ function SubmitButton(props) {
             type="submit"
             className="modal-continue-button font-16 font-semi-bold color-white mouse-pointer"
             style={{
-                background: 'rgb(189, 30, 89)'
+                backgroundImage: 'linear-gradient(0.25turn, #e61e4e, #d70466)'
             }}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}

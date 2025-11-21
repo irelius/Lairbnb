@@ -28,6 +28,10 @@ button {
     font-family: Montserrat;
 }
 
+.header-spacing-correction {
+    height: 5em;
+    background-color: white;
+}
 
 /* --------------------------------------------------- Display CSS --------------------------------------------------- */
 .df-r {
