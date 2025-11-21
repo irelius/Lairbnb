@@ -46,13 +46,13 @@ function CreateSpot() {
     return (
         <div className="create-spot-main">
 
-            <aside className="left">
+            {/* <aside className="left">
                 <h1 className="left-header">
                     What kind of place will you host?
                 </h1>
-            </aside>
+            </aside> */}
 
-            <aside className="right bg-white">
+            {/* <aside className="right bg-white">
                 <div className="back-button-container">
                     <NavLink exact to="/">
                         <div className="back-button border-none">
@@ -141,12 +141,10 @@ function CreateSpot() {
                                 Host Your Spot
                             </button>
                         </div>
-                        {/* <div className="map-container">
-                            <Maps />
-                        </div> */}
+                        
                     </form>
                 </div>
-            </aside>
+            </aside> */}
         </div>
     )
 }
