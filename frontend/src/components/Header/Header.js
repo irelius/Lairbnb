@@ -1,7 +1,7 @@
 // components/Header/Header.js
 import "./Header.css";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -14,12 +14,25 @@ function Header({ isLoaded }) {
 	const { mode, setMode } = useContext(ModeContext);
 	const user = useSelector((state) => state.user);
 
+	// Change "mode" global context if user goes directly to "/hosting"
+	useEffect(() => {
+		const currURL = window.location.href;
+		if (currURL.includes("/hosting")) {
+			setMode("host");
+		}
+	}, []);
+
 	return (
 		<div className="header-wrapper">
 			<div className="header-main-container border-bot-235">
 				{/* Header left side (logo and name) */}
 				<aside>
-					<section className="header-lairbnb-icon-container mouse-pointer" onClick={() => history.push("/")}>
+					<section
+						className="header-lairbnb-icon-container mouse-pointer"
+						onClick={() => {
+							history.push("/");
+                            setMode("travel")
+						}}>
 						<img
 							className="lairbnb-icon"
 							src="https://raw.githubusercontent.com/irelius/Lairbnb/refs/heads/main/frontend/assets/lairbnb_logo.png"
@@ -46,7 +59,7 @@ function Header({ isLoaded }) {
 							) : (
 								// user is on "host" mode (managing listings)
 								<button
-									className="header-host-button bg-off-white-hover bold mouse-pointer border-gray"
+									className="header-host-button bg-off-white-hover font-bold mouse-pointer border-gray"
 									onClick={() => {
 										setMode("travel");
 										history.push("/");

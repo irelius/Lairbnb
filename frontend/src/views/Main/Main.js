@@ -1,14 +1,21 @@
 import "./Main.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Spot from "../../components/Spot/Spot";
 import { loadAllSpotsThunk } from "../../store/spot";
-import { loadAllImagesThunk } from "../../store/image";
+// import { loadAllImagesThunk } from "../../store/image";
+import { ModeContext } from "../../context/Mode/Mode";
 
 function Main() {
 	const dispatch = useDispatch();
 
+    const { mode, setMode } = useContext(ModeContext);
 	const [load, setLoad] = useState(false);
+    
+	// Set mode to "travel"
+	useEffect(() => {
+		setMode("travel")
+	}, []);
 
 	useEffect(() => {
 		dispatch(loadAllSpotsThunk());

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 import Main from "./views/Main/Main";
 import CreateSpotPage from "./views/CreateSpot/CreateSpot";
 import SpotPage from "./views/SpotPage/SpotPage";
@@ -15,41 +15,43 @@ import * as userActions from "./store/user";
 import Test from "./test";
 
 function App() {
-    const dispatch = useDispatch();
-    const [isLoaded, setIsLoaded] = useState(false);
-    useEffect(() => {
-        dispatch(userActions.restoreUserThunk()).then(() => setIsLoaded(true));
-    }, [dispatch]);
+	const dispatch = useDispatch();
+	const [isLoaded, setIsLoaded] = useState(false);
+	useEffect(() => {
+		dispatch(userActions.restoreUserThunk()).then(() => setIsLoaded(true));
+	}, [dispatch]);
 
-    return isLoaded && (
-        <>
-            <Header isLoaded={isLoaded} />
-            {isLoaded && (
-                <Switch>
-                    <Route exact path="/">
-                        <Main />
-                    </Route>
-                    <Route exact path="/hosting">
-                        <CreateSpotPage />
-                    </Route>
-                    <Route exact path="/manage-listings">
-                        <ManageListings />
-                    </Route>
-                    <Route exact path="/edit-spot/:spotId">
-                        <EditSpot />
-                    </Route>
-                    <Route exact path="/spot-details/:spotId">
-                        <SpotPage />
-                    </Route>
-                    <Route exact path="/test">
-                        <Test />
-                    </Route>
-                </Switch>
-            )}
-            <Footer />
-        </>
-
-    );
+	return (
+		isLoaded && (
+			<>
+				<Header isLoaded={isLoaded} />
+				<div className="header-spacing-correction"></div>
+				{isLoaded && (
+					<Switch>
+						<Route exact path="/">
+							<Main />
+						</Route>
+						<Route exact path="/hosting">
+							<CreateSpotPage />
+						</Route>
+						<Route exact path="/manage-listings">
+							<ManageListings />
+						</Route>
+						<Route exact path="/edit-spot/:spotId">
+							<EditSpot />
+						</Route>
+						<Route exact path="/spot-details/:spotId">
+							<SpotPage />
+						</Route>
+						<Route exact path="/test">
+							<Test />
+						</Route>
+					</Switch>
+				)}
+				<Footer />
+			</>
+		)
+	);
 }
 
 export default App;
