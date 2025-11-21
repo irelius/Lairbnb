@@ -1,5 +1,7 @@
 // components/Header/Header.js
-import "./Header.css";
+import './Header.css';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
