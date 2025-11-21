@@ -9,13 +9,13 @@ import { ModeContext } from "../../context/Mode/Mode";
 function Main() {
 	const dispatch = useDispatch();
 
-    const { mode, setMode } = useContext(ModeContext);
+	const { setMode } = useContext(ModeContext);
 	const [load, setLoad] = useState(false);
-    
+
 	// Set mode to "travel"
 	useEffect(() => {
-		setMode("travel")
-	}, []);
+		setMode("travel");
+	}, [setMode]);
 
 	useEffect(() => {
 		dispatch(loadAllSpotsThunk());

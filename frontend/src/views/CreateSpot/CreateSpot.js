@@ -1,8 +1,8 @@
 import "./CreateSpot.css";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addSpotThunk } from "../../store/spot";
+// import { addSpotThunk } from "../../store/spot";
 
 import step1Image from "../../assets/create_listing/step_1.png";
 import step2Image from "../../assets/create_listing/step_2.png";
@@ -39,7 +39,7 @@ function CreateSpot() {
 							</section>
 						</aside>
 						<aside>
-							<img src={step1Image} />
+							<img src={step1Image} alt="create-new-listing-step-one-image"/>
 						</aside>
 					</section>
 					<section className="create-spot-separator-line"></section>
@@ -52,7 +52,7 @@ function CreateSpot() {
 							</section>
 						</aside>
 						<aside>
-							<img src={step2Image} />
+							<img src={step2Image} alt="create-new-listing-step-two-image"/>
 						</aside>
 					</section>
 					<section className="create-spot-separator-line"></section>
@@ -65,7 +65,7 @@ function CreateSpot() {
 							</section>
 						</aside>
 						<aside>
-							<img src={step3Image} />
+							<img src={step3Image} alt="create-new-listing-step-three-image"/>
 						</aside>
 					</section>
 				</aside>

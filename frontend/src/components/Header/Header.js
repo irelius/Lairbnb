@@ -20,7 +20,7 @@ function Header({ isLoaded }) {
 		if (currURL.includes("/hosting")) {
 			setMode("host");
 		}
-	}, []);
+	}, [setMode]);
 
 	return (
 		<div className="header-wrapper">
