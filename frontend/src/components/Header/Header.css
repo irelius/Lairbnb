@@ -1,6 +1,15 @@
 .header-wrapper {
 	display: flex;
 	justify-content: center;
+
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+
+    z-index: 100;
+
+    background-color: white;
 }
 
 /* ------------------------------------------------------------------------------------- */
@@ -35,7 +44,13 @@
 	border: none;
 	justify-content: center;
 	align-items: center;
-	height: fit-content;
+	margin-right: 0.5em;
+
+	object-fit: cover;
+	height: 3em;
+	width: auto;
+
+	background-color: orange;
 }
 
 .lairbnb-header-text {

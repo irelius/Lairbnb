@@ -1,8 +1,6 @@
 .all-spots-container {
     display: flex;
     justify-content: center;
-
-    width: 100vw;
 }
 
 .all-spots {
@@ -10,8 +8,9 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	margin-bottom: 50px;
-
-    width: 90%;
+    
+    margin-left: 5em;
+    margin-right: 4em;
 }
 
 /*# sourceMappingURL=Main.css.map */

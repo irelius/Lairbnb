@@ -63,6 +63,10 @@
 
 }
 
+.login-submit-button-container {
+    width: 85%;
+}
+
 .demo-login-container {
     display: flex;
     justify-content: center;

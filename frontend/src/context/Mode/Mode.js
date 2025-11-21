@@ -1,6 +1,5 @@
 // frontend/src/context/Mode/Mode.js
-import React, { useContext, useRef, useState, useEffect } from "react";
-import ReactDOM from "react-dom";
+import React, { useState } from "react";
 import "./Mode.css";
 
 export const ModeContext = React.createContext();
