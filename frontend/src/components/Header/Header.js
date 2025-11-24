@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 import { ModeContext } from "../../context/Mode/Mode";
 import ProfileDropdownMenu from "../Modals/ProfileMenuModal";
+import LairbnbIcon from "../../assets/lairbnb_logo.png"
 
 function Header({ isLoaded }) {
 	const history = useHistory();
@@ -22,7 +23,7 @@ function Header({ isLoaded }) {
 					<section className="header-lairbnb-icon-container mouse-pointer" onClick={() => history.push("/")}>
                         <img
 							className="lairbnb-icon"
-							src="lairbnb_logo.png"
+							src={LairbnbIcon}
 							alt="lairbnb-icon"
 						/>
 						{mode === "travel" ? <p className="lairbnb-header-text font-bold">Lairbnb</p> : <></>}
