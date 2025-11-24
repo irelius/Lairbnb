@@ -12,6 +12,8 @@
     height: 50px;
 
     z-index: 999;
+
+    border-top: 5px solid lightgray;
 }
 
 .footer-left {

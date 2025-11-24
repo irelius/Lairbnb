@@ -4,7 +4,7 @@ function Footer() {
     return (
         <div className="footer bg-white border-top-235">
             <div className="footer-left">
-                <p>Samuel Bae - 2024 Lairbnb</p>
+                <p>Samuel Bae - 2025 Lairbnb</p>
             </div>
             <div className="footer-right">
                 <a href="https://samuelbae.netlify.app" target="_blank" rel="noreferrer">Portfolio</a>
