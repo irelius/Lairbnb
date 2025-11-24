@@ -1,0 +1,35 @@
+.create-spot-2-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+    flex: 1; 
+}
+
+.create-spot-2-center {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3em;
+    
+    margin-right: 53em;
+    
+    width: 43em;
+}
+
+.create-spot-2-step {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.create-spot-2-header {
+    font-size: 45px;
+    font-weight: 550;
+    letter-spacing: -0.05em;
+}
+
+.create-spot-2-desc {
+    font-size: 18px;
+    line-height: 1.5em;
+    letter-spacing: -0.03em;
+    font-weight: 500;
+}

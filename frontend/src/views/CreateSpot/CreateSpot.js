@@ -1,75 +1,65 @@
 import "./CreateSpot.css";
 import { useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { addSpotThunk } from "../../store/spot";
 
-import step1Image from "../../assets/create_listing/step_1.png";
-import step2Image from "../../assets/create_listing/step_2.png";
-import step3Image from "../../assets/create_listing/step_3.png";
+import { ModeContext } from "../../context/Mode/Mode";
+
 import SubmitButton from "../../components/Modals/SubmitButton/SubmitButton";
+import CreateSpotPage1 from "./CreateSpotPages/Page1/CreateSpotPage1";
+import CreateSpotPage2 from "./CreateSpotPages/Page2/CreateSpotPage2";
+import CreateSpotPage3 from "./CreateSpotPages/Page3/CreateSpotPage3";
 
 function CreateSpot() {
 	const dispatch = useDispatch();
 
+	const { setMode } = useContext(ModeContext);
+
 	const history = useHistory();
 	const currentUser = useSelector((state) => state.user.user);
 
-	// Which page of the listing creation process
-
-	const [page, setPage] = useState(1);
-
+	// If user isn't logged in, redirect back to home
 	if (!currentUser) {
 		history.push("/");
 	}
 
+	// Which page of the listing creation process
+	const [page, setPage] = useState(1);
+	const changePage = () => {
+		setPage((prev) => prev + 1);
+	};
+
+	useEffect(() => {
+		setMode("host");
+		console.log("booba", page);
+	}, [page]);
+
+	return (
+		<div className="create-spot-main-container">
+			{page === 1 ? (
+				<CreateSpotPage1 changePage={changePage} />
+			) : page === 2 ? (
+				<CreateSpotPage2 changePage={changePage} />
+			) : (
+				<CreateSpotPage3 changePage={changePage} />
+			)}
+			<div className="create-spot-footer-container">
+				<section className="create-spot-footer-bar"> </section>
+				<section
+					className="create-spot-get-started-button mouse-pointer"
+					onClick={() => {
+						setPage((prev) => prev + 1);
+					}}>
+					<SubmitButton buttonText="Get Started" />
+				</section>
+			</div>
+		</div>
+	);
+
 	return page === 1 ? (
 		<div>
-			<div className="create-spot-container">
-				<aside className="create-spot-left-container">
-					<section className="create-spot-left">It's easy to get started on Lairbnb</section>
-				</aside>
-				<aside className="create-spot-right-container">
-					<section className="create-spot-step-container">
-						<aside className="create-spot-step-number">1</aside>
-						<aside className="create-spot-step-text">
-							<section className="create-spot-step-header">Tell us about your place</section>
-							<section className="create-spot-step-desc">
-								Share some basic info, like where it is and how many guests can stay.
-							</section>
-						</aside>
-						<aside>
-							<img src={step1Image} alt="create-new-listing-step-one-image"/>
-						</aside>
-					</section>
-					<section className="create-spot-separator-line"></section>
-					<section className="create-spot-step-container">
-						<aside className="create-spot-step-number">2</aside>
-						<aside className="create-spot-step-text">
-							<section className="create-spot-step-header">Make it stand out</section>
-							<section className="create-spot-step-desc">
-								Add 5 or more photos plus a title and description-- we'll help you out.
-							</section>
-						</aside>
-						<aside>
-							<img src={step2Image} alt="create-new-listing-step-two-image"/>
-						</aside>
-					</section>
-					<section className="create-spot-separator-line"></section>
-					<section className="create-spot-step-container">
-						<aside className="create-spot-step-number">3</aside>
-						<aside className="create-spot-step-text">
-							<section className="create-spot-step-header">Finish up and publish</section>
-							<section className="create-spot-step-desc">
-								Choose a starting price, verify a few details, then publish your listing
-							</section>
-						</aside>
-						<aside>
-							<img src={step3Image} alt="create-new-listing-step-three-image"/>
-						</aside>
-					</section>
-				</aside>
-			</div>
+			<CreateSpotPage1 setPage={setPage} />
 			<div className="create-spot-footer-container">
 				<section className="create-spot-footer-bar"> </section>
 				<section

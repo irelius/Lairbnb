@@ -1,0 +1,62 @@
+/* ------------------------------------------------------------------------------------- */
+/* Create Spot Page 1 */
+.create-spot-1-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+
+    flex: 1;
+}
+
+/* Left section */
+.create-spot-1-left-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.create-spot-1-left {
+	width: 10em;
+
+	font-size: 55px;
+	font-weight: 600;
+}
+
+/* Right section */
+.create-spot-1-right-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.create-spot-1-step-container {
+	display: flex;
+	flex-direction: row;
+
+	gap: 1em;
+
+	width: 45em;
+}
+
+.create-spot-1-step-number {
+	font-size: 22px;
+	font-weight: 550;
+}
+
+.create-spot-1-step-text {
+	display: flex;
+	flex-direction: column;
+
+	gap: 0.5em;
+}
+
+.create-spot-1-step-header {
+	font-size: 22px;
+	font-weight: 550;
+}
+
+.create-spot-1-step-desc {
+	font-size: 18px;
+	font-weight: 400;
+}

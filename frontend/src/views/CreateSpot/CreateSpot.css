@@ -1,62 +1,13 @@
-.create-spot-container {
-	display: flex;
-	align-items: center;
-	justify-content: space-evenly;
-
-    margin-top: 7em;
-}
-
-.create-spot-left-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.create-spot-left {
-	width: 10em;
-
-	font-size: 55px;
-	font-weight: 600;
-}
-
-.create-spot-right-container {
+/* ------------------------------------------------------------------------------------- */
+/* Create Spot Main container (for all pages) */
+.create-spot-main-container {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	height: calc(100vh - 10em);
 }
 
-.create-spot-step-container {
-	display: flex;
-	flex-direction: row;
-
-	gap: 1em;
-
-	width: 45em;
-}
-
-.create-spot-step-number {
-	font-size: 22px;
-	font-weight: 550;
-}
-
-.create-spot-step-text {
-	display: flex;
-	flex-direction: column;
-
-	gap: 0.5em;
-}
-
-.create-spot-step-header {
-	font-size: 22px;
-	font-weight: 550;
-}
-
-.create-spot-step-desc {
-	font-size: 18px;
-	font-weight: 400;
-}
-
+/* ------------------------------------------------------------------------------------- */
+/* Create Spot Footer */
 .create-spot-footer-container {
 	display: flex;
 	flex-direction: column;
@@ -72,11 +23,6 @@
 	background-color: white;
 }
 
-/* .create-spot-get-started-container {
-    display: flex;
-    justify-content: end;
-} */
-
 .create-spot-footer-bar {
 	width: 100%;
 
@@ -84,6 +30,7 @@
 	height: 0.5em;
 }
 
+/* "Get Started" footer button */
 .create-spot-get-started-button {
 	height: 4em;
 	width: 12em;
@@ -96,7 +43,7 @@
 	width: 90%;
 
 	margin: 1em;
-    margin-bottom: 1.75em;
+	margin-bottom: 1.75em;
 }
 
 /* ------------------------------------------------------------------------------------- */
