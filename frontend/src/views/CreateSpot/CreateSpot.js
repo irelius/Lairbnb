@@ -26,9 +26,6 @@ function CreateSpot() {
 
 	// Which page of the listing creation process
 	const [page, setPage] = useState(1);
-	const changePage = () => {
-		setPage((prev) => prev + 1);
-	};
 
 	useEffect(() => {
 		setMode("host");
@@ -37,22 +34,53 @@ function CreateSpot() {
 
 	return (
 		<div className="create-spot-main-container">
+			{/* Depending on page #, display different page components */}
+			{page === 1 ? <CreateSpotPage1 /> : page === 2 ? <CreateSpotPage2 /> : <CreateSpotPage3 />}
+
+			{/* If on first page, display solid footer bar */}
 			{page === 1 ? (
-				<CreateSpotPage1 changePage={changePage} />
-			) : page === 2 ? (
-				<CreateSpotPage2 changePage={changePage} />
+				<div className="create-spot-footer-bar"></div>
 			) : (
-				<CreateSpotPage3 changePage={changePage} />
+				// If on other pages, display sectioned footer bar
+				<div className="create-spot-footer-section-container">
+					<section className={`create-spot-footer-section-${page >= 1}`}></section>
+					<section className={`create-spot-footer-section-${page >= 2}`}></section>
+					<section className={`create-spot-footer-section-${page >= 3}`}></section>
+				</div>
 			)}
+
+            {/* Depending on page #, display different footer buttons */}
 			<div className="create-spot-footer-container">
-				<section className="create-spot-footer-bar"> </section>
-				<section
-					className="create-spot-get-started-button mouse-pointer"
-					onClick={() => {
-						setPage((prev) => prev + 1);
-					}}>
-					<SubmitButton buttonText="Get Started" />
-				</section>
+				<div className="create-spot-footer-buttons-container">
+					<aside className="create-spot-footer-buttons-left">
+						{page === 1 ? (
+							<></>
+						) : (
+							<section
+								className="create-spot-footer-back-button mouse-pointer"
+								onClick={() => {
+									setPage((prev) => prev - 1);
+								}}>
+								Back
+							</section>
+						)}
+					</aside>
+					<aside className="create-spot-footer-buttons-right">
+						{page === 1 ? (
+							<section
+								className="create-spot-get-started-button mouse-pointer"
+								onClick={() => {
+									setPage((prev) => prev + 1);
+								}}>
+								<SubmitButton buttonText="Get Started" />
+							</section>
+						) : (
+							<section className="create-spot-next-button mouse-pointer">
+								<button onClick={() => setPage((prev) => prev + 1)}>Next</button>
+							</section>
+						)}
+					</aside>
+				</div>
 			</div>
 		</div>
 	);

@@ -4,7 +4,7 @@ import step1Image from "../../../../assets/create_listing/step_1.png";
 import step2Image from "../../../../assets/create_listing/step_2.png";
 import step3Image from "../../../../assets/create_listing/step_3.png";
 
-function CreateSpotPage1({ changePage }) {
+function CreateSpotPage1() {
 	return (
 		<div className="create-spot-1-container">
 			<aside className="create-spot-1-left-container">

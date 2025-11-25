@@ -26,7 +26,7 @@ function Header({ isLoaded }) {
 							src={LairbnbIcon}
 							alt="lairbnb-icon"
 						/>
-						{mode === "travel" ? <p className="lairbnb-header-text font-bold">Lairbnb</p> : <></>}
+						{mode === "travel" ? <p className="lairbnb-header-text font-bold">lairbnb</p> : <></>}
 					</section>
 				</aside>
 

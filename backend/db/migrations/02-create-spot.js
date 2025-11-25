@@ -58,6 +58,22 @@ module.exports = {
                     type: Sequelize.TEXT,
                     allowNull: false,
                 },
+                guest: {
+                    type: Sequelize.INTEGER(),
+                    defaultValue: 2
+                },
+                bedroom: {
+                    type: Sequelize.INTEGER(),
+                    defaultValue: 0
+                },
+                bed: {
+                    type: Sequelize.INTEGER(),
+                    defaultValue: 1
+                },
+                bathroom: {
+                    type: Sequelize.INTEGER(),
+                    defaultValue: 1
+                },
                 price: {
                     type: Sequelize.DECIMAL,
                     allowNull: false,

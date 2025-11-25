@@ -3,22 +3,17 @@
 .create-spot-main-container {
 	display: flex;
 	flex-direction: column;
-	height: calc(100vh - 10em);
+	height: calc(100vh - 5em - 50px);
 }
 
 /* ------------------------------------------------------------------------------------- */
 /* Create Spot Footer */
 .create-spot-footer-container {
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: end;
-	gap: 0.5em;
+	flex-direction: row;
+	align-items: center;
 
-	position: fixed;
-	left: 0;
-	right: 0;
-	bottom: 50px;
+	height: 5em;
 
 	background-color: white;
 }
@@ -30,22 +25,80 @@
 	height: 0.5em;
 }
 
-/* "Get Started" footer button */
-.create-spot-get-started-button {
-	height: 4em;
-	width: 12em;
+.create-spot-footer-section-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 
+    gap: 0.5em;
+}
+
+.create-spot-footer-section-true {
+	height: 0.5em;
+	background-color: orange;
+}
+
+.create-spot-footer-section-false {
+	height: 0.5em;
+	background-color: blue;
+}
+
+.create-spot-footer-buttons-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	width: 100%;
+}
+
+/* Create Spot Footer Buttons - Left */
+.create-spot-footer-buttons-left {
+	margin-left: 3em;
+}
+
+.create-spot-footer-back-button {
+	font-size: 16px;
+	font-weight: 550;
+	text-decoration: underline;
+
+	color: #222222;
+}
+
+.create-spot-footer-back-button:hover {
+	color: black;
+}
+
+/* Create Spot Footer Buttons - Right */
+.create-spot-footer-buttons-right {
 	margin-right: 3em;
 }
 
-.create-spot-separator-line {
-	border-top: 1px solid lightgray;
-	width: 90%;
-
-	margin: 1em;
-	margin-bottom: 1.75em;
+.create-spot-get-started-button {
+	width: 11em;
 }
 
+.create-spot-next-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	height: 3em;
+	width: 6em;
+
+	color: white;
+	font-weight: 500;
+	font-size: 18px;
+
+	border-radius: 0.5em;
+
+	background-color: #222222;
+}
+
+.create-spot-next-button:hover {
+	background-color: black;
+}
+
+/* ------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------- */
 /* Create Spot CSS */
 
