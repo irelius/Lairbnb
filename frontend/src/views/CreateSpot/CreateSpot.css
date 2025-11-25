@@ -6,6 +6,14 @@
 	height: calc(100vh - 5em - 50px);
 }
 
+/* Create Spot Page */
+.create-spot-container {
+    display: flex;
+	justify-content: center;
+	align-items: center;
+    flex: 1; 
+}
+
 /* ------------------------------------------------------------------------------------- */
 /* Create Spot Footer */
 .create-spot-footer-container {

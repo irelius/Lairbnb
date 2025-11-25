@@ -1,0 +1,88 @@
+/* Create Spot Step 2b (Page 6) */
+.create-spot-2b-container {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 2em;
+}
+
+/* Create Spot Step 2b header section */
+.create-spot-2b-section-0 {
+    display: flex;
+    flex-direction: column;
+    
+    width: 35%;
+
+    gap: 0.5em;
+    padding-top: 2em;
+}
+
+.create-spot-2b-header {
+    font-size: 32px;
+	font-weight: 600;
+	letter-spacing: -0.06em;
+}
+
+.create-spot-2b-subheader {
+    font-size: 16px;
+    font-weight: 500;
+    
+    color: gray;
+}
+
+/* Create Spot Step 2b - amenities selection section */
+.create-spot-2b-section-container {
+    display: flex;
+    flex-direction: column;
+    
+    width: 35%;
+    
+    gap: 1em;
+    margin-bottom: 1em;
+}
+
+.create-spot-2b-section-header {
+    font-size: 18px;
+    font-weight: 550;
+}
+
+.create-spot-2b-section-amenities {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    gap: 1em;
+}
+
+.create-spot-amenity {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+
+	border: 1px solid lightgray;
+	outline: 0px solid black;
+	border-radius: 10px;
+
+	padding: 1em;
+    padding-left: 0.75em;
+
+	font-size: 24px;
+
+	transition: outline-width 0.05s ease;
+}
+
+.create-spot-amenity:hover {
+	outline-width: 2px;
+	cursor: pointer;
+}
+
+.create-spot-amenity-selected-true {
+    outline-width: 2px;
+}
+
+.create-spot-amenity > aside {
+	font-size: 16px;
+	font-weight: 500;
+}

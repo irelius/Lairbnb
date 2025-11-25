@@ -7,9 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { ModeContext } from "../../context/Mode/Mode";
 
 import SubmitButton from "../../components/Modals/SubmitButton/SubmitButton";
-import CreateSpotPage1 from "./CreateSpotPages/Page1/CreateSpotPage1";
-import CreateSpotPage2 from "./CreateSpotPages/Page2/CreateSpotPage2";
-import CreateSpotPage3 from "./CreateSpotPages/Page3/CreateSpotPage3";
+import CreateSpotStep0 from "./CreateSpotPages/Step0/CreateSpotStep0";
+import CreateSpotStep1a from "./CreateSpotPages/Step1a/CreateSpotStep1a";
+import CreateSpotStep1b from "./CreateSpotPages/Step1b/CreateSpotStep1b";
+import CreateSpotStep1c from "./CreateSpotPages/Step1c/CreateSpotStep1c";
+import CreateSpotStep2a from "./CreateSpotPages/Step2a/CreateSpotStep2a";
+import CreateSpotStep2b from "./CreateSpotPages/Step2b/CreateSpotStep2b";
 
 function CreateSpot() {
 	const dispatch = useDispatch();
@@ -24,18 +27,77 @@ function CreateSpot() {
 		history.push("/");
 	}
 
+	// make sure the global variable is set to "host" (controls which type of header to show)
+	useEffect(() => {
+		setMode("host");
+	}, []);
+
 	// Which page of the listing creation process
 	const [page, setPage] = useState(1);
 
-	useEffect(() => {
-		setMode("host");
-		console.log("booba", page);
-	}, [page]);
+	const [disableNextButton, setDisableNextButton] = useState(false);
+
+	// what type of place is this new listing?
+	const [selected, setSelected] = useState({
+		house: false,
+		apartment: false,
+		"bed&breakfast": false,
+		boat: false,
+		"camper/RV": false,
+		castle: false,
+		guesthouse: false,
+		hotel: false,
+		tent: false,
+	});
+
+	// what amenities is provided
+	const [amenities, setAmenities] = useState({
+		// section 1 - guest favorites
+		wifi: false,
+		tv: false,
+		kitchen: false,
+		washer: false,
+		freeParking: false,
+		airConditioning: false,
+		// section 2 - standout amenities
+		pool: false,
+		hotTub: false,
+		bbqGrill: false,
+		indoorFireplace: false,
+		exerciseEquipment: false,
+		beachAccess: false,
+		// section 3 - safety items
+		smokeAlarm: false,
+		firstAidKit: false,
+		fireExtinguisher: false,
+	});
 
 	return (
 		<div className="create-spot-main-container">
 			{/* Depending on page #, display different page components */}
-			{page === 1 ? <CreateSpotPage1 /> : page === 2 ? <CreateSpotPage2 /> : <CreateSpotPage3 />}
+			{page === 1 ? (
+				<CreateSpotStep0 />
+			) : page === 2 ? (
+				<CreateSpotStep1a setDisableNextButton={setDisableNextButton} />
+			) : page === 3 ? (
+				<CreateSpotStep1b
+					selected={selected}
+					setSelected={setSelected}
+					setDisableNextButton={setDisableNextButton}
+				/>
+			) : page === 4 ? (
+				<CreateSpotStep1c setDisableNextButton={setDisableNextButton} />
+			) : page === 5 ? (
+				<CreateSpotStep2a setDisableNextButton={setDisableNextButton} />
+			) : page === 6 ? (
+				<CreateSpotStep2b
+					amenities={amenities}
+					setAmenities={setAmenities}
+					setDisableNextButton={setDisableNextButton}
+				/>
+			) : (
+				<>create new page</>
+			)}
 
 			{/* If on first page, display solid footer bar */}
 			{page === 1 ? (
@@ -49,7 +111,7 @@ function CreateSpot() {
 				</div>
 			)}
 
-            {/* Depending on page #, display different footer buttons */}
+			{/* Depending on page #, display different footer buttons */}
 			<div className="create-spot-footer-container">
 				<div className="create-spot-footer-buttons-container">
 					<aside className="create-spot-footer-buttons-left">
@@ -75,36 +137,17 @@ function CreateSpot() {
 								<SubmitButton buttonText="Get Started" />
 							</section>
 						) : (
-							<section className="create-spot-next-button mouse-pointer">
-								<button onClick={() => setPage((prev) => prev + 1)}>Next</button>
-							</section>
+							<button
+								className={`create-spot-next-button ${disableNextButton ? "" : "mouse-pointer"}`}
+								onClick={() => setPage((prev) => prev + 1)}
+								disabled={disableNextButton}>
+								Next
+							</button>
 						)}
 					</aside>
 				</div>
 			</div>
 		</div>
-	);
-
-	return page === 1 ? (
-		<div>
-			<CreateSpotPage1 setPage={setPage} />
-			<div className="create-spot-footer-container">
-				<section className="create-spot-footer-bar"> </section>
-				<section
-					className="create-spot-get-started-button mouse-pointer"
-					onClick={() => {
-						setPage((prev) => prev + 1);
-					}}>
-					<SubmitButton buttonText="Get Started" />
-				</section>
-			</div>
-		</div>
-	) : page === 2 ? (
-		<div></div>
-	) : page === 3 ? (
-		<div></div>
-	) : (
-		<>Oops error</>
 	);
 
 	// const [address, setAddress] = useState("");

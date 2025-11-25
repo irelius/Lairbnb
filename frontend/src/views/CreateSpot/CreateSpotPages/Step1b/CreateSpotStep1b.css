@@ -1,0 +1,49 @@
+.create-spot-1b-container {
+	display: flex;
+	flex-direction: column;
+	gap: 3em;
+}
+
+.create-spot-type-header {
+	font-size: 30px;
+	font-weight: 600;
+
+	letter-spacing: -0.05em;
+}
+
+.create-spot-types-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+
+	gap: 1em;
+}
+
+.create-spot-type {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25em;
+
+	border: 1px solid lightgray;
+	outline: 0px solid black;
+	border-radius: 15px;
+
+	padding: 1em;
+
+	font-size: 30px;
+
+	transition: outline-width 0.05s ease;
+}
+
+.create-spot-type:hover {
+	outline-width: 2px;
+	cursor: pointer;
+}
+
+.create-spot-type-selected-true {
+    outline-width: 2px;
+}
+
+.create-spot-type > aside {
+	font-size: 16px;
+	font-weight: 550;
+}
