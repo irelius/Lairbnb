@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CreateSpotStep2b.css";
 
-// Create spot page 6
+// Create spot page 6 - amenities
 function CreateSpotStep2b({ amenities, setAmenities, setDisableNextButton }) {
 	const [selectCounter, setSelectCounter] = useState(0);
 

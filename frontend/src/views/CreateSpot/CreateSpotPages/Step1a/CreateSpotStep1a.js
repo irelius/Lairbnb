@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./CreateSpotStep1a.css";
 
-// Create spot page 2
+// Create spot page 2 - step 1 intro
 function CreateSpotStep1a({setDisableNextButton}) {
     useEffect(() => {
         setDisableNextButton(false)

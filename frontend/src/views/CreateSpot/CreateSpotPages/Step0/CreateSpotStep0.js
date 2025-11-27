@@ -4,7 +4,7 @@ import step1Image from "../../../../assets/create_listing/step_1.png";
 import step2Image from "../../../../assets/create_listing/step_2.png";
 import step3Image from "../../../../assets/create_listing/step_3.png";
 
-// Create spot page 1
+// Create spot page 1 - get started page
 function CreateSpotStep0() {
 	return (
 		<div className="create-spot-container create-spot-0-container">

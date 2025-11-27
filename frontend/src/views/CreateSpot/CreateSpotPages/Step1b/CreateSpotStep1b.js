@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CreateSpotStep1b.css";
 
-// Create spot page 3
+// Create spot page 3 - location type
 function CreateSpotStep1b({ selected, setSelected, setDisableNextButton }) {
 	const [selectCounter, setSelectCounter] = useState(0);
 

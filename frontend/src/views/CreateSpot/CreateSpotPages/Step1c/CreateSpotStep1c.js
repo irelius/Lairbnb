@@ -3,7 +3,7 @@ import "./CreateSpotStep1c.css";
 
 
 // address page (could implement google maps api)
-// Create spot page 4
+// Create spot page 4 - address
 function CreateSpotStep1c({ setDisableNextButton }) {
 	useEffect(() => {
 		setDisableNextButton(false);
