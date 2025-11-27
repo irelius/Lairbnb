@@ -8,46 +8,73 @@
 
 /* Create Spot Page */
 .create-spot-container {
-    display: flex;
+	display: flex;
 	justify-content: center;
 	align-items: center;
-    flex: 1; 
+	flex: 1;
 }
 
 /* ------------------------------------------------------------------------------------- */
 /* Create Spot Footer */
 .create-spot-footer-container {
+	position: fixed;
+
+	left: 0;
+	right: 0;
+	bottom: 50px;
+
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 
 	height: 5em;
+	max-height: 5em;
 
 	background-color: white;
 }
 
 .create-spot-footer-bar {
-	width: 100%;
+	position: fixed;
+
+	left: 0;
+	right: 0;
+	bottom: calc(50px + 5em);
 
 	background-color: rgb(221, 221, 221);
 	height: 0.5em;
 }
 
 .create-spot-footer-section-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+	position: fixed;
+	bottom: calc(50px + 5em);
 
-    gap: 0.5em;
+	left: 0;
+	right: 0;
+
+	display: flex;
+	flex-direction: row;
+	gap: 0.5em;
+
+	height: 0.5em;
+}
+
+.create-spot-footer-step-container {
+	display: flex;
+	flex-direction: row;
+
+	height: 0.5em;
+	width: 100%;
 }
 
 .create-spot-footer-section-true {
-	height: 0.5em;
-	background-color: orange;
+	width: 100%;
+
+	background-color: #222222;
 }
 
 .create-spot-footer-section-false {
-	height: 0.5em;
-	background-color: blue;
+	width: 100%;
+	background-color: rgb(221, 221, 221);
 }
 
 .create-spot-footer-buttons-container {

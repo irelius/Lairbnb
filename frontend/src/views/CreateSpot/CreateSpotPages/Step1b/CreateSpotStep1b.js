@@ -2,34 +2,32 @@ import { useEffect, useState } from "react";
 import "./CreateSpotStep1b.css";
 
 // Create spot page 3 - location type
-function CreateSpotStep1b({ selected, setSelected, setDisableNextButton }) {
-	const [selectCounter, setSelectCounter] = useState(0);
-
+function CreateSpotStep1b({ selected, setSelected, selectCounter, setSelectCounter, setDisableNextButton }) {
 	// Helper function to update `selected` state variable
 	const updateSelected = (type) => {
-        // state the type was before clicking
+		// state the type was before clicking
 		const prior = selected[type];
 
-        // if type was `true` before clicking, then user is unselecting option
+		// if type was `true` before clicking, then user is unselecting option
 		if (prior === true) {
-			setSelectCounter(prev => prev - 1);
+			setSelectCounter((prev) => prev - 1);
 		}
-        // else, user is selecting option
-        else {
-			setSelectCounter(prev => prev + 1);
+		// else, user is selecting option
+		else {
+			setSelectCounter((prev) => prev + 1);
 		}
 
-        // update object state variable
+		// update object state variable
 		setSelected((prev) => ({ ...prev, [type]: !prior }));
 	};
 
 	useEffect(() => {
-        // if user has selected 0 types, disable next button
+		// if user has selected 0 types, disable next button
 		if (selectCounter === 0) {
 			setDisableNextButton(true);
 		}
-        // otherwise, enable next button
-        else {
+		// otherwise, enable next button
+		else {
 			setDisableNextButton(false);
 		}
 	}, [selectCounter]);
