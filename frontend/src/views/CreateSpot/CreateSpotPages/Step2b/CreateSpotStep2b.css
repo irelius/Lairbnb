@@ -1,60 +1,64 @@
-/* Create Spot Step 2b (Page 6) */
+/* Create Spot Step 2b (Page 6, amenities) */
 .create-spot-2b-container {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-    align-items: center;
-    justify-content: center;
+	align-items: center;
+	justify-content: center;
 
-    gap: 2em;
-    padding-bottom: 10em;
+	gap: 2em;
+
+	padding-bottom: 10em;
+
+	/* overflow-y: scroll; */
+	scrollbar-width: thin;
 }
 
 /* Create Spot Step 2b header section */
 .create-spot-2b-section-0 {
-    display: flex;
-    flex-direction: column;
-    
-    width: 35%;
+	display: flex;
+	flex-direction: column;
 
-    gap: 0.5em;
-    padding-top: 2em;
+	width: 35%;
+
+	gap: 0.5em;
+	padding-top: 2em;
 }
 
 .create-spot-2b-header {
-    font-size: 32px;
+	font-size: 32px;
 	font-weight: 600;
 	letter-spacing: -0.06em;
 }
 
 .create-spot-2b-subheader {
-    font-size: 16px;
-    font-weight: 500;
-    
-    color: gray;
+	font-size: 16px;
+	font-weight: 500;
+
+	color: gray;
 }
 
 /* Create Spot Step 2b - amenities selection section */
 .create-spot-2b-section-container {
-    display: flex;
-    flex-direction: column;
-    
-    width: 35%;
-    
-    gap: 1em;
-    margin-bottom: 1em;
+	display: flex;
+	flex-direction: column;
+
+	width: 35%;
+
+	gap: 1em;
+	margin-bottom: 1em;
 }
 
 .create-spot-2b-section-header {
-    font-size: 18px;
-    font-weight: 550;
+	font-size: 18px;
+	font-weight: 550;
 }
 
 .create-spot-2b-section-amenities {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
 
-    gap: 1em;
+	gap: 1em;
 }
 
 .create-spot-amenity {
@@ -67,7 +71,7 @@
 	border-radius: 10px;
 
 	padding: 1em;
-    padding-left: 0.75em;
+	padding-left: 0.75em;
 
 	font-size: 24px;
 
@@ -80,7 +84,7 @@
 }
 
 .create-spot-amenity-selected-true {
-    outline-width: 2px;
+	outline-width: 2px;
 }
 
 .create-spot-amenity > aside {

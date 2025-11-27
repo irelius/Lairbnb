@@ -1,0 +1,67 @@
+/* ------------------------------------------------------------------------------------- */
+/* Create Spot Step 1d (Page 8, add photos) */
+.create-spot-2c-container {
+	display: flex;
+	flex-direction: column;
+
+	gap: 5em;
+}
+
+/* ------------------------------------------------------------------------------------- */
+/* Create spot - photos header */
+.create-spot-photos-header-container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+
+	width: 47em;
+}
+
+.create-spot-photos-header {
+	font-size: 32px;
+	font-weight: 600;
+	letter-spacing: -0.06em;
+}
+
+.create-spot-photos-subheader {
+	font-size: 18px;
+	font-weight: 500;
+
+	color: gray;
+}
+
+/* ------------------------------------------------------------------------------------- */
+/* Create spot - add photos container */
+.create-spot-add-photos-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	height: 38em;
+	width: 47em;
+
+	border: 1px dashed rgb(176, 176, 176);
+	border-radius: 15px;
+
+	background-color: rgb(247, 247, 247);
+}
+
+.create-spot-add-photos-image-holder {
+	height: 13em;
+	width: auto;
+}
+
+.create-spot-add-photos-button {
+	padding: 0.75em 1em 0.75em 1em;
+
+	border: 1px solid black;
+	border-radius: 10px;
+
+	font-weight: 550;
+	background-color: rgb(255, 255, 255);
+}
+
+.create-spot-add-photos-button:hover {
+	background-color: rgb(247, 247, 247);
+}

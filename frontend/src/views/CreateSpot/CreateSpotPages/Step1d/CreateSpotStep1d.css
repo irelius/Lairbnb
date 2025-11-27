@@ -1,0 +1,98 @@
+/* ------------------------------------------------------------------------------------- */
+/* Create Spot Step 1d (Page 5, # of rooms) */
+.create-spot-1d-container {
+	display: flex;
+	flex-direction: column;
+
+	gap: 4em;
+}
+
+.create-spot-rooms-space-line {
+	height: 1px;
+	background-color: #ebebeb;
+}
+
+/* ------------------------------------------------------------------------------------- */
+/* Create spot - rooms header */
+.create-spot-rooms-header-container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+
+	width: 47em;
+}
+
+.create-spot-rooms-header {
+	font-size: 32px;
+	font-weight: 600;
+	letter-spacing: -0.06em;
+}
+
+.create-spot-rooms-subheader {
+	font-size: 16px;
+	font-weight: 500;
+
+	color: gray;
+}
+
+/* ------------------------------------------------------------------------------------- */
+.create-spot-rooms-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1.75em;
+}
+
+/* Create spot - rooms counter container */
+.create-spot-rooms-counter-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	width: 47em;
+}
+
+.create-spot-rooms-counter-header {
+	font-size: 18px;
+	font-weight: 500;
+	letter-spacing: -0.03em;
+}
+
+.create-spot-rooms-counter-val {
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.create-spot-rooms-button-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	gap: 0.5em;
+
+	min-width: 8em;
+}
+
+.create-spot-rooms-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	padding: 0.75em;
+
+	color: #8e8e8e;
+	border: 1px solid #8e8e8e;
+	border-radius: 100%;
+}
+
+.create-spot-rooms-button-disabled-false:hover {
+	color: black;
+	border: 1px solid black;
+}
+
+.create-spot-rooms-button-disabled-true {
+	color: #f0f0f0;
+	border: 1px solid #f0f0f0;
+	cursor: not-allowed;
+}

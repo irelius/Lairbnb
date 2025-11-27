@@ -13,6 +13,8 @@ import CreateSpotStep1b from "./CreateSpotPages/Step1b/CreateSpotStep1b";
 import CreateSpotStep1c from "./CreateSpotPages/Step1c/CreateSpotStep1c";
 import CreateSpotStep2a from "./CreateSpotPages/Step2a/CreateSpotStep2a";
 import CreateSpotStep2b from "./CreateSpotPages/Step2b/CreateSpotStep2b";
+import CreateSpotStep1d from "./CreateSpotPages/Step1d/CreateSpotStep1d";
+import CreateSpotStep2c from "./CreateSpotPages/Step2c/CreateSpotStep2c";
 
 function CreateSpot() {
 	const dispatch = useDispatch();
@@ -38,21 +40,18 @@ function CreateSpot() {
 	const [disableNextButton, setDisableNextButton] = useState(false);
 
 	// what type of place is this new listing?
-    const [selectCounter, setSelectCounter] = useState(0);
-	const [selected, setSelected] = useState({
-		house: false,
-		apartment: false,
-		"bed&breakfast": false,
-		boat: false,
-		"camper/RV": false,
-		castle: false,
-		guesthouse: false,
-		hotel: false,
-		tent: false,
+	const [type, setType] = useState(null);
+
+	// number of rooms of listing
+	const [rooms, setRooms] = useState({
+		guests: 2,
+		bedrooms: 0,
+		beds: 1,
+		bathrooms: 1,
 	});
 
 	// what amenities is provided
-    const [amenitiesCounter, setAmenitiesCounter] = useState(0);
+	const [amenitiesCounter, setAmenitiesCounter] = useState(0);
 	const [amenities, setAmenities] = useState({
 		// section 1 - guest favorites
 		wifi: false,
@@ -78,29 +77,33 @@ function CreateSpot() {
 		<div className="create-spot-main-container">
 			{/* Depending on page #, display different page components */}
 			{page === 1 ? (
+				// get started page
 				<CreateSpotStep0 />
 			) : page === 2 ? (
+				// step 1 intro
 				<CreateSpotStep1a setDisableNextButton={setDisableNextButton} />
 			) : page === 3 ? (
-				<CreateSpotStep1b
-					selected={selected}
-					setSelected={setSelected}
-                    selectCounter={selectCounter}
-                    setSelectCounter={setSelectCounter}
-					setDisableNextButton={setDisableNextButton}
-				/>
+				// select listing type
+				<CreateSpotStep1b type={type} setType={setType} setDisableNextButton={setDisableNextButton} />
 			) : page === 4 ? (
+				// enter address
 				<CreateSpotStep1c setDisableNextButton={setDisableNextButton} />
 			) : page === 5 ? (
-				<CreateSpotStep2a setDisableNextButton={setDisableNextButton} />
+				// enter # of rooms
+				<CreateSpotStep1d rooms={rooms} setRooms={setRooms} />
 			) : page === 6 ? (
+				// step 2 intro
+				<CreateSpotStep2a setDisableNextButton={setDisableNextButton} />
+			) : page === 7 ? (
+				// select amenities
 				<CreateSpotStep2b
 					amenities={amenities}
-                    amenitiesCounter={amenitiesCounter}
+					amenitiesCounter={amenitiesCounter}
 					setAmenities={setAmenities}
-                    setAmenitiesCounter={setAmenitiesCounter}
-					setDisableNextButton={setDisableNextButton}
+					setAmenitiesCounter={setAmenitiesCounter}
 				/>
+			) : page === 8 ? (
+				<CreateSpotStep2c type={type} />
 			) : (
 				<>create new page</>
 			)}
@@ -112,20 +115,20 @@ function CreateSpot() {
 				// If on other pages, display sectioned footer bar
 				<div className="create-spot-footer-section-container">
 					<section className="create-spot-footer-step-container">
-                        {/* <section className="test"></section> */}
-						<aside className={`create-spot-footer-section-${page >= 2}`}></aside>
+						{/* <section className="test"></section> */}
 						<aside className={`create-spot-footer-section-${page >= 3}`}></aside>
 						<aside className={`create-spot-footer-section-${page >= 4}`}></aside>
-					</section>
-					<section className="create-spot-footer-step-container">
 						<aside className={`create-spot-footer-section-${page >= 5}`}></aside>
-						<aside className={`create-spot-footer-section-${page >= 6}`}></aside>
-						<aside className={`create-spot-footer-section-${page >= 7}`}></aside>
 					</section>
 					<section className="create-spot-footer-step-container">
+						<aside className={`create-spot-footer-section-${page >= 7}`}></aside>
 						<aside className={`create-spot-footer-section-${page >= 8}`}></aside>
 						<aside className={`create-spot-footer-section-${page >= 9}`}></aside>
+					</section>
+					<section className="create-spot-footer-step-container">
 						<aside className={`create-spot-footer-section-${page >= 10}`}></aside>
+						<aside className={`create-spot-footer-section-${page >= 11}`}></aside>
+						<aside className={`create-spot-footer-section-${page >= 12}`}></aside>
 					</section>
 				</div>
 			)}

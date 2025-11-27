@@ -16,6 +16,7 @@
     --20: 20px;
     --24: 24px;
     --28: 28px;
+    scrollbar-width: none;
 }
 
 body {

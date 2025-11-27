@@ -96,6 +96,34 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.TEXT,
 				allowNull: false,
 			},
+			guest: {
+				type: DataTypes.INTEGER,
+				defaultValue: 2,
+				validate: {
+					min: -1,
+				},
+			},
+			bedroom: {
+				type: DataTypes.INTEGER,
+				defaultValue: 0,
+				validate: {
+					min: 0,
+				},
+			},
+			bed: {
+				type: DataTypes.INTEGER,
+				defaultValue: 1,
+				validate: {
+					min: 1,
+				},
+			},
+			bathroom: {
+				type: DataTypes.DECIMAL,
+				defaultValue: 1,
+				validate: {
+					min: 0.5,
+				},
+			},
 			price: {
 				type: DataTypes.DECIMAL,
 				allowNull: false,

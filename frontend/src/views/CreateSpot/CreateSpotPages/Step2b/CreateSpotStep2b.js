@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./CreateSpotStep2b.css";
 
 // Create spot page 6 - amenities
-function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenitiesCounter, setDisableNextButton }) {
+function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenitiesCounter }) {
 	// Helper function to update `amenities` state variable
 	const updateAmenities = (type) => {
 		// state the type was before clicking
@@ -20,17 +20,6 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 		// update object state variable
 		setAmenities((prev) => ({ ...prev, [type]: !prior }));
 	};
-
-	useEffect(() => {
-		// if user has selected 0 types, disable next button
-		if (amenitiesCounter === 0) {
-			setDisableNextButton(true);
-		}
-		// otherwise, enable next button
-		else {
-			setDisableNextButton(false);
-		}
-	}, [amenitiesCounter]);
 
 	return (
 		<div className="create-spot-container create-spot-2b-container">

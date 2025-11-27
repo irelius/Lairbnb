@@ -3,7 +3,8 @@
 .create-spot-main-container {
 	display: flex;
 	flex-direction: column;
-	height: calc(100vh - 5em - 50px);
+	height: calc(100vh - 15em);
+    
 }
 
 /* Create Spot Page */
