@@ -32,10 +32,6 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 		}
 	}, [amenitiesCounter]);
 
-	useEffect(() => {
-		console.log("booba", amenities);
-	}, [amenities]);
-
 	return (
 		<div className="create-spot-container create-spot-2b-container">
 			<div className="create-spot-2b-section-0">
