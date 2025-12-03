@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
-            type: {
+            amenity: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },

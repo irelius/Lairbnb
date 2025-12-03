@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 				foreignKey: "spotId",
 				hooks: true,
 			});
-			Spot.hasMany(models.SpotType, {
+			Spot.hasMany(models.SpotAmenity, {
 				foreignKey: "spotId",
 				hooks: true,
 			});
@@ -91,6 +91,10 @@ module.exports = (sequelize, DataTypes) => {
 				validate: {
 					len: [1, 60],
 				},
+			},
+			type: {
+				type: DataTypes.STRING,
+				allowNull: false,
 			},
 			description: {
 				type: DataTypes.TEXT,
