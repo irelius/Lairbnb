@@ -1,0 +1,157 @@
+/* ------------------------------------------------------------------------------------- */
+/* Upload Photo Form (creating a new listing) */
+.upload-photo-form-main-container {
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	height: 33em;
+	width: 40em;
+
+	border-radius: 2em;
+}
+
+/* Upload Photo Form - Corner buttons */
+.upload-photo-form-exit-button {
+	position: absolute;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin: 1em;
+
+	height: 2em;
+	width: 2em;
+
+	left: 0;
+
+	border-radius: 100%;
+}
+
+.upload-photo-form-plus-button {
+	position: absolute;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin: 1em;
+
+	height: 2em;
+	width: 2em;
+
+	right: 0;
+
+	border-radius: 100%;
+}
+
+/* Upload Photo Form - header section */
+.upload-photo-form-header-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 0.75em;
+}
+
+.upload-photo-form-header {
+	font-size: 16px;
+	font-weight: 550;
+	letter-spacing: -0.04em;
+}
+
+.upload-photo-form-subheader {
+	font-size: 12px;
+	letter-spacing: -0.04em;
+}
+
+/* Upload Photo Form - Main section */
+.upload-photo-form-upload-container {
+	display: flex;
+	flex-direction: column;
+
+	align-items: center;
+	justify-content: center;
+
+	margin-top: 1em;
+	margin-left: 1.5em;
+	margin-right: 1.5em;
+
+	gap: 1em;
+
+	height: 18em;
+
+	border: 2px dashed rgb(176, 176, 176);
+	border-radius: 0.5em;
+}
+
+.upload-photo-form-drag-header {
+    font-size: 22px;
+    font-weight: 550;
+    letter-spacing: -0.03em;
+}
+
+.upload-photo-form-browse-button {
+	padding: 1em;
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+
+	color: white;
+	background-color: black;
+
+	font-size: 15px;
+	font-weight: 550;
+
+	border-radius: 10px;
+}
+
+/* Upload Photo Form - footer buttons */
+.upload-photo-form-footer-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	margin-bottom: 1em;
+	padding-top: 1.5em;
+	padding-right: 1.5em;
+	padding-left: 1.5em;
+
+	border-top: 1px solid rgb(221, 221, 221);
+}
+
+.upload-photo-form-done-button {
+	font-size: 16px;
+	font-weight: 550;
+	letter-spacing: -0.04em;
+}
+
+.upload-photo-form-upload-button {
+	padding: 1em;
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+
+	color: white;
+	background-color: black;
+
+	font-size: 16px;
+	font-weight: 550;
+
+	border-radius: 10px;
+}
+
+
+/* temp */
+#drop-zone {
+    width: 10em;
+    height: 5em;
+    background-color: orange;
+}
+
+#fileImport {
+  background: #b3b3b3;
+  width: 200px;
+  height: 120px;
+}

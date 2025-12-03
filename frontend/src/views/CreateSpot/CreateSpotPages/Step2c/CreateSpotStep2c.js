@@ -34,7 +34,7 @@ function CreateSpotStep2c({ type }) {
 						e.preventDefault();
 						setShowPhotos(false);
 					}}>
-					<UploadPhotoForm />
+					<UploadPhotoForm setShowPhotos={setShowPhotos}/>
 				</div>
 			) : (
 				<></>
