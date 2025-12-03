@@ -1,10 +1,11 @@
 import "./UploadPhotoForm.css";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 function UploadPhotoForm({ setShowPhotos }) {
 	const [images, setImages] = useState([]);
 	const [disableUpload, setDisableUpload] = useState(false);
+	const [dragAndDropHovered, setDragAndDropHovered] = useState(false);
 
 	useEffect(() => {
 		if (images.length > 0) {
@@ -12,18 +13,28 @@ function UploadPhotoForm({ setShowPhotos }) {
 		}
 	}, [images]);
 
-	// helper function to click on the `input` element via DOM manipulation
-	const openFileWindow = () => {
-		const fileInput = document.getElementById("listing-photo-upload");
-		fileInput.click();
-	};
+	const dropRef = useRef(null);
 
-	const dropHandler = (e) => {
-		e.preventDefault();
-		const files = [e.dataTransfer.items];
-		setImages(files);
-	};
+	// helper function. handles drag-and-drop and manual input uploads
+	const handleFiles = useCallback((files) => {
+		const fileArray = Array.from(files);
 
+		const newImages = fileArray
+			.filter((file) => file.type.startsWith("image/"))
+			.map((file) => ({
+				file,
+				url: URL.createObjectURL(file),
+			}));
+
+		setImages((prev) => [...prev, ...newImages]);
+	}, []);
+
+	// prevent memory leak, clean up object urls
+	useEffect(() => {
+		return () => {
+			images.forEach((img) => URL.revokeObjectURL(img.url));
+		};
+	}, [images]);
 
 	return (
 		<div className="modal-form-container upload-photo-form-main-container" onClick={(e) => e.stopPropagation()}>
@@ -49,29 +60,91 @@ function UploadPhotoForm({ setShowPhotos }) {
 				)}
 			</section>
 
-			{/* Upload Photo Form - Main section */}
-			<section className="upload-photo-form-upload-container">
+			<section
+				ref={dropRef}
+				onDragOver={(e) => {
+					e.preventDefault();
+					setDragAndDropHovered(true);
+				}}
+				onDragLeave={(e) => {
+					e.preventDefault();
+					setDragAndDropHovered(false);
+				}}
+				onDrop={(e) => {
+					e.preventDefault();
+					if (e.dataTransfer.files.length > 0) {
+						handleFiles(e.dataTransfer.files);
+					}
+				}}
+				className={`upload-photo-form-upload-container upload-photo-drag-and-drop-${dragAndDropHovered}`}>
 				<i className="fa-regular fa-images fa-5x"></i>
 				<aside className="upload-photo-form-drag-header">Drag and drop</aside>
 				<aside className="upload-photo-form-browser-subheader">or browse for photos</aside>
+
 				<button
-					className="upload-photo-form-browse-button mouse-pointer"
-					onClick={() => {
-						openFileWindow();
-					}}>
+					onClick={() => document.getElementById("fileInput").click()}
+					className="upload-photo-form-browse-button mouse-pointer">
 					Browse
 				</button>
 
-				{/* input element to upload photos, but set to hidden */}
-				<input id="listing-photo-upload" type="file" accept="image/png, image/jpeg, image/jpg" hidden />
+				<input
+					type="file"
+					id="fileInput"
+					multiple
+					accept="image/png, image/jpeg, image/jpg"
+					onChange={(e) => handleFiles(e.target.files)}
+					hidden
+				/>
 
-				{/* test */}
-				{/* <label id="drop-zone">
-					asdfasdfasdf
-					<input type="file" id="file-input" multiple accept="image/png, image/jpeg, image/jpg" hidden />
-				</label> */}
-				
+				<div>
+					{images.map((img, i) => (
+						<img key={i} src={img.url} alt={`preview-${i}`} />
+					))}
+				</div>
 			</section>
+
+			{/* Upload Photo Form - Main section */}
+			{/* <section className={`upload-photo-form-upload-container upload-photo-drag-and-drop-${dragAndDropHovered}`}>
+				<i className="fa-regular fa-images fa-5x"></i>
+				<aside className="upload-photo-form-drag-header">Drag and drop</aside>
+				<aside className="upload-photo-form-browser-subheader">or browse for photos</aside>
+
+				<button
+					ref={dropRef}
+					onDragOver={(e) => {
+						e.preventDefault();
+						setDragAndDropHovered(true);
+					}}
+					onDragLeave={(e) => {
+						e.preventDefault();
+						setDragAndDropHovered(false);
+					}}
+					onDrop={(e) => {
+						e.preventDefault();
+						if (e.dataTransfer.files.length > 0) {
+							handleFiles(e.dataTransfer.files);
+						}
+					}}
+					onClick={() => document.getElementById("fileInput").click()}
+					className="upload-photo-form-browse-button mouse-pointer">
+					Browse
+				</button>
+
+				<input
+					type="file"
+					id="fileInput"
+					multiple
+					accept="image/png, image/jpeg, image/jpg"
+					onChange={(e) => handleFiles(e.target.files)}
+					hidden
+				/>
+
+				<div>
+					{images.map((img, i) => (
+						<img key={i} src={img.url} alt={`preview-${i}`} />
+					))}
+				</div>
+			</section> */}
 
 			{/* Upload Photo Form - footer buttons */}
 			<section className="upload-photo-form-footer-container">

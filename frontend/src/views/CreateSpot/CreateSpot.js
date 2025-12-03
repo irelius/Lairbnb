@@ -35,7 +35,7 @@ function CreateSpot() {
 	}, []);
 
 	// Which page of the listing creation process
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState(8);
 
 	const [disableNextButton, setDisableNextButton] = useState(false);
 
@@ -103,6 +103,7 @@ function CreateSpot() {
 					setAmenitiesCounter={setAmenitiesCounter}
 				/>
 			) : page === 8 ? (
+                // upload images for listing
 				<CreateSpotStep2c type={type} />
 			) : (
 				<>create new page</>

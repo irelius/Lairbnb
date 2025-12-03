@@ -20,10 +20,10 @@ function CreateSpotStep2a({ setDisableNextButton }) {
 			<aside className="create-spot-2a-right-container">
 				<video
 					className="create-spot-2a-video"
-					autoplay=""
-					crossorigin="anonymous"
+					autoPlay=""
+					crossOrigin="anonymous"
 					muted=""
-					playsinline=""
+					playsInline=""
 					preload="auto">
 					<source
 						src="https://stream.media.muscache.com/zFaydEaihX6LP01x8TSCl76WHblb01Z01RrFELxyCXoNek.mp4?v_q=high"

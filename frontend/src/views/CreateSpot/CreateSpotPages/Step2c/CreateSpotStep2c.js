@@ -9,6 +9,8 @@ import UploadPhotoForm from "../../../../components/Modals/UploadPhotoModal/Uplo
 function CreateSpotStep2c({ type }) {
 	const [showPhotos, setShowPhotos] = useState(false);
 
+	type = "house";
+
 	return (
 		<div className="create-spot-container create-spot-2c-container">
 			<section className="create-spot-photos-header-container">
@@ -34,7 +36,7 @@ function CreateSpotStep2c({ type }) {
 						e.preventDefault();
 						setShowPhotos(false);
 					}}>
-					<UploadPhotoForm setShowPhotos={setShowPhotos}/>
+					<UploadPhotoForm setShowPhotos={setShowPhotos} />
 				</div>
 			) : (
 				<></>

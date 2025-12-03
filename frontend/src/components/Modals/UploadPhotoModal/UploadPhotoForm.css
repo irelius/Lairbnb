@@ -155,3 +155,13 @@
   width: 200px;
   height: 120px;
 }
+
+.upload-photo-drag-and-drop-true {
+    border: 2px dashed black;
+    padding: 2em;
+}
+
+.upload-photo-drag-and-drop-false {
+    border: 2px dashed gray;
+    padding: 2em;
+}

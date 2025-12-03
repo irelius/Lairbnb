@@ -37,7 +37,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("wifi");
 						}}>
-						<i class="fa-solid fa-wifi" />
+						<i className="fa-solid fa-wifi" />
 						<aside>Wifi</aside>
 					</section>
 					<section
@@ -45,7 +45,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("tv");
 						}}>
-						<i class="fa-solid fa-tv" />
+						<i className="fa-solid fa-tv" />
 						<aside>TV</aside>
 					</section>
 					<section
@@ -53,7 +53,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("kitchen");
 						}}>
-						<i class="fa-solid fa-kitchen-set" />
+						<i className="fa-solid fa-kitchen-set" />
 						<aside>Kitchen</aside>
 					</section>
 					<section
@@ -61,7 +61,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("washer");
 						}}>
-						<i class="fa-solid fa-jug-detergent" />
+						<i className="fa-solid fa-jug-detergent" />
 						<aside>Washer</aside>
 					</section>
 					<section
@@ -71,7 +71,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("freeParking");
 						}}>
-						<i class="fa-solid fa-car" />
+						<i className="fa-solid fa-car" />
 						<aside>Free parking on premises</aside>
 					</section>
 					<section
@@ -81,7 +81,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("airConditioning");
 						}}>
-						<i class="fa-solid fa-snowflake" />
+						<i className="fa-solid fa-snowflake" />
 						<aside>Air conditioning</aside>
 					</section>
 				</section>
@@ -94,7 +94,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("pool");
 						}}>
-						<i class="fa-solid fa-water-ladder" />
+						<i className="fa-solid fa-water-ladder" />
 						<aside>Pool</aside>
 					</section>
 					<section
@@ -102,7 +102,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("hotTub");
 						}}>
-						<i class="fa-solid fa-hot-tub-person" />
+						<i className="fa-solid fa-hot-tub-person" />
 						<aside>Hot tub</aside>
 					</section>
 					<section
@@ -110,7 +110,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("bbqGrill");
 						}}>
-						<i class="fa-solid fa-burger" />
+						<i className="fa-solid fa-burger" />
 						<aside>BBQ grill</aside>
 					</section>
 					<section
@@ -120,7 +120,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("indoorFireplace");
 						}}>
-						<i class="fa-solid fa-fire-burner" />
+						<i className="fa-solid fa-fire-burner" />
 						<aside>Indoor fireplace</aside>
 					</section>
 					<section
@@ -130,7 +130,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("exerciseEquipment");
 						}}>
-						<i class="fa-solid fa-dumbbell" />
+						<i className="fa-solid fa-dumbbell" />
 						<aside>Exercise equipment</aside>
 					</section>
 					<section
@@ -140,7 +140,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("beachAccess");
 						}}>
-						<i class="fa-solid fa-umbrella-beach" />
+						<i className="fa-solid fa-umbrella-beach" />
 						<aside>Beach access</aside>
 					</section>
 				</section>
@@ -155,7 +155,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("smokeAlarm");
 						}}>
-						<i class="fa-solid fa-smog" />
+						<i className="fa-solid fa-smog" />
 						<aside>Smoke alarm</aside>
 					</section>
 					<section
@@ -165,7 +165,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("firstAidKit");
 						}}>
-						<i class="fa-solid fa-kit-medical" />
+						<i className="fa-solid fa-kit-medical" />
 						<aside>First aid kit</aside>
 					</section>
 					<section
@@ -175,7 +175,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						onClick={() => {
 							updateAmenities("fireExtinguisher");
 						}}>
-						<i class="fa-solid fa-fire-extinguisher" />
+						<i className="fa-solid fa-fire-extinguisher" />
 						<aside>Fire extinguisher</aside>
 					</section>
 				</section>

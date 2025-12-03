@@ -30,55 +30,55 @@ function CreateSpotStep1b({ type, setType, setDisableNextButton }) {
 				<section
 					onClick={() => updateSelected("house")}
 					className={`create-spot-type create-spot-type-selected-${"house" === type}`}>
-					<i class="fa-solid fa-house" />
+					<i className="fa-solid fa-house" />
 					<aside>House</aside>
 				</section>
 				<section
 					onClick={() => updateSelected("apartment")}
 					className={`create-spot-type create-spot-type-selected-${"apartment" === type}`}>
-					<i class="fa-solid fa-building" />
+					<i className="fa-solid fa-building" />
 					<aside>Apartment</aside>
 				</section>
 				<section
 					onClick={() => updateSelected("bed&breakfast")}
 					className={`create-spot-type create-spot-type-selected-${"bed&breakfast" === type}`}>
-					<i class="fa-solid fa-mug-hot" />
+					<i className="fa-solid fa-mug-hot" />
 					<aside>Bed & breakfast</aside>
 				</section>
 				<section
 					onClick={() => updateSelected("boat")}
 					className={`create-spot-type create-spot-type-selected-${"boat" === type}`}>
-					<i class="fa-solid fa-sailboat" />
+					<i className="fa-solid fa-sailboat" />
 					<aside>Boat</aside>
 				</section>
 				<section
 					onClick={() => updateSelected("camper/RV")}
 					className={`create-spot-type create-spot-type-selected-${"camper/RV" === type}`}>
-					<i class="fa-solid fa-caravan" />
+					<i className="fa-solid fa-caravan" />
 					<aside>Camper/RV</aside>
 				</section>
 				<section
 					onClick={() => updateSelected("castle")}
 					className={`create-spot-type create-spot-type-selected-${"castle" === type}`}>
-					<i class="fa-solid fa-chess-rook" />
+					<i className="fa-solid fa-chess-rook" />
 					<aside>Castle</aside>
 				</section>
 				<section
 					onClick={() => updateSelected("guesthouse")}
 					className={`create-spot-type create-spot-type-selected-${"guesthouse" === type}`}>
-					<i class="fa-solid fa-people-roof" />
+					<i className="fa-solid fa-people-roof" />
 					<aside>Guesthouse</aside>
 				</section>
 				<section
 					onClick={() => updateSelected("hotel")}
 					className={`create-spot-type create-spot-type-selected-${"hotel" === type}`}>
-					<i class="fa-solid fa-hotel" />
+					<i className="fa-solid fa-hotel" />
 					<aside>Hotel</aside>
 				</section>
 				<section
 					onClick={() => updateSelected("tent")}
 					className={`create-spot-type create-spot-type-selected-${"tent" === type}`}>
-					<i class="fa-solid fa-tent" />
+					<i className="fa-solid fa-tent" />
 					<aside>Tent</aside>
 				</section>
 			</section>
