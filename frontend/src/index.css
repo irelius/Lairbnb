@@ -25,21 +25,32 @@ body {
 	font-size: var(--14);
 }
 
+.orange {
+	background-color: orange;
+}
+
+/* buttons */
 button {
 	font-family: Montserrat;
 }
 
-.button-enabled-false {
-    background-color: rgb(221, 221, 221) !important;
+.button-disabled-true {
+	background-color: rgb(221, 221, 221) !important;
 }
 
-.button-enabled-false:hover {
+.button-disabled-true:hover {
 	cursor: not-allowed;
 }
 
+/* header/footer space correction */
 .header-spacing-correction {
 	height: 5em;
 	background-color: white;
+}
+
+.footer-spacing-correction {
+	height: 50px;
+	background-color: orange;
 }
 
 /* --------------------------------------------------- Display CSS --------------------------------------------------- */
@@ -335,7 +346,7 @@ button {
 	height: 100%;
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.6);
-	z-index: 90000;
+	z-index: 1000;
 }
 
 .modal-form-container {

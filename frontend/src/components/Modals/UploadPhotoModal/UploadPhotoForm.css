@@ -7,14 +7,17 @@
 	flex-direction: column;
 	justify-content: space-between;
 
-	height: 33em;
+	min-height: 33em;
+	height: fit-content;
+	max-height: 62em;
 	width: 40em;
 
 	border-radius: 2em;
 }
 
+/* ------------------------------------------------------------------------------------- */
 /* Upload Photo Form - Corner buttons */
-.upload-photo-form-exit-button {
+.upload-photo-form-button {
 	position: absolute;
 
 	display: flex;
@@ -22,32 +25,27 @@
 	align-items: center;
 
 	margin: 1em;
+	padding-top: 2px;
 
 	height: 2em;
 	width: 2em;
 
-	left: 0;
-
 	border-radius: 100%;
+
+	background-color: inherit;
+	transition: background-color 0.25s ease-in;
 }
 
 .upload-photo-form-plus-button {
-	position: absolute;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	margin: 1em;
-
-	height: 2em;
-	width: 2em;
-
 	right: 0;
-
-	border-radius: 100%;
 }
 
+.upload-photo-form-button:hover {
+	background-color: rgb(221, 221, 221);
+	transition: background-color 0.25s ease-out;
+}
+
+/* ------------------------------------------------------------------------------------- */
 /* Upload Photo Form - header section */
 .upload-photo-form-header-container {
 	display: flex;
@@ -60,14 +58,15 @@
 .upload-photo-form-header {
 	font-size: 16px;
 	font-weight: 550;
-	letter-spacing: -0.04em;
+	letter-spacing: -0.5px;
 }
 
 .upload-photo-form-subheader {
 	font-size: 12px;
-	letter-spacing: -0.04em;
+	letter-spacing: -0.5px;
 }
 
+/* ------------------------------------------------------------------------------------- */
 /* Upload Photo Form - Main section */
 .upload-photo-form-upload-container {
 	display: flex;
@@ -76,38 +75,73 @@
 	align-items: center;
 	justify-content: center;
 
-	margin-top: 1em;
-	margin-left: 1.5em;
-	margin-right: 1.5em;
+	margin: 1.5em;
+	margin-top: 3em;
 
 	gap: 1em;
 
-	height: 18em;
+	min-height: 19em;
+	height: fit-content;
 
 	border: 2px dashed rgb(176, 176, 176);
 	border-radius: 0.5em;
+
+	overflow-y: auto;
 }
 
 .upload-photo-form-drag-header {
-    font-size: 22px;
-    font-weight: 550;
-    letter-spacing: -0.03em;
+	font-size: 22px;
+	font-weight: 550;
+	letter-spacing: -1px;
+}
+
+.upload-photo-form-drag-and-drop-true {
+	border: 2px dashed black;
+	padding: 2em;
+}
+
+.upload-photo-form-drag-and-drop-false {
+	border: 2px dashed rgb(176, 176, 176);
+	padding: 2em;
+}
+
+.upload-photo-form-upload-border-true {
+	border: none;
+	padding: 0px;
 }
 
 .upload-photo-form-browse-button {
-	padding: 1em;
-	padding-left: 1.5em;
-	padding-right: 1.5em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	height: 50px;
+	width: 105px;
+
+	border-radius: 7px;
 
 	color: white;
-	background-color: black;
+	background-color: rgb(34, 34, 34);
 
-	font-size: 15px;
-	font-weight: 550;
-
-	border-radius: 10px;
+	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: -1px;
 }
 
+/* ------------------------------------------------------------------------------------- */
+/* Upload Photo Form - photo preview */
+.upload-photo-form-photo-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+
+	gap: 1em;
+	margin-top: 0.5em;
+
+	height: 100%;
+}
+
+
+/* ------------------------------------------------------------------------------------- */
 /* Upload Photo Form - footer buttons */
 .upload-photo-form-footer-container {
 	display: flex;
@@ -115,7 +149,7 @@
 	justify-content: space-between;
 
 	margin-bottom: 1em;
-	padding-top: 1.5em;
+	padding-top: 1em;
 	padding-right: 1.5em;
 	padding-left: 1.5em;
 
@@ -142,26 +176,4 @@
 	border-radius: 10px;
 }
 
-
 /* temp */
-#drop-zone {
-    width: 10em;
-    height: 5em;
-    background-color: orange;
-}
-
-#fileImport {
-  background: #b3b3b3;
-  width: 200px;
-  height: 120px;
-}
-
-.upload-photo-drag-and-drop-true {
-    border: 2px dashed black;
-    padding: 2em;
-}
-
-.upload-photo-drag-and-drop-false {
-    border: 2px dashed gray;
-    padding: 2em;
-}

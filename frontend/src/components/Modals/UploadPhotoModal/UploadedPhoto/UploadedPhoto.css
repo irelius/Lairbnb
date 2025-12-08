@@ -1,0 +1,64 @@
+/* ------------------------------------------------------------------------------------- */
+/* Upload Photo Form - photo columns */
+.upload-photo-form-photo-columns {
+	position: relative;
+}
+
+.upload-photo-form-photo-preview {
+	display: flex;
+	flex-direction: column;
+
+    gap: 15px;
+}
+
+.upload-photo-form-photo {
+	height: 250px;
+	width: 250px;
+	object-fit: cover;
+
+	border-radius: 7px;
+
+	background-color: orange;
+}
+
+.upload-photo-form-photo-trash-button {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 1.5em;
+	height: 1.5em;
+
+	padding: 1.1em;
+
+	color: white;
+	background-color: black;
+	background-clip: padding-box;
+
+	border: 2px solid transparent;
+	border-radius: 100%;
+}
+
+.upload-photo-form-photo-trash-button:hover {
+	border: 2px solid black;
+}
+
+.upload-photo-form-size-warning-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 0.5em;
+}
+
+.upload-photo-form-warning-dot {
+    color: rgb(224, 121, 18)
+}
+
+.upload-photo-form-size-warning {
+    font-size: 11px;
+    font-weight: 700;
+}

@@ -48,6 +48,7 @@ function App() {
 						</Route>
 					</Switch>
 				)}
+                {/* <div className="footer-spacing-correction"></div> */}
 				<Footer />
 			</>
 		)
