@@ -34,7 +34,7 @@ function UploadedPhoto({ img, i, images, setImages, setSmallFileCounter }) {
 				/>
 				{imageSize < 50000 ? (
 					<div className="upload-photo-form-size-warning-container">
-						<i className="fa-solid fa-circle fa-2xs upload-photo-form-warning-dot"></i>
+						<i className="fa-solid fa-circle fa-2xs upload-photo-form-warning-dot" />
 						<section className="upload-photo-form-size-warning">UNDER 50 KB</section>
 					</div>
 				) : (

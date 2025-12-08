@@ -1,11 +1,11 @@
 import "./CreateSpotStep2c.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import uploadPhoto from "../../../../assets/create_listing/upload_photo.png";
 import UploadPhotoForm from "../../../../components/Modals/UploadPhotoModal/UploadPhotoForm";
 
-// Create spot page 8 - step 2 add photos
+// Create spot page 8 - add photos
 function CreateSpotStep2c({ type }) {
 	const [showPhotos, setShowPhotos] = useState(false);
 

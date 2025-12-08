@@ -15,6 +15,7 @@ import CreateSpotStep2a from "./CreateSpotPages/Step2a/CreateSpotStep2a";
 import CreateSpotStep2b from "./CreateSpotPages/Step2b/CreateSpotStep2b";
 import CreateSpotStep1d from "./CreateSpotPages/Step1d/CreateSpotStep1d";
 import CreateSpotStep2c from "./CreateSpotPages/Step2c/CreateSpotStep2c";
+import CreateSpotStep2d from "./CreateSpotPages/Step2d/CreateSpotStep2d";
 
 function CreateSpot() {
 	const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function CreateSpot() {
 	}, []);
 
 	// Which page of the listing creation process
-	const [page, setPage] = useState(8);
+	const [page, setPage] = useState(9);
 
 	const [disableNextButton, setDisableNextButton] = useState(false);
 
@@ -103,8 +104,11 @@ function CreateSpot() {
 					setAmenitiesCounter={setAmenitiesCounter}
 				/>
 			) : page === 8 ? (
-                // upload images for listing
+				// upload images for listing
 				<CreateSpotStep2c type={type} />
+			) : page === 9 ? (
+				// rearrange order of photos and select cover
+				<CreateSpotStep2d />
 			) : (
 				<>create new page</>
 			)}
@@ -125,9 +129,9 @@ function CreateSpot() {
 						<aside className={`create-spot-footer-section-${page >= 7}`}></aside>
 						<aside className={`create-spot-footer-section-${page >= 8}`}></aside>
 						<aside className={`create-spot-footer-section-${page >= 9}`}></aside>
+						<aside className={`create-spot-footer-section-${page >= 10}`}></aside>
 					</section>
 					<section className="create-spot-footer-step-container">
-						<aside className={`create-spot-footer-section-${page >= 10}`}></aside>
 						<aside className={`create-spot-footer-section-${page >= 11}`}></aside>
 						<aside className={`create-spot-footer-section-${page >= 12}`}></aside>
 					</section>
