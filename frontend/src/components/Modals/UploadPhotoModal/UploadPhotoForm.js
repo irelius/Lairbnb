@@ -6,18 +6,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 function UploadPhotoForm({ setShowPhotos }) {
 	const [images, setImages] = useState([]);
 	const [disableUpload, setDisableUpload] = useState(false);
-	const [fileTooSmall, setFileTooSmall] = useState(false);
+
+	const [smallFileCounter, setSmallFileCounter] = useState(0);
+
 	const [dragAndDropHovered, setDragAndDropHovered] = useState(false);
 
 	useEffect(() => {
-		if (fileTooSmall) {
+		if (smallFileCounter > 0) {
 			setDisableUpload(true);
 		} else if (images.length <= 0) {
 			setDisableUpload(true);
 		} else {
 			setDisableUpload(false);
 		}
-	}, [images, fileTooSmall]);
+	}, [images, smallFileCounter]);
 
 	// helper function. handles drag-and-drop and manual input uploads
 	//      `useCallback` to handle rerenders and make page more efficient
@@ -119,8 +121,9 @@ function UploadPhotoForm({ setShowPhotos }) {
 									key={img.url}
 									img={img}
 									i={i}
+									images={images}
 									setImages={setImages}
-									setFileTooSmall={setFileTooSmall}
+									setSmallFileCounter={setSmallFileCounter}
 								/>
 							);
 						})}

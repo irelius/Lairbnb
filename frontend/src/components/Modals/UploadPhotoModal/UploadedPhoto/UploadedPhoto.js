@@ -1,23 +1,26 @@
 import { useEffect } from "react";
 import "./UploadedPhoto.css";
 
-function UploadedPhoto({ img, i, setImages, setFileTooSmall }) {
+function UploadedPhoto({ img, i, images, setImages, setSmallFileCounter }) {
 	const imageSize = img.file.size;
 
 	useEffect(() => {
 		if (img.file.size < 50000) {
-			setFileTooSmall(true);
+			setSmallFileCounter((prev) => prev + 1);
 		}
 	}, [img]);
+
+	const handlePhotoDelete = () => {
+		setImages((prev) => [...prev.slice(0, i), ...prev.slice(i + 1)]);
+		if (images[i].file.size < 50000) {
+			setSmallFileCounter((prev) => prev - 1);
+		}
+	};
 
 	return (
 		<div className="upload-photo-form-photo-columns">
 			{/* uploaded photo delete button */}
-			<section
-				onClick={() => {
-					setImages((prev) => [...prev.slice(0, i), ...prev.slice(i + 1)]);
-				}}
-				className="upload-photo-form-photo-trash-button mouse-pointer">
+			<section onClick={() => handlePhotoDelete()} className="upload-photo-form-photo-trash-button mouse-pointer">
 				<i className="fa-solid fa-trash-can" />
 			</section>
 
