@@ -1,6 +1,6 @@
 /* ------------------------------------------------------------------------------------- */
-/* Create Spot Step 1d (Page 8, add photos) */
-.create-spot-2c-container {
+/* Create Spot Step 7 (add photos) */
+.step-7-container {
 	display: flex;
 	flex-direction: column;
 
@@ -9,7 +9,7 @@
 
 /* ------------------------------------------------------------------------------------- */
 /* Create spot - photos header */
-.create-spot-photos-header-container {
+.step-7-header-container {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5em;
@@ -17,13 +17,13 @@
 	width: 47em;
 }
 
-.create-spot-photos-header {
+.step-7-header {
 	font-size: 32px;
 	font-weight: 600;
 	letter-spacing: -0.06em;
 }
 
-.create-spot-photos-subheader {
+.step-7-subheader {
 	font-size: 18px;
 	font-weight: 500;
 
@@ -32,7 +32,7 @@
 
 /* ------------------------------------------------------------------------------------- */
 /* Create spot - add photos container */
-.create-spot-add-photos-container {
+.step-7-photos-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -47,12 +47,12 @@
 	background-color: rgb(247, 247, 247);
 }
 
-.create-spot-add-photos-image-holder {
+.step-7-photos-image-holder {
 	height: 13em;
 	width: auto;
 }
 
-.create-spot-add-photos-button {
+.step-7-photos-button {
 	padding: 0.75em 1em 0.75em 1em;
 
 	border: 1px solid black;
@@ -62,6 +62,6 @@
 	background-color: rgb(255, 255, 255);
 }
 
-.create-spot-add-photos-button:hover {
+.step-7-photos-button:hover {
 	background-color: rgb(247, 247, 247);
 }

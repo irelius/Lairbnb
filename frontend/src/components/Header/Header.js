@@ -40,7 +40,7 @@ function Header({ isLoaded }) {
 									className="header-host-button bg-off-white-hover bold mouse-pointer"
 									onClick={() => {
 										setMode("host");
-										history.push("/hosting");
+										history.push("/become-a-host/overview");
 									}}>
 									Become a host
 								</button>

@@ -1,20 +1,20 @@
 /* ------------------------------------------------------------------------------------- */
-/* Create Spot Step 1d (Page 5, # of rooms) */
-.create-spot-1d-container {
+/* Create Spot Step 4 (floor plan, # of rooms) */
+.create-step-4-container {
 	display: flex;
 	flex-direction: column;
 
 	gap: 4em;
 }
 
-.create-spot-rooms-space-line {
+.step-4-space-line {
 	height: 1px;
 	background-color: #ebebeb;
 }
 
 /* ------------------------------------------------------------------------------------- */
 /* Create spot - rooms header */
-.create-spot-rooms-header-container {
+.step-4-header-container {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5em;
@@ -22,13 +22,13 @@
 	width: 47em;
 }
 
-.create-spot-rooms-header {
+.step-4-header {
 	font-size: 32px;
 	font-weight: 600;
 	letter-spacing: -0.06em;
 }
 
-.create-spot-rooms-subheader {
+.step-4-subheader {
 	font-size: 16px;
 	font-weight: 500;
 
@@ -36,14 +36,14 @@
 }
 
 /* ------------------------------------------------------------------------------------- */
-.create-spot-rooms-container {
+.step-4-container {
 	display: flex;
 	flex-direction: column;
 	gap: 1.75em;
 }
 
 /* Create spot - rooms counter container */
-.create-spot-rooms-counter-container {
+.step-4-counter-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -52,18 +52,18 @@
 	width: 47em;
 }
 
-.create-spot-rooms-counter-header {
+.step-4-counter-header {
 	font-size: 18px;
 	font-weight: 500;
 	letter-spacing: -0.03em;
 }
 
-.create-spot-rooms-counter-val {
+.step-4-counter-val {
 	font-size: 16px;
 	font-weight: 500;
 }
 
-.create-spot-rooms-button-container {
+.step-4-button-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -74,7 +74,7 @@
 	min-width: 8em;
 }
 
-.create-spot-rooms-button {
+.step-4-button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -86,12 +86,12 @@
 	border-radius: 100%;
 }
 
-.create-spot-rooms-button-disabled-false:hover {
+.step-4-button-disabled-false:hover {
 	color: black;
 	border: 1px solid black;
 }
 
-.create-spot-rooms-button-disabled-true {
+.step-4-button-disabled-true {
 	color: #f0f0f0;
 	border: 1px solid #f0f0f0;
 	cursor: not-allowed;

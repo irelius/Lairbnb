@@ -1,17 +1,17 @@
 /* ------------------------------------------------------------------------------------- */
 /* Create Spot Page 1 */
-.create-spot-0-container {
+.step-0-container {
     gap: 3em;
 }
 
 /* Left section */
-.create-spot-0-left-container {
+.step-0-left-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.create-spot-0-left {
+.step-0-left {
 	width: 10em;
 
 	font-size: 55px;
@@ -19,14 +19,14 @@
 }
 
 /* Right section */
-.create-spot-0-right-container {
+.step-0-right-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
 
-.create-spot-0-step-container {
+.step-0-step-container {
 	display: flex;
 	flex-direction: row;
 
@@ -35,24 +35,24 @@
 	width: 45em;
 }
 
-.create-spot-0-step-number {
+.step-0-step-number {
 	font-size: 22px;
 	font-weight: 550;
 }
 
-.create-spot-0-step-text {
+.step-0-step-text {
 	display: flex;
 	flex-direction: column;
 
 	gap: 0.5em;
 }
 
-.create-spot-0-step-header {
+.step-0-step-header {
 	font-size: 22px;
 	font-weight: 550;
 }
 
-.create-spot-0-step-desc {
+.step-0-step-desc {
 	font-size: 18px;
 	font-weight: 400;
 }

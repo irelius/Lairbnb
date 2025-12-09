@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import "./CreateSpotStep2b.css";
+import "./Step6Amenities.css";
 
-// Create spot page 6 - amenities
-function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenitiesCounter }) {
+// Create spot step 6 - amenities
+function Step6Amenities({ amenities, setAmenities, amenitiesCounter, setAmenitiesCounter }) {
 	// Helper function to update `amenities` state variable
 	const updateAmenities = (type) => {
 		// state the type was before clicking
@@ -22,18 +22,18 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 	};
 
 	return (
-		<div className="create-spot-container create-spot-2b-container">
-			<div className="create-spot-2b-section-0">
-				<section className="create-spot-2b-header">Tell guests what your place has to offer</section>
-				<section className="create-spot-2b-subheader">
+		<div className="create-spot-container step-6-container">
+			<div className="step-6-section-0">
+				<section className="step-6-header">Tell guests what your place has to offer</section>
+				<section className="step-6-subheader">
 					You can add more amenities after you publish your listing.
 				</section>
 			</div>
-			<div className="create-spot-2b-section-container">
-				<section className="create-spot-2b-section-header">What about these guest favorites?</section>
-				<section className="create-spot-2b-section-amenities">
+			<div className="step-6-section-container">
+				<section className="step-6-section-header">What about these guest favorites?</section>
+				<section className="step-6-section-amenities">
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${amenities["wifi"] === true}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["wifi"] === true}`}
 						onClick={() => {
 							updateAmenities("wifi");
 						}}>
@@ -41,7 +41,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>Wifi</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${amenities["tv"] === true}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["tv"] === true}`}
 						onClick={() => {
 							updateAmenities("tv");
 						}}>
@@ -49,7 +49,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>TV</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${amenities["kitchen"] === true}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["kitchen"] === true}`}
 						onClick={() => {
 							updateAmenities("kitchen");
 						}}>
@@ -57,7 +57,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>Kitchen</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${amenities["washer"] === true}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["washer"] === true}`}
 						onClick={() => {
 							updateAmenities("washer");
 						}}>
@@ -65,9 +65,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>Washer</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${
-							amenities["freeParking"] === true
-						}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["freeParking"] === true}`}
 						onClick={() => {
 							updateAmenities("freeParking");
 						}}>
@@ -75,9 +73,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>Free parking on premises</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${
-							amenities["airConditioning"] === true
-						}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["airConditioning"] === true}`}
 						onClick={() => {
 							updateAmenities("airConditioning");
 						}}>
@@ -86,11 +82,11 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 					</section>
 				</section>
 			</div>
-			<div className="create-spot-2b-section-container">
-				<section className="create-spot-2b-section-header">Do you have any standout amenities?</section>
-				<section className="create-spot-2b-section-amenities">
+			<div className="step-6-section-container">
+				<section className="step-6-section-header">Do you have any standout amenities?</section>
+				<section className="step-6-section-amenities">
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${amenities["pool"] === true}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["pool"] === true}`}
 						onClick={() => {
 							updateAmenities("pool");
 						}}>
@@ -98,7 +94,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>Pool</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${amenities["hotTub"] === true}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["hotTub"] === true}`}
 						onClick={() => {
 							updateAmenities("hotTub");
 						}}>
@@ -106,7 +102,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>Hot tub</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${amenities["bbqGrill"] === true}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["bbqGrill"] === true}`}
 						onClick={() => {
 							updateAmenities("bbqGrill");
 						}}>
@@ -114,9 +110,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>BBQ grill</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${
-							amenities["indoorFireplace"] === true
-						}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["indoorFireplace"] === true}`}
 						onClick={() => {
 							updateAmenities("indoorFireplace");
 						}}>
@@ -124,9 +118,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>Indoor fireplace</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${
-							amenities["exerciseEquipment"] === true
-						}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["exerciseEquipment"] === true}`}
 						onClick={() => {
 							updateAmenities("exerciseEquipment");
 						}}>
@@ -134,9 +126,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>Exercise equipment</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${
-							amenities["beachAccess"] === true
-						}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["beachAccess"] === true}`}
 						onClick={() => {
 							updateAmenities("beachAccess");
 						}}>
@@ -145,13 +135,11 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 					</section>
 				</section>
 			</div>
-			<div className="create-spot-2b-section-container">
-				<section className="create-spot-2b-section-header">Do you have any of these safety items?</section>
-				<section className="create-spot-2b-section-amenities">
+			<div className="step-6-section-container">
+				<section className="step-6-section-header">Do you have any of these safety items?</section>
+				<section className="step-6-section-amenities">
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${
-							amenities["smokeAlarm"] === true
-						}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["smokeAlarm"] === true}`}
 						onClick={() => {
 							updateAmenities("smokeAlarm");
 						}}>
@@ -159,9 +147,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>Smoke alarm</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${
-							amenities["firstAidKit"] === true
-						}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["firstAidKit"] === true}`}
 						onClick={() => {
 							updateAmenities("firstAidKit");
 						}}>
@@ -169,9 +155,7 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 						<aside>First aid kit</aside>
 					</section>
 					<section
-						className={`create-spot-amenity create-spot-amenity-selected-${
-							amenities["fireExtinguisher"] === true
-						}`}
+						className={`step-6-amenity step-6-amenity-selected-${amenities["fireExtinguisher"] === true}`}
 						onClick={() => {
 							updateAmenities("fireExtinguisher");
 						}}>
@@ -184,4 +168,4 @@ function CreateSpotStep2b({ amenities, setAmenities, amenitiesCounter, setAmenit
 	);
 }
 
-export default CreateSpotStep2b;
+export default Step6Amenities;

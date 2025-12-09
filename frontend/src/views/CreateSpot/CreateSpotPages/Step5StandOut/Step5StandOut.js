@@ -1,25 +1,25 @@
 import { useEffect } from "react";
-import "./CreateSpotStep2a.css";
+import "./Step5StandOut.css";
 
-// Create spot page 5 - step 2 intro
-function CreateSpotStep2a({ setDisableNextButton }) {
+// Create spot step 5 - intro 2
+function Step5StandOut({ setDisableNextButton }) {
 	useEffect(() => {
 		setDisableNextButton(false);
 	}, []);
 
 	return (
-		<div className="create-spot-container create-spot-2a-container">
-			<aside className="create-spot-2a-left-container">
-				<section className="create-spot-2a-step">Step 2</section>
-				<section className="create-spot-2a-header">Make your place stand out</section>
-				<section className="create-spot-2a-desc">
+		<div className="create-spot-container step-5-container">
+			<aside className="step-5-left-container">
+				<section className="step-5-step">Step 2</section>
+				<section className="step-5-header">Make your place stand out</section>
+				<section className="step-5-desc">
 					In this step, you’ll add some of the amenities your place offers, plus 5 or more photos. Then,
 					you’ll create a title and description.
 				</section>
 			</aside>
-			<aside className="create-spot-2a-right-container">
+			<aside className="step-5-right-container">
 				<video
-					className="create-spot-2a-video"
+					className="step-5-video"
 					autoPlay=""
 					crossOrigin="anonymous"
 					muted=""
@@ -35,4 +35,4 @@ function CreateSpotStep2a({ setDisableNextButton }) {
 	);
 }
 
-export default CreateSpotStep2a;
+export default Step5StandOut;

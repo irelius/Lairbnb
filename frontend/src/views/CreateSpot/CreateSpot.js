@@ -1,47 +1,88 @@
 import "./CreateSpot.css";
 import { useHistory } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Switch, Route, Link, useParams } from "react-router-dom";
+
 // import { addSpotThunk } from "../../store/spot";
 
 import { ModeContext } from "../../context/Mode/Mode";
 
 import SubmitButton from "../../components/Modals/SubmitButton/SubmitButton";
-import CreateSpotStep0 from "./CreateSpotPages/Step0/CreateSpotStep0";
-import CreateSpotStep1a from "./CreateSpotPages/Step1a/CreateSpotStep1a";
-import CreateSpotStep1b from "./CreateSpotPages/Step1b/CreateSpotStep1b";
-import CreateSpotStep1c from "./CreateSpotPages/Step1c/CreateSpotStep1c";
-import CreateSpotStep2a from "./CreateSpotPages/Step2a/CreateSpotStep2a";
-import CreateSpotStep2b from "./CreateSpotPages/Step2b/CreateSpotStep2b";
-import CreateSpotStep1d from "./CreateSpotPages/Step1d/CreateSpotStep1d";
-import CreateSpotStep2c from "./CreateSpotPages/Step2c/CreateSpotStep2c";
-import CreateSpotStep2d from "./CreateSpotPages/Step2d/CreateSpotStep2d";
+import Step0GetStarted from "./CreateSpotPages/Step0GetStarted/Step0GetStarted";
+import Step1AboutYourPlace from "./CreateSpotPages/Step1AboutYourPlace/Step1AboutYourPlace";
+import Step2Structure from "./CreateSpotPages/Step2Structure/Step2Structure";
+import Step3Location from "./CreateSpotPages/Step3Location/Step3Location";
+import Step4FloorPlan from "./CreateSpotPages/Step4FloorPlan/Step4FloorPlan";
+import Step5StandOut from "./CreateSpotPages/Step5StandOut/Step5StandOut";
+import Step6Amenities from "./CreateSpotPages/Step6Amenities/Step6Amenities";
+import Step7Photos from "./CreateSpotPages/Step7Photos/Step7Photos";
 
 function CreateSpot() {
 	const dispatch = useDispatch();
 
-	const { setMode } = useContext(ModeContext);
-
+	const { mode, setMode } = useContext(ModeContext);
 	const history = useHistory();
-	const currentUser = useSelector((state) => state.user.user);
+
+	const stepEndpoints = [
+		"overview",
+		"about-your-place",
+		"structure",
+		"location",
+		"floor-plan",
+		"stand-out",
+		"amenities",
+		"photos",
+		"title",
+		"description",
+		"finish-setup",
+		"price",
+		"weekend-price",
+	];
 
 	// If user isn't logged in, redirect back to home
+	const currentUser = useSelector((state) => state.user.user);
 	if (!currentUser) {
 		history.push("/");
 	}
 
 	// make sure the global variable is set to "host" (controls which type of header to show)
 	useEffect(() => {
-		setMode("host");
+		if (mode !== "host") setMode("host");
 	}, []);
 
-	// Which page of the listing creation process
-	const [page, setPage] = useState(9);
+	// Which step of the listing creation process user is currently on
+	const [step, setStep] = useState(0);
+
+	useEffect(() => {
+		// current page url, split by "/"
+		const hrefArr = window.location.href.split("/");
+
+		// endpoint of the current step (ex: "overview", "floor-plan", etc.)
+		const currStep = hrefArr[hrefArr.length - 1];
+
+		// set `step` to be the step # (index of `stepEndpoints` array) on page load
+		//      Shows the correct footer incase user goes to a url directly
+		setStep(stepEndpoints.indexOf(currStep));
+	}, []);
+
+	const navigateToNextPage = (dir) => {
+		const spotId = 1;
+
+		if (dir === "prev") {
+			setStep((prev) => prev - 1);
+			history.goBack();
+		} else {
+			setStep((prev) => prev + 1);
+			const nextStep = stepEndpoints[step + 1];
+			history.push(`/become-a-host/${spotId}/${nextStep}`);
+		}
+	};
 
 	const [disableNextButton, setDisableNextButton] = useState(false);
 
-	// what type of place is this new listing?
-	const [type, setType] = useState(null);
+	// what structure of structure is this new listing?
+	const [structure, setStructure] = useState(null);
 
 	// number of rooms of listing
 	const [rooms, setRooms] = useState({
@@ -76,97 +117,109 @@ function CreateSpot() {
 
 	return (
 		<div className="create-spot-main-container">
-			{/* Depending on page #, display different page components */}
-			{page === 1 ? (
-				// get started page
-				<CreateSpotStep0 />
-			) : page === 2 ? (
-				// step 1 intro
-				<CreateSpotStep1a setDisableNextButton={setDisableNextButton} />
-			) : page === 3 ? (
-				// select listing type
-				<CreateSpotStep1b type={type} setType={setType} setDisableNextButton={setDisableNextButton} />
-			) : page === 4 ? (
-				// enter address
-				<CreateSpotStep1c setDisableNextButton={setDisableNextButton} />
-			) : page === 5 ? (
-				// enter # of rooms
-				<CreateSpotStep1d rooms={rooms} setRooms={setRooms} />
-			) : page === 6 ? (
-				// step 2 intro
-				<CreateSpotStep2a setDisableNextButton={setDisableNextButton} />
-			) : page === 7 ? (
-				// select amenities
-				<CreateSpotStep2b
-					amenities={amenities}
-					amenitiesCounter={amenitiesCounter}
-					setAmenities={setAmenities}
-					setAmenitiesCounter={setAmenitiesCounter}
-				/>
-			) : page === 8 ? (
-				// upload images for listing
-				<CreateSpotStep2c type={type} />
-			) : page === 9 ? (
-				// rearrange order of photos and select cover
-				<CreateSpotStep2d />
-			) : (
-				<>create new page</>
-			)}
+			<Switch>
+				<Route path="/become-a-host/overview">
+					<Step0GetStarted />
+				</Route>
+				<Route path="/become-a-host/:spotId/overview">
+					<Step0GetStarted />
+				</Route>
+				<Route path="/become-a-host/:spotId/about-your-place">
+					<Step1AboutYourPlace setDisableNextButton={setDisableNextButton} />
+				</Route>
+				<Route path="/become-a-host/:spotId/structure">
+					<Step2Structure
+						structure={structure}
+						setStructure={setStructure}
+						setDisableNextButton={setDisableNextButton}
+					/>
+				</Route>
+				<Route path="/become-a-host/:spotId/location">
+					<Step3Location setDisableNextButton={setDisableNextButton} />
+				</Route>
+				<Route path="/become-a-host/:spotId/floor-plan">
+					<Step4FloorPlan rooms={rooms} setRooms={setRooms} />
+				</Route>
+				<Route path="/become-a-host/:spotId/stand-out">
+					<Step5StandOut setDisableNextButton={setDisableNextButton} />
+				</Route>
+				<Route path="/become-a-host/:spotId/amenities">
+					<Step6Amenities
+						amenities={amenities}
+						amenitiesCounter={amenitiesCounter}
+						setAmenities={setAmenities}
+						setAmenitiesCounter={setAmenitiesCounter}
+					/>
+				</Route>
+				<Route path="/become-a-host/:spotId/photos">
+					<Step7Photos structure={structure} />
+				</Route>
+				{/* <Route path="/become-a-host/title">
+                    < />
+                </Route>
+                <Route path="/become-a-host/description">
+                    < />
+                </Route>
+                <Route path="/become-a-host/finish-setup">
+                    < />
+                </Route>
+                <Route path="/become-a-host/price">
+                    < />
+                </Route>
+                <Route path="/become-a-host/weekend-price">
+                    < />
+                </Route> */}
+			</Switch>
 
-			{/* If on first page, display solid footer bar */}
-			{page === 1 ? (
+			{/* If on first step, display solid footer bar */}
+			{step === 0 ? (
 				<div className="create-spot-footer-bar"></div>
 			) : (
-				// If on other pages, display sectioned footer bar
+				// If on other steps, display sectioned footer bar
 				<div className="create-spot-footer-section-container">
 					<section className="create-spot-footer-step-container">
 						{/* <section className="test"></section> */}
-						<aside className={`create-spot-footer-section-${page >= 3}`}></aside>
-						<aside className={`create-spot-footer-section-${page >= 4}`}></aside>
-						<aside className={`create-spot-footer-section-${page >= 5}`}></aside>
+						<aside className={`create-spot-footer-section-${step >= 3}`}></aside>
+						<aside className={`create-spot-footer-section-${step >= 4}`}></aside>
+						<aside className={`create-spot-footer-section-${step >= 5}`}></aside>
 					</section>
 					<section className="create-spot-footer-step-container">
-						<aside className={`create-spot-footer-section-${page >= 7}`}></aside>
-						<aside className={`create-spot-footer-section-${page >= 8}`}></aside>
-						<aside className={`create-spot-footer-section-${page >= 9}`}></aside>
-						<aside className={`create-spot-footer-section-${page >= 10}`}></aside>
+						<aside className={`create-spot-footer-section-${step >= 7}`}></aside>
+						<aside className={`create-spot-footer-section-${step >= 8}`}></aside>
+						<aside className={`create-spot-footer-section-${step >= 9}`}></aside>
+						<aside className={`create-spot-footer-section-${step >= 10}`}></aside>
 					</section>
 					<section className="create-spot-footer-step-container">
-						<aside className={`create-spot-footer-section-${page >= 11}`}></aside>
-						<aside className={`create-spot-footer-section-${page >= 12}`}></aside>
+						<aside className={`create-spot-footer-section-${step >= 11}`}></aside>
+						<aside className={`create-spot-footer-section-${step >= 12}`}></aside>
 					</section>
 				</div>
 			)}
 
-			{/* Depending on page #, display different footer buttons */}
+			{/* Depending on step #, display different footer buttons */}
 			<div className="create-spot-footer-container">
 				<div className="create-spot-footer-buttons-container">
 					<aside className="create-spot-footer-buttons-left">
-						{page === 1 ? (
+						{step === 0 ? (
 							<></>
 						) : (
 							<section
 								className="create-spot-footer-back-button mouse-pointer"
 								onClick={() => {
-									setPage((prev) => prev - 1);
+									navigateToNextPage("prev");
 								}}>
 								Back
 							</section>
 						)}
 					</aside>
-					<aside className="create-spot-footer-buttons-right">
-						{page === 1 ? (
-							<section
-								className="create-spot-get-started-button mouse-pointer"
-								onClick={() => {
-									setPage((prev) => prev + 1);
-								}}>
+					<aside className="create-spot-footer-buttons-right" onClick={() => navigateToNextPage("next")}>
+						{step === 0 ? (
+							<section className="create-spot-get-started-button mouse-pointer">
 								<SubmitButton buttonText="Get Started" />
 							</section>
 						) : (
 							<button
 								className={`create-spot-next-button ${disableNextButton ? "" : "mouse-pointer"}`}
-								onClick={() => setPage((prev) => prev + 1)}
 								disabled={disableNextButton}>
 								Next
 							</button>

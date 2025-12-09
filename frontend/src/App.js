@@ -13,6 +13,7 @@ import ManageListings from "./views/ManageListings/ManageListings";
 
 import * as userActions from "./store/user";
 import Test from "./test";
+import CreateSpot from "./views/CreateSpot/CreateSpot";
 
 function App() {
 	const dispatch = useDispatch();
@@ -31,9 +32,6 @@ function App() {
 						<Route exact path="/">
 							<Main />
 						</Route>
-						<Route exact path="/hosting">
-							<CreateSpotPage />
-						</Route>
 						<Route exact path="/manage-listings">
 							<ManageListings />
 						</Route>
@@ -43,12 +41,17 @@ function App() {
 						<Route exact path="/spot-details/:spotId">
 							<SpotPage />
 						</Route>
+
+						<Route path="/become-a-host">
+							<CreateSpot />
+						</Route>
+
 						<Route exact path="/test">
 							<Test />
 						</Route>
 					</Switch>
 				)}
-                {/* <div className="footer-spacing-correction"></div> */}
+				{/* <div className="footer-spacing-correction"></div> */}
 				<Footer />
 			</>
 		)
