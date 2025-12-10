@@ -27,60 +27,76 @@ module.exports = {
 					onDelete: "CASCADE",
 				},
 				address: {
-					type: Sequelize.STRING(60),
-					allowNull: false,
+					type: Sequelize.STRING(120),
+					allowNull: true,
+				},
+				address2: {
+					type: Sequelize.STRING(30),
+					allowNull: true,
 				},
 				city: {
 					type: Sequelize.STRING(60),
-					allowNull: false,
+					allowNull: true,
 				},
 				state: {
-					type: Sequelize.STRING(20),
-					allowNull: false,
+					type: Sequelize.STRING(30),
+					allowNull: true,
 				},
 				country: {
 					type: Sequelize.STRING(30),
-					allowNull: false,
+					allowNull: true,
 				},
 				lat: {
 					type: Sequelize.DECIMAL,
-					allowNull: false,
+					allowNull: true,
 				},
 				lng: {
 					type: Sequelize.DECIMAL,
-					allowNull: false,
+					allowNull: true,
 				},
 				name: {
 					type: Sequelize.STRING(60),
-					allowNull: false,
+					allowNull: true,
 				},
-				type: {
+				structure: {
 					type: Sequelize.STRING(30),
-					allowNull: false,
+					allowNull: true,
 				},
 				description: {
 					type: Sequelize.TEXT,
-					allowNull: false,
+					allowNull: true,
 				},
 				guest: {
 					type: Sequelize.INTEGER,
+					allowNull: true,
 					defaultValue: 2,
 				},
 				bedroom: {
 					type: Sequelize.INTEGER,
+					allowNull: true,
 					defaultValue: 0,
 				},
 				bed: {
 					type: Sequelize.INTEGER,
+					allowNull: true,
 					defaultValue: 1,
 				},
 				bathroom: {
 					type: Sequelize.DECIMAL,
+					allowNull: true,
 					defaultValue: 1,
 				},
 				price: {
 					type: Sequelize.DECIMAL,
-					allowNull: false,
+					allowNull: true,
+				},
+				weekendPrice: {
+					type: Sequelize.DECIMAL,
+					allowNull: true,
+				},
+				draft: {
+					type: Sequelize.BOOLEAN,
+					defaultValue: true,
 				},
 				createdAt: {
 					allowNull: false,
