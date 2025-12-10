@@ -6,7 +6,6 @@ import { Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Main from "./views/Main/Main";
-import CreateSpotPage from "./views/CreateSpot/CreateSpot";
 import SpotPage from "./views/SpotPage/SpotPage";
 import EditSpot from "./views/EditSpot/EditSpot";
 import ManageListings from "./views/ManageListings/ManageListings";

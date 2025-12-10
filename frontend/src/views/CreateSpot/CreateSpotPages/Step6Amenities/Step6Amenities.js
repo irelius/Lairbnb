@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import "./Step6Amenities.css";
 
 // Create spot step 6 - amenities
-function Step6Amenities({ amenities, setAmenities, amenitiesCounter, setAmenitiesCounter }) {
+function Step6Amenities({ amenities, setAmenities, setAmenitiesCounter }) {
 	// Helper function to update `amenities` state variable
 	const updateAmenities = (type) => {
 		// state the type was before clicking

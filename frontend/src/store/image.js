@@ -142,6 +142,8 @@ export const addImageThunk = (imageUpload) => async (dispatch) => {
 		// } else {
 		//     dispatch(addImage(data.imageUpload))
 		// }
+
+        // return response
 	} catch (e) {
 		console.error("Error uploading image: ", e);
 	}

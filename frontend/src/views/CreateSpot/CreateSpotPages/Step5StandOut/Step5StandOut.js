@@ -20,7 +20,7 @@ function Step5StandOut({ setDisableNextButton }) {
 			<aside className="step-5-right-container">
 				<video
 					className="step-5-video"
-					autoPlay=""
+					autoPlay
 					crossOrigin="anonymous"
 					muted=""
 					playsInline=""

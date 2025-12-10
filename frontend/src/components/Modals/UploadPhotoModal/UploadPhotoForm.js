@@ -1,10 +1,9 @@
 import UploadedPhoto from "./UploadedPhoto/UploadedPhoto";
 import "./UploadPhotoForm.css";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-function UploadPhotoForm({ setShowPhotos }) {
-	const [images, setImages] = useState([]);
+function UploadPhotoForm({ setShowPhotos, images, setImages }) {
 	const [disableUpload, setDisableUpload] = useState(false);
 
 	const [smallFileCounter, setSmallFileCounter] = useState(0);

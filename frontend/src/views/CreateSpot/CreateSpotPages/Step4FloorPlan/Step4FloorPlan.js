@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import "./Step4FloorPlan.css";
 
 // Create spot step 4 - enter number of rooms

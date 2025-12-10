@@ -1,6 +1,6 @@
 import "./Step7Photos.css";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 import uploadPhoto from "../../../../assets/create_listing/upload_photo.png";
 import UploadPhotoForm from "../../../../components/Modals/UploadPhotoModal/UploadPhotoForm";
@@ -8,6 +8,11 @@ import UploadPhotoForm from "../../../../components/Modals/UploadPhotoModal/Uplo
 // Create spot page 7 - add photos
 function Step7Photos({ type }) {
 	const [showPhotos, setShowPhotos] = useState(false);
+	const [images, setImages] = useState([]);
+
+    useEffect(() => {
+        console.log('test', images)
+    }, [images])
 
 	type = "house";
 
@@ -32,7 +37,7 @@ function Step7Photos({ type }) {
 						e.preventDefault();
 						setShowPhotos(false);
 					}}>
-					<UploadPhotoForm setShowPhotos={setShowPhotos} />
+					<UploadPhotoForm setShowPhotos={setShowPhotos} images={images} setImages={setImages} />
 				</div>
 			) : (
 				<></>

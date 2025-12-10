@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./Step2Structure.css";
 
 // Create spot step 2 - location structure

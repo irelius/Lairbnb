@@ -1,8 +1,8 @@
 import "./CreateSpot.css";
 import { useHistory } from "react-router-dom";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Switch, Route, Link, useParams } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 // import { addSpotThunk } from "../../store/spot";
 
@@ -19,7 +19,7 @@ import Step6Amenities from "./CreateSpotPages/Step6Amenities/Step6Amenities";
 import Step7Photos from "./CreateSpotPages/Step7Photos/Step7Photos";
 
 function CreateSpot() {
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
 	const { mode, setMode } = useContext(ModeContext);
 	const history = useHistory();
@@ -49,7 +49,7 @@ function CreateSpot() {
 	// make sure the global variable is set to "host" (controls which type of header to show)
 	useEffect(() => {
 		if (mode !== "host") setMode("host");
-	}, []);
+	}, [mode]);
 
 	// Which step of the listing creation process user is currently on
 	const [step, setStep] = useState(0);
@@ -145,7 +145,6 @@ function CreateSpot() {
 				</Route>
 				<Route path="/become-a-host/:spotId/amenities">
 					<Step6Amenities
-						amenities={amenities}
 						amenitiesCounter={amenitiesCounter}
 						setAmenities={setAmenities}
 						setAmenitiesCounter={setAmenitiesCounter}
