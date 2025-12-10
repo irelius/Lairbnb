@@ -1,20 +1,35 @@
 import "./Step6Amenities.css";
 
+import { useState } from "react";
+
 // Create spot step 6 - amenities
-function Step6Amenities({ amenities, setAmenities, setAmenitiesCounter }) {
+function Step6Amenities() {
+	// what amenities is provided
+	const [amenities, setAmenities] = useState({
+		// section 1 - guest favorites
+		wifi: false,
+		tv: false,
+		kitchen: false,
+		washer: false,
+		freeParking: false,
+		airConditioning: false,
+		// section 2 - standout amenities
+		pool: false,
+		hotTub: false,
+		bbqGrill: false,
+		indoorFireplace: false,
+		exerciseEquipment: false,
+		beachAccess: false,
+		// section 3 - safety items
+		smokeAlarm: false,
+		firstAidKit: false,
+		fireExtinguisher: false,
+	});
+
 	// Helper function to update `amenities` state variable
 	const updateAmenities = (type) => {
 		// state the type was before clicking
 		const prior = amenities[type];
-
-		// if type was `true` before clicking, then user is unselecting option
-		if (prior === true) {
-			setAmenitiesCounter((prev) => prev - 1);
-		}
-		// else, user is selecting option
-		else {
-			setAmenitiesCounter((prev) => prev + 1);
-		}
 
 		// update object state variable
 		setAmenities((prev) => ({ ...prev, [type]: !prior }));

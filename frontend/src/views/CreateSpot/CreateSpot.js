@@ -81,40 +81,6 @@ function CreateSpot() {
 
 	const [disableNextButton, setDisableNextButton] = useState(false);
 
-	// what structure of structure is this new listing?
-	const [structure, setStructure] = useState(null);
-
-	// number of rooms of listing
-	const [rooms, setRooms] = useState({
-		guests: 2,
-		bedrooms: 0,
-		beds: 1,
-		bathrooms: 1,
-	});
-
-	// what amenities is provided
-	const [amenitiesCounter, setAmenitiesCounter] = useState(0);
-	const [amenities, setAmenities] = useState({
-		// section 1 - guest favorites
-		wifi: false,
-		tv: false,
-		kitchen: false,
-		washer: false,
-		freeParking: false,
-		airConditioning: false,
-		// section 2 - standout amenities
-		pool: false,
-		hotTub: false,
-		bbqGrill: false,
-		indoorFireplace: false,
-		exerciseEquipment: false,
-		beachAccess: false,
-		// section 3 - safety items
-		smokeAlarm: false,
-		firstAidKit: false,
-		fireExtinguisher: false,
-	});
-
 	return (
 		<div className="create-spot-main-container">
 			<Switch>
@@ -128,30 +94,22 @@ function CreateSpot() {
 					<Step1AboutYourPlace setDisableNextButton={setDisableNextButton} />
 				</Route>
 				<Route path="/become-a-host/:spotId/structure">
-					<Step2Structure
-						structure={structure}
-						setStructure={setStructure}
-						setDisableNextButton={setDisableNextButton}
-					/>
+					<Step2Structure setDisableNextButton={setDisableNextButton} />
 				</Route>
 				<Route path="/become-a-host/:spotId/location">
 					<Step3Location setDisableNextButton={setDisableNextButton} />
 				</Route>
 				<Route path="/become-a-host/:spotId/floor-plan">
-					<Step4FloorPlan rooms={rooms} setRooms={setRooms} />
+					<Step4FloorPlan />
 				</Route>
 				<Route path="/become-a-host/:spotId/stand-out">
 					<Step5StandOut setDisableNextButton={setDisableNextButton} />
 				</Route>
 				<Route path="/become-a-host/:spotId/amenities">
-					<Step6Amenities
-						amenitiesCounter={amenitiesCounter}
-						setAmenities={setAmenities}
-						setAmenitiesCounter={setAmenitiesCounter}
-					/>
+					<Step6Amenities />
 				</Route>
 				<Route path="/become-a-host/:spotId/photos">
-					<Step7Photos structure={structure} />
+					<Step7Photos />
 				</Route>
 				{/* <Route path="/become-a-host/title">
                     < />
@@ -204,9 +162,7 @@ function CreateSpot() {
 						) : (
 							<section
 								className="create-spot-footer-back-button mouse-pointer"
-								onClick={() => {
-									navigateToNextPage("prev");
-								}}>
+								onClick={() => navigateToNextPage("prev")}>
 								Back
 							</section>
 						)}

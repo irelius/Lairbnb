@@ -6,20 +6,21 @@ import uploadPhoto from "../../../../assets/create_listing/upload_photo.png";
 import UploadPhotoForm from "../../../../components/Modals/UploadPhotoModal/UploadPhotoForm";
 
 // Create spot page 7 - add photos
-function Step7Photos({ type }) {
+function Step7Photos() {
 	const [showPhotos, setShowPhotos] = useState(false);
 	const [images, setImages] = useState([]);
 
-    useEffect(() => {
-        console.log('test', images)
-    }, [images])
+	useEffect(() => {
+		console.log("test", images);
+	}, [images]);
 
-	type = "house";
+    // temporarily set `structure` to "house". Update after implementing thunk to fetch current listing from db
+	const structure = "house";
 
 	return (
 		<div className="create-spot-container step-7-container">
 			<section className="step-7-header-container">
-				<section className="step-7-header">Add some photos of your {type.toLowerCase()}</section>
+				<section className="step-7-header">Add some photos of your {structure.toLowerCase()}</section>
 				<section className="step-7-subheader">
 					You'll need 5 photos to get started. You can add more or make changes later.
 				</section>

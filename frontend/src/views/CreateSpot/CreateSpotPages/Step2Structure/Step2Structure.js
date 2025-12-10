@@ -1,8 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Step2Structure.css";
 
 // Create spot step 2 - location structure
-function Step2Structure({ structure, setStructure, setDisableNextButton }) {
+function Step2Structure({ setDisableNextButton }) {
+	// what structure of structure is this new listing?
+	const [structure, setStructure] = useState(null);
+
 	// Helper function to update `selected` state variable
 	const updateSelected = (selection) => {
 		if (structure === selection) {

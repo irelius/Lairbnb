@@ -1,7 +1,17 @@
 import "./Step4FloorPlan.css";
 
+import { useState } from "react";
+
 // Create spot step 4 - enter number of rooms
-function Step4FloorPlan({ rooms, setRooms }) {
+function Step4FloorPlan() {
+	// number of rooms of listing
+	const [rooms, setRooms] = useState({
+		guests: 2,
+		bedrooms: 0,
+		beds: 1,
+		bathrooms: 1,
+	});
+
 	const updateRooms = (room, direction) => {
 		const prevCount = rooms[room];
 
